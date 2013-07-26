@@ -1,0 +1,30 @@
+{
+  "name": "goatee-script",
+  "version": "0.1.0",
+  "description": "Goatee is the missing complement for handbar mustaches.",
+  "directories": {
+    "lib": "./lib"
+  },
+  "main": "./lib/goatee-script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified! Configure in package.json\" && exit 1"
+  },
+  "engines": {
+    "node": "~0.10"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "jison": "~0.4"
+  },
+  "repository": "",
+  "keywords": [
+    "Goatee",
+    "Node.js",
+    "Browser",
+    "Template",
+    "Framework"
+  ],
+  "author": "Stephan Jorek <stephan.jorek@gmail.com>",
+  "license": "BSD",
+  "readmeFilename": "README.md"
+}

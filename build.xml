@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- $Id$ -->
+<project name="goatee.js" default="help" basedir=".">
+    <!-- Import project specific settings -->
+    <property file="build.properties" />
+
+    <!-- ================================= 
+          target: help              
+         ================================= -->
+    <target name="help" description="Show build help">
+        
+    </target>
+
+</project>
