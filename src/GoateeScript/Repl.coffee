@@ -32,7 +32,7 @@ NodeRepl        = require 'repl'
 {GoateeScript:{
   render,
   evaluate
-}}              = require './GoateeScript'
+}}              = require '../GoateeScript'
 
 exports = module?.exports ? this
 

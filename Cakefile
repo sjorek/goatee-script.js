@@ -27,11 +27,11 @@ task 'build:watch', 'compile coffee-script in “src/” to javascript in “lib
 task 'build:once', 'compile coffee-script in “src/” to javascript in “lib/” once', ->
   spawn 'coffee', '-o ../lib/ -mc .'.split(' '), stdio: 'inherit', cwd: 'src'
 
-task 'build:parser', 'rebuild the goatee-script parser', ->
+task 'build:parser', 'rebuild the goatee-script parser; run build(:once) first!', ->
   require 'jison' # TODO This seems to be important, have to figure out why !
-  {Grammar} = require('./src/Grammar')
-  fs.writeFile './lib/Parser.js', \
+  {Grammar} = require('./src/GoateeScript/Grammar')
+  fs.writeFile './lib/GoateeScript/Parser.js', \
     (Grammar.header(Grammar.comment) ? "") +
     Grammar.createParser().generate() +
     (Grammar.footer() ? "")
-  fs.unlink './lib/Parser.map'
+  fs.unlink './lib/GoateeScript/Parser.map'

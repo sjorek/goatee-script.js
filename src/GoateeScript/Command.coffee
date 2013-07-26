@@ -35,7 +35,7 @@ nomnom         = require 'nomnom'
   VERSION,
   render,
   evaluate
-}}             = require './GoateeScript'
+}}             = require '../GoateeScript'
 {Repl}         = require './Repl'
 
 exports = module?.exports ? this
