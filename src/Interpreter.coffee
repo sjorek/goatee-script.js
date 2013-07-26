@@ -14,8 +14,6 @@ implied. See the License for the specific language governing
 permissions and limitations under the License.
 ###
 
-global = do -> this
-
 {Expression}    = require './Expression'
 {Utility:{
   isString,
@@ -26,12 +24,12 @@ global = do -> this
   parseExpression
 }}              = require './Utility'
 
-root = module?.exports ? this
+exports = module?.exports ? this
 
 ##
 # @class
-# @namespace goatee.Action.Expression.Compiler.Goateescript
-root.Interpreter = class Interpreter
+# @namespace GoateeScript
+exports.Interpreter = class Interpreter
 
   _aliasSymbol = /^[a-zA-Z$_]$/
   _primitive   = null

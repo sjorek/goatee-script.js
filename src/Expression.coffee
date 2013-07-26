@@ -27,12 +27,14 @@ global = do -> this
   isExpression
 }}              = require './Utility'
 
-root = module?.exports ? this
+exports = module?.exports ? this
 
 ##
 # @class
-# @namespace goatee.Action.Expression.Compiler.Goateescript
-root.Expression = class Expression
+# @namespace GoateeScript
+exports.Expression = class Expression
+
+  _silent       = true
 
   _stack        = undefined
   _scope        = null
@@ -53,13 +55,26 @@ root.Expression = class Expression
   _execute      = (context, expression) ->
     return expression unless isExpression expression
     _stack.push context, expression
-    try
-      result = _process context, expression
-    catch e
-      (_errors ?= []).push e.message
-    finally
-      _stack.pop()
+    if _silent
+      try
+        result = _process context, expression
+      catch e
+        (_errors ?= []).push e
+    else
+        result = _process context, expression
+    _stack.pop()
     return result
+
+  ##
+  # @return {Boolean}
+  Expression.silent = (silent = on) ->
+    _silent = silent is on
+
+  ##
+  # @return {Boolean|Error}
+  Expression.nextError = () ->
+    _errors.shift() if _silent and _errors? and _errors.length isnt 0
+    false
 
   ##
   # @param {Object}           context (optional)
@@ -91,7 +106,7 @@ root.Expression = class Expression
       _variables = null
       _evaluate  = Expression.evaluate
 
-    console.log _errors if _errors?
+    # console.log _errors if _errors?
     result
 
   _process = (context, expression) ->

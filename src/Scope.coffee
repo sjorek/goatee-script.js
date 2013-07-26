@@ -16,11 +16,11 @@ permissions and limitations under the License.
 
 {Expression} = require './Expression'
 
-root = module?.exports ? this
+exports = module?.exports ? this
 
 ##
-# @namespace goatee.Action.Expression.Compiler.Goateescript
-root.Scope =
+# @namespace GoateeScript
+exports.Scope =
 
   ##
   # @type {Expression}

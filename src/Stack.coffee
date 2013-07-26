@@ -14,11 +14,11 @@ implied. See the License for the specific language governing
 permissions and limitations under the License.
 ###
 
-root = module?.exports ? this
+exports = module?.exports ? this
 
 ##
-# @namespace goatee.Action.Expression.Compiler.Goateescript
-root.Stack = class Stack
+# @namespace GoateeScript
+exports.Stack = class Stack
 
   global     : undefined
   variables  : {}

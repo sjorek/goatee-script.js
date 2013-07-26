@@ -12,7 +12,9 @@
   "engines": {
     "node": "~0.10"
   },
-  "dependencies": {},
+  "dependencies": {
+    "nomnom": "~1.6"
+  },
   "devDependencies": {
     "jison": "~0.4"
   },

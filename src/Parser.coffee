@@ -16,15 +16,15 @@ permissions and limitations under the License.
 
 {Grammar}  = require './Grammar'
 
-root = module?.exports ? this
+exports = module?.exports ? this
 
 ##
 # Compatibillity layer for the “on-the-fly” generated parser
 # @type {Parser}
-root.parser = parser = Grammar.createParser()
-root.Parser = parser.Parser;
-root.parse  = () -> parser.parse.apply(parser, arguments)
-root.main   = (args) ->
+exports.parser = parser = Grammar.createParser()
+exports.Parser = parser.Parser;
+exports.parse  = () -> parser.parse.apply(parser, arguments)
+exports.main   = (args) ->
     if !args[1]
       console.log "Usage: #{args[0]} FILE"
       process.exit 1

@@ -14,12 +14,12 @@ implied. See the License for the specific language governing
 permissions and limitations under the License.
 ###
 
-root = module?.exports ? this
+exports = module?.exports ? this
 
 ##
 # @class
-# @namespace goatee.Action.Expression.Compiler.Goateescript
-root.Utility = class Utility
+# @namespace GoateeScript
+exports.Utility = class Utility
 
   _parser = null
 

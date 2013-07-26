@@ -17,7 +17,7 @@ permissions and limitations under the License.
 {Parser} = require 'jison'
 yy       = require('./Scope').Scope
 
-root = module?.exports ? this
+exports = module?.exports ? this
 
 $1 = $2 = $3 = $4 = $5 = $6 = $7 = $8 = null
 
@@ -46,7 +46,7 @@ aop = (op) -> o "Identifier #{op} Expression", ->
 bop = (op) -> o "Expression #{op} Expression", ->
   new yy.Expression $2, [$1, $3]
 
-root.Grammar = Grammar =
+exports.Grammar = Grammar =
   comment: 'Goatee Expression Parser'
   header: (comment) ->
       """
