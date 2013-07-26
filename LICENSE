@@ -1,4 +1,4 @@
-###
+
 © Copyright 2013 Stephan Jorek <stephan.jorek@gmail.com>
 
 Permission is hereby granted, free of charge, to any person
@@ -21,24 +21,3 @@ HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
 WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 OTHER DEALINGS IN THE SOFTWARE.
-###
-
-{parse} = require './GoateeScript/Parser'
-
-exports = module?.exports ? this
-
-##
-# @class
-# @namespace GoateeScript
-exports.GoateeScript = class GoateeScript
-
-  GoateeScript.VERSION   = '0.0.1'
-
-  GoateeScript.parse     = parse
-
-  GoateeScript.render    = (code) ->
-    parse(code).toString()
-
-  GoateeScript.eval      = \
-  GoateeScript.evaluate  = (code, context={}) ->
-    parse(code).evaluate(context)

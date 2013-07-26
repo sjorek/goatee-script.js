@@ -1,16 +1,34 @@
 {
   "name": "goatee-script",
-  "version": "0.1.0",
   "description": "Goatee is the missing complement for handbar mustaches.",
+  "version": "0.1.0",
+  "keywords": ["Goatee", "Node.js", "Browser", "Template", "Framework"],
+  "author": "Stephan Jorek <stephan.jorek@gmail.com>",
+  "licenses":     [{
+    "type":       "Apache",
+    "url":        "https://raw.github.com/sjorek/goatee-script/master/LICENSE"
+  },{
+    "type":       "MIT",
+    "url":        "https://raw.github.com/jashkenas/coffee-script/master/LICENSE"
+  }],
+  "engines": {
+    "node": "~0.10"
+  },
   "directories": {
     "lib": "./lib"
   },
-  "main": "./lib/goatee-script.js",
+  "main": "./lib/GoateeScript.js",
+  "bin":          {
+    "goatee-script": "./bin/goatee-script"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified! Configure in package.json\" && exit 1"
   },
-  "engines": {
-    "node": "~0.10"
+  "homepage":     "http://goatee.org/goatee-script",
+  "bugs":         "https://github.com/sjorek/goatee-script/issues",
+  "repository":   {
+    "type": "git",
+    "url": "git://github.com/sjorek/goatee-script.git"
   },
   "dependencies": {
     "nomnom": "~1.6"
@@ -18,15 +36,5 @@
   "devDependencies": {
     "jison": "~0.4"
   },
-  "repository": "",
-  "keywords": [
-    "Goatee",
-    "Node.js",
-    "Browser",
-    "Template",
-    "Framework"
-  ],
-  "author": "Stephan Jorek <stephan.jorek@gmail.com>",
-  "license": "BSD",
   "readmeFilename": "README.md"
 }
