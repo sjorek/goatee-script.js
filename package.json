@@ -22,7 +22,7 @@
     "goatee-script": "./bin/goatee-script"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified! Configure in package.json\" && exit 1"
+    "test": "./node_modules/.bin/nodeunit test"
   },
   "homepage":     "http://goatee.org/goatee-script",
   "bugs":         "https://github.com/sjorek/goatee-script/issues",
@@ -34,7 +34,9 @@
     "nomnom": "~1.6"
   },
   "devDependencies": {
-    "jison": "~0.4"
+    "jison": "~0.4",
+    "benchmark": "~1.0",
+    "nodeunit": "~0.8"
   },
   "readmeFilename": "README.md"
 }

@@ -13,21 +13,31 @@ log = (error, stdout, stderr) ->
   console.log stdout, stderr
   #console.log(error.message) if error?
 
-task 'build', 'invokes build:once and build:parser in given order', ->
+task 'build', 'invokes build:once, build:parser and build:test in given order', ->
+  console.log '“build”'
   invoke 'build:once'
   invoke 'build:parser'
+  invoke 'build:test'
 
-task 'clean', 'removes “lib/” and creates a fresh one afterwards', ->
-  exec 'rm -rv lib', log
-  exec 'mkdir -v lib', log
+task 'clean', 'cleans “lib/” iand “test/” folders', ->
+  console.log '“clean”'
+  exec 'rm -rv lib/*', log
+  exec 'rm -v test/*.js test/*.map', log
 
 task 'build:watch', 'compile coffee-script in “src/” to javascript in “lib/” continiously', ->
+  console.log '“build:watch”'
   spawn 'coffee', '-o ../lib/ -mcw .'.split(' '), stdio: 'inherit', cwd: 'src'
 
 task 'build:once', 'compile coffee-script in “src/” to javascript in “lib/” once', ->
+  console.log '“build:once”'
   spawn 'coffee', '-o ../lib/ -mc .'.split(' '), stdio: 'inherit', cwd: 'src'
 
+task 'build:test', 'compile coffee-script in “test/” to javascript in “test/” once', ->
+  console.log '“build:test”'
+  spawn 'coffee', '-o . -mc .'.split(' '), stdio: 'inherit', cwd: 'test'
+
 task 'build:parser', 'rebuild the goatee-script parser; run build(:once) first!', ->
+  console.log '“build:parser”'
   require 'jison' # TODO This seems to be important, have to figure out why !
   {Grammar} = require('./src/GoateeScript/Grammar')
   fs.writeFile './lib/GoateeScript/Parser.js', \
@@ -36,9 +46,15 @@ task 'build:parser', 'rebuild the goatee-script parser; run build(:once) first!'
     (Grammar.footer() ? "")
   fs.unlink './lib/GoateeScript/Parser.map'
 
+task 'test', 'run “build” task and tests in “tests/” afterwards', ->
+  console.log '“test”'
+  #invoke 'build'
+  spawn 'npm', ['test'], stdio: 'inherit', cwd: '.'
+
 option '-p', '--prefix [DIR]', 'set the installation prefix for `cake install`'
 
 task 'install', 'install GoateeScript into /usr/local (or --prefix)', (options) ->
+  console.log '“install”'
   base = options.prefix or '/usr/local'
   lib  = "#{base}/lib/goatee-script"
   bin  = "#{base}/bin"
