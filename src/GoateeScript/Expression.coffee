@@ -167,10 +167,10 @@ exports.Expression = class Expression
 
   # TODO Move to Scope !
   Expression.operations = _operations =
-# _assign
     '=':  #  assignment, filled below
       evaluate: (a,b) ->
         _variables[a] = b
+# _assign
 #    '-='  : {} #  assignment, filled below
 #    '+='  : {} #  assignment, filled below
 #    '*='  : {} #  assignment, filled below
@@ -182,25 +182,29 @@ exports.Expression = class Expression
 #    '<<=' : {} #  assignment, filled below
 #    '&='  : {} #  assignment, filled below
 #    '|='  : {} #  assignment, filled below
-    '++':
-      format: (a, b) ->
-        if b then "#{_stringify(a)}++" else "++#{_stringify(a)}"
-      evaluate: (a,b) ->
-        c = _operations.reference.evaluate(a)
-        _operations['='].evaluate(a, c + 1)
-        if b then c else c + 1
-    '--':
-      format: (a, b) ->
-        if b then "#{_stringify(a)}--" else "--#{_stringify(a)}"
-      evaluate: (a,b) ->
-        c = _operations.reference.evaluate(a)
-        _operations['='].evaluate(a, c - 1)
-        if b then c else c - 1
+
+# _incdec
+#    '++':
+#      format: (a, b) ->
+#        if b then "#{_stringify(a)}++" else "++#{_stringify(a)}"
+#      evaluate: (a,b) ->
+#        c = _operations.reference.evaluate(a)
+#        _operations['='].evaluate(a, c + 1)
+#        if b then c else c + 1
+#    '--':
+#      format: (a, b) ->
+#        if b then "#{_stringify(a)}--" else "--#{_stringify(a)}"
+#      evaluate: (a,b) ->
+#        c = _operations.reference.evaluate(a)
+#        _operations['='].evaluate(a, c - 1)
+#        if b then c else c - 1
+
     '.':
       chain: true
       #  functions must be bound to their container now or else they would have the global as their context.
       evaluate: (a,b) ->
         if a isnt _global and isFunction b then bindFn b, a else b
+
 # _single
 #    '!':
 #      constant: true
@@ -208,6 +212,7 @@ exports.Expression = class Expression
 #    '~':
 #      constant: true
 #      evaluate: (a) -> ~a
+
 # _pair
 #    '+':
 #      constant: true
@@ -242,6 +247,7 @@ exports.Expression = class Expression
 #    '|':
 #      constant: true
 #      evaluate: (a,b) -> a | b
+
     '&&':
       raw     : true
       constant: true
@@ -260,6 +266,7 @@ exports.Expression = class Expression
           return a
         b = _execute this, b
         return b
+
 # _bools
 #    '<':
 #      constant: true
@@ -285,6 +292,7 @@ exports.Expression = class Expression
 #      constant: true
 #      vector: false
 #      evaluate: (a,b) -> `a !== b`
+
 # _raws
 #    '==':
 #      constant: true
@@ -311,14 +319,6 @@ exports.Expression = class Expression
       evaluate: (a, b, c) ->
         a = _execute this, a
         _execute this, if _booleanize a then b else c
-    #'$':
-    #  format: -> '$'
-    #  vector: false
-    #  evaluate: -> _global
-    #'@':
-    #  format: -> '@'
-    #  vector: false
-    #  evaluate: -> this
     '()':
       vector: false
       format: (func, args...) ->
@@ -343,6 +343,14 @@ exports.Expression = class Expression
       vector: false
       format: (a,b) -> "#{a}{#{b}}"
       evaluate: (a, b) -> if _booleanize b then a else undefined
+    #'$':
+    #  format: -> '$'
+    #  vector: false
+    #  evaluate: -> _global
+    #'@':
+    #  format: -> '@'
+    #  vector: false
+    #  evaluate: -> this
     context:
       alias   : 'c'
       format  : (a) -> a
@@ -428,11 +436,24 @@ exports.Expression = class Expression
     _formatRef   = _operations.reference.format
     _assignment  = _operations['='].evaluate
 
+    _incdec = ['++', '--']
     _single = ['!', '~', ]
     _pairs  = ['+', '-', '*', '/', '%', '^', '>>>', '>>', '<<', '&', '|']
     _bools  = ['<', '>', '<=', '>=', '===', '!==']
     _raws   = ['==', '!=']
     _assign = ['=', '-=', '+=', '*=', '/=', '%=', '^=', '>>>=', '>>=', '<<=', '&=', '|=']
+
+    for key in _incdec
+      _operations[key] =
+        format: do ->
+          k = key
+          (a,b) -> if b then "(#{_formatRef(a)}#{k})" else "(#{k}#{_formatRef(a)})"
+        evaluate: do ->
+          i = if key is '++' then 1 else -1
+          (a,b) ->
+            c = Number(_evaluateRef(a))
+            _assignment(a, c + i)
+            if b then c else c + i
 
     for key in _single
       _operations[key] =
@@ -455,14 +476,14 @@ exports.Expression = class Expression
     # process assigments and equality
     for key in _assign
       value = if _operations[key]? then _operations[key] else _operations[key] = {}
-      value.format   ?= do -> k = key; (a,b) ->
-        "(#{_formatRef(a)}#{k}#{_stringify(b)})"
+      value.format   ?= do ->
+        k = key
+        (a,b) -> "(#{_formatRef(a)}#{k}#{_stringify(b)})"
       if key.length is 1
         continue
       value.evaluate ?= do ->
         _op = _operations[key.substring 0, key.length - 1].evaluate
-        (a,b) ->
-          _assignment a, _op(_evaluateRef(a), b)
+        (a,b) -> _assignment a, _op(_evaluateRef(a), b)
 
     for key, value of _operations
       value.name       = key
