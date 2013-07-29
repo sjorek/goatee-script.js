@@ -133,6 +133,8 @@ exports.Grammar = Grammar =
       r /\*=/                     , ->   '*='
       r /\/=/                     , ->   '/='
       r '%='                      , ->   '%='
+      r '--'                      , -> '--'
+      r /\+\+/                    , -> '++'
       # Bitwise assigment operators
       r '>>>='                    , -> '>>>='
       r '>>='                     , ->  '>>='
@@ -293,6 +295,14 @@ exports.Grammar = Grammar =
       #  new yy.Expression 'for', [$2,$3]
     ]
     Assignment: [
+      o "++ Identifier"                            , ->
+        new yy.Expression $1, [$2, 0]
+      o "-- Identifier"                            , ->
+        new yy.Expression $1, [$2, 0]
+      o "Identifier ++"                            , ->
+        new yy.Expression $2, [$1, 1]
+      o "Identifier --"                            , ->
+        new yy.Expression $2, [$1, 1]
       aop '-='
       aop '+='
       aop '*='

@@ -43,7 +43,7 @@ exports.Expression = class Expression
   _variables    = null
   _operations   = null
   _parser       = null
-  _context      = { '$':_global, '@':_variables }
+  _context      = (c) -> { '$':_global, '@':_variables }[c]
 
   _isProperty   = () ->
     p = _stack.parent()
@@ -182,6 +182,20 @@ exports.Expression = class Expression
 #    '<<=' : {} #  assignment, filled below
 #    '&='  : {} #  assignment, filled below
 #    '|='  : {} #  assignment, filled below
+    '++':
+      format: (a, b) ->
+        if b then "#{_stringify(a)}++" else "++#{_stringify(a)}"
+      evaluate: (a,b) ->
+        c = _operations.reference.evaluate(a)
+        _operations['='].evaluate(a, c + 1)
+        if b then c else c + 1
+    '--':
+      format: (a, b) ->
+        if b then "#{_stringify(a)}--" else "--#{_stringify(a)}"
+      evaluate: (a,b) ->
+        c = _operations.reference.evaluate(a)
+        _operations['='].evaluate(a, c - 1)
+        if b then c else c - 1
     '.':
       chain: true
       #  functions must be bound to their container now or else they would have the global as their context.
@@ -333,7 +347,7 @@ exports.Expression = class Expression
       alias   : 'c'
       format  : (a) -> a
       vector  : false
-      evaluate: (a) -> _context[a]
+      evaluate: (a) -> _context(a)
     reference:
       alias   : 'r'
       format  : (a) -> a
