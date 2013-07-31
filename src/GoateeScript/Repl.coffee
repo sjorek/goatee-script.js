@@ -33,6 +33,7 @@ NodeRepl        = require 'repl'
   render,
   evaluate
 }}              = require '../GoateeScript'
+{Expression}    = require('./Expression')
 
 exports = module?.exports ? this
 
@@ -145,10 +146,9 @@ exports.Repl = class Repl
         repl.outputStream.write "#{repl.rli.history[..].reverse().join '\n'}\n"
         repl.displayPrompt()
 
-  _flagPrint = false
-
-  Repl.defaults = defaults =
-    prompt: 'goatee> ',
+  Repl.defaults = _options =
+    variables: {}
+    prompt: 'goatee> '
     historyFile: path.join process.env.HOME, '.goatee_history' if process.env.HOME
     historyMaxInputSize: 10240
     eval: (input, context, filename, cb) ->
@@ -158,26 +158,33 @@ exports.Repl = class Repl
       # parens. Unwrap all that.
       input = input.replace /^\(([\s\S]*)\n\)$/m, '$1'
 
+      variables = _options.variables || context
+      Expression.callback (stack) ->
+        for own key, value of stack.variables
+          variables[key] = value
+
       try
         #cb null, vm.runInContext(js, context, filename)
-        cb null,
-          context['_'] = if _flagPrint then render(input) else evaluate(input, context)
+        cb null, variables['_'] = if _options.flags.print then render(input) \
+          else evaluate(input, variables)
       catch err
         cb _prettyErrorMessage(err, filename, input, yes)
 
-  Repl.start = (flags = {}, opts = defaults) ->
+  Repl.start = (flags = {}, options = _options) ->
     [major, minor, build] = process.versions.node.split('.').map (n) -> parseInt(n)
 
     if major is 0 and minor < 10
       console.warn "Node 0.10.0+ required for GoateeScript REPL"
       process.exit 1
 
-    _flagPrint ||= flags.print
+    _options = options
+    _options.flags = flags
 
-    require('./Expression').Expression.silent(false)
+    Expression.silent(false)
 
-    repl = NodeRepl.start opts
+    repl = NodeRepl.start options
     repl.on 'exit', -> repl.outputStream.write '\n'
     _addMultilineHandler repl
-    _addHistory repl, opts.historyFile, opts.historyMaxInputSize if opts.historyFile
+    if options.historyFile
+      _addHistory repl, options.historyFile, options.historyMaxInputSize
     repl

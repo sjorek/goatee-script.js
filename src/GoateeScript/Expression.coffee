@@ -34,9 +34,7 @@ exports = module?.exports ? this
 # @namespace GoateeScript
 exports.Expression = class Expression
 
-  _silent       = true
-
-  _stack        = undefined
+  _stack        = null
   _scope        = null
   _errors       = null
   _global       = null
@@ -44,6 +42,9 @@ exports.Expression = class Expression
   _operations   = null
   _parser       = null
   _context      = (c) -> { '$':_global, '@':_variables }[c]
+
+  _silent       = true
+  _callback     = null
 
   _isProperty   = () ->
     p = _stack.parent()
@@ -71,9 +72,19 @@ exports.Expression = class Expression
     _silent = silent is on
 
   ##
+  # @return {Function}
+  Expression.callback = (callback) ->
+    _callback = callback
+
+  ##
+  # @return {Boolean}
+  Expression.silent = (silent = on) ->
+    _silent = silent is on
+
+  ##
   # @return {Boolean|Error}
-  Expression.nextError = () ->
-    _errors.shift() if _silent and _errors? and _errors.length isnt 0
+  Expression.errors = () ->
+    _errors if _silent and _errors? and _errors.length isnt 0
     false
 
   ##
@@ -81,13 +92,14 @@ exports.Expression = class Expression
   # @param {Expression|mixed} expression (optional)
   # @param {Object}           variables (optional)
   # @param {Array}            stack (optional)
-  # @param {Array}            expression (optional)
+  # @param {Array}            scope (optional)
   # @return mixed
   Expression.evaluate = \
   _evaluate = (context={}, expression, variables, stack, scope) ->
     return expression unless isExpression expression
 
-    isGlobalScope = _stack is undefined
+
+    isGlobalScope = _stack is null
     if isGlobalScope
       _stack     = new Stack(context, variables, stack, scope)
       _scope     = _stack.scope
@@ -99,8 +111,9 @@ exports.Expression = class Expression
     result = _execute context, expression
 
     if isGlobalScope
+      _callback(_stack) if _callback?
       _stack.destructor()
-      _stack     = undefined
+      _stack     = null
       _scope     = null
       _global    = null
       _variables = null
@@ -355,7 +368,7 @@ exports.Expression = class Expression
       alias   : 'c'
       format  : (a) -> a
       vector  : false
-      evaluate: (a) -> _context(a)
+      evaluate: (a) -> _context.call(this, a)
     reference:
       alias   : 'r'
       format  : (a) -> a
@@ -548,6 +561,9 @@ exports.Expression = class Expression
 
   ##
   # @param {Object} context (optional)
+  # @param {Object} variables (optional)
+  # @param {Array}  stack (optional)
+  # @param {Array}  scope (optional)
   # @return mixed
-  evaluate: (context) ->
+  evaluate: (context, variables, stack, scope) ->
     _evaluate context, this

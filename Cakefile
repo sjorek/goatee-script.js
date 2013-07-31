@@ -38,13 +38,26 @@ task 'build:test', 'compile coffee-script in “test/” to javascript in “tes
 
 task 'build:parser', 'rebuild the goatee-script parser; run build(:once) first!', ->
   console.log '“build:parser”'
-  require 'jison' # TODO This seems to be important, have to figure out why !
-  {Grammar} = require('./src/GoateeScript/Grammar')
-  fs.writeFile './lib/GoateeScript/Parser.js', \
-    (Grammar.header(Grammar.comment) ? "") +
-    Grammar.createParser().generate() +
-    (Grammar.footer() ? "")
-  fs.unlink './lib/GoateeScript/Parser.map'
+
+  js  = './lib/GoateeScript/Parser.js'
+  cs  = './src/GoateeScript/Grammar.coffee'
+
+  jsStat = if fs.existsSync js then fs.statSync js else false
+  csStat = if fs.existsSync cs then fs.statSync cs else false
+  if jsStat is false or (
+    csStat and (jsStat.mtime < csStat.mtime or jsStat.size < csStat.size)
+  )
+    require 'jison' # TODO This seems to be important, have to figure out why !
+    {Grammar} = require(cs.replace(/\.coffee$/,''))
+    fs.writeFile js, \
+      (Grammar.header(Grammar.comment) ? "") +
+      Grammar.createParser().generate() +
+      (Grammar.footer() ? "")
+#    log 'done', green
+#  else
+#    log 'skipped', green
+  #map = js.replace(/\.js$/,'.map')
+  fs.unlinkSync(js.replace(/\.js$/, '.map')) # if fs.existsSync map
 
 task 'test', 'run “build” task and tests in “tests/” afterwards', ->
   console.log '“test”'

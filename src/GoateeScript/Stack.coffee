@@ -21,7 +21,7 @@ exports = module?.exports ? this
 exports.Stack = class Stack
 
   global     : undefined
-  variables  : {}
+  variables  : null
   stack      : null
   scope      : null
   operations : null
@@ -30,9 +30,9 @@ exports.Stack = class Stack
 
   destructor : () ->
     @global    = undefined
-    @variables = {}
-    @stack     = []
-    @scope     = []
+    @variables = null
+    @stack     = null
+    @scope     = null
 
   current    : ->
     if @stack.length > 0 then @stack[@stack.length - 1] else undefined

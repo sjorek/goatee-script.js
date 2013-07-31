@@ -34,11 +34,24 @@ exports.GoateeScript = class GoateeScript
 
   GoateeScript.VERSION   = '0.0.1'
 
+  ##
+  # @param {String} code
+  # @return Expression
   GoateeScript.parse     = parse
 
+  ##
+  # @param {String} code
+  # @return String
   GoateeScript.render    = (code) ->
     parse(code).toString()
 
+  ##
+  # @param {String} code
+  # @param {Object} context (optional)
+  # @param {Object} variables (optional)
+  # @param {Array}  stack (optional)
+  # @param {Array}  scope (optional)
+  # @return mixed
   GoateeScript.eval      = \
-  GoateeScript.evaluate  = (code, context={}) ->
+  GoateeScript.evaluate  = (code, context, variables, stack, scope) ->
     parse(code).evaluate(context)
