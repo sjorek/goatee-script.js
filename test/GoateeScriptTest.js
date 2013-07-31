@@ -27,11 +27,11 @@ OTHER DEALINGS IN THE SOFTWARE.
 
 
 (function() {
-  var Benchmark, evaluate, isArray, parse, _ref;
+  var Benchmark, evaluate, isArray, parse, render, _ref;
 
   Benchmark = require('benchmark');
 
-  _ref = require('../lib/GoateeScript').GoateeScript, evaluate = _ref.evaluate, parse = _ref.parse;
+  _ref = require('../lib/GoateeScript').GoateeScript, evaluate = _ref.evaluate, parse = _ref.parse, render = _ref.render;
 
   isArray = require('../lib/GoateeScript/Utility').Utility.isArray;
 
@@ -45,7 +45,9 @@ OTHER DEALINGS IN THE SOFTWARE.
       return test.done();
     },
     'benchmark of adding two positive numbers': function(test) {
-      this.benchmark.add('goatee-script  : 1+1', function() {
+      test.done();
+      return;
+      return this.benchmark.add('goatee-script  : 1+1', function() {
         return evaluate('1+1');
       }).add('javascript     : 1+1', function() {
         return 1 + 1;
@@ -58,6 +60,22 @@ OTHER DEALINGS IN THE SOFTWARE.
       }).run({
         async: false
       });
+    },
+    'test null and undefined behaviour of empty statements': function(test) {
+      var r, s, statements, _i, _j, _len, _len1;
+      statements = ['', ';;;;', ';/* nix */;'];
+      for (_i = 0, _len = statements.length; _i < _len; _i++) {
+        s = statements[_i];
+        test.ok(evaluate(s) === void 0, "“" + s + "” failed to evaluate to “undefined”");
+        test.ok(render(s) === 'void(0)', "“" + s + "” failed to render to “void(0)”");
+      }
+      statements = ['null', ';;null;;', 'null;;null;;'];
+      for (_j = 0, _len1 = statements.length; _j < _len1; _j++) {
+        s = statements[_j];
+        test.ok(evaluate(s) === null, "“" + s + "” failed to evaluate to “null”");
+        r = s.replace(/^;+|;+$/g, '').replace(/;;+/g, ';');
+        test.ok(render(s) === r, "“" + s + "” failed to render to “" + r + "”");
+      }
       return test.done();
     },
     'test expression vectors': function(test) {

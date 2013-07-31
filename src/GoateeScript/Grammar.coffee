@@ -213,9 +213,9 @@ exports.Grammar = Grammar =
     # Since we parse bottom-up, all parsing must end here.
     Root: [
       r 'EOF'                       , ->
-        new yy.Expression 'primitive', [null]
+        new yy.Expression 'primitive', [undefined]
       r 'Statements EOF'   , ->
-        if $1 is yy.Empty then new yy.Expression 'primitive', [null] else $1
+        if $1 is yy.Empty then new yy.Expression 'primitive', [undefined] else $1
     ]
     Statements: [
       o 'Seperator Seperated Seperator', -> $2
@@ -282,7 +282,7 @@ exports.Grammar = Grammar =
       o '{ }'                       , ->
         new yy.Expression 'primitive', [null]
       o '{ Statements }'   , ->
-        if $2 is yy.Empty then new yy.Expression 'primitive', [null] else $2
+        if $2 is yy.Empty then new yy.Expression 'primitive', [undefined] else $2
     ]
     Conditional: [
       o 'IF ( Expression ) Block ELSE Conditional' , ->
@@ -359,7 +359,7 @@ exports.Grammar = Grammar =
       o 'Object'                                        # object literal
       o 'Array'                                         # array literal
       o 'Primitive'                , ->                 # number, boolean,
-        new yy.Expression 'primitive',  [$1]            # string, null
+        new yy.Expression 'primitive',  [$1]            # string, null, undefined
     ]
     Identifier: [
       o 'REFERENCE'

@@ -27,7 +27,7 @@ OTHER DEALINGS IN THE SOFTWARE.
 Benchmark = require 'benchmark'
 
 {GoateeScript:{
-  evaluate, parse
+  evaluate, parse, render
 }} = require '../lib/GoateeScript'
 
 {Utility:{
@@ -46,6 +46,8 @@ exports.GoateeScriptTest =
     test.done()
 
   'benchmark of adding two positive numbers': (test) ->
+    test.done()
+    return
     @benchmark
       .add('goatee-script  : 1+1',  -> evaluate('1+1'))
       .add('javascript     : 1+1',  -> 1+1)
@@ -53,6 +55,19 @@ exports.GoateeScriptTest =
       .on('cycle',    (event) -> console.log(String(event.target)))
       .on('complete', ()      -> console.log('Fastest is ' + @filter('fastest').pluck('name')))
       .run({async: false })
+
+  'test null and undefined behaviour of empty statements': (test) ->
+    statements = ['', ';;;;', ';/* nix */;']
+    for s in statements
+      test.ok(evaluate(s) is undefined, "“#{s}” failed to evaluate to “undefined”")
+      test.ok(render(s) is 'void(0)', "“#{s}” failed to render to “void(0)”")
+
+    statements = ['null', ';;null;;', 'null;;null;;']
+    for s in statements
+      test.ok(evaluate(s) is null, "“#{s}” failed to evaluate to “null”")
+      r = s.replace(/^;+|;+$/g,'').replace(/;;+/g,';')
+      test.ok(render(s) is r, "“#{s}” failed to render to “#{r}”")
+
     test.done()
 
   'test expression vectors': (test) ->

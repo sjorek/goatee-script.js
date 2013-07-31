@@ -398,7 +398,7 @@ exports.Expression = class Expression
       alias   : 'p'
       constant: true
       vector  : false
-      format  : (a) -> JSON.stringify a
+      format  : (a) -> if a is undefined then 'void(0)' else JSON.stringify a
       evaluate: (a) -> a
     block:
       alias   : 'b'

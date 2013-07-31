@@ -1,5 +1,6 @@
 fs      = require 'fs'
 {exec,spawn} = require 'child_process'
+#task = invoke = option = ->
 
 # ANSI Terminal Colors.
 bold = red = green = reset = ''
@@ -13,61 +14,69 @@ log = (error, stdout, stderr) ->
   console.log stdout, stderr
   #console.log(error.message) if error?
 
+rebuild = false
+
+task 'all', 'invokes “clean”, “build” and “test” in given order', ->
+  console.log 'all'
+  rebuild = true
+  invoke 'clean'
+  invoke 'build'
+  invoke 'test'
+
 task 'build', 'invokes build:once, build:parser and build:test in given order', ->
-  console.log '“build”'
+  console.log 'build'
+  rebuild = true
   invoke 'build:once'
   invoke 'build:parser'
   invoke 'build:test'
 
-task 'clean', 'cleans “lib/” iand “test/” folders', ->
-  console.log '“clean”'
+task 'clean', 'cleans “lib/” and “test/” folders', ->
+  console.log 'clean'
   exec 'rm -rv lib/*', log
   exec 'rm -v test/*.js test/*.map', log
 
 task 'build:watch', 'compile coffee-script in “src/” to javascript in “lib/” continiously', ->
-  console.log '“build:watch”'
+  console.log 'build:watch'
   spawn 'coffee', '-o ../lib/ -mcw .'.split(' '), stdio: 'inherit', cwd: 'src'
 
 task 'build:once', 'compile coffee-script in “src/” to javascript in “lib/” once', ->
-  console.log '“build:once”'
+  console.log 'build:once'
   spawn 'coffee', '-o ../lib/ -mc .'.split(' '), stdio: 'inherit', cwd: 'src'
 
 task 'build:test', 'compile coffee-script in “test/” to javascript in “test/” once', ->
-  console.log '“build:test”'
+  console.log 'build:test'
   spawn 'coffee', '-o . -mc .'.split(' '), stdio: 'inherit', cwd: 'test'
 
-task 'build:parser', 'rebuild the goatee-script parser; run build(:once) first!', ->
-  console.log '“build:parser”'
+task 'build:parser', 'rebuild the goatee-script parser; run at least “build:once” first!', ->
+  console.log 'build:parser'
 
   js  = './lib/GoateeScript/Parser.js'
   cs  = './src/GoateeScript/Grammar.coffee'
+  map = js.replace(/\.js$/, '.map')
 
-  jsStat = if fs.existsSync js then fs.statSync js else false
-  csStat = if fs.existsSync cs then fs.statSync cs else false
-  if jsStat is false or (
-    csStat and (jsStat.mtime < csStat.mtime or jsStat.size < csStat.size)
-  )
+  mapStat = fs.existsSync map
+  jsStat  = if fs.existsSync js then fs.statSync js else false
+  csStat  = if fs.existsSync cs then fs.statSync cs else false
+
+  if (rebuild is true or mapStat isnt false or jsStat is false or
+      jsStat.mtime < csStat.mtime or jsStat.size < csStat.size)
     require 'jison' # TODO This seems to be important, have to figure out why !
     {Grammar} = require(cs.replace(/\.coffee$/,''))
-    fs.writeFile js, \
+    fs.writeFileSync js, \
       (Grammar.header(Grammar.comment) ? "") +
       Grammar.createParser().generate() +
       (Grammar.footer() ? "")
-#    log 'done', green
-#  else
-#    log 'skipped', green
-  #map = js.replace(/\.js$/,'.map')
-  fs.unlinkSync(js.replace(/\.js$/, '.map')) # if fs.existsSync map
+  try fs.unlinkSync map if rebuild is true or mapStat is true
 
 task 'test', 'run “build” task and tests in “tests/” afterwards', ->
-  console.log '“test”'
-  #invoke 'build'
+  console.log 'test'
+  invoke 'build:test' if rebuild is false
   spawn 'npm', ['test'], stdio: 'inherit', cwd: '.'
 
 option '-p', '--prefix [DIR]', 'set the installation prefix for `cake install`'
 
 task 'install', 'install GoateeScript into /usr/local (or --prefix)', (options) ->
-  console.log '“install”'
+  console.log 'install'
   base = options.prefix or '/usr/local'
   lib  = "#{base}/lib/goatee-script"
   bin  = "#{base}/bin"
