@@ -42,7 +42,7 @@ exports.Expression = class Expression
   _operations   = null
   _parser       = null
   _context      = (c) -> { '$':_global, '@':_variables }[c]
-
+  _primitive    = null
   _silent       = true
   _callback     = null
 
@@ -398,11 +398,11 @@ exports.Expression = class Expression
       alias   : 'p'
       constant: true
       vector  : false
-      format  : (a) -> if a is undefined then 'void(0)' else JSON.stringify a
+      format  : (a) -> if a is undefined then '' else JSON.stringify a
       evaluate: (a) -> a
     block:
       alias   : 'b'
-      format  : (statements...) -> statements.join ';'
+      format  : (statements...) -> statements.join(';').replace(/null(;null)+/g,'null')
       evaluate: -> arguments[arguments.length-1]
     if:
       alias   : 'i'
@@ -502,10 +502,12 @@ exports.Expression = class Expression
       value.name       = key
       value.toString   = do -> k = key; -> k
       value.toJSON     = -> @name
-
       # process assigments and equality
       if value.alias? and not _operations[value.alias]?
         _operations[value.alias] = key
+
+    _primitive = _operations.primitive.name
+
     return
 
   Expression.operator = _operator = (name) ->
@@ -541,7 +543,7 @@ exports.Expression = class Expression
 
     #  if this expression is a constant then we pre-evaluate it now
     #  and just return a primitive expression with the result
-    if @constant and @operator.name isnt _operations.primitive.name
+    if @constant and @operator.name isnt _primitive
       return new Expression 'primitive', [ @evaluate global ]
 
     #  otherwise return this expression

@@ -63,6 +63,7 @@ exports.Utility = class Utility
   ##
   # @param  {String}     code
   # @return {Expression}
+  Utility.parse = \
   Utility.parseExpression = do ->
     cache  = {}
     (code) ->

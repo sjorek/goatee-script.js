@@ -280,7 +280,7 @@ exports.Grammar = Grammar =
     ]
     Block: [
       o '{ }'                       , ->
-        new yy.Expression 'primitive', [null]
+        new yy.Expression 'primitive', [undefined]
       o '{ Statements }'   , ->
         if $2 is yy.Empty then new yy.Expression 'primitive', [undefined] else $2
     ]

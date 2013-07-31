@@ -60,13 +60,12 @@ exports.GoateeScriptTest =
     statements = ['', ';;;;', ';/* nix */;']
     for s in statements
       test.ok(evaluate(s) is undefined, "“#{s}” failed to evaluate to “undefined”")
-      test.ok(render(s) is 'void(0)', "“#{s}” failed to render to “void(0)”")
+      test.ok(render(s) is '', "“#{s}” failed to render to “''”")
 
     statements = ['null', ';;null;;', 'null;;null;;']
     for s in statements
       test.ok(evaluate(s) is null, "“#{s}” failed to evaluate to “null”")
-      r = s.replace(/^;+|;+$/g,'').replace(/;;+/g,';')
-      test.ok(render(s) is r, "“#{s}” failed to render to “#{r}”")
+      test.ok(render(s) is 'null', "“#{s}” failed to render to “'null'”")
 
     test.done()
 

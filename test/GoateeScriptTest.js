@@ -62,19 +62,18 @@ OTHER DEALINGS IN THE SOFTWARE.
       });
     },
     'test null and undefined behaviour of empty statements': function(test) {
-      var r, s, statements, _i, _j, _len, _len1;
+      var s, statements, _i, _j, _len, _len1;
       statements = ['', ';;;;', ';/* nix */;'];
       for (_i = 0, _len = statements.length; _i < _len; _i++) {
         s = statements[_i];
         test.ok(evaluate(s) === void 0, "“" + s + "” failed to evaluate to “undefined”");
-        test.ok(render(s) === 'void(0)', "“" + s + "” failed to render to “void(0)”");
+        test.ok(render(s) === '', "“" + s + "” failed to render to “''”");
       }
       statements = ['null', ';;null;;', 'null;;null;;'];
       for (_j = 0, _len1 = statements.length; _j < _len1; _j++) {
         s = statements[_j];
         test.ok(evaluate(s) === null, "“" + s + "” failed to evaluate to “null”");
-        r = s.replace(/^;+|;+$/g, '').replace(/;;+/g, ';');
-        test.ok(render(s) === r, "“" + s + "” failed to render to “" + r + "”");
+        test.ok(render(s) === 'null', "“" + s + "” failed to render to “'null'”");
       }
       return test.done();
     },

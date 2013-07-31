@@ -21,7 +21,7 @@ permissions and limitations under the License.
   isNumber,
   isFunction,
   isExpression,
-  parseExpression
+  parse
 }}              = require './Utility'
 
 exports = module?.exports ? this
@@ -32,33 +32,33 @@ exports = module?.exports ? this
 exports.Interpreter = class Interpreter
 
   _aliasSymbol = /^[a-zA-Z$_]$/
-  _primitive   = null
+  _operations = Expression.operations
+  _primitive  = _operations.primitive.name
+  _reference  = _operations.reference.name
+  _aliases    = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ$_'.split('')
 
   do ->
-    operations  = Expression.operations
-    _primitive  = operations.primitive.name
-
     aliases     = []
-    for alias in 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ$_'.split('').reverse() when not operations[alias]?
+    for alias in _aliases.reverse() when not _operations[alias]?
       aliases.push alias
     index       = aliases.length
 
     return if index is 0
 
-    for key, value of operations
-      if not value.name? or value.alias?
+    for key, value of _operations
+      if (not value.name?) or value.alias?
         continue
-      operations[value.alias = aliases[--index]] = key
+      _operations[value.alias = aliases[--index]] = key
       if index is 0
         return
     return
 
   ##
-  # @param  {Array}      opcode
+  # @param  {Array}      ast
   # @param  {Object}     map of aliases
   # @return Array.<Array,Object>
-  Interpreter.compress = _compress = (opcode, map = {}) ->
-    code = for o in opcode
+  Interpreter.compress = _compress = (ast, map = {}) ->
+    code = for o in ast
       if not o.length?
         o
       else if o.substring?
@@ -72,10 +72,34 @@ exports.Interpreter = class Interpreter
         c
     ["[#{code.join ','}]", map]
 
+  _arguments = ",'" + _aliases.join("','") + "'"
+  _aliases   = _aliases.join(',')
+
   ##
-  # @param  {Array}      opcode
+  # @param  {String}       code
+  # @param  {Object|Array} map (optional)
+  # @return String
+  _wrap = (code, map) ->
+    if map?
+      keys = if isArray map then map else (k for own k,v of map)
+      args = if keys.length is 0 then '' else ",'" + keys.join("','") + "'"
+      keys = keys.join ','
+    else
+      keys = _aliases
+      args = _arguments
+    "(function(#{keys}) { return #{code}; }).call(this#{args})"
+
+  ##
+  # @param  {String}        code
+  # @return Array
+  Interpreter.expand = _expand = do ->
+    code = "function(opcode){ return eval('[' + opcode + '][0]'); }"
+    Function("return #{_wrap code}")()
+
+  ##
+  # @param  {Array}      ast
   # @return Expression
-  _process = (opcode) ->
+  _toExpression = (opcode) ->
     _len = 0
     unless opcode? or (_len = opcode.length or 0) > 1 or isArray opcode
       return new Expression 'primitive', \
@@ -84,22 +108,22 @@ exports.Interpreter = class Interpreter
     parameters = [].concat(opcode,)
     operator   = parameters.shift()
     for value, index in parameters
-      parameters[index] = if isArray value then _process value else value
+      parameters[index] = if isArray value then _toExpression value else value
     new Expression(operator, parameters)
 
   ##
   # @param  {Array|String|Number|true|false|null} opcode
   # @return Expression
-  Interpreter.process = (opcode = null) ->
-    _process(opcode)
+  Interpreter.toExpression = (opcode = null) ->
+    _toExpression(opcode)
 
   ##
   # @param  {Array|String|Object} code, a String, opcode-Array or Object with
   #                               toString method
   # @return Expression
   Interpreter.parse = _parse = (code) ->
-    return parseExpression(code) if isString code
-    _process(code)
+    return parse(code) if isString code
+    _toExpression(code)
 
   ##
   # @param  {Array|String|Object} code, a String, opcode-Array or Object with
@@ -122,8 +146,8 @@ exports.Interpreter = class Interpreter
   # @param  {Function}   callback (optional)
   # @param  {Boolean}    compress, default is false
   # @return Object.<String:op,Array:parameters>
-  Interpreter.toJSON = \
-  _toJSON = (expression, callback, compress = false) ->
+  Interpreter.save = \
+  _save = (expression, callback, compress = true) ->
     if compress and expression.operator.name is _primitive
       return expression.parameters
     opcode = [
@@ -132,7 +156,7 @@ exports.Interpreter = class Interpreter
     ]
     opcode.push(
       if isExpression parameter
-        _toJSON parameter, callback, compress
+        _save parameter, callback, compress
       else parameter
     ) for parameter in expression.parameters
     opcode
@@ -144,11 +168,11 @@ exports.Interpreter = class Interpreter
   # @param  {Function}                       callback (optional)
   # @param  {Boolean}                        compress, default is true
   # @return {Array|String|Number|true|false|null}
-  Interpreter.toOpcode = \
-  _toOpcode = (data, callback, compress = true) ->
+  Interpreter.ast = \
+  _ast = (data, callback, compress = true) ->
     expression = if isExpression data then data else _parse(data)
-    opcode = _toJSON(expression, callback, compress)
-    return if compress then _compress opcode else opcode
+    ast = _save(expression, callback, compress)
+    return if compress then _compress ast else ast
 
   ##
   # @param  {String|Expression} data
@@ -156,7 +180,7 @@ exports.Interpreter = class Interpreter
   # @param  {Boolean}           compress, default is true
   # @return {String}
   Interpreter.stringify = (data, callback, compress = true) ->
-    opcode = _toOpcode(data, callback, compress)
+    opcode = _ast(data, callback, compress)
     if compress then opcode[0] else JSON.stringify opcode
 
   ##
@@ -164,17 +188,54 @@ exports.Interpreter = class Interpreter
   # @param  {Function}          callback (optional)
   # @param  {Boolean}           compress, default is true
   # @return Function
-  Interpreter.toClosure = (data, callback, compress = true, prefix) ->
-    opcode = _toOpcode(data, callback, compress)
+  Interpreter.closure = (data, callback, compress = true, prefix) ->
+    opcode = _ast(data, callback, compress)
     if compress
-      [code,map] = opcode
-      keys = (k for k,v of map)
-      args = if keys.length is 0 then '' else ",'" + keys.join("','") + "'"
-      code = "(function(#{keys.join ','}) { return #{code}; }).call(this#{args});"
+      code = _wrap.apply(null, opcode)
     else
-      keys = []
-      args = ''
       code = JSON.stringify(opcode)
     #Function "#{prefix || ''}return [#{code}][0];"
     Function "#{prefix || ''}return #{code};"
+
+  ##
+  # @param  {String}  operator
+  # @param  {Array}   parameters
+  # @param  {Boolean} compress
+  # @return String
+  _compile = (compress, operator, parameters...) ->
+
+    return JSON.stringify(operator) if parameters.length is 0
+
+    operation  = _operations[operator]
+    if isString operation
+      operator  = operation
+      operation = _operations[operator]
+
+    return JSON.stringify(parameters[0]) if operator is _primitive
+
+    id = if compress then operation.alias else "_['#{operator}']"
+    parameters = for parameter in parameters
+      if isArray parameter
+        _compile.apply(null, [compress].concat(parameter))
+      else
+        JSON.stringify(parameter)
+
+    "#{id}(#{parameters.join ','})"
+
+  ##
+  # @param  {String|Array} data, opcode-String or -Array
+  # @param  {Boolean}      compress, default = true
+  # @return String
+  Interpreter.load = _load = (data, compress = true) ->
+    opcode = if isArray data then data else _expand(data)
+    _compile.apply(null, [compress].concat(opcode))
+
+  ##
+  # @param  {String|Array} data, code-String or opcode-Array
+  # @param  {Function}     callback (optional)
+  # @param  {Boolean}      compress, default = true
+  # @return String
+  Interpreter.compile = (data, callback, compress = true) ->
+    opcode = if isArray data then data else _ast(data, callback, false)
+    _load(opcode, compress)
 
