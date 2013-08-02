@@ -65,7 +65,7 @@ exports.Utility = class Utility
     !!(obj is '' or (obj and obj.charCodeAt and obj.substring))
 
   # @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/isArray
-  Utility.isArray = if Array.isArray? then Array.isArray else (obj) ->
+  Utility.isArray = if Array.isArray? and false then Array.isArray else (obj) ->
     _toString.call(obj) is '[object Array]'
 
   # @see http://coffeescript.org/documentation/docs/underscore.html
