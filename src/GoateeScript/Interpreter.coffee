@@ -63,28 +63,48 @@ exports.Interpreter = class Interpreter
     runtime =
 
       global        :
+        name        : 'global'
         alias       : if index is 0 then '_g' else aliases[--index]
-        code        : '{}'
+        code        : 'null'
 
       variables     :
+        name        : 'variables'
         alias       : if index is 0 then '_v' else aliases[--index]
         code        : '{}'
 
       stack         :
-        alias       : if index is 0 then '__' else aliases[--index]
-        code        : 'null'
-
-      scope         :
-        alias       : if index is 0 then '$$' else aliases[--index]
+        name        : 'stack'
+        alias       : if index is 0 then 'st' else aliases[--index]
         code        : '[]'
 
+      scope         :
+        name        : 'scope'
+        alias       : if index is 0 then 'sc' else aliases[--index]
+        code        : '[]'
+
+      call        :
+        name        : 'call'
+        alias       : if index is 0 then 'ca' else aliases[--index]
+        code        : 'Function.prototype.call'
+
+      slice        :
+        name        : 'slice'
+        alias       : if index is 0 then 'sl' else aliases[--index]
+        code        : 'Array.prototype.slice'
+
+      toString      :
+        name        : 'toString'
+        alias       : if index is 0 then 'tS' else aliases[--index]
+        code        : 'Object.prototype.toString'
+
       evaluate      :
+        name        : 'evaluate'
         alias       : if index is 0 then '_e' else aliases[--index]
         code        : """
                       function(c,e,v,_,$) {
                         var gS,$_;
                         if(!(isFunction(e) && e.name)){return e;}
-                        gS = _global === null;
+                        gS = _global === null ? _evaluate : false;
                         if (gS) {
                           _evaluate = _execute;
                           _stack.length = 0;
@@ -94,14 +114,15 @@ exports.Interpreter = class Interpreter
                         }
                         $_ = _execute(c,e)
                         if (gS) {
-                          _global    = null
-                          _evaluate  = Expression.evaluate
+                          _global    = null;
+                          _evaluate  = gS;
                         }
                       }
                       """
         evaluate    : Expression.evaluate
 
       execute       :
+        name        : 'execute'
         alias       : if index is 0 then '_x' else aliases[--index]
         code        : """
                       function(c,e) {
@@ -110,45 +131,83 @@ exports.Interpreter = class Interpreter
                         _scope.push(c);
                         _stack.push(e);
                         $_ = _process(c,e); /* ?!?!?!?! */
-                        _scope.pop()
-                        _stack.pop()
+                        _scope.pop();
+                        _stack.pop();
                         return $_;
                       }
                       """
         evaluate    : Expression.execute
 
       booleanize    :
+        name        : 'booleanize'
         alias       : if index is 0 then '_b' else aliases[--index]
         evaluate    : Expression.booleanize
 
       isFunction    :
+        name        : 'isFunction'
         alias       : if index is 0 then 'iF' else aliases[--index]
         evaluate    : isFunction
 
       bindFunction  :
+        name        : 'bindFunction'
         alias       : if index is 0 then 'bF' else aliases[--index]
+        code        : """
+                      (function(bindFunction) {
+                        return bindFunction ? function() {
+                            return bindFunction.apply(arguments)
+                          } : function() {
+                            var f, c, a;
+                            f = arguments[0],
+                            c = arguments[1],
+                            a = 3 <= arguments.length ? arraySlice(arguments, 2) : [];
+                            if (a.length === 0) {
+                              return function() { return f.call(c); };
+                            } else {
+                              return function() { return f.apply(c, a); };
+                            }
+                          }
+                      })(Function.prototype.bind)
+                      """
         evaluate    : bindFunction
 
+      isArray       :
+        name        : 'isArray'
+        alias       : if index is 0 then 'iA' else aliases[--index]
+        code        : """
+                      Array.isArray /* || function(a) … */
+                      """
+        evaluate    : isArray
+
       arraySlice    :
+        name        : 'arraySlice'
         alias       : if index is 0 then 'aS' else aliases[--index]
         #code        : '[].slice'
         evaluate    : arraySlice
 
       hasProperty   :
+        name        : 'hasProperty'
         alias       : if index is 0 then 'hP' else aliases[--index]
-        code        : "{}.hasOwnProperty"
+        code        : """
+                      (function(hasProperty) {
+                        return function() {
+                          hasProperty.apply(arguments);
+                        };
+                      })({}.hasOwnProperty)
+                      """
 
       isProperty    :
+        name        : 'isProperty'
         alias       : if index is 0 then 'iP' else aliases[--index]
         code        : """
                       function() {
                         if(_stack.length < 2){return false;}
                         var p = _stack.length > 1 ? _stack[_stack.length-2] : void(0),
                             c = _stack.length > 0 ? _stack[_stack.length-1] : void(0);
-                        return p.toString() === '#{_operations.property.alias}' && p[1] === c
+                        return p.toString() === '#{_operations.property.alias}' && p[1] === c;
                       }
                       """
       Number        :
+        name        : 'Number'
         alias       : if index is 0 then 'Nu' else aliases[--index]
         code        : "Number"
         evaluate    : Number
@@ -161,14 +220,25 @@ exports.Interpreter = class Interpreter
       /_context.call\(this, a\)/g , "{'$$':_global,'@':_variables}[a]"
       /(_g)lobal/g                , runtime.global.alias
       /(_v)ariables/g             , runtime.variables.alias
-      /(_s)cope/g                 , runtime.scope.alias
+      /_(sc)ope/g                 , runtime.scope.alias
+      /_(st)ack/g                 , runtime.stack.alias
       /(_e)xecute/g               , runtime.execute.alias
       /(_b)ooleanize/g            , runtime.booleanize.alias
       /(__)slice\.call/g          , runtime.arraySlice.alias
+      /_(sl)ice/g                 , runtime.slice.alias
+      /_(ca)ll/g                  , runtime.call.alias
+      /(i)s(A)rray/g              , runtime.isArray.alias
       /(i)s(N)umber/g             , runtime.global.alias
       /(Nu)mber/g                 , runtime.Number.alias
       /(i)s(F)unction/g           , runtime.isFunction.alias
       /(b)ind(F)unction/g         , runtime.bindFunction.alias
+      /_(i)s(P)roperty/g          , runtime.isProperty.alias
+      /(h)as(P)roperty/g          , runtime.hasProperty.alias
+      ///
+        ([a-zA-Z]+)
+        \.
+        (h)asOwn(P)roperty\(
+      ///g                        , "#{runtime.hasProperty.alias}($1,"
       /(_l)en/g                   , if index is 0 then "$1" else aliases[--index]
       /([a-z0-9])\s([^a-z0-9])/gi , '$1$2'
       /([^a-z0-9])\s([a-z0-9])/gi , '$1$2'
@@ -176,6 +246,7 @@ exports.Interpreter = class Interpreter
       /([a-z0-9])\s([^a-z0-9])/gi , '$1$2'
       /([^a-z0-9])\s([a-z0-9])/gi , '$1$2'
       /([^a-z0-9])\s([^a-z0-9])/gi, '$1$2'
+      /return(\S)/gi              , 'return $1'
     ]
     clean  = (key, value, code) ->
       for search, index in pattern by 2
@@ -187,15 +258,21 @@ exports.Interpreter = class Interpreter
 
       code
 
+    assemble = (object) ->
+      for key, value of object when value.name?
+        code = clean(
+          key, value,
+          if value.code? then value.code else value.evaluate.toString()
+        )
+        interpreter.push [
+          '/* ', key, ' */\n',
+          value.alias, '=', code, ';'
+        ].join ''
+
     interpreter = []
-    for key, value of _operations when value.name?
-      func = value.evaluate.toString()
-      code = clean(key, value, func)
-      interpreter.push [
-        #'/* ', key, ' */ ',
-        value.alias, '=', code, ';'
-      ].join ''
-    interpreter = interpreter.join ''
+    assemble runtime
+    assemble _operations
+    interpreter = interpreter.join '\n'
     () -> interpreter
 
   ##

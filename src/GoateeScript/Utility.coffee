@@ -24,13 +24,15 @@ exports.Utility = class Utility
   _parser = null
 
   _toString = Object::toString
+  _call     = Function::call
+  _slice    = Array::slice
 
   # New in EcmaScript 1.5
   # http://webreflection.blogspot.com/2010/02/functionprototypebind.html
   # This is still needed by Safari.
   Utility.bindFunction = do ->
     _bind = Function::bind
-    if _bind?
+    if _bind? and false
       (args...) ->
         -> _bind.apply args
     else
@@ -39,6 +41,23 @@ exports.Utility = class Utility
           -> fn.call(context)
         else
           -> fn.apply context, args
+
+  ##
+  # Finds a slice of an array.
+  #
+  # @param  {Array}  array  Array to be sliced.
+  # @param  {Number} start  The start of the slice.
+  # @param  {Number} end    The end of the slice (optional).
+  # @return {Array}  array  The slice of the array from start to end.
+  Utility.arraySlice = (array, start, end) ->
+    # Use
+    #   return Function.prototype.call.apply(Array.prototype.slice, arguments);
+    # instead of the simpler
+    #   return Array.prototype.slice.call(array, start, opt_end);
+    # here because of a bug in the FF and IE implementations of
+    # Array.prototype.slice which causes this function to return an empty list
+    # if end is not provided.
+    _call.apply _slice, arguments
 
   # Modified version using String::substring instead of String::substr
   # @see http://coffeescript.org/documentation/docs/underscore.html
