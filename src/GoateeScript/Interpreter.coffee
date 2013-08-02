@@ -16,6 +16,8 @@ permissions and limitations under the License.
 
 {Expression}    = require './Expression'
 {Utility:{
+  arraySlice,
+  bindFunction,
   isString,
   isArray,
   isNumber,
@@ -35,23 +37,166 @@ exports.Interpreter = class Interpreter
   _operations = Expression.operations
   _primitive  = _operations.primitive.name
   _reference  = _operations.reference.name
-  _aliases    = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ$_'.split('')
 
-  do ->
+    # "YZ$_" => reserved, see below
+  _index      = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ$_'.split('')
+  _arguments  = ",'" + _index.join("','") + "'"
+  _aliases    = _index.join(',')
+
+
+  ##
+  # @return {String}
+  Interpreter.generate = _generate = do ->
+
     aliases     = []
-    for alias in _aliases.reverse() when not _operations[alias]?
+    for alias in _index.reverse() when not _operations[alias]?
       aliases.push alias
     index       = aliases.length
 
     return if index is 0
 
-    for key, value of _operations
-      if (not value.name?) or value.alias?
-        continue
+    for key, value of _operations when value.name? and not value.alias?
       _operations[value.alias = aliases[--index]] = key
       if index is 0
-        return
-    return
+        break
+
+    runtime =
+
+      global        :
+        alias       : if index is 0 then '_g' else aliases[--index]
+        code        : '{}'
+
+      variables     :
+        alias       : if index is 0 then '_v' else aliases[--index]
+        code        : '{}'
+
+      stack         :
+        alias       : if index is 0 then '__' else aliases[--index]
+        code        : 'null'
+
+      scope         :
+        alias       : if index is 0 then '$$' else aliases[--index]
+        code        : '[]'
+
+      evaluate      :
+        alias       : if index is 0 then '_e' else aliases[--index]
+        code        : """
+                      function(c,e,v,_,$) {
+                        var gS,$_;
+                        if(!(isFunction(e) && e.name)){return e;}
+                        gS = _global === null;
+                        if (gS) {
+                          _evaluate = _execute;
+                          _stack.length = 0;
+                          _scope.length = 0;
+                          _global = c||{};
+                          _variables = v||{};
+                        }
+                        $_ = _execute(c,e)
+                        if (gS) {
+                          _global    = null
+                          _evaluate  = Expression.evaluate
+                        }
+                      }
+                      """
+        evaluate    : Expression.evaluate
+
+      execute       :
+        alias       : if index is 0 then '_x' else aliases[--index]
+        code        : """
+                      function(c,e) {
+                        var $_;
+                        if(!(isFunction(e) && e.name)){return e;}
+                        _scope.push(c);
+                        _stack.push(e);
+                        $_ = _process(c,e); /* ?!?!?!?! */
+                        _scope.pop()
+                        _stack.pop()
+                        return $_;
+                      }
+                      """
+        evaluate    : Expression.execute
+
+      booleanize    :
+        alias       : if index is 0 then '_b' else aliases[--index]
+        evaluate    : Expression.booleanize
+
+      isFunction    :
+        alias       : if index is 0 then 'iF' else aliases[--index]
+        evaluate    : isFunction
+
+      bindFunction  :
+        alias       : if index is 0 then 'bF' else aliases[--index]
+        evaluate    : bindFunction
+
+      arraySlice    :
+        alias       : if index is 0 then 'aS' else aliases[--index]
+        #code        : '[].slice'
+        evaluate    : arraySlice
+
+      hasProperty   :
+        alias       : if index is 0 then 'hP' else aliases[--index]
+        code        : "{}.hasOwnProperty"
+
+      isProperty    :
+        alias       : if index is 0 then 'iP' else aliases[--index]
+        code        : """
+                      function() {
+                        if(_stack.length < 2){return false;}
+                        var p = _stack.length > 1 ? _stack[_stack.length-2] : void(0),
+                            c = _stack.length > 0 ? _stack[_stack.length-1] : void(0);
+                        return p.toString() === '#{_operations.property.alias}' && p[1] === c
+                      }
+                      """
+      Number        :
+        alias       : if index is 0 then 'Nu' else aliases[--index]
+        code        : "Number"
+        evaluate    : Number
+
+    unwrap  = /^function\s*\(([^\)]*)\)\s*\{\s*(\S[\s\S]*[;|\}])\s*\}$/
+    pattern = [
+      /(\s|\n)+/g                 , ' '
+      /_assignment/g              , _operations['='].alias
+      /_evaluateRef/g             , _operations['reference'].alias
+      /_context.call\(this, a\)/g , "{'$$':_global,'@':_variables}[a]"
+      /(_g)lobal/g                , runtime.global.alias
+      /(_v)ariables/g             , runtime.variables.alias
+      /(_s)cope/g                 , runtime.scope.alias
+      /(_e)xecute/g               , runtime.execute.alias
+      /(_b)ooleanize/g            , runtime.booleanize.alias
+      /(__)slice\.call/g          , runtime.arraySlice.alias
+      /(i)s(N)umber/g             , runtime.global.alias
+      /(Nu)mber/g                 , runtime.Number.alias
+      /(i)s(F)unction/g           , runtime.isFunction.alias
+      /(b)ind(F)unction/g         , runtime.bindFunction.alias
+      /(_l)en/g                   , if index is 0 then "$1" else aliases[--index]
+      /([a-z0-9])\s([^a-z0-9])/gi , '$1$2'
+      /([^a-z0-9])\s([a-z0-9])/gi , '$1$2'
+      /([^a-z0-9])\s([^a-z0-9])/gi, '$1$2'
+      /([a-z0-9])\s([^a-z0-9])/gi , '$1$2'
+      /([^a-z0-9])\s([a-z0-9])/gi , '$1$2'
+      /([^a-z0-9])\s([^a-z0-9])/gi, '$1$2'
+    ]
+    clean  = (key, value, code) ->
+      for search, index in pattern by 2
+        code = code.replace(search, pattern[index+1])
+
+      if key.length > 1 and key[key.length-1] is '='
+        alias = _operations[key.substring(0,key.length-1)].alias
+        code = code.replace('_op', alias)
+
+      code
+
+    interpreter = []
+    for key, value of _operations when value.name?
+      func = value.evaluate.toString()
+      code = clean(key, value, func)
+      interpreter.push [
+        #'/* ', key, ' */ ',
+        value.alias, '=', code, ';'
+      ].join ''
+    interpreter = interpreter.join ''
+    () -> interpreter
 
   ##
   # @param  {Array}      ast
@@ -71,9 +216,6 @@ exports.Interpreter = class Interpreter
         [c, map] = _compress(o, map)
         c
     ["[#{code.join ','}]", map]
-
-  _arguments = ",'" + _aliases.join("','") + "'"
-  _aliases   = _aliases.join(',')
 
   ##
   # @param  {String}       code
@@ -162,11 +304,9 @@ exports.Interpreter = class Interpreter
     opcode
 
   ##
-  # @param  {} data
-  # @param  {Array|String|Object|Expression} code, a String, opcode-Array or
-  #                                          Object with toString method
-  # @param  {Function}                       callback (optional)
-  # @param  {Boolean}                        compress, default is true
+  # @param  {String|Expression} code, a String or an Expression
+  # @param  {Function}          callback (optional)
+  # @param  {Boolean}           compress, default is true
   # @return {Array|String|Number|true|false|null}
   Interpreter.ast = \
   _ast = (data, callback, compress = true) ->
@@ -181,7 +321,10 @@ exports.Interpreter = class Interpreter
   # @return {String}
   Interpreter.stringify = (data, callback, compress = true) ->
     opcode = _ast(data, callback, compress)
-    if compress then opcode[0] else JSON.stringify opcode
+    if compress
+      "[#{opcode[0]},#{JSON.stringify opcode[1]}]"
+    else
+      JSON.stringify opcode
 
   ##
   # @param  {String|Expression} data

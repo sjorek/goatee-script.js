@@ -30,10 +30,17 @@ path            = require 'path'
 NodeRepl        = require 'repl'
 
 {GoateeScript:{
+  compile,
+  evaluate,
   render,
-  evaluate
+  stringify
 }}              = require '../GoateeScript'
+
 {Expression}    = require('./Expression')
+
+{Utility:{
+  isArray
+}}              = require './Utility'
 
 exports = module?.exports ? this
 
@@ -45,20 +52,30 @@ exports.Repl = class Repl
   # Creates a nice error message like, following the "standard" format
   # <filename>:<line>:<col>: <message> plus the line with the error and a marker
   # showing where the error is.
-  _prettyErrorMessage = (error, filename, code, useColors) ->
+  _prettyErrorMessage = (error, filename, code, colorize) ->
+
+    if not error? or error is false or ( isArray(error) and error.length is 0 )
+      return null
+
+    if isArray error
+      message = []
+      for e in error
+        message.push _prettyErrorMessage(e, filename, code, colorize)
+      return message.join("\n——\n")
 
     # Prefer original source file information stored in the error if present.
     filename = error.filename or filename
     code     = error.code or code
     message  = error.message
 
-    if useColors
-      colorize = (str) -> `"\x1B[1;31m" + str +"\x1B[0m"`
+    if colorize?
+      if colorize is yes
+        colorize = (str) -> `"\x1B[1;31m" + str +"\x1B[0m"`
       message  = colorize message
 
-    message = """
-      #{filename}: #{message}
-      """
+    """
+    #{filename}: #{message}
+    """
 
   _addMultilineHandler = (repl) ->
     {rli, inputStream, outputStream} = repl
@@ -147,31 +164,47 @@ exports.Repl = class Repl
         repl.displayPrompt()
 
   Repl.defaults = _options =
+    context: {}
     variables: {}
     prompt: 'goatee> '
     historyFile: path.join process.env.HOME, '.goatee_history' if process.env.HOME
     historyMaxInputSize: 10240
-    eval: (input, context, filename, cb) ->
+    eval: (input, context, filename, callback) ->
       # XXX: multiline hack.
       input = input.replace /\uFF00/g, '\n'
       # Node's REPL sends the input ending with a newline and then wrapped in
       # parens. Unwrap all that.
       input = input.replace /^\(([\s\S]*)\n\)$/m, '$1'
 
-      variables = _options.variables || context
-      Expression.callback (stack) ->
+      context   = _options.context || context
+      variables = _options.variables || _options.variables={}
+      error   = []
+
+      Expression.callback (expression, result, stack, errors) ->
+        context['_'] = result
         for own key, value of stack.variables
           variables[key] = value
+        error = error.concat(errors) if errors?
+        return
 
       try
-        #cb null, vm.runInContext(js, context, filename)
-        cb null, variables['_'] = if _options.flags.print then render(input) \
-          else evaluate(input, variables)
-      catch err
-        cb _prettyErrorMessage(err, filename, input, yes)
+        #callback null, vm.runInContext(js, context, filename)
+        output =
+          switch _options.flags.mode
+            when 'c' then compile   input, null, _options.flags.compress
+            when 'p' then stringify input, null, _options.flags.compress
+            when 'r' then render    input, null, _options.flags.compress
+#            when 'e' then evaluate  input, context, variables
+            else          evaluate  input, context, variables
+        callback _prettyErrorMessage(error, filename, input, yes), output
+      catch error
+        callback _prettyErrorMessage(error, filename, input, yes)
+      return
 
   Repl.start = (flags = {}, options = _options) ->
-    [major, minor, build] = process.versions.node.split('.').map (n) -> parseInt(n)
+    [
+      major, minor #, build
+    ] = process.versions.node.split('.').map (n) -> parseInt(n)
 
     if major is 0 and minor < 10
       console.warn "Node 0.10.0+ required for GoateeScript REPL"
@@ -179,8 +212,6 @@ exports.Repl = class Repl
 
     _options = options
     _options.flags = flags
-
-    Expression.silent(false)
 
     repl = NodeRepl.start options
     repl.on 'exit', -> repl.outputStream.write '\n'

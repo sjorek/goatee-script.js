@@ -26,13 +26,13 @@ exports.Stack = class Stack
   scope      : null
   operations : null
 
-  constructor: (@global, @variables = {}, @stack = [], @scope = []) ->
+  constructor: (@global, @variables = {}, @scope = [], @stack = []) ->
 
   destructor : () ->
     @global    = undefined
     @variables = null
-    @stack     = null
     @scope     = null
+    @stack     = null
 
   current    : ->
     if @stack.length > 0 then @stack[@stack.length - 1] else undefined

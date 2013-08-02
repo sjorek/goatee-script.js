@@ -23,8 +23,6 @@ FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 OTHER DEALINGS IN THE SOFTWARE.
 ###
 
-{parse} = require './GoateeScript/Parser'
-
 exports = module?.exports ? this
 
 ##
@@ -32,26 +30,65 @@ exports = module?.exports ? this
 # @namespace GoateeScript
 exports.GoateeScript = class GoateeScript
 
-  GoateeScript.VERSION   = '0.0.1'
+  GoateeScript.VERSION  = '0.0.1'
 
   ##
   # @param {String} code
   # @return Expression
-  GoateeScript.parse     = parse
-
-  ##
-  # @param {String} code
-  # @return String
-  GoateeScript.render    = (code) ->
-    parse(code).toString()
+  GoateeScript.parse = _parse = do ->
+    parse = null
+    (code) ->
+      GoateeScript.parse = parse = require('./GoateeScript/Parser').parse unless parse?
+      parse(code)
 
   ##
   # @param {String} code
   # @param {Object} context (optional)
   # @param {Object} variables (optional)
-  # @param {Array}  stack (optional)
   # @param {Array}  scope (optional)
+  # @param {Array}  stack (optional)
   # @return mixed
-  GoateeScript.eval      = \
-  GoateeScript.evaluate  = (code, context, variables, stack, scope) ->
-    parse(code).evaluate(context)
+  GoateeScript.evaluate = (code, context, variables, scope, stack) ->
+    GoateeScript.parse(code).evaluate(context, variables, scope, stack)
+
+  ##
+  # @param {String} code
+  # @return String
+  GoateeScript.render = do ->
+    render = null
+    (code) ->
+      GoateeScript.render = render = require('./GoateeScript/Interpreter').Interpreter.render unless render?
+      render(code)
+
+  ##
+  # @param  {String|Expression} code, a String or an Expression
+  # @param  {Function}          callback (optional)
+  # @param  {Boolean}           compress, default is true
+  # @return {Array|String|Number|true|false|null}
+  GoateeScript.ast      = do ->
+    ast = null
+    (data, callback, compress) ->
+      GoateeScript.ast = ast = require('./GoateeScript/Interpreter').Interpreter.ast unless ast?
+      ast(data, callback, compress)
+
+  ##
+  # @param  {String|Expression} data
+  # @param  {Function}          callback (optional)
+  # @param  {Boolean}           compress, default is true
+  # @return String
+  GoateeScript.stringify = do ->
+    stringify = null
+    (data, callback, compress) ->
+      GoateeScript.stringify = stringify = require('./GoateeScript/Interpreter').Interpreter.stringify unless stringify?
+      stringify(data, callback, compress)
+
+  ##
+  # @param  {String|Array} data, code-String or opcode-Array
+  # @param  {Function}     callback (optional)
+  # @param  {Boolean}      compress, default = true
+  # @return String
+  GoateeScript.compile = do ->
+    compile = null
+    (data, callback, compress) ->
+      GoateeScript.compile = compile = require('./GoateeScript/Interpreter').Interpreter.compile unless compile?
+      compile(data, callback, compress)

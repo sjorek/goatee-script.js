@@ -18,7 +18,7 @@ global = do -> this
 
 {Stack}         = require './Stack'
 {Utility:{
-  bindFn,
+  bindFunction,
   toString,
   isString,
   isArray,
@@ -43,33 +43,25 @@ exports.Expression = class Expression
   _parser       = null
   _context      = (c) -> { '$':_global, '@':_variables }[c]
   _primitive    = null
-  _silent       = true
+  _property     = null
   _callback     = null
 
   _isProperty   = () ->
     p = _stack.parent()
-    p? and p.operator.name is '.' and p.parameters[1] is _stack.current()
+    p? and p.operator.name is _property and p.parameters[1] is _stack.current()
 
   ##
   # @param {Object}           context
   # @param {Expression|mixed} expression
-  _execute      = (context, expression) ->
+  Expression.execute = _execute = (context, expression) ->
     return expression unless isExpression expression
     _stack.push context, expression
-    if _silent
-      try
-        result = _process context, expression
-      catch e
-        (_errors ?= []).push e
-    else
-        result = _process context, expression
+    try
+      result = _process context, expression
+    catch e
+      (_errors ?= []).push e
     _stack.pop()
     return result
-
-  ##
-  # @return {Boolean}
-  Expression.silent = (silent = on) ->
-    _silent = silent is on
 
   ##
   # @return {Function}
@@ -77,31 +69,25 @@ exports.Expression = class Expression
     _callback = callback
 
   ##
-  # @return {Boolean}
-  Expression.silent = (silent = on) ->
-    _silent = silent is on
-
-  ##
-  # @return {Boolean|Error}
+  # @return {Boolean|Array<Error>}
   Expression.errors = () ->
-    _errors if _silent and _errors? and _errors.length isnt 0
+    _errors if _errors? and _errors.length isnt 0
     false
 
   ##
   # @param {Object}           context (optional)
   # @param {Expression|mixed} expression (optional)
   # @param {Object}           variables (optional)
-  # @param {Array}            stack (optional)
   # @param {Array}            scope (optional)
+  # @param {Array}            stack (optional)
   # @return mixed
   Expression.evaluate = \
-  _evaluate = (context={}, expression, variables, stack, scope) ->
+  _evaluate = (context={}, expression, variables, scope, stack) ->
     return expression unless isExpression expression
 
-
-    isGlobalScope = _stack is null
+    isGlobalScope = not _stack?
     if isGlobalScope
-      _stack     = new Stack(context, variables, stack, scope)
+      _stack     = new Stack(context, variables, scope, stack)
       _scope     = _stack.scope
       _errors    = null
       _global    = _stack.global
@@ -111,7 +97,7 @@ exports.Expression = class Expression
     result = _execute context, expression
 
     if isGlobalScope
-      _callback(_stack) if _callback?
+      _callback(expression, result, _stack, _errors) if _callback?
       _stack.destructor()
       _stack     = null
       _scope     = null
@@ -119,7 +105,6 @@ exports.Expression = class Expression
       _variables = null
       _evaluate  = Expression.evaluate
 
-    # console.log _errors if _errors?
     result
 
   _process = (context, expression) ->
@@ -198,25 +183,30 @@ exports.Expression = class Expression
 
 # _incdec
 #    '++':
-#      format: (a, b) ->
+#      format: (a,b) ->
 #        if b then "#{_stringify(a)}++" else "++#{_stringify(a)}"
 #      evaluate: (a,b) ->
 #        c = _operations.reference.evaluate(a)
 #        _operations['='].evaluate(a, c + 1)
 #        if b then c else c + 1
 #    '--':
-#      format: (a, b) ->
+#      format: (a,b) ->
 #        if b then "#{_stringify(a)}--" else "--#{_stringify(a)}"
 #      evaluate: (a,b) ->
 #        c = _operations.reference.evaluate(a)
 #        _operations['='].evaluate(a, c - 1)
 #        if b then c else c - 1
-
-    '.':
+    ##
+    # an object.property
+    property:
       chain: true
-      #  functions must be bound to their container now or else they would have the global as their context.
+      # a.b with a <- b
+      # Function (b) bound to its container (a) now, otherwise it would have
+      # the _global context as its scope.  If the container (a) is the _global
+      # context, (b) has already been bound to (a), hence (b) is returned as it
+      # is to avoid binding it twice.
       evaluate: (a,b) ->
-        if a isnt _global and isFunction b then bindFn b, a else b
+        if a isnt _global and isFunction b then bindFunction b, a else b
 
 # _single
 #    '!':
@@ -327,43 +317,42 @@ exports.Expression = class Expression
       constant: true
       raw     : true
       vector: false
-      format: (a, b, c) ->
+      format: (a,b,c) ->
         "(#{_stringify(a)}?#{_stringify(b)}:#{_stringify(c)})"
-      evaluate: (a, b, c) ->
+      evaluate: (a,b,c) ->
         a = _execute this, a
         _execute this, if _booleanize a then b else c
     '()':
       vector: false
-      format: (func, args...) ->
-        func + '(' + args.join(',') + ')'
-      evaluate: (func, args...) ->
-        throw new Error "Missing argument to call." unless func?
-        throw new Error "Given argument is not callable." unless isFunction func
-        func.apply this, args
+      format: (f,a...) ->
+        f + '(' + a.join(',') + ')'
+      evaluate: (f,a...) ->
+        throw new Error "Missing argument to call." unless f?
+        throw new Error "Given argument is not callable." unless isFunction f
+        f.apply this, a
     '[]':
       chain: false
       vector: false
       format: (a,b) -> "#{a}[#{b}]"
-      evaluate: (a, b) ->
+      evaluate: (a,b) ->
         #  support negative indexers, if you literally want "-1" then use a string literal
         if isNumber(b) and b < 0
-          index = (if a.length? then a.length else 0) + b
+          a[(if a.length? then a.length else 0) + b]
         else
-          index = b
-        a[index]
-    '{}':
-      chain: true
-      vector: false
-      format: (a,b) -> "#{a}{#{b}}"
-      evaluate: (a, b) -> if _booleanize b then a else undefined
-    #'$':
-    #  format: -> '$'
-    #  vector: false
-    #  evaluate: -> _global
-    #'@':
-    #  format: -> '@'
-    #  vector: false
-    #  evaluate: -> this
+          a[b]
+#    '{}':
+#      chain: true
+#      vector: false
+#      format: (a,b) -> "#{a}{#{b}}"
+#      evaluate: (a,b) -> if _booleanize b then a else undefined
+#    '$':
+#      format: -> '$'
+#      vector: false
+#      evaluate: -> _global
+#    '@':
+#      format: -> '@'
+#      vector: false
+#      evaluate: -> this
     context:
       alias   : 'c'
       format  : (a) -> a
@@ -374,21 +363,19 @@ exports.Expression = class Expression
       format  : (a) -> a
       vector  : false
       evaluate: (a) ->
-        ref   = _isProperty()
-        value = this[a]
-        if ref
-          return value if this.hasOwnProperty a
+        v = this[a]
+        if _isProperty()
+          return v if this.hasOwnProperty a
         else
           return _variables[a] if _variables.hasOwnProperty a
           #  walk the context stack from top to bottom looking for value
-          for context in _scope by -1
-            return context[a] if context.hasOwnProperty a
+          for c in _scope by -1
+            return c[a] if c.hasOwnProperty a
         value
     #children:
     #  alias   : 'C'
     #  format  : -> '*'
     #  vector  : true
-    #  #watch   : (object, expression, handler, connect) -> gl_as.watch object, handler, connect
     #  evaluate: () ->
     #    if isArray @
     #      _.clone @
@@ -402,17 +389,17 @@ exports.Expression = class Expression
       evaluate: (a) -> a
     block:
       alias   : 'b'
-      format  : (statements...) -> statements.join(';').replace(/null(;null)+/g,'null')
+      format  : (s...) -> s.join(';').replace(/null(;null)+/g,'null')
       evaluate: -> arguments[arguments.length-1]
     if:
       alias   : 'i'
       raw     : true
-      format  : (a, b, c) ->
+      format  : (a,b,c) ->
         if c?
           "if (#{a}) {#{b}} else {#{c}}"
         else
           "if (#{a}) {#{b}}"
-      evaluate: (a, b, c) ->
+      evaluate: (a,b,c) ->
         if _booleanize _execute(this, a)
           _execute this, b
         else if c?
@@ -422,26 +409,26 @@ exports.Expression = class Expression
     #for:
     #  alias   : 'f'
     #  raw     : true
-    #  format  : (a, b) -> "for (#{a}) {#{b}}"
-    #  evaluate: (a, b) ->
+    #  format  : (a,b) -> "for (#{a}) {#{b}}"
+    #  evaluate: (a,b) ->
     #    a = _execute this, a
     #    return undefined unless a?
     #    for value in _.values a
     #      _execute value, b
     array:
       alias   : 'a'
-      format  : (elements...) -> "[#{elements.join ','}]"
-      evaluate: (elements...) -> elements
+      format  : (e...) -> "[#{e.join ','}]"
+      evaluate: (e...) -> e
     object:
       alias   : 'o'
       format  : ->
-        buffer = []
-        buffer.push "#{k}:#{arguments[i+1]}" for k,i in arguments by 2
-        "{#{buffer.join ','}}"
+        o = []
+        o.push "#{k}:#{arguments[i+1]}" for k,i in arguments by 2
+        "{#{o.join ','}}"
       evaluate: ->
-        object = {}
-        object[k] = arguments[i+1] for k,i in arguments by 2
-        object
+        o = {}
+        o[k] = arguments[i+1] for k,i in arguments by 2
+        o
 
   do ->
 
@@ -507,6 +494,7 @@ exports.Expression = class Expression
         _operations[value.alias] = key
 
     _primitive = _operations.primitive.name
+    _property  = _operations.property.name
 
     return
 
@@ -544,7 +532,7 @@ exports.Expression = class Expression
     #  if this expression is a constant then we pre-evaluate it now
     #  and just return a primitive expression with the result
     if @constant and @operator.name isnt _primitive
-      return new Expression 'primitive', [ @evaluate global ]
+      return new Expression 'primitive', [ @evaluate _global ]
 
     #  otherwise return this expression
     return
@@ -564,8 +552,8 @@ exports.Expression = class Expression
   ##
   # @param {Object} context (optional)
   # @param {Object} variables (optional)
-  # @param {Array}  stack (optional)
   # @param {Array}  scope (optional)
+  # @param {Array}  stack (optional)
   # @return mixed
-  evaluate: (context, variables, stack, scope) ->
-    _evaluate context, this
+  evaluate: (context, variables, scope, stack) ->
+    _evaluate context, this, variables, scope, stack

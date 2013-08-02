@@ -28,7 +28,7 @@ exports.Utility = class Utility
   # New in EcmaScript 1.5
   # http://webreflection.blogspot.com/2010/02/functionprototypebind.html
   # This is still needed by Safari.
-  Utility.bindFn = do ->
+  Utility.bindFunction = do ->
     _bind = Function::bind
     if _bind?
       (args...) ->

@@ -32,10 +32,13 @@ nomnom         = require 'nomnom'
 {spawn}        = require 'child_process'
 
 {GoateeScript:{
-  VERSION,
+  compile,
+  evaluate,
   render,
-  evaluate
+  stringify,
+  VERSION
 }}             = require '../GoateeScript'
+
 {Repl}         = require './Repl'
 
 exports = module?.exports ? this
@@ -51,7 +54,6 @@ exports.Command = class Command
   # Top-level objects shared by all the functions.
   opts         = {}
   statements   = null
-  optionParser = null
 
   # Use the [nomnom](http://github.com/harthur/nomnom.git) to extract
   # all options from `process.argv` that are specified here.
@@ -61,11 +63,13 @@ exports.Command = class Command
       .script('goatee-script')
       .option('statements', {
         list: true,
+        type: 'string'
         position: 0
         help: 'string passed from the command line to evaluate'
       })
-      .option('eval', {
-        abbr: 'e',
+      .option('run', {
+        abbr: 'r',
+        type: 'string'
         metavar: 'STATEMENT'
         list: true,
         help: 'string passed from the command line to evaluate'
@@ -80,16 +84,23 @@ exports.Command = class Command
         flag: true,
         help: 'run an interactive GoateeScript REPL'
       })
-      #['-n', '--nodes',           'print out the parse tree that the parser produces']
+      .option('mode', {
+        metavar: 'MODE'
+        abbr: 'm',
+        default: 'eval',
+        choices: ['compile', 'c', 'eval', 'e', 'print', 'p', 'render', 'r']
+        help: 'set execution-mode to [e]valuate, [r]ender, [c]ompile or [p]rint given statements'
+      })
+      .option('compress', {
+        abbr: 'c',
+        default: false,
+        flag: true,
+        help: 'compress the abstract syntax tree (ast)'
+      })
       .option('nodejs', {
         metavar: 'OPTION'
         list: true
         help: 'pass one option directly to the "node" binary, repeat for muliple options'
-      })
-      .option('print', {
-        abbr: 'p',
-        flag: true,
-        help: 'print out compiled GoateeScript'
       })
       #['-t', '--tokens',          'print out the tokens that the lexer/rewriter produce']
       .option('version', {
@@ -100,13 +111,16 @@ exports.Command = class Command
       # The help banner to print when `goatee-script` is called without arguments.
       .help('If called without options, `goatee-script` will run interactive.')
       .parse()
+
     statements = []
       .concat(if opts.statements? then opts.statements else [])
-      .concat(if opts.eval? then opts.eval else [])
+      .concat(if opts.run? then opts.run else [])
       #.concat(if opts._? then opts._ else [])
-      .join(';')
-    opts.eval ||= statements isnt ''
-    return
+
+    opts.mode = opts.mode[0]
+    opts.run ||= statements.length > 0
+
+    statements = statements.join(';')
 
   # Start up a new Node.js instance with the arguments in `--nodejs` passed to
   # the `node` binary, preserving the other options.
@@ -120,16 +134,21 @@ exports.Command = class Command
   version = ->
     printLine "GoateeScript version #{VERSION}"
 
-  execute = ->
-    printLine if opts.print then render statements else evaluate statements
+  execute = () ->
+    switch opts.mode
+      when 'compile', 'c' then compile    statements, null, opts.compress
+      when 'print'  , 'p' then stringify  statements, null, opts.compress
+      when 'render' , 'r' then render     statements, null, opts.compress
+      when 'eval'   , 'e' then evaluate   statements
+      else throw new Error 'Unknown execution-mode given.'
 
   # Run `goatee-script` by parsing passed options and determining what action to
   # take. Flags passed after `--` will be passed verbatim to your script as
   # arguments in `process.argv`
   Command.run = ->
     parseOptions()
-    return forkNode()                      if opts.nodejs
-    return version()                       if opts.version
-    return Repl.start(opts)                if opts.interactive
-    return execute()                       if opts.eval
+    return forkNode()           if opts.nodejs
+    return version()            if opts.version
+    return Repl.start(opts)     if opts.interactive
+    return printLine execute()  if opts.run
     Repl.start(opts)
