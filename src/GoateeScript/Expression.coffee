@@ -45,6 +45,7 @@ exports.Expression = class Expression
   _primitive    = null
   _property     = null
   _callback     = null
+  _formatRef    = null
 
   _isProperty   = () ->
     p = _stack.parent()
@@ -198,8 +199,9 @@ exports.Expression = class Expression
 #        if b then c else c - 1
     ##
     # an object.property
-    property:
+    '.':
       chain: true
+      #format: (a,b) -> "#{_formatRef a}.#{_stringify b}"
       # a.b with a <- b
       # Function (b) bound to its container (a) now, otherwise it would have
       # the _global context as its scope.  If the container (a) is the _global
@@ -478,7 +480,7 @@ exports.Expression = class Expression
       value = if _operations[key]? then _operations[key] else _operations[key] = {}
       value.format   ?= do ->
         k = key
-        (a,b) -> "(#{_formatRef(a)}#{k}#{_stringify(b)})"
+        (a,b) -> "#{_formatRef(a)}#{k}#{_stringify(b)}"
       if key.length is 1
         continue
       value.evaluate ?= do ->
@@ -494,7 +496,7 @@ exports.Expression = class Expression
         _operations[value.alias] = key
 
     _primitive = _operations.primitive.name
-    _property  = _operations.property.name
+    _property  = _operations['.'].name
 
     return
 

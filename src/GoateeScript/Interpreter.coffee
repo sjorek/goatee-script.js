@@ -214,7 +214,7 @@ exports.Interpreter = class Interpreter
                         if(_stack.length < 2){return false;}
                         var p = _stack.length > 1 ? _stack[_stack.length-2] : void(0),
                             c = _stack.length > 0 ? _stack[_stack.length-1] : void(0);
-                        return p.toString() === '#{_operations.property.alias}' && p[1] === c;
+                        return p.toString() === '#{_operations['.'].alias}' && p[1] === c;
                       }
                       """
 #      Number        :

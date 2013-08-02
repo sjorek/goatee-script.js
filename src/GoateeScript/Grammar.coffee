@@ -372,7 +372,7 @@ exports.Grammar = Grammar =
       o 'Identifier'               , ->
         new yy.Expression 'reference', [$1]
       o 'Scope Identifier'         , ->                 # shorthand dot operator
-        new yy.Expression 'property', [$1, new yy.Expression('reference', [$2])]
+        new yy.Expression '.', [$1, new yy.Expression('reference', [$2])]
       o 'Scope'
     ]
     Group: [
@@ -380,7 +380,7 @@ exports.Grammar = Grammar =
     ]
     Property: [
       o 'Expression . Identifier' , ->
-        new yy.Expression 'property', [$1, new yy.Expression('reference', [$3])]
+        new yy.Expression '.', [$1, new yy.Expression('reference', [$3])]
     ]
     Expression: [
       o 'Expression ? Expression : Expression', ->      # ternary conditional
