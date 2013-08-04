@@ -14,8 +14,6 @@ implied. See the License for the specific language governing
 permissions and limitations under the License.
 ###
 
-global = do -> this
-
 {Stack}         = require './Stack'
 {Utility:{
   bindFunction,
@@ -42,10 +40,24 @@ exports.Expression = class Expression
   _operations   = null
   _parser       = null
   _context      = (c) -> { '$':_global, '@':_variables }[c]
+
+  # reference to Expression.operations.primitive.name
   _primitive    = null
+
+  # reference to Expression.operations['.'].name
   _property     = null
+
+  # static reference to callback function
   _callback     = null
-  _formatRef    = null
+
+  # reference to Expression.operations.reference.format
+  _format       = null
+
+  # reference to Expression.operations.reference.evaluate
+  _resolve      = null
+
+  # reference to Expression.operations['='].evaluate
+  _assignment   = null
 
   _isProperty   = () ->
     p = _stack.parent()
@@ -158,8 +170,10 @@ exports.Expression = class Expression
     if format?
       return format.apply this, parameters
     else if parameters.length is 2
-      return "(#{_stringify(parameters[0])}#{operator}#{_stringify(parameters[1])})"
+      # basic operations
+      "#{_stringify parameters[0]}#{operator}#{_stringify parameters[1]}"
     else
+      # block statements and … ?
       format = []
       format.push _stringify(parameter) for parameter in parameters
       format.join ' '
@@ -200,8 +214,8 @@ exports.Expression = class Expression
     ##
     # an object.property
     '.':
-      chain: true
-      #format: (a,b) -> "#{_formatRef a}.#{_stringify b}"
+      chain   : true
+      #format  : (a,b) -> "#{_stringify a}.#{_stringify b}"
       # a.b with a <- b
       # Function (b) bound to its container (a) now, otherwise it would have
       # the _global context as its scope.  If the container (a) is the _global
@@ -360,20 +374,28 @@ exports.Expression = class Expression
       format  : (a) -> a
       vector  : false
       evaluate: (a) -> _context.call(this, a)
-    reference:
+    resolve:
       alias   : 'r'
       format  : (a) -> a
       vector  : false
+      evaluate: (a) -> this[a]
+    reference:
+      alias : 'R'
+      format: (a) -> "_resolve.call(this, #{JSON.stringify a}).#{a}"
+      vector  : false
       evaluate: (a) ->
         v = this[a]
+        if this is _variables
+          console.log 'early return'
+          return v
         if _isProperty()
           return v if this.hasOwnProperty a
         else
           return _variables[a] if _variables.hasOwnProperty a
           #  walk the context stack from top to bottom looking for value
-          for c in _scope by -1
-            return c[a] if c.hasOwnProperty a
-        value
+          for c in _scope by -1 when c.hasOwnProperty a
+            return c[a]
+        v
     #children:
     #  alias   : 'C'
     #  format  : -> '*'
@@ -434,9 +456,9 @@ exports.Expression = class Expression
 
   do ->
 
-    _evaluateRef = _operations.reference.evaluate
-    _formatRef   = _operations.reference.format
-    _assignment  = _operations['='].evaluate
+    _format     = _operations.reference.format
+    _resolve    = _operations.reference.evaluate
+    _assignment = _operations['='].evaluate
 
     _incdec = ['++', '--']
     _single = ['!', '~', ]
@@ -449,12 +471,12 @@ exports.Expression = class Expression
       _operations[key] =
         format: do ->
           k = key
-          (a,b) -> if b then "(#{_formatRef(a)}#{k})" else "(#{k}#{_formatRef(a)})"
+          (a,b) -> if b then "#{_format.call(this, a)}#{k}" else "#{k}#{_format.call(this, a)}"
         evaluate: do ->
-          i = if key is '++' then 1 else -1
+          i = if key is "++" then +1 else -1
           (a,b) ->
-            c = Number(_evaluateRef(a))
-            _assignment(a, c + i)
+            c = Number(_resolve.call(this, a))
+            _assignment.call(this, a, c + i)
             if b then c else c + i
 
     for key in _single
@@ -480,12 +502,12 @@ exports.Expression = class Expression
       value = if _operations[key]? then _operations[key] else _operations[key] = {}
       value.format   ?= do ->
         k = key
-        (a,b) -> "#{_formatRef(a)}#{k}#{_stringify(b)}"
+        (a,b) -> "(#{_format.call(this, a)}#{k}#{_stringify(b)})"
       if key.length is 1
         continue
       value.evaluate ?= do ->
         _op = _operations[key.substring 0, key.length - 1].evaluate
-        (a,b) -> _assignment a, _op(_evaluateRef(a), b)
+        (a,b) -> _assignment a, _op(_resolve.call(this, a), b)
 
     for key, value of _operations
       value.name       = key
@@ -543,7 +565,7 @@ exports.Expression = class Expression
   # @return String
   toString: ->
     return @text unless @text is undefined
-    @text = _stringify(this)
+    @text = _stringify this
 
   ##
   # @return Object.<String:op,Array:parameters>

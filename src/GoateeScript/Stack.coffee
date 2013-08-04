@@ -14,6 +14,8 @@ implied. See the License for the specific language governing
 permissions and limitations under the License.
 ###
 
+global = do -> this
+
 exports = module?.exports ? this
 
 ##
@@ -26,7 +28,7 @@ exports.Stack = class Stack
   scope      : null
   operations : null
 
-  constructor: (@global, @variables = {}, @scope = [], @stack = []) ->
+  constructor: (@global = global, @variables = {}, @scope = [], @stack = []) ->
 
   destructor : () ->
     @global    = undefined

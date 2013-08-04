@@ -228,7 +228,7 @@ exports.Interpreter = class Interpreter
       /(\s|\n)+/g                 , ' '
       /_context.call\(this, a\)/g , "{'$$':_global,'@':_variables}[a]"
       /_assignment/g              , _operations['='].alias
-      /_evaluateRef/g             , _operations.reference.alias
+      /_reference/g               , _operations.reference.alias
       /_global/g                  , runtime.global.alias
       /_variables/g               , runtime.variables.alias
       /_scope/g                   , runtime.scope.alias

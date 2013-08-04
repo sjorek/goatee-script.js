@@ -372,15 +372,23 @@ exports.Grammar = Grammar =
       o 'Identifier'               , ->
         new yy.Expression 'reference', [$1]
       o 'Scope Identifier'         , ->                 # shorthand dot operator
-        new yy.Expression '.', [$1, new yy.Expression('reference', [$2])]
+        new yy.Expression '.', [$1, new yy.Expression('resolve', [$2])]
       o 'Scope'
     ]
     Group: [
       o '( Expression )'          , -> $2
     ]
+    Resolve: [
+      o 'Identifier'              , ->
+        new yy.Expression('resolve', [$1])
+      o 'Resolve . Identifier'    , ->
+        new yy.Expression('.', [$1, new yy.Expression('resolve', [$3])])
+    ]
     Property: [
-      o 'Expression . Identifier' , ->
-        new yy.Expression '.', [$1, new yy.Expression('reference', [$3])]
+#      o 'Expression . Identifier' , ->
+#        new yy.Expression '.', [$1, new yy.Expression('reference', [$3])]
+      o 'Expression . Resolve' , ->
+        new yy.Expression '.', [$1, $3]
     ]
     Expression: [
       o 'Expression ? Expression : Expression', ->      # ternary conditional

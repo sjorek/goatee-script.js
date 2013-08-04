@@ -35,222 +35,279 @@ Benchmark = require 'benchmark'
 }} = require '../lib/GoateeScript/Utility'
 
 
-exports.GoateeScriptTest =
+exports.GoateeScriptTest = do ->
 
-  setUp: (callback) ->
-    @benchmark = new Benchmark.Suite
-    callback()
+  return exports.GoateeScriptTest =
+    setUp: (callback) ->
+      self = @
 
-  'test can add two positive numbers': (test) ->
-    test.equal(evaluate('1+1'), 2)
-    test.done()
+      @data      ?=
+        clothes: [
+          { name: 'Shirt', sizes: ['S','M','L'], price:14.50, quantity: 8 }
+          { name: 'Pants', sizes: [29,30,31,32], price:20.19, quantity: 6  }
+          { name: 'Shoes', sizes: [8,9,10], price:25.85, quantity: 15  }
+          { name: 'Ties' , sizes: [2], price:3.99, quantity: 3  }
+        ]
+        codes:
+          alpha:   { discount: 10, items:4 }
+          beta:    { discount: 20, items:2 }
+          charlie: { discount: 30, items:1 }
+        favoriteChild: 'pat'
+        children:
+          pat:
+            name: 'pat'
+            age: 28
+            children:
+              jay: { name: 'jay', age: 4 }
+              bob: { name: 'bob', age:8 }
+          skip:
+            name: 'skip'
+            age: 30
+            children:
+              joe: { name: 'joe', age: 7 }
+        dynamic: 0
+        increment: (count) -> this.dynamic += count
+        min: (a, b) ->
+          return a unless b?
+          return b unless a?
+          if a.valueOf() <= b.valueOf() then a else b
+        max: (a, b) ->
+          return a unless b?
+          return b unless a?
+          if a.valueOf() >= b.valueOf() then a else b
+        sum: sum = (a) ->
+          return 0 unless a?
+          if isArray a
+            total = 0
+            for item in a
+              total += sum item
+            return total
+          number = Number a
+          if isNaN number then 0 else number
 
-  'benchmark of adding two positive numbers': (test) ->
-    test.done()
-    return
-    @benchmark
-      .add('goatee-script  : 1+1',  -> evaluate('1+1'))
-      .add('javascript     : 1+1',  -> 1+1)
-      .add('javascript eval: 1+1',  -> eval('1+1'))
-      .on('cycle',    (event) -> console.log(String(event.target)))
-      .on('complete', ()      -> console.log('Fastest is ' + @filter('fastest').pluck('name')))
-      .run({async: false })
+      @benchmark ?= new Benchmark.Suite
 
-  'test null and undefined behaviour of empty statements': (test) ->
-    statements = ['', ';;;;', ';/* nix */;']
-    for s in statements
-      test.ok(evaluate(s) is undefined, "“#{s}” failed to evaluate to “undefined”")
-      test.ok(render(s) is '', "“#{s}” failed to render to “''”")
+      @check     ?= (test, code, expected) ->
+        expression = parse code
+        test.equal JSON.stringify(expected), \
+                   JSON.stringify(expression.evaluate(self.data))
 
-    statements = ['null', ';;null;;', 'null;;null;;']
-    for s in statements
-      test.ok(evaluate(s) is null, "“#{s}” failed to evaluate to “null”")
-      test.ok(render(s) is 'null', "“#{s}” failed to render to “'null'”")
+      callback()
 
-    test.done()
+    'can add two positive numbers': (test) ->
+      test.equal(evaluate('1+1'), 2)
+      test.done()
 
-  'test expression vectors': (test) ->
-    test.equal parse('5').vector, false
-    test.equal parse('5+2').vector, false
-    #test.equal parse('*').vector, true
-    #test.equal parse('*.alpha').vector, true
-    #test.equal parse('alpha.* * 12').vector, true
-    #test.equal parse('alpha.*').vector, true
-    test.equal parse('func(alpha)').vector, false
-    #test.equal parse('func(*)').vector, false
-    #test.equal parse('func(alpha.*.beta)').vector, false
-    test.done()
+    'benchmark of adding two positive numbers': (test) ->
+#      @benchmark
+#        .add('goatee-script  : 1+1',  -> evaluate('1+1'))
+#        .add('javascript     : 1+1',  -> 1+1)
+#        .add('javascript eval: 1+1',  -> eval('1+1'))
+#        .on('cycle',    (event) -> console.log(String(event.target)))
+#        .on('complete', ()      -> console.log('Fastest is ' + @filter('fastest').pluck('name')))
+#        .run({async: false })
+      test.done()
 
-  'test expression evaluation': (test) ->
-    test.equal evaluate('1 + 2 * 3'), 7
+    'expression vectors': (test) ->
+      test.equal parse('5').vector, false
+      test.equal parse('5+2').vector, false
+      #test.equal parse('*').vector, true
+      #test.equal parse('*.alpha').vector, true
+      #test.equal parse('alpha.* * 12').vector, true
+      #test.equal parse('alpha.*').vector, true
+      test.equal parse('func(alpha)').vector, false
+      #test.equal parse('func(*)').vector, false
+      #test.equal parse('func(alpha.*.beta)').vector, false
+      test.done()
 
-    data =
-      clothes: [
-        { name: 'Shirt', sizes: ['S','M','L'], price:14.50, quantity: 8 }
-        { name: 'Pants', sizes: [29,30,31,32], price:20.19, quantity: 6  }
-        { name: 'Shoes', sizes: [8,9,10], price:25.85, quantity: 15  }
-        { name: 'Ties' , sizes: [2], price:3.99, quantity: 3  }
-      ]
-      codes:
-        alpha:   { discount: 10, items:4 }
-        beta:    { discount: 20, items:2 }
-        charlie: { discount: 30, items:1 }
-      favoriteChild: 'pat'
-      children:
-        pat:
-          name: 'pat'
-          age: 28
-          children:
-            jay: { name: 'jay', age: 4 }
-            bob: { name: 'bob', age:8 }
-        skip:
-          name: 'skip'
-          age: 30
-          children:
-            joe: { name: 'joe', age: 7 }
-      dynamic: 0
-      increment: (count) -> this.dynamic += count
-      min: (a, b) ->
-        return a unless b?
-        return b unless a?
-        if a.valueOf() <= b.valueOf() then a else b
-      max: (a, b) ->
-        return a unless b?
-        return b unless a?
-        if a.valueOf() >= b.valueOf() then a else b
-      sum: sum = (a) ->
-        return 0 unless a?
-        if isArray a
-          total = 0
-          for item in a
-            total += sum item
-          return total
-        number = Number a
-        if isNaN number then 0 else number
+    'expression with one or multiple collapsing “undefined” values': (test) ->
+      statements = ['', ';;;;', ';/* nix */;']
+      for s in statements
+        test.ok(evaluate(s) is undefined, "“#{s}” failed to evaluate to “undefined”")
+        test.ok(render(s) is '', "“#{s}” failed to render to “''”")
+      test.done()
 
-    check = (path, expected) ->
-      expression = parse path
-      test.equal JSON.stringify(expected), JSON.stringify(expression.evaluate(data))
+    'expression with one or multiple collapsing “null” values': (test) ->
+      statements = ['null', 'null;null', 'null;null;null']
+      for s in statements
+        test.ok(evaluate(s) is null, "“#{s}” failed to evaluate to “null”")
+        test.ok(render(s) is 'null', "“#{s}” failed to render to “'null'”")
+      test.done()
 
-    check "5", 5
-    check "'5'", '5'
-    check "1 + 2", 3
-    check "'a' + 'b'", 'ab'
+    'expression with multiple collapsing “null” and “undefined” values': (test) ->
+      statements = [';;null;;', 'null;;null;;', 'null;/*;null;*/null;;']
+      for s in statements
+        test.ok(evaluate(s) is null, "“#{s}” failed to evaluate to “null”")
+        test.ok(render(s) is 'null', "“#{s}” failed to render to “'null'”")
+      test.done()
 
-    check "codes", data.codes
-    check "codes.alpha", data.codes.alpha
-    check "codes.alpha.discount", data.codes.alpha.discount
+    'expression with primitives': (test) ->
 
-    check "codes.discount", undefined
-#    check "*", _.values data
-#    check "codes.*", [data.codes.alpha, data.codes.beta, data.codes.charlie]
-#    check "codes.*.discount", [10,20,30]
+      @check test, "5", 5
+      @check test, "'5'", '5'
+      @check test, "1 + 2", 3
+      @check test, "1 + 2 * 3", 7
+      @check test, "'a' + 'b'", 'ab'
+      test.done()
 
-#    check "codes.*{discount > 10}", [data.codes.beta, data.codes.charlie]
+    'expression with object access': (test) ->
+      @check test, "codes", @data.codes
+      @check test, "codes.alpha", @data.codes.alpha
+      @check test, "codes.alpha.discount", @data.codes.alpha.discount
 
-    # test negative numbers and indexers
-    check "clothes[-1]", data.clothes[data.clothes.length-1]
+      @check test, "codes.discount", undefined
+#      @check test, "*", _.values @data
+#      @check test, "codes.*", [@data.codes.alpha, @data.codes.beta, @data.codes.charlie]
+#      @check test, "codes.*.discount", [10,20,30]
 
-    check "children", data.children
-    #  because the children object contains no children property
-    check "children.children", undefined
+#      @check test, "codes.*{discount > 10}", [@data.codes.beta, @data.codes.charlie]
+      test.done()
 
-#    check "children.*", [data.children.pat, data.children.skip]
-#    check "children.*.children", [data.children.pat.children, data.children.skip.children]
-#    check "children.*.children.*", [data.children.pat.children.jay, data.children.pat.children.bob, data.children.skip.children.joe]
+    'expression with array access': (test) ->
+      # test negative numbers and indexers
+      @check test, "clothes[-1]", @data.clothes[@data.clothes.length-1]
+      test.done()
 
-    #  bare predicates no longer supported so use this[predicate]
-#    check "@{clothes != null}", data
-#    check "@{clothes == null}", undefined
+    'expression with scope access': (test) ->
+      @check test, "children", @data.children
+      #  because the children object contains no children property
+      @check test, "children.children", undefined
+      test.done()
 
-    #  predicates
-#    check "children.*{name == 'skip'}", [data.children.skip]
+    'expression with children access': (test) ->
+#      @check test, "children.*", [@data.children.pat, @data.children.skip]
+#      @check test, "children.*.children", [@data.children.pat.children, @data.children.skip.children]
+#      @check test, "children.*.children.*", [@data.children.pat.children.jay, @data.children.pat.children.bob, @data.children.skip.children.joe]
+      test.done()
 
-#    check "children.*{children.*{age < 5}}", [data.children.pat]
+    'expression with object access predicates': (test) ->
+      #  bare predicates no longer supported so use this[predicate]
+#      @check test, "@{clothes != null}", @data
+#      @check test, "@{clothes == null}", undefined
 
-    check "clothes.length", 4
+      #  predicates
+#      @check test, "children.*{name == 'skip'}", [@data.children.skip]
 
-    #  get the sizes of clothes that are even.
-#    check "clothes.*.sizes.*{@ % 2 == 0}", [30,32,8,10,2]
+#      @check test, "children.*{children.*{age < 5}}", [@data.children.pat]
+      test.done()
 
-#    check "clothes.*{sizes == 'M' || sizes == 9}", [
-#      { name: 'Shirt', sizes: ['S','M','L'], price:14.50, quantity: 8 }
-#      { name: 'Shoes', sizes: [8,9,10], price:25.85, quantity: 15  }
-#    ]
+    'expression with constructor access': (test) ->
+      @check test, "codes.constructor", undefined
+      test.done()
 
-    # test root references
-    check "$", data
-#    check "children.*{name == favoriteChild}[0]", data.children.pat
-    # or more concisely
-    check "children[favoriteChild]", data.children.pat
+    'expression with prototype access': (test) ->
+      @check test, "codes.constructor", undefined
+      @check test, "codes + ''", @data.codes.toString()
+      @check test, "codes.toString()", @data.codes.toString()
+      @check test, "codes.valueOf()", @data.codes.valueOf()
 
-    #  context specific operation using .(local paths) syntax.
-#    check "sum(clothes.*.(price * quantity))", 636.86
+      @check test, "clothes.length", 4
+      test.done()
 
-    # test min and max
-    check "min(12, 20)", 12
-    check "max(30, 50)", 50
+    'expression with array access predicates': (test) ->
+      #  get the sizes of clothes that are even.
+#      @check test, "clothes.*.sizes.*{@ % 2 == 0}", [30,32,8,10,2]
 
-    #  test object literal and array literal
-    check '{alpha:codes.alpha.discount,"beta":2,charlie:[3,2,codes.beta.discount]}', {alpha:data.codes.alpha.discount, beta:2, charlie:[3,2,data.codes.beta.discount]}
+#      @check test, "clothes.*{sizes == 'M' || sizes == 9}", [
+#        { name: 'Shirt', sizes: ['S','M','L'], price:14.50, quantity: 8 }
+#        { name: 'Shoes', sizes: [8,9,10], price:25.85, quantity: 15  }
+#      ]
+      test.done()
 
-    check "codes.constructor", undefined
-    check "codes + ''", data.codes.toString()
-    check "codes.toString()", undefined
-    check "codes.valueOf()", undefined
+    'expression with context references': (test) ->
+      # test root references
+      @check test, "$", @data
+      @check test, "test = 1 ; @", {test:1}
 
-    # check multiline expressions
-    check """
-      if (codes != null) {
-        increment(10);
-      }
-      else {
-        increment(20);
-      };
-      dynamic;
-      """, 10
+#      @check test, "children.*{name == favoriteChild}[0]", @data.children.pat
+      # or more concisely
+      @check test, "children[favoriteChild]", @data.children.pat
+      test.done()
 
-#    # check for loop
-#    check """
-#      for (clothes) {
-#        p = price;
-#        q = quantity;
-#        p * q;
-#      }
-#      """, [ 116, 121.14000000000001, 387.75, 11.97 ]
+    'expression with context specific operation using .(local paths) syntax.': (test) ->
+      #  context specific operation using .(local paths) syntax.
+#      @check test, "sum(clothes.*.(price * quantity))", 636.86
+      test.done()
 
-    # check early termination of OR
-    data.dynamic = 0
-    check "increment(10) || increment(20); dynamic;", 10
-    # check early termination of AND
-    data.dynamic = 0
-    check "increment(0) && increment(20); dynamic;", 0
-    # check early terminatino of conditional
-    data.dynamic = 0
-    check "false ? increment(10) : increment(20); dynamic;", 20
+    'expression with context reference function calls': (test) ->
+      # test min and max
+      @check test, "min(12, 20)", 12
+      @check test, "max(30, 50)", 50
+      test.done()
 
-    # context assignments.
-    check """
-    variable = 40 + 5;
-    variable *= 10; /* 450 */
-    variable /= 5;  /* 90 */
-    variable -= 40; /* 50 */
-    variable += 15; /* 65 */
-    variable++    ; /* 66 */
-    variable--    ; /* 65 */
-    ++variable    ; /* 66 */
-    --variable    ; /* 65 */
-    """, 65
+    'expression with object and array literals': (test) ->
+      obj = {alpha:@data.codes.alpha.discount, beta:2}
+      ary = [3,2,@data.codes.beta.discount]
+      #  test object literal
+      @check test, '{alpha:codes.alpha.discount,"beta":2}', obj
+      #  test array literal
+      @check test, '[3,2,codes.beta.discount]', ary
 
-    check """
-    variable = codes;
-    variable.alpha;
-    """, data.codes.alpha
+      #  test object literal and array literal
+      obj.charlie = ary
+      @check test, '{alpha:codes.alpha.discount,"beta":2,charlie:[3,2,codes.beta.discount]}', obj
+      test.done()
 
-    # check disambiguation between local variable and context property with same name
-    check """
-    favoriteChild = 'Kris';
-    favoriteChild + $favoriteChild;
-    """, "Krispat"
+    'expression with “if”/“else” condition and multiline statements': (test) ->
+      # check multiline expressions
+      @check test, """
+        if (codes != null) {
+          increment(10);
+        }
+        else {
+          increment(20);
+        };
+        dynamic;
+        """, 10
+      test.done()
 
-    test.done()
+    'expression with “for”-loop and multiline statements': (test) ->
+#      # check for loop
+#      @check test, """
+#        for (clothes) {
+#          p = price;
+#          q = quantity;
+#          p * q;
+#        }
+#        """, [ 116, 121.14000000000001, 387.75, 11.97 ]
+      test.done()
+
+    'expression with conditionals for deliberate early termination': (test) ->
+      # check early termination of OR
+      @data.dynamic = 0
+      @check test, "increment(10) || increment(20); dynamic;", 10
+      # check early termination of AND
+      @data.dynamic = 0
+      @check test, "increment(0) && increment(20); dynamic;", 0
+      # check early termination of conditional
+      @data.dynamic = 0
+      @check test, "false ? increment(10) : increment(20); dynamic;", 20
+      test.done()
+
+    'expression with primitive assignments': (test) ->
+      @check test, """
+      variable = 40 + 5;  /* = 45 */
+      variable *= 10;     /* = 450 */
+      variable /= 5;      /* = 90 */
+      variable -= 40;     /* = 50 */
+      variable += 15;     /* = 65 */
+      variable++    ;     /* = 66 */
+      variable--    ;     /* = 65 */
+      ++variable    ;     /* = 66 */
+      --variable    ;     /* = 65 */
+      """, 65
+      test.done()
+
+    'expression with context assignments': (test) ->
+      @check test, """
+      variable = codes;
+      variable.alpha;
+      """, @data.codes.alpha
+      test.done()
+
+    'expression with local variable and context property having the same name': (test) ->
+      @check test, """
+      favoriteChild = 'Kris';
+      favoriteChild + $favoriteChild;
+      """, "Krispat"
+      test.done()
