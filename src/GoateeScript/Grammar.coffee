@@ -39,7 +39,7 @@ o = (patternString, action, options) ->
     [patternString, "$$ = #{action};", options]
 
 #  assignment operation shortcut
-aop = (op) -> o "Identifier #{op} Expression", ->
+aop = (op) -> o "REFERENCE #{op} Expression", ->
   new yy.Expression $2, [$1, $3]
 
 #  binary operation shortcut
@@ -255,17 +255,14 @@ exports.Grammar = Grammar =
     ]
     Key: [
       o 'Primitive'
-      o 'Identifier'
-    ]
-    KeyValue: [
-      o 'Key : Expression'          , -> [$1,$3]
+      o 'REFERENCE'
     ]
     KeyValues: [
-      o ''                          , -> []
-      o 'KeyValue'
-      o 'KeyValues , KeyValue'      , -> $1.concat $3
+      o 'Key : Expression'          , -> [$1,$3]
+      o 'KeyValues , KeyValues'     , -> $1.concat $3
     ]
     Object: [
+      o '{ }'                       , -> new yy.Expression 'object', []
       o '{ KeyValues }'             , -> new yy.Expression 'object', $2
     ]
     Elements: [
@@ -291,14 +288,14 @@ exports.Grammar = Grammar =
       #o 'FOR ( Expression ) Block'                 , ->
       #  new yy.Expression 'for', [$2,$3]
     ]
+    IncDec: [
+      o "++"
+      o "--"
+    ]
     Assignment: [
-      o "++ Identifier"                            , ->
+      o "IncDec REFERENCE"                       , ->
         new yy.Expression $1, [$2, 0]
-      o "-- Identifier"                            , ->
-        new yy.Expression $1, [$2, 0]
-      o "Identifier ++"                            , ->
-        new yy.Expression $2, [$1, 1]
-      o "Identifier --"                            , ->
+      o "REFERENCE IncDec"                       , ->
         new yy.Expression $2, [$1, 1]
       aop '-='
       aop '+='
@@ -358,35 +355,32 @@ exports.Grammar = Grammar =
       o 'Primitive'                , ->                 # number, boolean,
         new yy.Expression 'primitive',  [$1]            # string, null, undefined
     ]
-    Identifier: [
-      o 'REFERENCE'
-    ]
     Scope: [
       o 'CONTEXT'                  , ->                 # global or local
         new yy.Expression 'context', [$1[0]]            # only the first letter is used
     ]
     Reference: [
-      o 'Identifier'               , ->
+      o 'REFERENCE'               , ->
         new yy.Expression 'reference', [$1]
-      o 'Scope Identifier'         , ->                 # shorthand dot operator
+      o 'Scope REFERENCE'         , ->                 # shorthand dot operator
         new yy.Expression '.', [$1, new yy.Expression('resolve', [$2])]
       o 'Scope'
     ]
     Resolve: [
-      o 'Identifier'              , ->
+      o 'REFERENCE'              , ->
         new yy.Expression('resolve', [$1])
-      o 'Resolve . Identifier'    , ->
+      o 'Resolve . REFERENCE'    , ->
         new yy.Expression('.', [$1, new yy.Expression('resolve', [$3])])
     ]
     Property: [
-#      o 'Expression . Identifier' , ->
+#      o 'Expression . REFERENCE' , ->
 #        new yy.Expression '.', [$1, new yy.Expression('reference', [$3])]
       o 'Expression . Resolve' , ->
         new yy.Expression '.', [$1, $3]
     ]
     List: [
       o 'Expression'          , -> [$1]
-      o 'List , Expression'   , -> [$1].concat $3
+      o 'List , Expression'   , -> $1.concat $3
     ]
     Group: [
       o '( List )'            , -> new yy.Expression 'group', $2
