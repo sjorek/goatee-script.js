@@ -214,7 +214,7 @@ exports.Grammar = Grammar =
     Root: [
       r 'EOF'                       , ->
         new yy.Expression 'primitive', [undefined]
-      r 'Statements EOF'   , ->
+      r 'Statements EOF'            , ->
         if $1 is yy.Empty then new yy.Expression 'primitive', [undefined] else $1
     ]
     Statements: [
@@ -266,21 +266,18 @@ exports.Grammar = Grammar =
       o 'KeyValues , KeyValue'      , -> $1.concat $3
     ]
     Object: [
-      o '{ KeyValues }'             , ->
-        new yy.Expression 'object', $2
+      o '{ KeyValues }'             , -> new yy.Expression 'object', $2
     ]
     Elements: [
       o ''                          , -> []
       o 'Expression'                , -> [$1]
-      o 'Elements , Expression'     , -> $1.concat $3
+      o 'Elements , Elements'       , ->
+        $1.concat if $3.length is 0 then [undefined] else $3
     ]
     Array: [
-      o '[ Elements ]'              , ->
-        new yy.Expression 'array', $2
+      o '[ Elements ]'              , -> new yy.Expression 'array', $2
     ]
     Block: [
-      o '{ }'                       , ->
-        new yy.Expression 'primitive', [undefined]
       o '{ Statements }'   , ->
         if $2 is yy.Empty then new yy.Expression 'primitive', [undefined] else $2
     ]
@@ -375,9 +372,6 @@ exports.Grammar = Grammar =
         new yy.Expression '.', [$1, new yy.Expression('resolve', [$2])]
       o 'Scope'
     ]
-    Group: [
-      o '( Expression )'          , -> $2
-    ]
     Resolve: [
       o 'Identifier'              , ->
         new yy.Expression('resolve', [$1])
@@ -389,6 +383,13 @@ exports.Grammar = Grammar =
 #        new yy.Expression '.', [$1, new yy.Expression('reference', [$3])]
       o 'Expression . Resolve' , ->
         new yy.Expression '.', [$1, $3]
+    ]
+    List: [
+      o 'Expression'          , -> [$1]
+      o 'List , Expression'   , -> [$1].concat $3
+    ]
+    Group: [
+      o '( List )'            , -> new yy.Expression 'group', $2
     ]
     Expression: [
       o 'Expression ? Expression : Expression', ->      # ternary conditional

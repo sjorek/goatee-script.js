@@ -127,18 +127,18 @@ exports.GoateeScriptTest = do ->
         test.ok(render(s) is '', "“#{s}” failed to render to “''”")
       test.done()
 
-    'expression with one or multiple collapsing “null” values': (test) ->
+    'expression with one or multiple “null” values': (test) ->
       statements = ['null', 'null;null', 'null;null;null']
       for s in statements
         test.ok(evaluate(s) is null, "“#{s}” failed to evaluate to “null”")
-        test.ok(render(s) is 'null', "“#{s}” failed to render to “'null'”")
+        test.ok(render(s) is s, "“#{s}” failed to render to “'null'”")
       test.done()
 
-    'expression with multiple collapsing “null” and “undefined” values': (test) ->
-      statements = [';;null;;', 'null;;null;;', 'null;/*;null;*/null;;']
+    'expression with multiple “null” and collapsing “undefined” values': (test) ->
+      statements = [';null;null;;', 'null;;null;;', 'null;/*;null;*/null;;']
       for s in statements
         test.ok(evaluate(s) is null, "“#{s}” failed to evaluate to “null”")
-        test.ok(render(s) is 'null', "“#{s}” failed to render to “'null'”")
+        test.ok(render(s) is 'null;null', "“#{s}” failed to render to “'null;null'”")
       test.done()
 
     'expression with primitives': (test) ->

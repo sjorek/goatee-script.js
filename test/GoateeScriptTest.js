@@ -193,23 +193,23 @@ OTHER DEALINGS IN THE SOFTWARE.
         }
         return test.done();
       },
-      'expression with one or multiple collapsing “null” values': function(test) {
+      'expression with one or multiple “null” values': function(test) {
         var s, statements, _i, _len;
         statements = ['null', 'null;null', 'null;null;null'];
         for (_i = 0, _len = statements.length; _i < _len; _i++) {
           s = statements[_i];
           test.ok(evaluate(s) === null, "“" + s + "” failed to evaluate to “null”");
-          test.ok(render(s) === 'null', "“" + s + "” failed to render to “'null'”");
+          test.ok(render(s) === s, "“" + s + "” failed to render to “'null'”");
         }
         return test.done();
       },
-      'expression with multiple collapsing “null” and “undefined” values': function(test) {
+      'expression with multiple “null” and collapsing “undefined” values': function(test) {
         var s, statements, _i, _len;
-        statements = [';;null;;', 'null;;null;;', 'null;/*;null;*/null;;'];
+        statements = [';null;null;;', 'null;;null;;', 'null;/*;null;*/null;;'];
         for (_i = 0, _len = statements.length; _i < _len; _i++) {
           s = statements[_i];
           test.ok(evaluate(s) === null, "“" + s + "” failed to evaluate to “null”");
-          test.ok(render(s) === 'null', "“" + s + "” failed to render to “'null'”");
+          test.ok(render(s) === 'null;null', "“" + s + "” failed to render to “'null;null'”");
         }
         return test.done();
       },

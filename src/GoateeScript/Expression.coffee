@@ -386,7 +386,6 @@ exports.Expression = class Expression
       evaluate: (a) ->
         v = this[a]
         if this is _variables
-          console.log 'early return'
           return v
         if _isProperty()
           return v if this.hasOwnProperty a
@@ -413,7 +412,15 @@ exports.Expression = class Expression
       evaluate: (a) -> a
     block:
       alias   : 'b'
-      format  : (s...) -> s.join(';').replace(/null(;null)+/g,'null')
+      format  : (s...) -> s.join(';') # .replace(/null(;null)+/g,'null')
+      evaluate: -> arguments[arguments.length-1]
+    group:
+      alias   : 'g'
+      format  : (s...) -> ("(#{s.join ','})") # .replace(/null(,null)+/g,'null')
+      evaluate: -> arguments[arguments.length-1]
+    list:
+      alias   : 'l'
+      format  : (s...) -> ("#{s.join ','}") # .replace(/null(,null)+/g,'null')
       evaluate: -> arguments[arguments.length-1]
     if:
       alias   : 'i'
@@ -502,7 +509,7 @@ exports.Expression = class Expression
       value = if _operations[key]? then _operations[key] else _operations[key] = {}
       value.format   ?= do ->
         k = key
-        (a,b) -> "(#{_format.call(this, a)}#{k}#{_stringify(b)})"
+        (a,b) -> "#{_format.call(this, a)}#{k}#{_stringify(b)}"
       if key.length is 1
         continue
       value.evaluate ?= do ->

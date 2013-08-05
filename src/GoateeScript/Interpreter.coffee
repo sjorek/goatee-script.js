@@ -309,7 +309,9 @@ exports.Interpreter = class Interpreter
   # @return Array.<Array,Object>
   Interpreter.compress = _compress = (ast, map = {}) ->
     code = for o in ast
-      if not o.length?
+      if not o?
+        '' + o
+      else if not o.length?
         o
       else if o.substring?
         if _aliasSymbol.exec o
