@@ -472,6 +472,26 @@ exports.Interpreter = class Interpreter
 
     "#{id}(#{parameters.join ','})"
 
+  _compile = (compress, operator, parameters...) ->
+
+    return JSON.stringify(operator) if parameters.length is 0
+
+    operation  = _operations[operator]
+    if isString operation
+      operator  = operation
+      operation = _operations[operator]
+
+    return JSON.stringify(parameters[0]) if operator is _primitive
+
+    id = if compress then operation.alias else "_['#{operator}']"
+    parameters = for parameter in parameters
+      if isArray parameter
+        _compile.apply(null, [compress].concat(parameter))
+      else
+        JSON.stringify(parameter)
+
+    "#{id}(#{parameters.join ','})"
+
   ##
   # @param  {String|Array} data, opcode-String or -Array
   # @param  {Boolean}      compress, default = true

@@ -196,6 +196,7 @@ exports.Repl = class Repl
             when 'r' then render    input, null, _options.flags.compress
 #            when 'e' then evaluate  input, context, variables
             else          evaluate  input, context, variables
+        output = JSON.stringify output if _options.flags.mode is 's'
         callback _prettyErrorMessage(error, filename, input, yes), output
       catch error
         callback _prettyErrorMessage(error, filename, input, yes)

@@ -88,8 +88,8 @@ exports.Command = class Command
         metavar: 'MODE'
         abbr: 'm',
         default: 'eval',
-        choices: ['compile', 'c', 'eval', 'e', 'print', 'p', 'render', 'r']
-        help: 'set execution-mode to [e]valuate, [r]ender, [c]ompile or [p]rint given statements'
+        choices: ['compile', 'c', 'evaluate', 'eval', 'e', 'print', 'p', 'render', 'r', 'stringify', 'string', 's']
+        help: 'set execution-mode to [c]ompile, [e]valuate, [p]rint, [r]ender or [s]tringify given statements'
       })
       .option('compress', {
         abbr: 'c',
@@ -136,10 +136,13 @@ exports.Command = class Command
 
   execute = () ->
     switch opts.mode
-      when 'compile', 'c' then compile    statements, null, opts.compress
-      when 'print'  , 'p' then stringify  statements, null, opts.compress
-      when 'render' , 'r' then render     statements, null, opts.compress
-      when 'eval'   , 'e' then evaluate   statements
+      when 'compile'  , 'c' then compile    statements, null, opts.compress
+      when 'print'    , 'p' then stringify  statements, null, opts.compress
+      when 'render'   , 'r' then render     statements, null, opts.compress
+      when 'stringify', \
+           'string'   , 's' then JSON.stringify evaluate statements
+      when 'evaluate' , \
+           'eval'     , 'e' then evaluate statements
       else throw new Error 'Unknown execution-mode given.'
 
   # Run `goatee-script` by parsing passed options and determining what action to

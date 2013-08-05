@@ -51,7 +51,10 @@ exports.Expression = class Expression
   _callback     = null
 
   # reference to Expression.operations.reference.format
-  _format       = null
+  _reference    = null
+
+  # a wrapper around Expression.operations.reference.format
+  _variable     = null
 
   # reference to Expression.operations.reference.evaluate
   _resolve      = null
@@ -371,7 +374,7 @@ exports.Expression = class Expression
 #      evaluate: -> this
     context:
       alias   : 'c'
-      format  : (a) -> a
+      format  : (a) -> if a is "$" then "_global" else "_variables"
       vector  : false
       evaluate: (a) -> _context.call(this, a)
     resolve:
@@ -381,20 +384,27 @@ exports.Expression = class Expression
       evaluate: (a) -> this[a]
     reference:
       alias : 'R'
-      format: (a) -> "_resolve.call(this, #{JSON.stringify a}).#{a}"
+      format: (a) ->
+        if a is "this"
+          "this"
+        else
+          "_resolve(this, #{JSON.stringify a}).#{a}"
       vector  : false
       evaluate: (a) ->
-        v = this[a]
-        if this is _variables
-          return v
-        if _isProperty()
-          return v if this.hasOwnProperty a
+        if a is "this"
+          this
         else
-          return _variables[a] if _variables.hasOwnProperty a
-          #  walk the context stack from top to bottom looking for value
-          for c in _scope by -1 when c.hasOwnProperty a
-            return c[a]
-        v
+          v = this[a]
+          if this is _variables
+            return v
+          if _isProperty()
+            return v if this.hasOwnProperty a
+          else
+            return _variables[a] if _variables.hasOwnProperty a
+            #  walk the context stack from top to bottom looking for value
+            for c in _scope by -1 when c.hasOwnProperty a
+              return c[a]
+          v
     #children:
     #  alias   : 'C'
     #  format  : -> '*'
@@ -463,7 +473,10 @@ exports.Expression = class Expression
 
   do ->
 
-    _format     = _operations.reference.format
+    _reference  = _operations.reference.format
+    _variable   = (a) ->
+      _reference.call(this, a).replace(/^_resolve/,'_variable')
+
     _resolve    = _operations.reference.evaluate
     _assignment = _operations['='].evaluate
 
@@ -478,7 +491,7 @@ exports.Expression = class Expression
       _operations[key] =
         format: do ->
           k = key
-          (a,b) -> if b then "#{_format.call(this, a)}#{k}" else "#{k}#{_format.call(this, a)}"
+          (a,b) -> if b then "#{_variable.call(this, a)}#{k}" else "#{k}#{_variable.call(this, a)}"
         evaluate: do ->
           i = if key is "++" then +1 else -1
           (a,b) ->
@@ -509,9 +522,7 @@ exports.Expression = class Expression
       value = if _operations[key]? then _operations[key] else _operations[key] = {}
       value.format   ?= do ->
         k = key
-        (a,b) -> "#{_format.call(this, a)}#{k}#{_stringify(b)}"
-      if key.length is 1
-        continue
+        (a,b) -> "#{_variable.call(this, a)}#{k}#{_stringify(b)}"
       value.evaluate ?= do ->
         _op = _operations[key.substring 0, key.length - 1].evaluate
         (a,b) -> _assignment a, _op(_resolve.call(this, a), b)

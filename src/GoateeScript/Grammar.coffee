@@ -88,6 +88,7 @@ exports.Grammar = Grammar =
       r /instanceof\b/            , -> 'INSTANCEOF'
       r /yield\b/                 , -> 'YIELD'
 
+      r /this\b/                  , -> 'THIS'
       r /[@$]/                    , -> 'CONTEXT'
       r /[$_a-zA-Z]\w*/           , -> 'REFERENCE'
       # identifier has to come AFTER reserved words
@@ -217,6 +218,10 @@ exports.Grammar = Grammar =
       r 'Statements EOF'            , ->
         if $1 is yy.Empty then new yy.Expression 'primitive', [undefined] else $1
     ]
+    Identifier: [
+      o 'THIS'
+      o 'REFERENCE'
+    ]
     Statements: [
       o 'Seperator Seperated Seperator', -> $2
       o 'Seperator Seperated'          , -> $2
@@ -293,9 +298,9 @@ exports.Grammar = Grammar =
       o "--"
     ]
     Assignment: [
-      o "IncDec REFERENCE"                       , ->
+      o "IncDec Identifier"                       , ->
         new yy.Expression $1, [$2, 0]
-      o "REFERENCE IncDec"                       , ->
+      o "Identifier IncDec"                       , ->
         new yy.Expression $2, [$1, 1]
       aop '-='
       aop '+='
@@ -360,14 +365,14 @@ exports.Grammar = Grammar =
         new yy.Expression 'context', [$1[0]]            # only the first letter is used
     ]
     Reference: [
-      o 'REFERENCE'               , ->
+      o 'Identifier'               , ->
         new yy.Expression 'reference', [$1]
-      o 'Scope REFERENCE'         , ->                 # shorthand dot operator
+      o 'Scope REFERENCE'          , ->                 # shorthand dot operator
         new yy.Expression '.', [$1, new yy.Expression('resolve', [$2])]
       o 'Scope'
     ]
     Resolve: [
-      o 'REFERENCE'              , ->
+      o 'Identifier'              , ->
         new yy.Expression('resolve', [$1])
       o 'Resolve . REFERENCE'    , ->
         new yy.Expression('.', [$1, new yy.Expression('resolve', [$3])])
