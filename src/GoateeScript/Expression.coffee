@@ -422,24 +422,24 @@ exports.Expression = class Expression
       evaluate: (a) -> a
     block:
       alias   : 'b'
-      format  : (s...) -> s.join(';') # .replace(/null(;null)+/g,'null')
-      evaluate: -> arguments[arguments.length-1]
-    group:
-      alias   : 'g'
-      format  : (s...) -> ("(#{s.join ','})") # .replace(/null(,null)+/g,'null')
+      format  : (s...) -> s.join ';'
       evaluate: -> arguments[arguments.length-1]
     list:
       alias   : 'l'
-      format  : (s...) -> ("#{s.join ','}") # .replace(/null(,null)+/g,'null')
+      format  : (s...) -> "#{s.join ','}"
       evaluate: -> arguments[arguments.length-1]
+    group:
+      alias   : 'g'
+      format  : (l) -> "(#{l})"
+      evaluate: (l) -> _execute this, l
     if:
       alias   : 'i'
       raw     : true
       format  : (a,b,c) ->
         if c?
-          "if (#{a}) {#{b}} else {#{c}}"
+          "if #{a} {#{b}} else {#{c}}"
         else
-          "if (#{a}) {#{b}}"
+          "if #{a} {#{b}}"
       evaluate: (a,b,c) ->
         if _booleanize _execute(this, a)
           _execute this, b
@@ -450,7 +450,7 @@ exports.Expression = class Expression
     #for:
     #  alias   : 'f'
     #  raw     : true
-    #  format  : (a,b) -> "for (#{a}) {#{b}}"
+    #  format  : (a,b) -> "for #{a} {#{b}}"
     #  evaluate: (a,b) ->
     #    a = _execute this, a
     #    return undefined unless a?

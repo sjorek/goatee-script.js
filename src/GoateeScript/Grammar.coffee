@@ -38,12 +38,6 @@ o = (patternString, action, options) ->
     action = if match = unwrap.exec action then match[1] else "(#{action}())"
     [patternString, "$$ = #{action};", options]
 
-# e like empty or `function() { return yy.Empty; }`
-e = -> yy.Empty
-
-# s like skip, a shortcut for `r('Rules…',e)`
-s = (patternString) -> r patternString, e
-
 #  assignment operation shortcut
 aop = (op) -> o "REFERENCE #{op} Expression", ->
   new yy.Expression $2, [$1, $3]
@@ -216,28 +210,22 @@ exports.Grammar = Grammar =
   # ----------------------
 
   startSymbol : 'Script'
-  #startSymbol : 'Map'
+#  startSymbol : 'Map'
 
   bnf:
     # The **Script** is the top-level node in the syntax tree.
     # Since we parse bottom-up, all parsing must end here.
     Script: [
-      r 'End'                       , ->
-        new yy.Expression 'scalar', [undefined]
+      r 'End'                       , -> new yy.Expression 'scalar', [undefined]
       r 'Statements End'            , -> $1
-        # if $1 is yy.Empty then new yy.Expression 'scalar', [undefined] else $1
       r 'Seperator Statements End'  , -> $2
-        # if $2 is yy.Empty then new yy.Expression 'scalar', [undefined] else $2
     ]
     # The **Map** is the top-level node in the syntax tree.
     # Since we parse bottom-up, all parsing must end here.
     Map: [
-      r 'End'                       , ->
-        new yy.Expression 'scalar', [undefined]
-      r 'Rules End'                 , ->
-        new yy.Expression 'block', $1
-      r 'Seperator Rules End'       , ->
-        new yy.Expression 'block', $2
+      r 'End'                       , -> new yy.Expression 'scalar', [undefined]
+      r 'Rules End'                 , -> $1
+      r 'Seperator Rules End'       , -> $2
     ]
     End: [
       r 'EOF'
@@ -257,11 +245,22 @@ exports.Grammar = Grammar =
           new yy.Expression 'block', [$1, $3]
     ]
     Rules: [
-      o 'Rule'                          , -> [$1]
-      o 'Rules Seperator Rule'          , -> $1.concat $3
+      o 'Rule'
+      o 'Rules Seperator Rule'          , ->
+        if $1.operator.name is 'block'
+          $1.parameters.push $3
+          $1
+        else
+          new yy.Expression 'block', [$1, $3]
     ]
     Rule: [
-      o 'REFERENCE : Statement'         , -> new yy.Expression '=', [$1,$3]
+      o 'REFERENCE : List'              , ->
+        new yy.Expression '=', [$1,
+          if $3.operator.name is 'list'
+            new yy.Expression 'group', [$3]
+          else
+            $3
+        ]
     ]
     Seperator: [
       r ';'
@@ -277,7 +276,7 @@ exports.Grammar = Grammar =
       o 'Parameters , Expression'   , -> $1.concat $3
     ]
     Key: [
-      o 'Primitive'
+      o 'Scalar'
       o 'REFERENCE'
     ]
     KeyValues: [
@@ -300,19 +299,21 @@ exports.Grammar = Grammar =
     Block: [
       o '{ Seperator }'             , -> new yy.Expression 'scalar', [undefined]
       o '{ Statements }'            , -> $2
-        # if $2 is yy.Empty then new yy.Expression 'scalar', [undefined] else $2
       o '{ Statements Seperator }'  , -> $2
-        # if $2 is yy.Empty then new yy.Expression 'scalar', [undefined] else $2
     ]
     Conditional: [
-      o 'IF ( Expression ) Block ELSE Conditional' , ->
-        new yy.Expression 'if',  [$3,$5,$7]
-      o 'IF ( Expression ) Block ELSE Block'       , ->
-        new yy.Expression 'if',  [$3,$5,$7]
-      o 'IF ( Expression ) Block'                  , ->
-        new yy.Expression 'if',  [$3,$5]
-      #o 'FOR ( Expression ) Block'                 , ->
-      #  new yy.Expression 'for', [$2,$3]
+      o 'IF Group Block ELSE Conditional' , ->
+        new yy.Expression 'if',  [$2,$3,$5]
+      o 'IF Group Block ELSE Block'     , ->
+        new yy.Expression 'if',  [$2,$3,$5]
+      o 'IF Group Block'                , ->
+        new yy.Expression 'if',  [$2,$3]
+      o 'IF Group THEN Expression ELSE Statement' , ->
+        new yy.Expression 'if',  [$2,$4,$6]
+      o 'IF Group THEN Statement'       , ->
+        new yy.Expression 'if',  [$2,$4]
+#      o 'FOR Expression Block'                 , ->
+#        new yy.Expression 'for', [$2,$3]
     ]
     IncDec: [
       o "++"
@@ -336,7 +337,7 @@ exports.Grammar = Grammar =
       aop '|='
       aop '='
     ]
-    Primitive: [
+    Scalar: [
       o 'NUMBER'                    , -> Number($1)
       o '+ NUMBER'                  , -> + Number($2)
       o '- NUMBER'                  , -> - Number($2)
@@ -378,8 +379,8 @@ exports.Grammar = Grammar =
     Literal: [
       o 'Object'                                        # object literal
       o 'Array'                                         # array literal
-      o 'Primitive'                , ->                 # number, boolean,
-        new yy.Expression 'scalar',  [$1]            # string, null, undefined
+      o 'Scalar'                   , ->                 # number, boolean,
+        new yy.Expression 'scalar',  [$1]               # string, null, undefined
     ]
     Scope: [
       o 'CONTEXT'                  , ->                 # global or local
@@ -397,11 +398,16 @@ exports.Grammar = Grammar =
         new yy.Expression '.', [$1, new yy.Expression('property', [$3])]
     ]
     List: [
-      o 'Expression'          , -> [$1]
-      o 'List , Expression'   , -> $1.concat $3
+      o 'Statement'
+      o 'List , Statement'        , ->
+        if $1.operator.name is 'list'
+          $1.parameters.push $3
+          $1
+        else
+          new yy.Expression 'list', [$1, $3]
     ]
     Group: [
-      o '( List )'            , -> new yy.Expression 'group', $2
+      o '( List )'                , -> new yy.Expression 'group', [$2]
     ]
     Expression: [
       o 'Expression ? Expression : Expression', ->      # ternary conditional

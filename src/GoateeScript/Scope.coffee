@@ -27,12 +27,7 @@ exports.Scope =
   Expression  : Expression
 
   ##
-  # @type {Object}
-  Empty       : {operator:{name:'empty'}}
-
-  ##
   # @param {String} s
   # @return String
   escapeString: (s) ->
-    return "" if s.length <= 2
-    s.slice(1, s.length-1) # .replace(/\\\n/,'').replace(/\\([^xubfnvrt0])/g, '$1')
+    if s.length < 3 then "" else s.slice(1, s.length-1) # .replace(/\\\n/,'').replace(/\\([^xubfnvrt0])/g, '$1')
