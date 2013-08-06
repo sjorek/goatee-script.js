@@ -308,10 +308,16 @@ exports.Grammar = Grammar =
         new yy.Expression 'if',  [$2,$3,$5]
       o 'IF Group Block'                , ->
         new yy.Expression 'if',  [$2,$3]
-      o 'IF Group THEN Expression ELSE Statement' , ->
-        new yy.Expression 'if',  [$2,$4,$6]
-      o 'IF Group THEN Statement'       , ->
-        new yy.Expression 'if',  [$2,$4]
+      o 'IF Expression THEN Expression ELSE Statement' , ->
+        if $2.operator.name is 'group'
+          new yy.Expression 'if',  [$2,$4,$6]
+        else
+          new yy.Expression 'if',  [new yy.Expression('group', [$2]),$4,$6]
+      o 'IF Expression THEN Statement'       , ->
+        if $2.operator.name is 'group'
+          new yy.Expression 'if',  [$2,$4]
+        else
+          new yy.Expression 'if',  [new yy.Expression('group', [$2]),$4]
 #      o 'FOR Expression Block'                 , ->
 #        new yy.Expression 'for', [$2,$3]
     ]
