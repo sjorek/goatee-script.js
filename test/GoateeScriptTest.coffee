@@ -141,7 +141,7 @@ exports.GoateeScriptTest = do ->
         test.ok(render(s) is 'null;null', "“#{s}” failed to render to “'null;null'”")
       test.done()
 
-    'expression with primitives': (test) ->
+    'expression with scalar values (primitives)': (test) ->
 
       @check test, "5", 5
       @check test, "'5'", '5'
@@ -272,7 +272,7 @@ exports.GoateeScriptTest = do ->
 #        """, [ 116, 121.14000000000001, 387.75, 11.97 ]
       test.done()
 
-    'expression with conditionals for deliberate early termination': (test) ->
+    'expression with early terminating conditionals': (test) ->
       # check early termination of OR
       @data.dynamic = 0
       @check test, "increment(10) || increment(20); dynamic;", 10
@@ -284,7 +284,7 @@ exports.GoateeScriptTest = do ->
       @check test, "false ? increment(10) : increment(20); dynamic;", 20
       test.done()
 
-    'expression with primitive assignments': (test) ->
+    'expression with all mathematical assignments': (test) ->
       @check test, """
       variable = 40 + 5;  /* = 45 */
       variable *= 10;     /* = 450 */

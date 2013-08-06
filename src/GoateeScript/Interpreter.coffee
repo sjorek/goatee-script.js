@@ -35,7 +35,7 @@ exports.Interpreter = class Interpreter
 
   _aliasSymbol = /^[a-zA-Z$_]$/
   _operations = Expression.operations
-  _primitive  = _operations.primitive.name
+  _scalar     = _operations.scalar.name
   _reference  = _operations.reference.name
 
     # "YZ$_" => reserved, see below
@@ -351,7 +351,7 @@ exports.Interpreter = class Interpreter
   _toExpression = (opcode) ->
     _len = 0
     unless opcode? or (_len = opcode.length or 0) > 1 or isArray opcode
-      return new Expression 'primitive', \
+      return new Expression 'scalar', \
         if _len is 0 then [if opcode? then opcode else null] else opcode
 
     parameters = [].concat(opcode,)
@@ -397,7 +397,7 @@ exports.Interpreter = class Interpreter
   # @return Object.<String:op,Array:parameters>
   Interpreter.save = \
   _save = (expression, callback, compress = true) ->
-    if compress and expression.operator.name is _primitive
+    if compress and expression.operator.name is _scalar
       return expression.parameters
     opcode = [
       if compress and expression.operator.alias? \
@@ -461,7 +461,7 @@ exports.Interpreter = class Interpreter
       operator  = operation
       operation = _operations[operator]
 
-    return JSON.stringify(parameters[0]) if operator is _primitive
+    return JSON.stringify(parameters[0]) if operator is _scalar
 
     id = if compress then operation.alias else "_['#{operator}']"
     parameters = for parameter in parameters
@@ -481,7 +481,7 @@ exports.Interpreter = class Interpreter
       operator  = operation
       operation = _operations[operator]
 
-    return JSON.stringify(parameters[0]) if operator is _primitive
+    return JSON.stringify(parameters[0]) if operator is _scalar
 
     id = if compress then operation.alias else "_['#{operator}']"
     parameters = for parameter in parameters

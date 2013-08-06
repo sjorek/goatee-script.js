@@ -41,8 +41,8 @@ exports.Expression = class Expression
   _parser       = null
   _context      = (c) -> { '$':_global, '@':_variables }[c]
 
-  # reference to Expression.operations.primitive.name
-  _primitive    = null
+  # reference to Expression.operations.scalar.name
+  _scalar       = null
 
   # reference to Expression.operations['.'].name
   _property     = null
@@ -377,8 +377,8 @@ exports.Expression = class Expression
       format  : (a) -> if a is "$" then "_global" else "_variables"
       vector  : false
       evaluate: (a) -> _context.call(this, a)
-    resolve:
-      alias   : 'r'
+    property:
+      alias   : 'p'
       format  : (a) -> a
       vector  : false
       evaluate: (a) -> this[a]
@@ -414,8 +414,8 @@ exports.Expression = class Expression
     #      _.clone @
     #    else
     #      _.values @
-    primitive:
-      alias   : 'p'
+    scalar:
+      alias   : 's'
       constant: true
       vector  : false
       format  : (a) -> if a is undefined then '' else JSON.stringify a
@@ -535,7 +535,7 @@ exports.Expression = class Expression
       if value.alias? and not _operations[value.alias]?
         _operations[value.alias] = key
 
-    _primitive = _operations.primitive.name
+    _scalar    = _operations.scalar.name
     _property  = _operations['.'].name
 
     return
@@ -572,9 +572,9 @@ exports.Expression = class Expression
           break
 
     #  if this expression is a constant then we pre-evaluate it now
-    #  and just return a primitive expression with the result
-    if @constant and @operator.name isnt _primitive
-      return new Expression 'primitive', [ @evaluate _global ]
+    #  and just return a scalar expression with the result
+    if @constant and @operator.name isnt _scalar
+      return new Expression 'scalar', [ @evaluate _global ]
 
     #  otherwise return this expression
     return

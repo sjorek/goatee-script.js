@@ -213,7 +213,7 @@ OTHER DEALINGS IN THE SOFTWARE.
         }
         return test.done();
       },
-      'expression with primitives': function(test) {
+      'expression with scalar values (primitives)': function(test) {
         this.check(test, "5", 5);
         this.check(test, "'5'", '5');
         this.check(test, "1 + 2", 3);
@@ -294,7 +294,7 @@ OTHER DEALINGS IN THE SOFTWARE.
       'expression with “for”-loop and multiline statements': function(test) {
         return test.done();
       },
-      'expression with conditionals for deliberate early termination': function(test) {
+      'expression with early terminating conditionals': function(test) {
         this.data.dynamic = 0;
         this.check(test, "increment(10) || increment(20); dynamic;", 10);
         this.data.dynamic = 0;
@@ -303,7 +303,7 @@ OTHER DEALINGS IN THE SOFTWARE.
         this.check(test, "false ? increment(10) : increment(20); dynamic;", 20);
         return test.done();
       },
-      'expression with primitive assignments': function(test) {
+      'expression with all mathematical assignments': function(test) {
         this.check(test, "variable = 40 + 5;  /* = 45 */\nvariable *= 10;     /* = 450 */\nvariable /= 5;      /* = 90 */\nvariable -= 40;     /* = 50 */\nvariable += 15;     /* = 65 */\nvariable++    ;     /* = 66 */\nvariable--    ;     /* = 65 */\n++variable    ;     /* = 66 */\n--variable    ;     /* = 65 */", 65);
         return test.done();
       },
