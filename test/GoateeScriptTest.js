@@ -259,9 +259,9 @@ OTHER DEALINGS IN THE SOFTWARE.
         return test.done();
       },
       'expression with context references': function(test) {
-        this.check(test, "$", this.data);
         this.check(test, "@", this.data);
-        this.check(test, "test = 1 ; _", {
+        this.check(test, "$$", this.data);
+        this.check(test, "test = 1 ; _$", {
           test: 1
         });
         this.check(test, "children[favoriteChild]", this.data.children.pat);
@@ -313,7 +313,7 @@ OTHER DEALINGS IN THE SOFTWARE.
         return test.done();
       },
       'expression with local variable and context property having the same name': function(test) {
-        this.check(test, "favoriteChild = 'Kris';\nfavoriteChild + $favoriteChild;", "Krispat");
+        this.check(test, "favoriteChild = 'Kris';\nfavoriteChild + $$favoriteChild;", "Krispat");
         return test.done();
       }
     };

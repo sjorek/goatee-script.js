@@ -374,12 +374,12 @@ exports.Expression = class Expression
     context:
       alias   : 'c'
       format  : (a) -> switch a
-        when "$" then "_global"
-        when "_" then "_variables"
+        when "$$" then "_global"
+        when "_$" then "_variables"
         when "@" then "this"
         else a
       vector  : false
-      evaluate: (c) -> { '$':_global, '_':_variables, '@':this }[c]
+      evaluate: (c) -> { '$$':_global, '_$':_variables, '@':this }[c]
     property:
       alias   : 'p'
       format  : (a) -> a

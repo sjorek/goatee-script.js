@@ -90,7 +90,7 @@ exports.Grammar = Grammar =
 
       r /this\b/                  , -> 'THIS'
       r /[@]/                     , -> 'SELF'
-      r /[$_]/                    , -> 'CONTEXT'
+      r /[$_][$]/                 , -> 'CONTEXT'
       r /[$_a-zA-Z]\w*/           , -> 'REFERENCE'
       # identifier has to come AFTER reserved words
 
@@ -221,13 +221,13 @@ exports.Grammar = Grammar =
       r 'Statements End'            , -> $1
       r 'Seperator Statements End'  , -> $2
     ]
-    # The **Map** is the top-level node in the syntax tree.
-    # Since we parse bottom-up, all parsing must end here.
-    Map: [
-      r 'End'                       , -> new yy.Expression 'scalar', [undefined]
-      r 'Rules End'                 , -> $1
-      r 'Seperator Rules End'       , -> $2
-    ]
+#    # The **Map** is the top-level node in the syntax tree.
+#    # Since we parse bottom-up, all parsing must end here.
+#    Map: [
+#      r 'End'                       , -> new yy.Expression 'scalar', [undefined]
+#      r 'Rules End'                 , -> $1
+#      r 'Seperator Rules End'       , -> $2
+#    ]
     End: [
       r 'EOF'
       r 'Seperator EOF'
@@ -245,24 +245,24 @@ exports.Grammar = Grammar =
         else
           new yy.Expression 'block', [$1, $3]
     ]
-    Rules: [
-      o 'Rule'
-      o 'Rules Seperator Rule'          , ->
-        if $1.operator.name is 'block'
-          $1.parameters.push $3
-          $1
-        else
-          new yy.Expression 'block', [$1, $3]
-    ]
-    Rule: [
-      o 'REFERENCE : List'              , ->
-        new yy.Expression '=', [$1,
-          if $3.operator.name is 'list'
-            new yy.Expression 'group', [$3]
-          else
-            $3
-        ]
-    ]
+#    Rules: [
+#      o 'Rule'
+#      o 'Rules Seperator Rule'          , ->
+#        if $1.operator.name is 'block'
+#          $1.parameters.push $3
+#          $1
+#        else
+#          new yy.Expression 'block', [$1, $3]
+#    ]
+#    Rule: [
+#      o 'REFERENCE : List'              , ->
+#        new yy.Expression '=', [$1,
+#          if $3.operator.name is 'list'
+#            new yy.Expression 'group', [$3]
+#          else
+#            $3
+#        ]
+#    ]
     Seperator: [
       r ';'
       r 'Seperator ;'
@@ -398,9 +398,9 @@ exports.Grammar = Grammar =
     ]
     Scope: [
       o 'CONTEXT'                   , ->                # global or local
-        new yy.Expression 'context', [$1[0]]            # only the first letter is used
+        new yy.Expression 'context', [$1]               # only the first letter is used
       o 'SELF'                      , ->                # this
-        new yy.Expression 'context', [$1[0]]            # only the first letter is used
+        new yy.Expression 'context', [$1]               # only the first letter is used
     ]
     Reference: [
       o 'Identifier'              , ->
