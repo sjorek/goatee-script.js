@@ -260,7 +260,8 @@ OTHER DEALINGS IN THE SOFTWARE.
       },
       'expression with context references': function(test) {
         this.check(test, "$", this.data);
-        this.check(test, "test = 1 ; @", {
+        this.check(test, "@", this.data);
+        this.check(test, "test = 1 ; _", {
           test: 1
         });
         this.check(test, "children[favoriteChild]", this.data.children.pat);

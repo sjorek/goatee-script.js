@@ -39,7 +39,6 @@ exports.Expression = class Expression
   _variables    = null
   _operations   = null
   _parser       = null
-  _context      = (c) -> { '$':_global, '@':_variables }[c]
 
   # reference to Expression.operations.scalar.name
   _scalar       = null
@@ -374,9 +373,13 @@ exports.Expression = class Expression
 #      evaluate: -> this
     context:
       alias   : 'c'
-      format  : (a) -> if a is "$" then "_global" else "_variables"
+      format  : (a) -> switch a
+        when "$" then "_global"
+        when "_" then "_variables"
+        when "@" then "this"
+        else a
       vector  : false
-      evaluate: (a) -> _context.call(this, a)
+      evaluate: (c) -> { '$':_global, '_':_variables, '@':this }[c]
     property:
       alias   : 'p'
       format  : (a) -> a

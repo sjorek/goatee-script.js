@@ -217,7 +217,8 @@ exports.GoateeScriptTest = do ->
     'expression with context references': (test) ->
       # test root references
       @check test, "$", @data
-      @check test, "test = 1 ; @", {test:1}
+      @check test, "@", @data
+      @check test, "test = 1 ; _", {test:1}
 
 #      @check test, "children.*{name == favoriteChild}[0]", @data.children.pat
       # or more concisely

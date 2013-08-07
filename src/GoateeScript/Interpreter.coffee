@@ -226,7 +226,6 @@ exports.Interpreter = class Interpreter
     unwrap  = /^function\s*\(([^\)]*)\)\s*\{\s*(\S[\s\S]*[;|\}])\s*\}$/
     pattern = [
       /(\s|\n)+/g                 , ' '
-      /_context.call\(this, a\)/g , "{'$$':_global,'@':_variables}[a]"
       /_assignment/g              , _operations['='].alias
       /_reference/g               , _operations.reference.alias
       /_global/g                  , runtime.global.alias

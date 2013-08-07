@@ -89,7 +89,8 @@ exports.Grammar = Grammar =
       r /yield\b/                 , -> 'YIELD'
 
       r /this\b/                  , -> 'THIS'
-      r /[@$]/                    , -> 'CONTEXT'
+      r /[@]/                     , -> 'SELF'
+      r /[$_]/                    , -> 'CONTEXT'
       r /[$_a-zA-Z]\w*/           , -> 'REFERENCE'
       # identifier has to come AFTER reserved words
 
@@ -277,7 +278,8 @@ exports.Grammar = Grammar =
     ]
     Key: [
       o 'Scalar'
-      o 'REFERENCE'
+      o 'Primitive'
+      o 'Property'
     ]
     KeyValues: [
       o 'Key : Expression'          , -> [$1,$3]
@@ -308,16 +310,18 @@ exports.Grammar = Grammar =
         new yy.Expression 'if',  [$2,$3,$5]
       o 'IF Group Block'                , ->
         new yy.Expression 'if',  [$2,$3]
-      o 'IF Expression THEN Expression ELSE Statement' , ->
-        if $2.operator.name is 'group'
-          new yy.Expression 'if',  [$2,$4,$6]
-        else
-          new yy.Expression 'if',  [new yy.Expression('group', [$2]),$4,$6]
-      o 'IF Expression THEN Statement'       , ->
-        if $2.operator.name is 'group'
-          new yy.Expression 'if',  [$2,$4]
-        else
-          new yy.Expression 'if',  [new yy.Expression('group', [$2]),$4]
+# THEN and ELSE conflict with Property and Reference
+#      o 'IF Expression THEN Expression ELSE Statement' , ->
+#        if $2.operator.name is 'group'
+#          new yy.Expression 'if',  [$2,$4,$6]
+#        else
+#          new yy.Expression 'if',  [new yy.Expression('group', [$2]),$4,$6]
+#      o 'IF Expression THEN Statement'       , ->
+#        if $2.operator.name is 'group'
+#          new yy.Expression 'if',  [$2,$4]
+#        else
+#          new yy.Expression 'if',  [new yy.Expression('group', [$2]),$4]
+
 #      o 'FOR Expression Block'                 , ->
 #        new yy.Expression 'for', [$2,$3]
     ]
@@ -347,10 +351,12 @@ exports.Grammar = Grammar =
       o 'NUMBER'                    , -> Number($1)
       o '+ NUMBER'                  , -> + Number($2)
       o '- NUMBER'                  , -> - Number($2)
+      o 'STRING'                    , -> yy.escapeString($1)
+    ]
+    Primitive: [
       o 'NULL'                      , -> null
       o 'TRUE'                      , -> true
       o 'FALSE'                     , -> false
-      o 'STRING'                    , -> yy.escapeString($1)
     ]
     Operation: [
       # Mathemetical operations
@@ -385,23 +391,49 @@ exports.Grammar = Grammar =
     Literal: [
       o 'Object'                                        # object literal
       o 'Array'                                         # array literal
-      o 'Scalar'                   , ->                 # number, boolean,
-        new yy.Expression 'scalar',  [$1]               # string, null, undefined
+      o 'Scalar'                    , ->                # number, string
+        new yy.Expression 'scalar',  [$1]
+      o 'Primitive'                 , ->                # boolean, null
+        new yy.Expression 'scalar',  [$1]
     ]
     Scope: [
-      o 'CONTEXT'                  , ->                 # global or local
+      o 'CONTEXT'                   , ->                # global or local
+        new yy.Expression 'context', [$1[0]]            # only the first letter is used
+      o 'SELF'                      , ->                # this
         new yy.Expression 'context', [$1[0]]            # only the first letter is used
     ]
     Reference: [
-      o 'Identifier'               , ->
+      o 'Identifier'              , ->
         new yy.Expression 'reference', [$1]
-      o 'Scope REFERENCE'          , ->                 # shorthand dot operator
+      o 'Scope Property'          , ->                  # shorthand dot operator
         new yy.Expression '.', [$1, new yy.Expression('property', [$2])]
       o 'Scope'
     ]
     Property: [
-      o 'Expression . REFERENCE' , ->
+      o 'THIS'
+      o 'IF'
+      o 'THEN'
+      o 'ELSE'
+      o 'YIELD'
+      o 'INSTANCEOF'
+      o 'VOID'
+      o 'TYPEOF'
+      o 'NEW'
+      o 'RETURN'
+      o 'CONTEXT'
+      o 'REFERENCE'
+      o 'CONTEXT Property'        , -> "#{$1}#{$2}"
+      o 'CONTEXT Primitive'       , -> "#{$1}#{$2}"
+    ]
+    Chain: [
+      o 'Expression . Primitive'  , ->
         new yy.Expression '.', [$1, new yy.Expression('property', [$3])]
+      o 'Expression . Property'   , ->
+        new yy.Expression '.', [$1, new yy.Expression('property', [$3])]
+#      o 'Expression . THEN'   , ->
+#        new yy.Expression '.', [$1, new yy.Expression('property', [$3])]
+#      o 'Expression . ELSE'   , ->
+#        new yy.Expression '.', [$1, new yy.Expression('property', [$3])]
     ]
     List: [
       o 'Statement'
@@ -426,7 +458,7 @@ exports.Grammar = Grammar =
       o 'Reference'
       o 'Literal'
       o 'Operation'
-      o 'Property'
+      o 'Chain'
       o 'Group'
     ]
 
