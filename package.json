@@ -22,7 +22,7 @@
     "goatee-script": "./bin/goatee-script"
   },
   "scripts": {
-    "test": "./node_modules/.bin/nodeunit test"
+    "test": "PATH=$PATH:./node_modules/.bin nodeunit ./test/*.js"
   },
   "homepage":     "http://goatee.org/goatee-script",
   "bugs":         "https://github.com/sjorek/goatee-script/issues",
@@ -34,6 +34,7 @@
     "nomnom": "~1.6"
   },
   "devDependencies": {
+    "coffee-script": "~1.6",
     "jison": "~0.4",
     "benchmark": "~1.0",
     "nodeunit": "~0.8"

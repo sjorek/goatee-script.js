@@ -27,7 +27,7 @@ OTHER DEALINGS IN THE SOFTWARE.
 
 
 (function() {
-  var Benchmark, evaluate, isArray, parse, render, _ref;
+  var Benchmark, GoateeScriptTest, evaluate, isArray, parse, render, _ref;
 
   Benchmark = require('benchmark');
 
@@ -35,140 +35,134 @@ OTHER DEALINGS IN THE SOFTWARE.
 
   isArray = require('../lib/GoateeScript/Utility').Utility.isArray;
 
-  exports.GoateeScriptTest = (function() {
-    return exports.GoateeScriptTest = {
+  module.exports = GoateeScriptTest = (function() {
+    return GoateeScriptTest = {
       setUp: function(callback) {
         var self, sum;
         self = this;
-        if (this.data == null) {
-          this.data = {
-            clothes: [
-              {
-                name: 'Shirt',
-                sizes: ['S', 'M', 'L'],
-                price: 14.50,
-                quantity: 8
-              }, {
-                name: 'Pants',
-                sizes: [29, 30, 31, 32],
-                price: 20.19,
-                quantity: 6
-              }, {
-                name: 'Shoes',
-                sizes: [8, 9, 10],
-                price: 25.85,
-                quantity: 15
-              }, {
-                name: 'Ties',
-                sizes: [2],
-                price: 3.99,
-                quantity: 3
-              }
-            ],
-            codes: {
-              alpha: {
-                discount: 10,
-                items: 4
-              },
-              beta: {
-                discount: 20,
-                items: 2
-              },
-              charlie: {
-                discount: 30,
-                items: 1
-              }
+        this.data = {
+          clothes: [
+            {
+              name: 'Shirt',
+              sizes: ['S', 'M', 'L'],
+              price: 14.50,
+              quantity: 8
+            }, {
+              name: 'Pants',
+              sizes: [29, 30, 31, 32],
+              price: 20.19,
+              quantity: 6
+            }, {
+              name: 'Shoes',
+              sizes: [8, 9, 10],
+              price: 25.85,
+              quantity: 15
+            }, {
+              name: 'Ties',
+              sizes: [2],
+              price: 3.99,
+              quantity: 3
+            }
+          ],
+          codes: {
+            alpha: {
+              discount: 10,
+              items: 4
             },
-            favoriteChild: 'pat',
-            children: {
-              pat: {
-                name: 'pat',
-                age: 28,
-                children: {
-                  jay: {
-                    name: 'jay',
-                    age: 4
-                  },
-                  bob: {
-                    name: 'bob',
-                    age: 8
-                  }
-                }
-              },
-              skip: {
-                name: 'skip',
-                age: 30,
-                children: {
-                  joe: {
-                    name: 'joe',
-                    age: 7
-                  }
+            beta: {
+              discount: 20,
+              items: 2
+            },
+            charlie: {
+              discount: 30,
+              items: 1
+            }
+          },
+          favoriteChild: 'pat',
+          children: {
+            pat: {
+              name: 'pat',
+              age: 28,
+              children: {
+                jay: {
+                  name: 'jay',
+                  age: 4
+                },
+                bob: {
+                  name: 'bob',
+                  age: 8
                 }
               }
             },
-            dynamic: 0,
-            increment: function(count) {
-              return this.dynamic += count;
-            },
-            min: function(a, b) {
-              if (b == null) {
-                return a;
-              }
-              if (a == null) {
-                return b;
-              }
-              if (a.valueOf() <= b.valueOf()) {
-                return a;
-              } else {
-                return b;
-              }
-            },
-            max: function(a, b) {
-              if (b == null) {
-                return a;
-              }
-              if (a == null) {
-                return b;
-              }
-              if (a.valueOf() >= b.valueOf()) {
-                return a;
-              } else {
-                return b;
-              }
-            },
-            sum: sum = function(a) {
-              var item, number, total, _i, _len;
-              if (a == null) {
-                return 0;
-              }
-              if (isArray(a)) {
-                total = 0;
-                for (_i = 0, _len = a.length; _i < _len; _i++) {
-                  item = a[_i];
-                  total += sum(item);
+            skip: {
+              name: 'skip',
+              age: 30,
+              children: {
+                joe: {
+                  name: 'joe',
+                  age: 7
                 }
-                return total;
-              }
-              number = Number(a);
-              if (isNaN(number)) {
-                return 0;
-              } else {
-                return number;
               }
             }
-          };
-        }
-        if (this.benchmark == null) {
-          this.benchmark = new Benchmark.Suite;
-        }
-        if (this.check == null) {
-          this.check = function(test, code, expected) {
-            var expression;
-            expression = parse(code);
-            return test.equal(JSON.stringify(expected), JSON.stringify(expression.evaluate(self.data)));
-          };
-        }
-        return callback();
+          },
+          dynamic: 0,
+          increment: function(count) {
+            return this.dynamic += count;
+          },
+          min: function(a, b) {
+            if (b == null) {
+              return a;
+            }
+            if (a == null) {
+              return b;
+            }
+            if (a.valueOf() <= b.valueOf()) {
+              return a;
+            } else {
+              return b;
+            }
+          },
+          max: function(a, b) {
+            if (b == null) {
+              return a;
+            }
+            if (a == null) {
+              return b;
+            }
+            if (a.valueOf() >= b.valueOf()) {
+              return a;
+            } else {
+              return b;
+            }
+          },
+          sum: sum = function(a) {
+            var item, number, total, _i, _len;
+            if (a == null) {
+              return 0;
+            }
+            if (isArray(a)) {
+              total = 0;
+              for (_i = 0, _len = a.length; _i < _len; _i++) {
+                item = a[_i];
+                total += sum(item);
+              }
+              return total;
+            }
+            number = Number(a);
+            if (isNaN(number)) {
+              return 0;
+            } else {
+              return number;
+            }
+          }
+        };
+        this.benchmark = new Benchmark.Suite;
+        this.check = function(test, code, expected) {
+          var expression;
+          expression = parse(code);
+          return test.equal(JSON.stringify(expected), JSON.stringify(expression.evaluate(self.data)));
+        };
+        callback();
       },
       'can add two positive numbers': function(test) {
         test.equal(evaluate('1+1'), 2);

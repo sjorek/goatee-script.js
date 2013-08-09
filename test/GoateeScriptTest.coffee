@@ -35,13 +35,14 @@ Benchmark = require 'benchmark'
 }} = require '../lib/GoateeScript/Utility'
 
 
-exports.GoateeScriptTest = do ->
+module.exports = GoateeScriptTest = do ->
 
-  return exports.GoateeScriptTest =
+  return GoateeScriptTest =
+
     setUp: (callback) ->
       self = @
 
-      @data      ?=
+      @data      =
         clothes: [
           { name: 'Shirt', sizes: ['S','M','L'], price:14.50, quantity: 8 }
           { name: 'Pants', sizes: [29,30,31,32], price:20.19, quantity: 6  }
@@ -85,14 +86,15 @@ exports.GoateeScriptTest = do ->
           number = Number a
           if isNaN number then 0 else number
 
-      @benchmark ?= new Benchmark.Suite
+      @benchmark = new Benchmark.Suite
 
-      @check     ?= (test, code, expected) ->
+      @check     = (test, code, expected) ->
         expression = parse code
         test.equal JSON.stringify(expected), \
                    JSON.stringify(expression.evaluate(self.data))
 
       callback()
+      return
 
     'can add two positive numbers': (test) ->
       test.equal(evaluate('1+1'), 2)
