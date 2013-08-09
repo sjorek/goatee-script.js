@@ -22,7 +22,7 @@
     "goatee-script": "./bin/goatee-script"
   },
   "scripts": {
-    "test": "PATH=$PATH:./node_modules/.bin nodeunit ./test/*.js"
+    "test": "PATH=$PATH:./node_modules/.bin jasmine-node --growl --coffee --color --verbose ./test/*.js"
   },
   "homepage":     "http://goatee.org/goatee-script",
   "bugs":         "https://github.com/sjorek/goatee-script/issues",
@@ -37,7 +37,7 @@
     "coffee-script": "~1.6",
     "jison": "~0.4",
     "benchmark": "~1.0",
-    "nodeunit": "~0.8"
+    "jasmine-node": "~1.11"
   },
   "readmeFilename": "README.md"
 }

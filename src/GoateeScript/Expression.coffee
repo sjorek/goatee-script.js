@@ -384,7 +384,11 @@ exports.Expression = class Expression
       alias   : 'p'
       format  : (a) -> a
       vector  : false
-      evaluate: (a) -> this[a]
+      evaluate: (a) ->
+        if a is "constructor" or a is "__proto__" or a is "prototype"
+          undefined
+        else
+          this[a]
     reference:
       alias : 'R'
       format: (a) ->
@@ -396,6 +400,8 @@ exports.Expression = class Expression
       evaluate: (a) ->
         if a is "this"
           this
+        else if a is "constructor" or a is "__proto__" or a is "prototype"
+          undefined
         else
           v = this[a]
           if this is _variables
