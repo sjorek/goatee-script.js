@@ -31,3 +31,15 @@ exports.Scope =
   # @return String
   escapeString: (s) ->
     if s.length < 3 then "" else s.slice(1, s.length-1) # .replace(/\\\n/,'').replace(/\\([^xubfnvrt0])/g, '$1')
+
+  ##
+  # @param {String} s
+  # @return String
+  addElse: do ->
+    a = (i, e) ->
+      if i.parameters.length is 3
+        a(i.parameters[2], e)
+      else
+        i.parameters.push e
+      i
+    a

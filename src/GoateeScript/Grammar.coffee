@@ -63,36 +63,42 @@ exports.Grammar = Grammar =
       """
   lex:
     rules: [
-      r /\s+/                     , ->
-      r /0[xX][a-fA-F0-9]+\b/     , -> 'NUMBER'
+      r /\s+/                                   # ignore white-spaces
+      r /0x[a-fA-F0-9]+\b/        , -> 'NUMBER' # hexadecimal
       r ///
         ([1-9][0-9]+|[0-9])
         (\.[0-9]+)?
         ([eE][-+]?[0-9]+)?
         \b
-        ///                       , -> 'NUMBER'
+        ///                       , -> 'NUMBER' # decimal
+
       # constants
       r /null\b/                  , -> 'NULL'
       r /true\b/                  , -> 'TRUE'
       r /false\b/                 , -> 'FALSE'
+
       # control flow statements
       r /if\b/                    , -> 'IF'
       r /then\b/                  , -> 'THEN'
       r /else\b/                  , -> 'ELSE'
       #r /for\b/                   , -> 'FOR'
+
+      # the following reserved word are not allowed and
+      # raise exceptions if used in the wrong place
       r /return\b/                , -> 'RETURN'
-      # operational statements
       r /new\b/                   , -> 'NEW'
       r /typeof\b/                , -> 'TYPEOF'
       r /void\b/                  , -> 'VOID'
       r /instanceof\b/            , -> 'INSTANCEOF'
       r /yield\b/                 , -> 'YIELD'
+      r /constructor\b/           , -> 'CONSTRUCTOR'
+      r /(__proto__|prototype)\b/ , -> 'PROTOTYPE'
 
+      # identifier has to come AFTER reserved words
       r /this\b/                  , -> 'THIS'
       r /[@]/                     , -> 'SELF'
       r /[$_][$]/                 , -> 'CONTEXT'
       r /[$_a-zA-Z]\w*/           , -> 'REFERENCE'
-      # identifier has to come AFTER reserved words
 
       # identifier above
       r ///
@@ -114,7 +120,7 @@ exports.Grammar = Grammar =
         )*
         '
         ///                       , -> 'STRING'
-      r /\/\*(?:.|[\r\n])*?\*\//  , ->
+      r /\/\*(?:.|[\r\n])*?\*\//                  # ignore multiline-comments
       # operators below
 
       r /\./                      , -> '.'
@@ -303,37 +309,23 @@ exports.Grammar = Grammar =
       o '{ Statements }'            , -> $2
       o '{ Statements Seperator }'  , -> $2
     ]
-    Conditional: [
-      o 'IF Group Block ELSE Conditional' , ->
-        new yy.Expression 'if',  [$2,$3,$5]
-      o 'IF Group Block ELSE Block'     , ->
-        new yy.Expression 'if',  [$2,$3,$5]
-      o 'IF Group Block'                , ->
+    If: [
+      o 'IF Group Block'            , ->
         new yy.Expression 'if',  [$2,$3]
-# THEN and ELSE conflict with Property and Reference
-#      o 'IF Expression THEN Expression ELSE Statement' , ->
-#        if $2.operator.name is 'group'
-#          new yy.Expression 'if',  [$2,$4,$6]
-#        else
-#          new yy.Expression 'if',  [new yy.Expression('group', [$2]),$4,$6]
-#      o 'IF Expression THEN Statement'       , ->
-#        if $2.operator.name is 'group'
-#          new yy.Expression 'if',  [$2,$4]
-#        else
-#          new yy.Expression 'if',  [new yy.Expression('group', [$2]),$4]
-
-#      o 'FOR Expression Block'                 , ->
-#        new yy.Expression 'for', [$2,$3]
+      o 'If ELSE IF Group Block'    , ->
+        yy.addElse $1, new yy.Expression('if', [$4,$5])
+    ]
+    Conditional: [
+      o 'If'
+      o 'If ELSE Block'             , -> yy.addElse $1, $3
     ]
     IncDec: [
       o "++"
       o "--"
     ]
     Assignment: [
-      o "IncDec Identifier"                       , ->
-        new yy.Expression $1, [$2, 0]
-      o "Identifier IncDec"                       , ->
-        new yy.Expression $2, [$1, 1]
+      o "IncDec Identifier"         , -> new yy.Expression $1, [$2, 0]
+      o "Identifier IncDec"         , -> new yy.Expression $2, [$1, 1]
       aop '-='
       aop '+='
       aop '*='
@@ -391,9 +383,9 @@ exports.Grammar = Grammar =
     Literal: [
       o 'Object'                                        # object literal
       o 'Array'                                         # array literal
-      o 'Scalar'                    , ->                # number, string
-        new yy.Expression 'scalar',  [$1]
       o 'Primitive'                 , ->                # boolean, null
+        new yy.Expression 'scalar',  [$1]
+      o 'Scalar'                    , ->                # number, string
         new yy.Expression 'scalar',  [$1]
     ]
     Scope: [
@@ -410,6 +402,10 @@ exports.Grammar = Grammar =
       o 'Scope'
     ]
     Property: [
+      # CONSTRUCTOR and PROTOTYPE should be safe …
+      o 'CONSTRUCTOR'
+      o 'PROTOTYPE'
+      # … if not remove them here and adjust tests accordingly !
       o 'THIS'
       o 'IF'
       o 'THEN'
@@ -422,18 +418,14 @@ exports.Grammar = Grammar =
       o 'RETURN'
       o 'CONTEXT'
       o 'REFERENCE'
-      o 'CONTEXT Property'        , -> "#{$1}#{$2}"
-      o 'CONTEXT Primitive'       , -> "#{$1}#{$2}"
+      o 'CONTEXT Property'        , -> $1 + $2
+      o 'CONTEXT Primitive'       , -> $1 + $2
     ]
     Chain: [
       o 'Expression . Primitive'  , ->
         new yy.Expression '.', [$1, new yy.Expression('property', [$3])]
       o 'Expression . Property'   , ->
         new yy.Expression '.', [$1, new yy.Expression('property', [$3])]
-#      o 'Expression . THEN'   , ->
-#        new yy.Expression '.', [$1, new yy.Expression('property', [$3])]
-#      o 'Expression . ELSE'   , ->
-#        new yy.Expression '.', [$1, new yy.Expression('property', [$3])]
     ]
     List: [
       o 'Statement'
@@ -488,4 +480,13 @@ Grammar.tokens = do ->
 Grammar.createParser = (grammar = Grammar, scope = yy) ->
     parser = new Parser grammar
     parser.yy = scope
+#    lexer = parser.lexer
+#    lex   = lexer.lex
+#    set   = lexer.setInput
+#    lexer.lex = (args...) ->
+#      console.log 'lex', [lexer.match, lexer.matched]
+#      lex.apply(lexer,args)
+#    lexer.setInput = (args...) ->
+#      console.log 'set', args
+#      set.apply(lexer,args)
     parser

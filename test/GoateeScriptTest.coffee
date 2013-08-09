@@ -144,7 +144,6 @@ module.exports = GoateeScriptTest = do ->
       test.done()
 
     'expression with scalar values (primitives)': (test) ->
-
       @check test, "5", 5
       @check test, "'5'", '5'
       @check test, "1 + 2", 3
@@ -251,8 +250,9 @@ module.exports = GoateeScriptTest = do ->
       @check test, '{alpha:codes.alpha.discount,"beta":2,charlie:[3,2,codes.beta.discount]}', obj
       test.done()
 
-    'expression with “if”/“else” condition and multiline statements': (test) ->
-      # check multiline expressions
+    'expression with “if”/“else” conditions': (test) ->
+      # checks multiline expressions too
+      @data.dynamic = 0
       @check test, """
         if (codes != null) {
           increment(10);
@@ -262,6 +262,35 @@ module.exports = GoateeScriptTest = do ->
         };
         dynamic;
         """, 10
+      test.equal @data.dynamic, 10
+      test.done()
+
+    'expression with chained “if”/“else if”/“else” conditions': (test) ->
+      # checks multiline expressions too
+      code = """
+        if (0 === dynamic) {
+          increment(10);
+        }
+        else if (1 === dynamic) {
+          increment(19);
+        }
+        else {
+          increment(30 - dynamic);
+        };
+        dynamic;
+        """
+      @data.dynamic = 0
+      @check test, code, 10
+      test.equal @data.dynamic, 10
+
+      @data.dynamic = 1
+      @check test, code, 20
+      test.equal @data.dynamic, 20
+
+      @data.dynamic = 2
+      @check test, code, 30
+      test.equal @data.dynamic, 30
+
       test.done()
 
     'expression with “for”-loop and multiline statements': (test) ->
@@ -276,15 +305,22 @@ module.exports = GoateeScriptTest = do ->
       test.done()
 
     'expression with early terminating conditionals': (test) ->
+
       # check early termination of OR
       @data.dynamic = 0
       @check test, "increment(10) || increment(20); dynamic;", 10
+      test.equal @data.dynamic, 10
+
       # check early termination of AND
       @data.dynamic = 0
       @check test, "increment(0) && increment(20); dynamic;", 0
+      test.equal @data.dynamic, 0
+
       # check early termination of conditional
       @data.dynamic = 0
       @check test, "false ? increment(10) : increment(20); dynamic;", 20
+      test.equal @data.dynamic, 20
+
       test.done()
 
     'expression with all mathematical assignments': (test) ->

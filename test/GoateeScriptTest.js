@@ -282,8 +282,24 @@ OTHER DEALINGS IN THE SOFTWARE.
         this.check(test, '{alpha:codes.alpha.discount,"beta":2,charlie:[3,2,codes.beta.discount]}', obj);
         return test.done();
       },
-      'expression with “if”/“else” condition and multiline statements': function(test) {
+      'expression with “if”/“else” conditions': function(test) {
+        this.data.dynamic = 0;
         this.check(test, "if (codes != null) {\n  increment(10);\n}\nelse {\n  increment(20);\n};\ndynamic;", 10);
+        test.equal(this.data.dynamic, 10);
+        return test.done();
+      },
+      'expression with chained “if”/“else if”/“else” conditions': function(test) {
+        var code;
+        code = "if (0 === dynamic) {\n  increment(10);\n}\nelse if (1 === dynamic) {\n  increment(19);\n}\nelse {\n  increment(30 - dynamic);\n};\ndynamic;";
+        this.data.dynamic = 0;
+        this.check(test, code, 10);
+        test.equal(this.data.dynamic, 10);
+        this.data.dynamic = 1;
+        this.check(test, code, 20);
+        test.equal(this.data.dynamic, 20);
+        this.data.dynamic = 2;
+        this.check(test, code, 30);
+        test.equal(this.data.dynamic, 30);
         return test.done();
       },
       'expression with “for”-loop and multiline statements': function(test) {
@@ -292,10 +308,13 @@ OTHER DEALINGS IN THE SOFTWARE.
       'expression with early terminating conditionals': function(test) {
         this.data.dynamic = 0;
         this.check(test, "increment(10) || increment(20); dynamic;", 10);
+        test.equal(this.data.dynamic, 10);
         this.data.dynamic = 0;
         this.check(test, "increment(0) && increment(20); dynamic;", 0);
+        test.equal(this.data.dynamic, 0);
         this.data.dynamic = 0;
         this.check(test, "false ? increment(10) : increment(20); dynamic;", 20);
+        test.equal(this.data.dynamic, 20);
         return test.done();
       },
       'expression with all mathematical assignments': function(test) {
