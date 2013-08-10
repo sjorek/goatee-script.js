@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "Command.js",
+  "sourceRoot": "../../src",
+  "sources": [
+    "GoateeRules/Command.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAAA;;;;;;;;;;;;;;;;;;;;;;;;;CAAA;CAAA;CAAA;CAAA,KAAA,8CAAA;KAAA;oSAAA;;CAAA,CA8BA,CAAiB,GAAjB,CAAiB,CAAA;;CA9BjB,CA+BC,CAAgB,EA/BjB,EA+BiB,QAAA;;CA/BjB,CAiCA,CAAgB,IAAA,MAAhB,YAAgB;;CAjChB,CAmCA,CAA4B,CAnC5B,GAmCA;;CAnCA,CAwCA,CAAwB,IAAjB;CAEL;;CAAa,EAAA,CAAA,GAAA,UAAC;;CAAkB,EAAR,IAAA,CAAV,QAAU;QACtB;CAAA,KAAA,CAAA,kCAAM;CADR,IAAa;;CAAb,EAIa,CAAA,KAAC,EAAd;;CAA6B,EAAR,IAAA,CAAP;QACZ;CADW,GACX,SAAA,4BAAM;CALR,IAIa;;CAJb;;CAFsC;CAxCxC"
+}

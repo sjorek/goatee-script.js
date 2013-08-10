@@ -31,16 +31,6 @@ OTHER DEALINGS IN THE SOFTWARE.
 nomnom         = require 'nomnom'
 {spawn}        = require 'child_process'
 
-{GoateeScript:{
-  compile,
-  evaluate,
-  render,
-  stringify,
-  VERSION
-}}             = require '../GoateeScript'
-
-{Repl}         = require './Repl'
-
 exports = module?.exports ? this
 
 ##
@@ -48,19 +38,24 @@ exports = module?.exports ? this
 # @namespace GoateeScript
 exports.Command = class Command
 
-  printLine = (line) -> process.stdout.write line + '\n'
-  printWarn = (line) -> process.stderr.write line + '\n'
-
   # Top-level objects shared by all the functions.
-  opts         = {}
-  statements   = null
+  opts        = null
+  statements  = null
+
+  constructor : (@command = require('../GoateeScript').GoateeScript) ->
+
+  printLine   : (line) ->
+    process.stdout.write line + '\n'
+
+  printWarn   : (line) ->
+    process.stderr.write line + '\n'
 
   # Use the [nomnom](http://github.com/harthur/nomnom.git) to extract
   # all options from `process.argv` that are specified here.
-  parseOptions = ->
+  parseOptions: ->
     # The list of all the valid options that `goatee-script` knows.
     opts = nomnom
-      .script('goatee-script')
+      .script(@command.COMMAND)
       .option('statements', {
         list: true,
         type: 'string'
@@ -117,6 +112,7 @@ exports.Command = class Command
       .concat(if opts.run? then opts.run else [])
       #.concat(if opts._? then opts._ else [])
 
+
     opts.mode = opts.mode[0]
     opts.run ||= statements.length > 0
 
@@ -124,34 +120,39 @@ exports.Command = class Command
 
   # Start up a new Node.js instance with the arguments in `--nodejs` passed to
   # the `node` binary, preserving the other options.
-  forkNode = ->
+  forkNode    : ->
     spawn process.execPath, opts.nodejs,
       cwd:        process.cwd()
       env:        process.env
       customFds:  [0, 1, 2]
 
   # Print the `--version` message and exit.
-  version = ->
-    printLine "GoateeScript version #{VERSION}"
+  version     : ->
+    "#{@command.COMMAND} version #{@command.VERSION}"
 
-  execute = () ->
+  # Execute the given statements
+  execute     : ->
     switch opts.mode
-      when 'compile'  , 'c' then compile    statements, null, opts.compress
-      when 'print'    , 'p' then stringify  statements, null, opts.compress
-      when 'render'   , 'r' then render     statements, null, opts.compress
+      when 'compile'  , 'c' then @command.compile    statements, null, opts.compress
+      when 'print'    , 'p' then @command.stringify  statements, null, opts.compress
+      when 'render'   , 'r' then @command.render     statements, null, opts.compress
       when 'stringify', \
-           'string'   , 's' then JSON.stringify evaluate statements
+           'string'   , 's' then JSON.stringify @command.evaluate statements
       when 'evaluate' , \
-           'eval'     , 'e' then evaluate statements
+           'eval'     , 'e' then @command.evaluate statements
       else throw new Error 'Unknown execution-mode given.'
+
+  # Run the interactive read-execute-print-loop
+  interactive : (repl = require('./Repl').Repl) ->
+    repl.start(@command, opts)
 
   # Run `goatee-script` by parsing passed options and determining what action to
   # take. Flags passed after `--` will be passed verbatim to your script as
   # arguments in `process.argv`
-  Command.run = ->
-    parseOptions()
-    return forkNode()           if opts.nodejs
-    return version()            if opts.version
-    return Repl.start(opts)     if opts.interactive
-    return printLine execute()  if opts.run
-    Repl.start(opts)
+  run         : ->
+    @parseOptions()
+    return @forkNode()            if opts.nodejs
+    return @printLine @version()  if opts.version
+    return @interactive()         if opts.interactive
+    return @printLine @execute()  if opts.run
+    @interactive()

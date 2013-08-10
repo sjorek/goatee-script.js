@@ -164,11 +164,9 @@ exports.Repl = class Repl
         repl.displayPrompt()
 
   Repl.defaults = _options =
+    command: {}
     context: {}
     variables: {}
-    prompt: 'goatee> '
-    historyFile: path.join process.env.HOME, '.goatee_history' if process.env.HOME
-    historyMaxInputSize: 10240
     eval: (input, context, filename, callback) ->
       # XXX: multiline hack.
       input = input.replace /\uFF00/g, '\n'
@@ -176,9 +174,19 @@ exports.Repl = class Repl
       # parens. Unwrap all that.
       input = input.replace /^\(([\s\S]*)\n\)$/m, '$1'
 
-      context   = _options.context || context
-      variables = _options.variables || _options.variables={}
-      error   = []
+      context     = _options.context || context
+      variables   = _options.variables || _options.variables={}
+      error       = []
+      {
+        compile,
+        evaluate,
+        render,
+        stringify
+      }           = _options.command
+      {
+        mode,
+        compress
+      }           = _options.flags
 
       Expression.callback (expression, result, stack, errors) ->
         context['_'] = result
@@ -190,33 +198,38 @@ exports.Repl = class Repl
       try
         #callback null, vm.runInContext(js, context, filename)
         output =
-          switch _options.flags.mode
-            when 'c' then compile   input, null, _options.flags.compress
-            when 'p' then stringify input, null, _options.flags.compress
-            when 'r' then render    input, null, _options.flags.compress
+          switch mode
+            when 'c' then compile   input, null, compress
+            when 'p' then stringify input, null, compress
+            when 'r' then render    input, null, compress
 #            when 'e' then evaluate  input, context, variables
             else          evaluate  input, context, variables
-        output = JSON.stringify output if _options.flags.mode is 's'
+        output = JSON.stringify output if mode is 's'
         callback _prettyErrorMessage(error, filename, input, yes), output
       catch error
         callback _prettyErrorMessage(error, filename, input, yes)
       return
 
-  Repl.start = (flags = {}, options = _options) ->
+  Repl.start = (command, flags = {}, options = _options) ->
     [
       major, minor #, build
     ] = process.versions.node.split('.').map (n) -> parseInt(n)
 
     if major is 0 and minor < 10
-      console.warn "Node 0.10.0+ required for GoateeScript REPL"
+      console.warn "Node 0.10.0+ required for #{command.COMMAND} REPL"
       process.exit 1
 
     _options = options
-    _options.flags = flags
+    _options.command  = command
+    _options.flags    = flags
+    _options.prompt   = "#{command.COMMAND}> "
+    if process.env.HOME
+      _options.historyFile = path.join process.env.HOME, ".#{command.COMMAND}_history"
+      _options.historyMaxInputSize = 10240
 
     repl = NodeRepl.start options
     repl.on 'exit', -> repl.outputStream.write '\n'
     _addMultilineHandler repl
-    if options.historyFile
-      _addHistory repl, options.historyFile, options.historyMaxInputSize
+    if _options.historyFile?
+      _addHistory repl, _options.historyFile, _options.historyMaxInputSize
     repl

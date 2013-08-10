@@ -30,6 +30,7 @@ exports = module?.exports ? this
 # @namespace GoateeScript
 exports.GoateeScript = class GoateeScript
 
+  GoateeScript.COMMAND  = 'goatee-script'
   GoateeScript.VERSION  = '0.0.1'
 
   ##
