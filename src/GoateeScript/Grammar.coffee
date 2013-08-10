@@ -69,21 +69,18 @@ exports.Grammar = class Grammar
       bnf[name] = tokenize(name, alternatives)
     @tokens = tokens.join ' '
 
-  comment: 'Goatee Script Parser'
-
-  header: () ->
+  create: () ->
       """
-      /* #{@comment} */
+      /* Goatee Script Parser */
       (function() {
 
-      """
-  footer: ->
-      """
+      #{Grammar.createParser(this).generate()}
 
       parser.yy = require('./Scope').Scope;
 
       }).call(this);
       """
+
   lex:
     rules: [
       r /\s+/                                   # ignore white-spaces

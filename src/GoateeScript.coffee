@@ -30,7 +30,7 @@ exports = module?.exports ? this
 # @namespace GoateeScript
 exports.GoateeScript = class GoateeScript
 
-  GoateeScript.COMMAND    = 'goatee-script'
+  GoateeScript.NAME       = 'goatee-script'
   GoateeScript.VERSION    = '0.0.1'
 
   ##
@@ -39,7 +39,7 @@ exports.GoateeScript = class GoateeScript
   GoateeScript.parse      = do ->
     parse = null
     (code) ->
-      GoateeScript.parse = parse = require('./Parser').parse unless parse?
+      GoateeScript.parse = parse = require('./GoateeScript/Parser').parse unless parse?
       parse(code)
 
   ##
@@ -58,7 +58,7 @@ exports.GoateeScript = class GoateeScript
   GoateeScript.render     = do ->
     render = null
     (code) ->
-      GoateeScript.render = render = require('./Compiler').Compiler.render unless render?
+      GoateeScript.render = render = require('./GoateeScript/Compiler').Compiler.render unless render?
       render(code)
 
   ##
@@ -69,7 +69,7 @@ exports.GoateeScript = class GoateeScript
   GoateeScript.ast        = do ->
     ast = null
     (data, callback, compress) ->
-      GoateeScript.ast = ast = require('./Compiler').Compiler.ast unless ast?
+      GoateeScript.ast = ast = require('./GoateeScript/Compiler').Compiler.ast unless ast?
       ast(data, callback, compress)
 
   ##
@@ -80,7 +80,7 @@ exports.GoateeScript = class GoateeScript
   GoateeScript.stringify  = do ->
     stringify = null
     (data, callback, compress) ->
-      GoateeScript.stringify = stringify = require('./Compiler').Compiler.stringify unless stringify?
+      GoateeScript.stringify = stringify = require('./GoateeScript/Compiler').Compiler.stringify unless stringify?
       stringify(data, callback, compress)
 
   ##
@@ -91,5 +91,5 @@ exports.GoateeScript = class GoateeScript
   GoateeScript.compile    = do ->
     compile = null
     (data, callback, compress) ->
-      GoateeScript.compile = compile = require('./Compiler').Compiler.compile unless compile?
+      GoateeScript.compile = compile = require('./GoateeScript/Compiler').Compiler.compile unless compile?
       compile(data, callback, compress)

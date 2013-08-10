@@ -15,7 +15,8 @@
     "node": "~0.10"
   },
   "directories": {
-    "lib": "./lib"
+    "lib": "./lib",
+    "GoateeScript": "./lib/GoateeScript"
   },
   "main": "./lib/GoateeScript.js",
   "bin":          {

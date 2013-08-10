@@ -55,7 +55,7 @@ exports.Command = class Command
   parseOptions: ->
     # The list of all the valid options that `goatee-script` knows.
     opts = nomnom
-      .script(@command.COMMAND)
+      .script(@command.NAME)
       .option('statements', {
         list: true,
         type: 'string'
@@ -128,7 +128,7 @@ exports.Command = class Command
 
   # Print the `--version` message and exit.
   version     : ->
-    "#{@command.COMMAND} version #{@command.VERSION}"
+    "#{@command.NAME} version #{@command.VERSION}"
 
   # Execute the given statements
   execute     : ->

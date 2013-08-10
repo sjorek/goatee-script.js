@@ -216,15 +216,15 @@ exports.Repl = class Repl
     ] = process.versions.node.split('.').map (n) -> parseInt(n)
 
     if major is 0 and minor < 10
-      console.warn "Node 0.10.0+ required for #{command.COMMAND} REPL"
+      console.warn "Node 0.10.0+ required for #{command.NAME} REPL"
       process.exit 1
 
     _options = options
     _options.command  = command
     _options.flags    = flags
-    _options.prompt   = "#{command.COMMAND}> "
+    _options.prompt   = "#{command.NAME}> "
     if process.env.HOME
-      _options.historyFile = path.join process.env.HOME, ".#{command.COMMAND}_history"
+      _options.historyFile = path.join process.env.HOME, ".#{command.NAME}_history"
       _options.historyMaxInputSize = 10240
 
     repl = NodeRepl.start options
