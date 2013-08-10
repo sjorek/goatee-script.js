@@ -72,7 +72,7 @@ exports.Compiler = class Compiler
   # @param  {String}       code
   # @param  {Object|Array} map (optional)
   # @return String
-  _wrap = (code, map) ->
+  Compiler.wrap = _wrap = (code, map) ->
     if map?
       keys = if isArray map then map else (k for own k,v of map)
       args = if keys.length is 0 then '' else ",'" + keys.join("','") + "'"
@@ -90,25 +90,19 @@ exports.Compiler = class Compiler
     Function("return #{_wrap code}")()
 
   ##
-  # @param  {Array}      ast
+  # @param  {Array|String|Number|true|false|null} opcode ast
   # @return Expression
-  _toExpression = (opcode) ->
-    _len = 0
-    unless opcode? or (_len = opcode.length or 0) > 1 or isArray opcode
+  Compiler.toExpression = _toExpression = (opcode) ->
+    state = false
+    if not opcode? or not (state = isArray opcode) or 2 > (state = opcode.length)
       return new Expression 'scalar', \
-        if _len is 0 then [if opcode? then opcode else null] else opcode
+        if state then opcode else [if state is 0 then undefined else opcode]
 
-    parameters = [].concat(opcode,)
+    parameters = [].concat opcode
     operator   = parameters.shift()
     for value, index in parameters
       parameters[index] = if isArray value then _toExpression value else value
     new Expression(operator, parameters)
-
-  ##
-  # @param  {Array|String|Number|true|false|null} opcode
-  # @return Expression
-  Compiler.toExpression = (opcode = null) ->
-    _toExpression(opcode)
 
   ##
   # @param  {Array|String|Object} code, a String, opcode-Array or Object with
@@ -137,10 +131,10 @@ exports.Compiler = class Compiler
   ##
   # @param  {Expression} expression
   # @param  {Function}   callback (optional)
-  # @param  {Boolean}    compress, default is false
+  # @param  {Boolean}    compress, default is on
   # @return Object.<String:op,Array:parameters>
   Compiler.save = \
-  _save = (expression, callback, compress = true) ->
+  _save = (expression, callback, compress = on) ->
     if compress and expression.operator.name is _scalar
       return expression.parameters
     opcode = [
@@ -157,10 +151,10 @@ exports.Compiler = class Compiler
   ##
   # @param  {String|Expression} code, a String or an Expression
   # @param  {Function}          callback (optional)
-  # @param  {Boolean}           compress, default is true
+  # @param  {Boolean}           compress, default is on
   # @return {Array|String|Number|true|false|null}
   Compiler.ast = \
-  _ast = (data, callback, compress = true) ->
+  _ast = (data, callback, compress = on) ->
     expression = if isExpression data then data else _parse(data)
     ast = _save(expression, callback, compress)
     return if compress then _compress ast else ast
@@ -168,9 +162,9 @@ exports.Compiler = class Compiler
   ##
   # @param  {String|Expression} data
   # @param  {Function}          callback (optional)
-  # @param  {Boolean}           compress, default is true
+  # @param  {Boolean}           compress, default is on
   # @return {String}
-  Compiler.stringify = (data, callback, compress = true) ->
+  Compiler.stringify = (data, callback, compress = on) ->
     opcode = _ast(data, callback, compress)
     if compress
       "[#{opcode[0]},#{JSON.stringify opcode[1]}]"
@@ -180,9 +174,9 @@ exports.Compiler = class Compiler
   ##
   # @param  {String|Expression} data
   # @param  {Function}          callback (optional)
-  # @param  {Boolean}           compress, default is true
+  # @param  {Boolean}           compress, default is on
   # @return Function
-  Compiler.closure = (data, callback, compress = true, prefix) ->
+  Compiler.closure = (data, callback, compress = on, prefix) ->
     opcode = _ast(data, callback, compress)
     if compress
       code = _wrap.apply(null, opcode)
@@ -207,27 +201,7 @@ exports.Compiler = class Compiler
 
     return JSON.stringify(parameters[0]) if operator is _scalar
 
-    id = if compress then operation.alias else "_['#{operator}']"
-    parameters = for parameter in parameters
-      if isArray parameter
-        _compile.apply(null, [compress].concat(parameter))
-      else
-        JSON.stringify(parameter)
-
-    "#{id}(#{parameters.join ','})"
-
-  _compile = (compress, operator, parameters...) ->
-
-    return JSON.stringify(operator) if parameters.length is 0
-
-    operation  = _operations[operator]
-    if isString operation
-      operator  = operation
-      operation = _operations[operator]
-
-    return JSON.stringify(parameters[0]) if operator is _scalar
-
-    id = if compress then operation.alias else "_['#{operator}']"
+    id = if compress then operation.alias else "_[\"#{operator}\"]"
     parameters = for parameter in parameters
       if isArray parameter
         _compile.apply(null, [compress].concat(parameter))
@@ -240,7 +214,7 @@ exports.Compiler = class Compiler
   # @param  {String|Array} data, opcode-String or -Array
   # @param  {Boolean}      compress, default = true
   # @return String
-  Compiler.load = _load = (data, compress = true) ->
+  Compiler.load = _load = (data, compress = on) ->
     opcode = if isArray data then data else _expand(data)
     _compile.apply(null, [compress].concat(opcode))
 
@@ -249,6 +223,6 @@ exports.Compiler = class Compiler
   # @param  {Function}     callback (optional)
   # @param  {Boolean}      compress, default = true
   # @return String
-  Compiler.compile = (data, callback, compress = true) ->
+  Compiler.compile = (data, callback, compress = on) ->
     opcode = if isArray data then data else _ast(data, callback, false)
     _load(opcode, compress)

@@ -204,14 +204,14 @@ exports.Expression = class Expression
 #        if b then "#{_stringify(a)}++" else "++#{_stringify(a)}"
 #      evaluate: (a,b) ->
 #        c = _operations.reference.evaluate(a)
-#        _operations['='].evaluate(a, c + 1)
+#        _assignment.call(this, a, c + 1)
 #        if b then c else c + 1
 #    '--':
 #      format: (a,b) ->
 #        if b then "#{_stringify(a)}--" else "--#{_stringify(a)}"
 #      evaluate: (a,b) ->
 #        c = _operations.reference.evaluate(a)
-#        _operations['='].evaluate(a, c - 1)
+#        _assignment.call(this, a, c - 1)
 #        if b then c else c - 1
     ##
     # an object.property
@@ -407,7 +407,7 @@ exports.Expression = class Expression
         else
           this[a]
     reference:
-      alias : 'R'
+      alias : 'r'
       format: (a) ->
         if a is "this"
           "this"
@@ -551,7 +551,7 @@ exports.Expression = class Expression
         (a,b) -> "#{_variable.call(this, a)}#{k}#{_stringify(b)}"
       value.evaluate ?= do ->
         _op = _operations[key.substring 0, key.length - 1].evaluate
-        (a,b) -> _assignment a, _op(_resolve.call(this, a), b)
+        (a,b) -> _assignment.call this, a, _op(_resolve.call(this, a), b)
 
     for key, value of _operations
       value.name       = key
@@ -615,7 +615,12 @@ exports.Expression = class Expression
   # @return Object.<String:op,Array:parameters>
   toJSON: (callback) ->
     return callback this if callback
-    [@operator.name].concat @parameters
+    if @operator.name is 'scalar'
+      parameters = @parameters
+    else
+      parameters = for parameter in @parameters
+        if parameter.toJSON? then parameter.toJSON() else parameter
+    [@operator.name].concat parameters
 
   ##
   # @param {Object} context (optional)

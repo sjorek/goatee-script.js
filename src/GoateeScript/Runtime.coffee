@@ -15,6 +15,7 @@ permissions and limitations under the License.
 ###
 
 {Expression}    = require './Expression'
+
 {Utility:{
   arraySlice,
   bindFunction,
