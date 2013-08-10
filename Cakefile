@@ -14,6 +14,22 @@ log = (error, stdout, stderr) ->
   console.log stdout, stderr
   #console.log(error.message) if error?
 
+clean = (root) ->
+  try
+    files = fs.readdirSync root
+  catch e
+    log null, '', e.message
+    return
+  if  files.length > 0
+    for file in files
+      path = "#{root}/#{file}"
+      stat = fs.lstatSync path
+      if stat.isFile() or stat.isSymbolicLink()
+        fs.unlinkSync path
+      else
+        clean path
+  fs.rmdirSync root
+
 rebuild = false
 
 task 'all', 'invokes “clean”, “build” and “test” in given order', ->
@@ -23,17 +39,15 @@ task 'all', 'invokes “clean”, “build” and “test” in given order', ->
   invoke 'build'
   invoke 'test'
 
-task 'build', 'invokes build:once, build:parser and build:test in given order', ->
+task 'build', 'invokes “build:once” and “build:parser” in given order', ->
   console.log 'build'
   rebuild = true
   invoke 'build:once'
   invoke 'build:parser'
-  invoke 'build:test'
 
 task 'clean', 'cleans “lib/” and “test/” folders', ->
   console.log 'clean'
-  exec 'rm -rv lib/*', log
-  exec 'rm -v test/*.js test/*.map', log
+  clean 'lib'
 
 task 'build:watch', 'compile coffee-script in “src/” to javascript in “lib/” continiously', ->
   console.log 'build:watch'
@@ -42,10 +56,6 @@ task 'build:watch', 'compile coffee-script in “src/” to javascript in “lib
 task 'build:once', 'compile coffee-script in “src/” to javascript in “lib/” once', ->
   console.log 'build:once'
   spawn 'coffee', '-o ../lib/ -mc .'.split(' '), stdio: 'inherit', cwd: 'src'
-
-task 'build:test', 'compile coffee-script in “test/” to javascript in “test/” once', ->
-  console.log 'build:test'
-  spawn 'coffee', '-o . -mc .'.split(' '), stdio: 'inherit', cwd: 'test'
 
 task 'build:parser', 'rebuild the goatee-script parser; run at least “build:once” first!', ->
   console.log 'build:parser'
@@ -70,7 +80,7 @@ task 'build:parser', 'rebuild the goatee-script parser; run at least “build:on
 
 task 'test', 'run “build” task and tests in “tests/” afterwards', ->
   console.log 'test'
-  invoke 'build:test' if rebuild is false
+  invoke 'build' if rebuild is false
   spawn 'npm', ['test'], stdio: 'inherit', cwd: '.'
 
 option '-p', '--prefix [DIR]', 'set the installation prefix for `cake install`'

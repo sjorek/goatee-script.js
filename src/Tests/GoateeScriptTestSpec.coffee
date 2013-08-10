@@ -28,11 +28,11 @@ Benchmark = require 'benchmark'
 
 {GoateeScript:{
   evaluate, parse, render
-}} = require '../lib/GoateeScript'
+}} = require '../GoateeScript'
 
 {Utility:{
   isArray
-}} = require '../lib/GoateeScript/Utility'
+}} = require '../GoateeScript/Utility'
 
 
 #_         ?= null

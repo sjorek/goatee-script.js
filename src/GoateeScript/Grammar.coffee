@@ -274,8 +274,8 @@ exports.Grammar = Grammar =
       r 'Seperator ;'
     ]
     Statement: [
-      o 'Expression'
       o 'Conditional'
+      o 'Expression'
     ]
     Parameters: [
       o ''                          , -> []
