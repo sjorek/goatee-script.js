@@ -72,10 +72,11 @@ task 'build:parser', 'rebuild the goatee-script parser; run at least “build:on
       jsStat.mtime < csStat.mtime or jsStat.size < csStat.size)
     require 'jison' # TODO This seems to be important, have to figure out why !
     {Grammar} = require(cs.replace(/\.coffee$/,''))
+    grammar   = new Grammar
     fs.writeFileSync js, \
-      (Grammar.header(Grammar.comment) ? "") +
-      Grammar.createParser().generate() +
-      (Grammar.footer() ? "")
+      (grammar.header() ? "") +
+      Grammar.createParser(grammar).generate() +
+      (grammar.footer() ? "")
   try fs.unlinkSync map if rebuild is true or mapStat is true
 
 task 'test', 'run “build” task and tests in “tests/” afterwards', ->

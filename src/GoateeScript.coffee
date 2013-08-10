@@ -30,13 +30,13 @@ exports = module?.exports ? this
 # @namespace GoateeScript
 exports.GoateeScript = class GoateeScript
 
-  GoateeScript.COMMAND  = 'goatee-script'
-  GoateeScript.VERSION  = '0.0.1'
+  GoateeScript.COMMAND    = 'goatee-script'
+  GoateeScript.VERSION    = '0.0.1'
 
   ##
   # @param {String} code
   # @return Expression
-  GoateeScript.parse = _parse = do ->
+  GoateeScript.parse      = do ->
     parse = null
     (code) ->
       GoateeScript.parse = parse = require('./GoateeScript/Parser').parse unless parse?
@@ -49,13 +49,13 @@ exports.GoateeScript = class GoateeScript
   # @param {Array}  scope (optional)
   # @param {Array}  stack (optional)
   # @return mixed
-  GoateeScript.evaluate = (code, context, variables, scope, stack) ->
+  GoateeScript.evaluate   = (code, context, variables, scope, stack) ->
     GoateeScript.parse(code).evaluate(context, variables, scope, stack)
 
   ##
   # @param {String} code
   # @return String
-  GoateeScript.render = do ->
+  GoateeScript.render     = do ->
     render = null
     (code) ->
       GoateeScript.render = render = require('./GoateeScript/Compiler').Compiler.render unless render?
@@ -66,7 +66,7 @@ exports.GoateeScript = class GoateeScript
   # @param  {Function}          callback (optional)
   # @param  {Boolean}           compress, default is true
   # @return {Array|String|Number|true|false|null}
-  GoateeScript.ast      = do ->
+  GoateeScript.ast        = do ->
     ast = null
     (data, callback, compress) ->
       GoateeScript.ast = ast = require('./GoateeScript/Compiler').Compiler.ast unless ast?
@@ -77,7 +77,7 @@ exports.GoateeScript = class GoateeScript
   # @param  {Function}          callback (optional)
   # @param  {Boolean}           compress, default is true
   # @return String
-  GoateeScript.stringify = do ->
+  GoateeScript.stringify  = do ->
     stringify = null
     (data, callback, compress) ->
       GoateeScript.stringify = stringify = require('./GoateeScript/Compiler').Compiler.stringify unless stringify?
@@ -88,7 +88,7 @@ exports.GoateeScript = class GoateeScript
   # @param  {Function}     callback (optional)
   # @param  {Boolean}      compress, default = true
   # @return String
-  GoateeScript.compile = do ->
+  GoateeScript.compile    = do ->
     compile = null
     (data, callback, compress) ->
       GoateeScript.compile = compile = require('./GoateeScript/Compiler').Compiler.compile unless compile?

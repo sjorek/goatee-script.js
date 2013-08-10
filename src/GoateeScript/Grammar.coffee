@@ -19,38 +19,61 @@ yy       = require('./Scope').Scope
 
 exports = module?.exports ? this
 
-$1 = $2 = $3 = $4 = $5 = $6 = $7 = $8 = null
+exports.Grammar = class Grammar
 
-#  lifted from coffeescript http:#jashkenas.github.com/coffee-script/documentation/docs/grammar.html
-unwrap = /^function\s*\(\)\s*\{\s*return\s*([\s\S]*);\s*\}/
+  # Actually this is not needed, but it looks nicer ;-)
+  $1 = $2 = $3 = $4 = $5 = $6 = $7 = $8 = null
 
-# return
-r = (patternString, action) ->
-    if patternString.source?
-        patternString = patternString.source
-    return [patternString, 'return;'] unless action
-    action = if match = unwrap.exec action then match[1] else "(#{action}())"
-    [patternString, "return #{action};"]
+  #  lifted from coffeescript http:#jashkenas.github.com/coffee-script/documentation/docs/grammar.html
+  Grammar.unwrap = unwrap = /^function\s*\(\)\s*\{\s*return\s*([\s\S]*);\s*\}/
 
-# operation
-o = (patternString, action, options) ->
-    return [patternString, '$$ = $1;', options] unless action
-    action = if match = unwrap.exec action then match[1] else "(#{action}())"
-    [patternString, "$$ = #{action};", options]
+  # return
+  Grammar.r = r = (patternString, action) ->
+      if patternString.source?
+          patternString = patternString.source
+      return [patternString, 'return;'] unless action
+      action = if match = unwrap.exec action then match[1] else "(#{action}())"
+      [patternString, "return #{action};"]
 
-#  assignment operation shortcut
-aop = (op) -> o "REFERENCE #{op} Expression", ->
-  new yy.Expression $2, [$1, $3]
+  # operation
+  Grammar.o = o = (patternString, action, options) ->
+      return [patternString, '$$ = $1;', options] unless action
+      action = if match = unwrap.exec action then match[1] else "(#{action}())"
+      [patternString, "$$ = #{action};", options]
 
-#  binary operation shortcut
-bop = (op) -> o "Expression #{op} Expression", ->
-  new yy.Expression $2, [$1, $3]
+  #  assignment operation shortcut
+  Grammar.aop = aop = (op) -> o "REFERENCE #{op} Expression", ->
+    new yy.Expression $2, [$1, $3]
 
-exports.Grammar = Grammar =
-  comment: 'Goatee Expression Parser'
-  header: (comment) ->
+  #  binary operation shortcut
+  Grammar.bop = bop = (op) -> o "Expression #{op} Expression", ->
+    new yy.Expression $2, [$1, $3]
+
+  ##
+  # Now that we have our **Grammar.bnf** and our **Grammar.operators**, so
+  # we can create our **Jison.Parser**.  We do this by processing all of our
+  # rules, recording all terminals (every symbol which does not appear as the
+  # name of a rule above) as "tokens".
+  constructor: () ->
+    bnf = @bnf
+    tokens = []
+    known = {}
+    tokenize = (name, alternatives) ->
+      for alt in alternatives
+        for token in alt[0].split ' '
+          tokens.push token if not bnf[token]? and not known[token]?
+          known[token] = true
+        alt[1] = "#{alt[1]}" if name is @startSymbol
+        alt
+    for own name, alternatives of bnf
+      bnf[name] = tokenize(name, alternatives)
+    @tokens = tokens.join ' '
+
+  comment: 'Goatee Script Parser'
+
+  header: () ->
       """
-      /* #{comment} */
+      /* #{@comment} */
       (function() {
 
       """
@@ -241,7 +264,6 @@ exports.Grammar = Grammar =
   # ----------------------
 
   startSymbol : 'Script'
-#  startSymbol : 'Map'
 
   bnf:
     # The **Script** is the top-level node in the syntax tree.
@@ -250,21 +272,6 @@ exports.Grammar = Grammar =
       r 'End'                       , -> new yy.Expression 'scalar', [undefined]
       r 'Statements End'            , -> $1
       r 'Seperator Statements End'  , -> $2
-    ]
-#    # The **Map** is the top-level node in the syntax tree.
-#    # Since we parse bottom-up, all parsing must end here.
-#    Map: [
-#      r 'End'                       , -> new yy.Expression 'scalar', [undefined]
-#      r 'Rules End'                 , -> $1
-#      r 'Seperator Rules End'       , -> $2
-#    ]
-    End: [
-      r 'EOF'
-      r 'Seperator EOF'
-    ]
-    Identifier: [
-      o 'THIS'
-      o 'REFERENCE'
     ]
     Statements: [
       o 'Statement'
@@ -275,24 +282,14 @@ exports.Grammar = Grammar =
         else
           new yy.Expression 'block', [$1, $3]
     ]
-#    Rules: [
-#      o 'Rule'
-#      o 'Rules Seperator Rule'          , ->
-#        if $1.operator.name is 'block'
-#          $1.parameters.push $3
-#          $1
-#        else
-#          new yy.Expression 'block', [$1, $3]
-#    ]
-#    Rule: [
-#      o 'REFERENCE : List'              , ->
-#        new yy.Expression '=', [$1,
-#          if $3.operator.name is 'list'
-#            new yy.Expression 'group', [$3]
-#          else
-#            $3
-#        ]
-#    ]
+    End: [
+      r 'EOF'
+      r 'Seperator EOF'
+    ]
+    Identifier: [
+      o 'THIS'
+      o 'REFERENCE'
+    ]
     Seperator: [
       r ';'
       r 'Seperator ;'
@@ -478,30 +475,10 @@ exports.Grammar = Grammar =
       o 'Group'
     ]
 
-# Wrapping Up
-# -----------
-
-# Finally, now that we have our **Grammar.bnf** and our **Grammar.operators**,
-# we can create our **Jison.Parser**.  We do this by processing all of our
-# rules, recording all terminals (every symbol which does not appear as the
-# name of a rule above) as "tokens".
-Grammar.tokens = do ->
-  tokens = []
-  bnf = Grammar.bnf
-  known = {}
-  tokenize = (name, alternatives) ->
-    for alt in alternatives
-      for token in alt[0].split ' '
-        tokens.push token if not bnf[token]? and not known[token]?
-        known[token] = true
-      alt[1] = "#{alt[1]}" if name is 'Script'
-      alt
-  for own name, alternatives of bnf
-    bnf[name] = tokenize(name, alternatives)
-  tokens.join ' '
+  tokens : null
 
 # Initialize the **Parser** with our **Grammar**
-Grammar.createParser = (grammar = Grammar, scope = yy) ->
+Grammar.createParser = (grammar = new Grammar, scope = yy) ->
     parser = new Parser grammar
     parser.yy = scope
 #    lexer = parser.lexer

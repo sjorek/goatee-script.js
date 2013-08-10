@@ -83,7 +83,7 @@ exports.Utility = class Utility
   # @param  {String}     code
   # @return {Expression}
   Utility.parse = \
-  Utility.parseExpression = do ->
+  Utility.parseScript = do ->
     cache  = {}
     (code) ->
       return cache[code] if cache.hasOwnProperty(code)
