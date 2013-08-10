@@ -108,8 +108,8 @@ exports.Compiler = class Compiler
   # @param  {Array|String|Object} code, a String, opcode-Array or Object with
   #                               toString method
   # @return Expression
-  Compiler.parse = _parse = (code) ->
-    return parse(code) if isString code
+  Compiler.parse = _parse = (code, _impl = parse) ->
+    return _impl(code) if isString code
     _toExpression(code)
 
   ##
