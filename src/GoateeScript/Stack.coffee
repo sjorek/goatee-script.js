@@ -22,27 +22,26 @@ exports = module?.exports ? this
 # @namespace GoateeScript
 exports.Stack = class Stack
 
-  global     : undefined
-  variables  : null
-  stack      : null
-  scope      : null
-  operations : null
+  global      : undefined
+  local       : null
+  stack       : null
+  scope       : null
 
-  constructor: (@global = global, @variables = {}, @scope = [], @stack = []) ->
+  constructor : (@global = global, @local = {}, @scope = [], @stack = []) ->
 
-  destructor : () ->
-    @global    = undefined
-    @variables = null
-    @scope     = null
-    @stack     = null
+  destructor  : () ->
+    @global = undefined
+    @local  = null
+    @scope  = null
+    @stack  = null
 
-  current    : ->
+  current     : ->
     if @stack.length > 0 then @stack[@stack.length - 1] else undefined
 
-  parent     : ->
+  parent      : ->
     if @stack.length > 1 then @stack[@stack.length - 2] else undefined
 
-  push       : (context, expression) ->
+  push        : (context, expression) ->
     @scope.push context
     @stack.push expression
     return

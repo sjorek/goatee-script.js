@@ -75,10 +75,10 @@ exports.Interpreter = class Interpreter
         alias       : if index is 0 then '_g' else aliases[--index]
         code        : 'null'
 
-      variables     :
-        name        : 'variables'
-        alias       : if index is 0 then '_v' else aliases[--index]
-        code        : '{}'
+      local         :
+        name        : 'local'
+        alias       : if index is 0 then '_l' else aliases[--index]
+        code        : 'null'
 
       stack         :
         name        : 'stack'
@@ -99,16 +99,16 @@ exports.Interpreter = class Interpreter
                         if(!(isFunction(e) && e.name)){return e;}
                         g = _global === null ? _evaluate : false;
                         if (g) {
-                          _global = c||{};
-                          _variables = v||{};
-                          _scope=_||_scope.length = 0||_scope;
-                          _stack=$||_stack.length = 0||_stack;
+                          _global   = c||{};
+                          _local    = v||{};
+                          _scope    = _||_scope.length = 0||_scope;
+                          _stack    = $||_stack.length = 0||_stack;
                           _evaluate = _execute;
                         };
                         r = _execute(c,e);
                         if (g) {
-                          _global    = null;
-                          _evaluate  = g;
+                          _global   = null;
+                          _evaluate = g;
                         };
                         return r;
                       }
@@ -134,12 +134,12 @@ exports.Interpreter = class Interpreter
                       """
         evaluate    : Expression.execute
 
-      call        :
+      call          :
         name        : 'call'
         alias       : if index is 0 then 'ca' else aliases[--index]
         code        : 'Function.prototype.call'
 
-      slice        :
+      slice         :
         name        : 'slice'
         alias       : if index is 0 then 'sl' else aliases[--index]
         code        : 'Array.prototype.slice'
@@ -229,7 +229,7 @@ exports.Interpreter = class Interpreter
       /_assignment/g              , _operations['='].alias
       /_reference/g               , _operations.reference.alias
       /_global/g                  , runtime.global.alias
-      /_variables/g               , runtime.variables.alias
+      /_local/g                   , runtime.local.alias
       /_scope/g                   , runtime.scope.alias
       /_stack/g                   , runtime.stack.alias
       /_evaluate/g                , runtime.evaluate.alias

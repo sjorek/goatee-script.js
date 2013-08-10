@@ -182,7 +182,7 @@ exports.Repl = class Repl
 
       Expression.callback (expression, result, stack, errors) ->
         context['_'] = result
-        for own key, value of stack.variables
+        for own key, value of stack.local
           variables[key] = value
         error = error.concat(errors) if errors?
         return

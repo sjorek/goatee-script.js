@@ -95,9 +95,33 @@ exports.Grammar = Grammar =
       r /(__proto__|prototype)\b/ , -> 'PROTOTYPE'
 
       # identifier has to come AFTER reserved words
-      r /this\b/                  , -> 'THIS'
-      r /[@]/                     , -> 'SELF'
-      r /[$_][$]/                 , -> 'CONTEXT'
+
+      r /this\b/                  , -> 'THIS'       # root context
+      r /[@]/                     , -> 'SELF'       # current context
+
+      # context or variable from scope
+      #
+      #   $$ ~ SELF ~ current context
+      #   $_        ~ current context's local variables
+      #   _$        ~ current context's chain of scopes
+      #   __        ~ current context's expression stack
+      #
+      #   _0        ~ current - 1 level (parent) context
+      #   _1        ~ current - 2 levels (grand-parent) context
+      #   _2        ~ current - 3 levels context
+      #   …
+      #   _9        ~ current - 10 levels context
+      #
+      #   $9        ~ root + 9 levels context
+      #   …
+      #   $2        ~ root + 2 levels (grand-child) context
+      #   $1        ~ root + 1 level (child) context
+      #   $0 ~ THIS ~ root context
+      #
+      r /[$_][$_0-9]/             , -> 'CONTEXT'
+
+      # mind the delibrately reduced set of allowed (start) characters
+      # compare with ES3/ES5/ES6
       r /[$_a-zA-Z]\w*/           , -> 'REFERENCE'
 
       # identifier above

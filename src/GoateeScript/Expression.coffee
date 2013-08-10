@@ -36,7 +36,7 @@ exports.Expression = class Expression
   _scope        = null
   _errors       = null
   _global       = null
-  _variables    = null
+  _local        = null
   _operations   = null
   _parser       = null
 
@@ -102,23 +102,23 @@ exports.Expression = class Expression
 
     isGlobalScope = not _stack?
     if isGlobalScope
-      _stack     = new Stack(context, variables, scope, stack)
-      _scope     = _stack.scope
-      _errors    = null
-      _global    = _stack.global
-      _variables = _stack.variables
-      _evaluate  = _execute
+      _stack    = new Stack(context, variables, scope, stack)
+      _scope    = _stack.scope
+      _errors   = null
+      _global   = _stack.global
+      _local    = _stack.local
+      _evaluate = _execute
 
     result = _execute context, expression
 
     if isGlobalScope
       _callback(expression, result, _stack, _errors) if _callback?
       _stack.destructor()
-      _stack     = null
-      _scope     = null
-      _global    = null
-      _variables = null
-      _evaluate  = Expression.evaluate
+      _stack    = null
+      _scope    = null
+      _global   = null
+      _local    = null
+      _evaluate = Expression.evaluate
 
     result
 
@@ -184,7 +184,7 @@ exports.Expression = class Expression
   Expression.operations = _operations =
     '=':  #  assignment, filled below
       evaluate: (a,b) ->
-        _variables[a] = b
+        _local[a] = b
 # _assign
 #    '-='  : {} #  assignment, filled below
 #    '+='  : {} #  assignment, filled below
@@ -373,13 +373,30 @@ exports.Expression = class Expression
 #      evaluate: -> this
     context:
       alias   : 'c'
-      format  : (a) -> switch a
-        when "$$" then "_global"
-        when "_$" then "_variables"
-        when "@" then "this"
-        else a
+      format  : (c) ->
+        switch c
+          when "@"  then "this"
+          when "$$" then "_global"
+          when "$_" then "_local"
+          when "_$" then "_scope"
+          when "__" then "_stack"
+          when "$0", "$1", "$2", "$3", "$4", "$5", "$6", "$7", "$8", "$9"
+            "_scope[#{c[1]}]"
+          when "_0", "_1", "_2", "_3", "_4", "_5", "_6", "_7", "_8", "_9"
+            "_scope[_scope.length-#{c[1]+1}]"
+          else "undefined"
       vector  : false
-      evaluate: (c) -> { '$$':_global, '_$':_variables, '@':this }[c]
+      evaluate: (c) ->
+        switch c
+          when "@"  then this
+          when "$$" then _global
+          when "$_" then _local
+          when "_$" then _scope
+          when "__" then _stack.stack
+          when "$0", "$1", "$2", "$3", "$4", "$5", "$6", "$7", "$8", "$9", \
+               "_0", "_1", "_2", "_3", "_4", "_5", "_6", "_7", "_8", "_9"
+            _scope[if c[0] is "$" then c[1] else _scope.length-c[1]-1]
+          else undefined
     property:
       alias   : 'p'
       format  : (a) -> a
@@ -404,12 +421,12 @@ exports.Expression = class Expression
           undefined
         else
           v = this[a]
-          if this is _variables
+          if this is _local
             return v
           if _isProperty()
             return v if this.hasOwnProperty a
           else
-            return _variables[a] if _variables.hasOwnProperty a
+            return _local[a] if _local.hasOwnProperty a
             #  walk the context stack from top to bottom looking for value
             for c in _scope by -1 when c.hasOwnProperty a
               return c[a]

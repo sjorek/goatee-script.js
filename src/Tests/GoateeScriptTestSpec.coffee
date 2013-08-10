@@ -216,7 +216,7 @@ describe "GoateeScript", ->
     # test root references
     egal "@", data
     egal "$$", data
-    compare "test = 1 ; _$", {test:1}
+    compare "test = 1 ; $_", {test:1}
 
     # or more concisely
     egal "children[favoriteChild]", data.children.pat
