@@ -57,7 +57,7 @@ exports.GoateeScript = class GoateeScript
   GoateeScript.render = do ->
     render = null
     (code) ->
-      GoateeScript.render = render = require('./GoateeScript/Interpreter').Interpreter.render unless render?
+      GoateeScript.render = render = require('./GoateeScript/Compiler').Compiler.render unless render?
       render(code)
 
   ##
@@ -68,7 +68,7 @@ exports.GoateeScript = class GoateeScript
   GoateeScript.ast      = do ->
     ast = null
     (data, callback, compress) ->
-      GoateeScript.ast = ast = require('./GoateeScript/Interpreter').Interpreter.ast unless ast?
+      GoateeScript.ast = ast = require('./GoateeScript/Compiler').Compiler.ast unless ast?
       ast(data, callback, compress)
 
   ##
@@ -79,7 +79,7 @@ exports.GoateeScript = class GoateeScript
   GoateeScript.stringify = do ->
     stringify = null
     (data, callback, compress) ->
-      GoateeScript.stringify = stringify = require('./GoateeScript/Interpreter').Interpreter.stringify unless stringify?
+      GoateeScript.stringify = stringify = require('./GoateeScript/Compiler').Compiler.stringify unless stringify?
       stringify(data, callback, compress)
 
   ##
@@ -90,5 +90,5 @@ exports.GoateeScript = class GoateeScript
   GoateeScript.compile = do ->
     compile = null
     (data, callback, compress) ->
-      GoateeScript.compile = compile = require('./GoateeScript/Interpreter').Interpreter.compile unless compile?
+      GoateeScript.compile = compile = require('./GoateeScript/Compiler').Compiler.compile unless compile?
       compile(data, callback, compress)
