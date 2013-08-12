@@ -32,13 +32,13 @@ exports.Grammar = class Grammar
       if patternString.source?
           patternString = patternString.source
       return [patternString, 'return;'] unless action
-      action = if match = unwrap.exec action then match[1] else "(#{action}())"
+      action = if match = unwrap.exec action then match[1] else "(#{action}.call(this))"
       [patternString, "return #{action};"]
 
   # operation
   Grammar.o = o = (patternString, action, options) ->
       return [patternString, '$$ = $1;', options] unless action
-      action = if match = unwrap.exec action then match[1] else "(#{action}())"
+      action = if match = unwrap.exec action then match[1] else "(#{action}.call(this))"
       [patternString, "$$ = #{action};", options]
 
   #  assignment operation shortcut

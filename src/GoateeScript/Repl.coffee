@@ -180,6 +180,7 @@ exports.Repl = class Repl
       {
         compile,
         evaluate,
+        parse,
         render,
         stringify
       }           = _options.command
@@ -196,16 +197,15 @@ exports.Repl = class Repl
         return
 
       try
-        #callback null, vm.runInContext(js, context, filename)
         output =
           switch mode
             when 'c' then compile   input, null, compress
             when 'p' then stringify input, null, compress
             when 'r' then render    input, null, compress
-#            when 'e' then evaluate  input, context, variables
+            when 's' then parse     input
             else          evaluate  input, context, variables
-        output = JSON.stringify output if mode is 's'
         callback _prettyErrorMessage(error, filename, input, yes), output
+        #callback null, vm.runInContext(js, context, filename)
       catch error
         callback _prettyErrorMessage(error, filename, input, yes)
       return

@@ -117,16 +117,16 @@ exports.Compiler = class Compiler
   #                               toString method
   # @param  {Object}              context
   # @return mixed
-  Compiler.evaluate = (code, context) ->
-    expression = _parse(code, context)
+  Compiler.evaluate = (code, context, _impl = parse) ->
+    expression = _impl(code, context)
     expression.evaluate(context)
 
   ##
   # @param  {Array|String|Object} code, a String, opcode-Array or Object with
   #                               toString method
   # @return {String}
-  Compiler.render = (code) ->
-    _parse(code).toString()
+  Compiler.render = (code, _impl = parse) ->
+    _impl(code).toString()
 
   ##
   # @param  {Expression} expression
@@ -154,8 +154,8 @@ exports.Compiler = class Compiler
   # @param  {Boolean}           compress, default is on
   # @return {Array|String|Number|true|false|null}
   Compiler.ast = \
-  _ast = (data, callback, compress = on) ->
-    expression = if isExpression data then data else _parse(data)
+  _ast = (data, callback, compress = on, _impl = parse) ->
+    expression = if isExpression data then data else _impl(data)
     ast = _save(expression, callback, compress)
     return if compress then _compress ast else ast
 
@@ -164,8 +164,8 @@ exports.Compiler = class Compiler
   # @param  {Function}          callback (optional)
   # @param  {Boolean}           compress, default is on
   # @return {String}
-  Compiler.stringify = (data, callback, compress = on) ->
-    opcode = _ast(data, callback, compress)
+  Compiler.stringify = (data, callback, compress = on, _impl = parse) ->
+    opcode = _ast(data, callback, compress, _impl)
     if compress
       "[#{opcode[0]},#{JSON.stringify opcode[1]}]"
     else
@@ -176,8 +176,8 @@ exports.Compiler = class Compiler
   # @param  {Function}          callback (optional)
   # @param  {Boolean}           compress, default is on
   # @return Function
-  Compiler.closure = (data, callback, compress = on, prefix) ->
-    opcode = _ast(data, callback, compress)
+  Compiler.closure = (data, callback, compress = on, prefix, _impl = parse) ->
+    opcode = _ast(data, callback, compress, _impl)
     if compress
       code = _wrap.apply(null, opcode)
     else
@@ -223,6 +223,6 @@ exports.Compiler = class Compiler
   # @param  {Function}     callback (optional)
   # @param  {Boolean}      compress, default = true
   # @return String
-  Compiler.compile = (data, callback, compress = on) ->
-    opcode = if isArray data then data else _ast(data, callback, false)
+  Compiler.compile = (data, callback, compress = on, _impl = parse) ->
+    opcode = if isArray data then data else _ast(data, callback, false, _impl)
     _load(opcode, compress)
