@@ -77,7 +77,7 @@ exports.Command = class Command
       .option('interactive', {
         abbr: 'i',
         flag: true,
-        help: 'run an interactive GoateeScript REPL'
+        help: "run an interactive `#{@command.NAME}` REPL"
       })
       .option('mode', {
         metavar: 'MODE'
@@ -104,7 +104,7 @@ exports.Command = class Command
         help: 'display the version number and exit'
       })
       # The help banner to print when `goatee-script` is called without arguments.
-      .help('If called without options, `goatee-script` will run interactive.')
+      .help("If called without options, `#{@command.NAME}` will run interactive.")
       .parse()
 
     statements = []
