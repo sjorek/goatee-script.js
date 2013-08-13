@@ -18,7 +18,7 @@ permissions and limitations under the License.
 {Notator:{
   r,o
 }}          = require './Notator'
-yy          = require('./Scope').Scope
+{Scope}     = require './Scope'
 
 exports     = module?.exports ? this
 
@@ -31,13 +31,35 @@ exports.Grammar = class Grammar
   # Actually this is not needed, but it looks nicer ;-)
   $1 = $2 = $3 = $4 = $5 = $6 = $7 = $8 = null
 
+  yy = new Scope
+
+  ##
+  # Initializes the **Parser** with our **Grammar**
+  #
+  # @param  {Grammar} grammar
+  # @param  {Scope}   scope
+  # @return {Parser}
+  Grammar.createParser = (grammar = new Grammar, scope = yy) ->
+      parser = new Parser grammar
+      parser.yy = scope
+#      lexer = parser.lexer
+#      lex   = lexer.lex
+#      set   = lexer.setInput
+#      lexer.lex = (args...) ->
+#        console.log 'lex', [lexer.match, lexer.matched]
+#        lex.apply(lexer,args)
+#      lexer.setInput = (args...) ->
+#        console.log 'set', args
+#        set.apply(lexer,args)
+      parser
+
   #  assignment operation shortcut
   Grammar.aop = aop = (op) -> o "REFERENCE #{op} Expression", ->
-    new yy.Expression $2, [$1, $3]
+    yy.create $2, [$1, $3]
 
   #  binary operation shortcut
   Grammar.bop = bop = (op) -> o "Expression #{op} Expression", ->
-    new yy.Expression $2, [$1, $3]
+    yy.create $2, [$1, $3]
 
   ##
   # Now that we have our **Grammar.bnf** and our **Grammar.operators**, so
@@ -73,7 +95,7 @@ exports.Grammar = class Grammar
   #
   # @return {String}
   create: (comment = 'Goatee Script Parser', prefix  = '', \
-           suffix  = 'parser.yy = require("./Scope").Scope;') ->
+           suffix  = 'parser.yy = new (require("./Scope").Scope);') ->
     """
     /* #{comment} */
     (function() {
@@ -295,7 +317,7 @@ exports.Grammar = class Grammar
 
     # Since we parse bottom-up, all parsing must end here.
     Script: [
-      r 'End'                       , -> new yy.Expression 'scalar', [undefined]
+      r 'End'                       , -> yy.create 'scalar', [undefined]
       r 'Statements End'            , -> $1
       r 'Seperator Statements End'  , -> $2
     ]
@@ -307,7 +329,7 @@ exports.Grammar = class Grammar
           $1.parameters.push $3
           $1
         else
-          new yy.Expression 'block', [$1, $3]
+          yy.create 'block', [$1, $3]
     ]
 
     End: [
@@ -348,8 +370,8 @@ exports.Grammar = class Grammar
     ]
 
     Object: [
-      o '{ }'                       , -> new yy.Expression 'object', []
-      o '{ KeyValues }'             , -> new yy.Expression 'object', $2
+      o '{ }'                       , -> yy.create 'object', []
+      o '{ KeyValues }'             , -> yy.create 'object', $2
     ]
 
     Elements: [
@@ -360,20 +382,20 @@ exports.Grammar = class Grammar
     ]
 
     Array: [
-      o '[ Elements ]'              , -> new yy.Expression 'array', $2
+      o '[ Elements ]'              , -> yy.create 'array', $2
     ]
 
     Block: [
-      o '{ Seperator }'             , -> new yy.Expression 'scalar', [undefined]
+      o '{ Seperator }'             , -> yy.create 'scalar', [undefined]
       o '{ Statements }'            , -> $2
       o '{ Statements Seperator }'  , -> $2
     ]
 
     If: [
       o 'IF Group Block'            , ->
-        new yy.Expression 'if',  [$2,$3]
+        yy.create 'if',  [$2,$3]
       o 'If ELSE IF Group Block'    , ->
-        yy.addElse $1, new yy.Expression('if', [$4,$5])
+        yy.addElse $1, yy.create('if', [$4,$5])
     ]
 
     Conditional: [
@@ -387,8 +409,8 @@ exports.Grammar = class Grammar
     ]
 
     Assignment: [
-      o "IncDec Identifier"         , -> new yy.Expression $1, [$2, 0]
-      o "Identifier IncDec"         , -> new yy.Expression $2, [$1, 1]
+      o "IncDec Identifier"         , -> yy.create $1, [$2, 0]
+      o "Identifier IncDec"         , -> yy.create $2, [$1, 1]
       aop '-='
       aop '+='
       aop '*='
@@ -407,7 +429,7 @@ exports.Grammar = class Grammar
       o 'NUMBER'                    , -> Number($1)
       o '+ NUMBER'                  , -> + Number($2)
       o '- NUMBER'                  , -> - Number($2)
-      o 'STRING'                    , -> yy.escapeString($1)
+      o 'STRING'                    , -> yy.escape($1)
     ]
 
     Primitive: [
@@ -425,7 +447,7 @@ exports.Grammar = class Grammar
       bop '-'
       # Boolean operations
       o '! Expression'              , ->                # logical not
-        new yy.Expression '!' , [$2]
+        yy.create '!' , [$2]
       bop '<='
       bop '>='
       bop '<'
@@ -438,7 +460,7 @@ exports.Grammar = class Grammar
       bop '||'
       # Bitwise operations
       o '~ Expression'              , ->                # bitwise not
-         new yy.Expression '~' , [$2]
+         yy.create '~' , [$2]
       bop '>>>'
       bop '>>'
       bop '<<'
@@ -451,23 +473,23 @@ exports.Grammar = class Grammar
       o 'Object'                                        # object literal
       o 'Array'                                         # array literal
       o 'Primitive'                 , ->                # boolean, null
-        new yy.Expression 'scalar',  [$1]
+        yy.create 'scalar',  [$1]
       o 'Scalar'                    , ->                # number, string
-        new yy.Expression 'scalar',  [$1]
+        yy.create 'scalar',  [$1]
     ]
 
     Scope: [
-      o 'CONTEXT'                   , ->                # global or local
-        new yy.Expression 'context', [$1]               # only the first letter is used
-      o 'SELF'                      , ->                # this
-        new yy.Expression 'context', [$1]               # only the first letter is used
+      o 'CONTEXT'                   , ->                # context reference
+        yy.create 'context', [$1]
+      o 'SELF'                      , ->                # this reference ≠ this
+        yy.create 'context', [$1]
     ]
 
     Reference: [
       o 'Identifier'              , ->
-        new yy.Expression 'reference', [$1]
+        yy.create 'reference', [$1]
       o 'Scope Property'          , ->                  # shorthand dot operator
-        new yy.Expression '.', [$1, new yy.Expression('property', [$2])]
+        yy.create '.', [$1, yy.create('property', [$2])]
       o 'Scope'
     ]
 
@@ -494,9 +516,9 @@ exports.Grammar = class Grammar
 
     Chain: [
       o 'Expression . Primitive'  , ->
-        new yy.Expression '.', [$1, new yy.Expression('property', [$3])]
+        yy.create '.', [$1, yy.create('property', [$3])]
       o 'Expression . Property'   , ->
-        new yy.Expression '.', [$1, new yy.Expression('property', [$3])]
+        yy.create '.', [$1, yy.create('property', [$3])]
     ]
 
     List: [
@@ -506,20 +528,20 @@ exports.Grammar = class Grammar
           $1.parameters.push $3
           $1
         else
-          new yy.Expression 'list', [$1, $3]
+          yy.create 'list', [$1, $3]
     ]
 
     Group: [
-      o '( List )'                , -> new yy.Expression 'group', [$2]
+      o '( List )'                , -> yy.create 'group', [$2]
     ]
 
     Expression: [
       o 'Expression ? Expression : Expression', ->      # ternary conditional
-        new yy.Expression '?:', [$1, $3, $5]
+        yy.create '?:', [$1, $3, $5]
       o 'Expression ( Parameters )', ->                 # function call
-        new yy.Expression '()', [$1].concat $3
+        yy.create '()', [$1].concat $3
       o 'Expression [ Expression ]', ->                 # indexer
-        new yy.Expression '[]', [$1, $3]
+        yy.create '[]', [$1, $3]
       o 'Assignment'
       o 'Reference'
       o 'Literal'
@@ -527,23 +549,3 @@ exports.Grammar = class Grammar
       o 'Chain'
       o 'Group'
     ]
-
-##
-# Initializes the **Parser** with our **Grammar**
-#
-# @param  {Grammar} grammar
-# @param  {Scope}   scope
-# @return {Parser}
-Grammar.createParser = (grammar = new Grammar, scope = yy) ->
-    parser = new Parser grammar
-    parser.yy = scope
-#    lexer = parser.lexer
-#    lex   = lexer.lex
-#    set   = lexer.setInput
-#    lexer.lex = (args...) ->
-#      console.log 'lex', [lexer.match, lexer.matched]
-#      lex.apply(lexer,args)
-#    lexer.setInput = (args...) ->
-#      console.log 'set', args
-#      set.apply(lexer,args)
-    parser

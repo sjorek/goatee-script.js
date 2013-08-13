@@ -414,7 +414,7 @@ exports.Expression = class Expression
     #    #return `a != b[0]` if isArray b and b.length is 1
 
     ##
-    # Conditional clause
+    # Ternary conditional clause
     '?:':
       constant: true
       raw     : true

@@ -20,22 +20,25 @@ exports = module?.exports ? this
 
 ##
 # @namespace GoateeScript
-exports.Scope =
+exports.Scope = class Scope
 
   ##
-  # @type {Expression}
-  Expression  : Expression
+  # @param  {String}      operator
+  # @param  {Array}       parameters
+  # @return {Expression}
+  create  : (operator, parameters) ->
+    new Expression(operator, parameters)
 
   ##
   # @param {String} s
   # @return String
-  escapeString: (s) ->
+  escape  : (s) ->
     if s.length < 3 then "" else s.slice(1, s.length-1) # .replace(/\\\n/,'').replace(/\\([^xubfnvrt0])/g, '$1')
 
   ##
   # @param {String} s
   # @return String
-  addElse: do ->
+  addElse : do ->
     a = (i, e) ->
       if i.parameters.length is 3
         a(i.parameters[2], e)
