@@ -516,7 +516,7 @@ exports.Expression = class Expression
         if a is "this"
           "this"
         else
-          "_resolve(this, #{JSON.stringify a}).#{a}"
+          "_resolve(this,#{JSON.stringify a}).#{a}"
       vector  : false
       evaluate: (a) ->
         if a is "this"
