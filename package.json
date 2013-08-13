@@ -22,7 +22,7 @@
     "goatee-script": "./bin/goatee-script"
   },
   "scripts": {
-    "test": "PATH=$PATH:./node_modules/.bin jasmine-node --growl --coffee --color --verbose ./lib/Tests"
+    "test": "PATH=$PATH:./node_modules/.bin jasmine-node --growl --coffee --color --verbose ./src/Tests ./lib/Tests"
   },
   "homepage":     "http://goat.ee/script",
   "bugs":         "https://github.com/sjorek/goatee-script/issues",
