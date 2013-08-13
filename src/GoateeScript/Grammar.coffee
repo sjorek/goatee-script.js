@@ -14,32 +14,22 @@ implied. See the License for the specific language governing
 permissions and limitations under the License.
 ###
 
-{Parser} = require 'jison'
-yy       = require('./Scope').Scope
+{Parser}    = require 'jison'
+{Notator:{
+  r,o
+}}          = require './Notator'
+yy          = require('./Scope').Scope
 
-exports = module?.exports ? this
+exports     = module?.exports ? this
 
+##
+# The `goatee-script` grammar definition
+#
+# @class
 exports.Grammar = class Grammar
 
   # Actually this is not needed, but it looks nicer ;-)
   $1 = $2 = $3 = $4 = $5 = $6 = $7 = $8 = null
-
-  #  lifted from coffeescript http:#jashkenas.github.com/coffee-script/documentation/docs/grammar.html
-  Grammar.unwrap = unwrap = /^function\s*\(\)\s*\{\s*return\s*([\s\S]*);\s*\}/
-
-  # return
-  Grammar.r = r = (patternString, action) ->
-      if patternString.source?
-          patternString = patternString.source
-      return [patternString, 'return;'] unless action
-      action = if match = unwrap.exec action then match[1] else "(#{action}.call(this))"
-      [patternString, "return #{action};"]
-
-  # operation
-  Grammar.o = o = (patternString, action, options) ->
-      return [patternString, '$$ = $1;', options] unless action
-      action = if match = unwrap.exec action then match[1] else "(#{action}.call(this))"
-      [patternString, "$$ = #{action};", options]
 
   #  assignment operation shortcut
   Grammar.aop = aop = (op) -> o "REFERENCE #{op} Expression", ->
@@ -54,6 +44,8 @@ exports.Grammar = class Grammar
   # we can create our **Jison.Parser**.  We do this by processing all of our
   # rules, recording all terminals (every symbol which does not appear as the
   # name of a rule above) as "tokens".
+  #
+  # @constructor
   constructor: () ->
     bnf = @bnf
     tokens = []
@@ -69,28 +61,46 @@ exports.Grammar = class Grammar
       bnf[name] = tokenize(name, alternatives)
     @tokens = tokens.join ' '
 
-  create: () ->
-      """
-      /* Goatee Script Parser */
-      (function() {
+  ##
+  # Space-seperated list of grammar tokens, produced by this class' constructor
+  #
+  # @type {String}
+  tokens : null
 
-      #{Grammar.createParser(this).generate()}
+  ##
+  # Create and return the parsers source code wrapped into a closure, still
+  # keeping the value of `this`.
+  #
+  # @return {String}
+  create: (comment = 'Goatee Script Parser', prefix  = '', \
+           suffix  = 'parser.yy = require("./Scope").Scope;') ->
+    """
+    /* #{comment} */
+    (function() {
+    #{prefix}
+    #{Grammar.createParser(this).generate()}
+    #{suffix}
+    }).call(this);
+    """
 
-      parser.yy = require('./Scope').Scope;
-
-      }).call(this);
-      """
-
+  # Use the default jison-lexer
   lex:
+
+    # Declare all lexer tokens
     rules: [
-      r /\s+/                                   # ignore white-spaces
-      r /0x[a-fA-F0-9]+\b/        , -> 'NUMBER' # hexadecimal
+      # ignore white-spaces
+      r /\s+/
+
+      # hexadecimal number
+      r /0x[a-fA-F0-9]+\b/        , -> 'NUMBER'
+
+      # decimal number
       r ///
         ([1-9][0-9]+|[0-9])
         (\.[0-9]+)?
         ([eE][-+]?[0-9]+)?
         \b
-        ///                       , -> 'NUMBER' # decimal
+        ///                       , -> 'NUMBER'
 
       # constants
       r /null\b/                  , -> 'NULL'
@@ -145,6 +155,8 @@ exports.Grammar = class Grammar
       r /[$_a-zA-Z]\w*/           , -> 'REFERENCE'
 
       # identifier above
+
+      # double-quoted string
       r ///
         "
         (
@@ -155,6 +167,8 @@ exports.Grammar = class Grammar
         )*
         "
         ///                       , -> 'STRING'
+
+      # single-quoted string
       r ///
         '
         (
@@ -164,21 +178,25 @@ exports.Grammar = class Grammar
         )*
         '
         ///                       , -> 'STRING'
-      r /\/\*(?:.|[\r\n])*?\*\//                  # ignore multiline-comments
-      # operators below
 
+      # ignore multiline-comments
+      r /\/\*(?:.|[\r\n])*?\*\//
+
+      # accessors below
       r /\./                      , -> '.'
       r /\[/                      , -> '['
       r /\]/                      , -> ']'
       r /\(/                      , -> '('
       r /\)/                      , -> ')'
 
+      # operators below
       r /\?/                      , -> '?'
       r ':'                       , -> ':'
       r ';'                       , -> ';'
       r ','                       , -> ','
       r '{'                       , -> '{'
       r '}'                       , -> '}'
+
       # Mathematical assigment operators
       r '-='                      , ->   '-='
       r /\+=/                     , ->   '+='
@@ -187,6 +205,7 @@ exports.Grammar = class Grammar
       r '%='                      , ->   '%='
       r '--'                      , -> '--'
       r /\+\+/                    , -> '++'
+
       # Bitwise assigment operators
       r '>>>='                    , -> '>>>='
       r '>>='                     , ->  '>>='
@@ -194,6 +213,7 @@ exports.Grammar = class Grammar
       r /\&=/                     , ->   '&='
       r /\|=/                     , ->   '|='
       r /\^=/                     , ->   '^='
+
       # Boolean operators
       r '==='                     , -> '==='
       r '!=='                     , -> '!=='
@@ -205,7 +225,9 @@ exports.Grammar = class Grammar
       r '>'                       , -> '>'
       r /\&\&/                    , -> '&&'
       r /\|\|/                    , -> '||'
-      r '!'                       , -> '!'    # must be lower priority than != and !==
+      # Not (!) must be lower priority than != and !==
+      r '!'                       , -> '!'
+
       # Mathemetical operators
       r '-'                       , -> '-'
       r /\+/                      , -> '+'
@@ -213,6 +235,7 @@ exports.Grammar = class Grammar
       r /\//                      , -> '/'
       r /\^/                      , -> '^'
       r '%'                       , -> '%'
+
       # Bitwise operators
       r '>>>'                     , -> '>>>'
       r '>>'                      , -> '>>'
@@ -220,14 +243,18 @@ exports.Grammar = class Grammar
       r /\&/                      , -> '&'
       r /\|/                      , -> '|'
       r '~'                       , -> '~'
+
       # Assignment operator
       r '='                       , -> '='
+
       # EOF is always last …
-      r '$'                       , -> 'EOF' # TODO have to figure out why the token is “$”
+      # TODO Figure out why the EOF token is “$”
+      r '$'                       , -> 'EOF'
     ]
+
+  # declare operator precedence from highest to lowest
+  # @see https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Operators/Operator_Precedence
   operators: [
-    # from highest to lowest precedence
-    # @see https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Operators/Operator_Precedence
     ['left', '.', '[', ']']                  #  1 member
     ['right', 'NEW']                         #    new
     ['left', '(', ')']                       #  2 call
@@ -251,25 +278,28 @@ exports.Grammar = class Grammar
               '/=',   '%=', '<<=', '>>=',
               '>>>=', '&=', '^=',  '|=']
     ['left', ',']                            # 18 comma
-  # Reverse the operators because Jison orders precedence from low to high,
+
+  # Reverse the operators because jison orders precedence from low to high,
   # and we have it high to low
-  # (as in [Yacc](http://dinosaur.compilertools.net/yacc/index.html)).
+  #
+  # @see ([Yacc] (http://dinosaur.compilertools.net/yacc/index.html)).
   ].reverse()
 
-  ##
-  # The syntax description
-  # ----------------------
-
+  # The **Script** is the top-level node in the syntax tree.
   startSymbol : 'Script'
 
+  ##
+  # The syntax description notated in Backus-Naur-Format
+  # ----------------------------------------------------
   bnf:
-    # The **Script** is the top-level node in the syntax tree.
+
     # Since we parse bottom-up, all parsing must end here.
     Script: [
       r 'End'                       , -> new yy.Expression 'scalar', [undefined]
       r 'Statements End'            , -> $1
       r 'Seperator Statements End'  , -> $2
     ]
+
     Statements: [
       o 'Statement'
       o 'Statements Seperator Statement', ->
@@ -279,68 +309,83 @@ exports.Grammar = class Grammar
         else
           new yy.Expression 'block', [$1, $3]
     ]
+
     End: [
       r 'EOF'
       r 'Seperator EOF'
     ]
+
     Identifier: [
       o 'THIS'
       o 'REFERENCE'
     ]
+
     Seperator: [
       r ';'
       r 'Seperator ;'
     ]
+
     Statement: [
       o 'Conditional'
       o 'Expression'
     ]
+
     Parameters: [
       o ''                          , -> []
       o 'Expression'                , -> [$1]
       o 'Parameters , Expression'   , -> $1.concat $3
     ]
+
     Key: [
       o 'Scalar'
       o 'Primitive'
       o 'Property'
     ]
+
     KeyValues: [
       o 'Key : Expression'          , -> [$1,$3]
       o 'KeyValues , KeyValues'     , -> $1.concat $3
     ]
+
     Object: [
       o '{ }'                       , -> new yy.Expression 'object', []
       o '{ KeyValues }'             , -> new yy.Expression 'object', $2
     ]
+
     Elements: [
       o ''                          , -> []
       o 'Expression'                , -> [$1]
       o 'Elements , Elements'       , ->
         $1.concat if $3.length is 0 then [undefined] else $3
     ]
+
     Array: [
       o '[ Elements ]'              , -> new yy.Expression 'array', $2
     ]
+
     Block: [
       o '{ Seperator }'             , -> new yy.Expression 'scalar', [undefined]
       o '{ Statements }'            , -> $2
       o '{ Statements Seperator }'  , -> $2
     ]
+
     If: [
       o 'IF Group Block'            , ->
         new yy.Expression 'if',  [$2,$3]
       o 'If ELSE IF Group Block'    , ->
         yy.addElse $1, new yy.Expression('if', [$4,$5])
     ]
+
     Conditional: [
       o 'If'
       o 'If ELSE Block'             , -> yy.addElse $1, $3
     ]
+
     IncDec: [
       o "++"
       o "--"
     ]
+
     Assignment: [
       o "IncDec Identifier"         , -> new yy.Expression $1, [$2, 0]
       o "Identifier IncDec"         , -> new yy.Expression $2, [$1, 1]
@@ -357,17 +402,20 @@ exports.Grammar = class Grammar
       aop '|='
       aop '='
     ]
+
     Scalar: [
       o 'NUMBER'                    , -> Number($1)
       o '+ NUMBER'                  , -> + Number($2)
       o '- NUMBER'                  , -> - Number($2)
       o 'STRING'                    , -> yy.escapeString($1)
     ]
+
     Primitive: [
       o 'NULL'                      , -> null
       o 'TRUE'                      , -> true
       o 'FALSE'                     , -> false
     ]
+
     Operation: [
       # Mathemetical operations
       bop '*'
@@ -398,6 +446,7 @@ exports.Grammar = class Grammar
       bop '|'
       bop '^'
     ]
+
     Literal: [
       o 'Object'                                        # object literal
       o 'Array'                                         # array literal
@@ -406,12 +455,14 @@ exports.Grammar = class Grammar
       o 'Scalar'                    , ->                # number, string
         new yy.Expression 'scalar',  [$1]
     ]
+
     Scope: [
       o 'CONTEXT'                   , ->                # global or local
         new yy.Expression 'context', [$1]               # only the first letter is used
       o 'SELF'                      , ->                # this
         new yy.Expression 'context', [$1]               # only the first letter is used
     ]
+
     Reference: [
       o 'Identifier'              , ->
         new yy.Expression 'reference', [$1]
@@ -419,6 +470,7 @@ exports.Grammar = class Grammar
         new yy.Expression '.', [$1, new yy.Expression('property', [$2])]
       o 'Scope'
     ]
+
     Property: [
       # CONSTRUCTOR and PROTOTYPE should be safe …
       o 'CONSTRUCTOR'
@@ -439,12 +491,14 @@ exports.Grammar = class Grammar
       o 'CONTEXT Property'        , -> $1 + $2
       o 'CONTEXT Primitive'       , -> $1 + $2
     ]
+
     Chain: [
       o 'Expression . Primitive'  , ->
         new yy.Expression '.', [$1, new yy.Expression('property', [$3])]
       o 'Expression . Property'   , ->
         new yy.Expression '.', [$1, new yy.Expression('property', [$3])]
     ]
+
     List: [
       o 'Statement'
       o 'List , Statement'        , ->
@@ -454,9 +508,11 @@ exports.Grammar = class Grammar
         else
           new yy.Expression 'list', [$1, $3]
     ]
+
     Group: [
       o '( List )'                , -> new yy.Expression 'group', [$2]
     ]
+
     Expression: [
       o 'Expression ? Expression : Expression', ->      # ternary conditional
         new yy.Expression '?:', [$1, $3, $5]
@@ -472,9 +528,12 @@ exports.Grammar = class Grammar
       o 'Group'
     ]
 
-  tokens : null
-
-# Initialize the **Parser** with our **Grammar**
+##
+# Initializes the **Parser** with our **Grammar**
+#
+# @param  {Grammar} grammar
+# @param  {Scope}   scope
+# @return {Parser}
 Grammar.createParser = (grammar = new Grammar, scope = yy) ->
     parser = new Parser grammar
     parser.yy = scope
