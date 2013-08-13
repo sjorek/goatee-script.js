@@ -23,6 +23,8 @@ exports = module?.exports ? this
 exports.Scope = class Scope
 
   ##
+  # Create a new **Expression** instance
+  #
   # @param  {String}      operator
   # @param  {Array}       parameters
   # @return {Expression}
@@ -30,12 +32,16 @@ exports.Scope = class Scope
     new Expression(operator, parameters)
 
   ##
+  # Remove leading and trailing single- or double-quotes
+  #
   # @param {String} s
   # @return String
   escape  : (s) ->
     if s.length < 3 then "" else s.slice(1, s.length-1) # .replace(/\\\n/,'').replace(/\\([^xubfnvrt0])/g, '$1')
 
   ##
+  # Add an “else”-Statement **e** to given “if”-Expression **i**
+  #
   # @param {String} s
   # @return String
   addElse : do ->
