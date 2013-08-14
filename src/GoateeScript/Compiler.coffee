@@ -48,10 +48,30 @@ exports.Compiler = class Compiler
   _arguments  = ",'" + aliases().join("','") + "'"
 
   ##
+  # @param  {String}       code
+  # @param  {Object|Array} map (optional)
+  # @return String
+  _wrap = (code, map) ->
+    if map?
+      keys = if isArray map then map else (k for own k,v of map)
+      args = if keys.length is 0 then '' else ",'" + keys.join("','") + "'"
+      keys = keys.join ','
+    else
+      keys = _aliases
+      args = _arguments
+    "(function(#{keys}) { return #{code}; }).call(this#{args})"
+
+
+  ##
+  # @param  {Function}  parseImpl
+  # @constructor
+  constructor: (@parseImpl = parse) ->
+
+  ##
   # @param  {Array}      ast
   # @param  {Object}     map of aliases
   # @return Array.<Array,Object>
-  Compiler.compress = _compress = (ast, map = {}) ->
+  compress: (ast, map = {}) ->
     code = for o in ast
       if not o?
         '' + o
@@ -64,35 +84,21 @@ exports.Compiler = class Compiler
         else
           JSON.stringify o
       else
-        [c, map] = _compress(o, map)
+        [c, map] = @compress(o, map)
         c
     ["[#{code.join ','}]", map]
 
   ##
-  # @param  {String}       code
-  # @param  {Object|Array} map (optional)
-  # @return String
-  Compiler.wrap = _wrap = (code, map) ->
-    if map?
-      keys = if isArray map then map else (k for own k,v of map)
-      args = if keys.length is 0 then '' else ",'" + keys.join("','") + "'"
-      keys = keys.join ','
-    else
-      keys = _aliases
-      args = _arguments
-    "(function(#{keys}) { return #{code}; }).call(this#{args})"
-
-  ##
   # @param  {String}        code
   # @return Array
-  Compiler.expand = _expand = do ->
-    code = "function(opcode){ return eval('[' + opcode + '][0]'); }"
-    Function("return #{_wrap code}")()
+  expand: do ->
+    code = _wrap "function(opcode){ return eval('[' + opcode + '][0]'); }"
+    Function("return #{code}")()
 
   ##
   # @param  {Array|String|Number|true|false|null} opcode ast
   # @return Expression
-  Compiler.toExpression = _toExpression = (opcode) ->
+  toExpression: (opcode) ->
     state = false
     if not opcode? or not (state = isArray opcode) or 2 > (state = opcode.length)
       return new Expression 'scalar', \
@@ -101,40 +107,42 @@ exports.Compiler = class Compiler
     parameters = [].concat opcode
     operator   = parameters.shift()
     for value, index in parameters
-      parameters[index] = if isArray value then _toExpression value else value
+      parameters[index] = if isArray value then @toExpression value else value
     new Expression(operator, parameters)
 
   ##
   # @param  {Array|String|Object} code, a String, opcode-Array or Object with
   #                               toString method
   # @return Expression
-  Compiler.parse = _parse = (code, _impl = parse) ->
-    return _impl(code) if isString code
-    _toExpression(code)
+  parse: (code) ->
+    return @parseImpl(code) if isString code
+    @toExpression(code)
 
   ##
   # @param  {Array|String|Object} code, a String, opcode-Array or Object with
   #                               toString method
-  # @param  {Object}              context
+  # @param  {Object}              context (optional)
+  # @param  {Object}              variables (optional)
+  # @param  {Array}               scope (optional)
+  # @param  {Array}               stack (optional)
   # @return mixed
-  Compiler.evaluate = (code, context, _impl = parse) ->
-    expression = _impl(code, context)
-    expression.evaluate(context)
+  evaluate: (code, context, variables, scope, stack) ->
+    expression = @parse(code)
+    expression.evaluate(context, variables, scope, stack)
 
   ##
   # @param  {Array|String|Object} code, a String, opcode-Array or Object with
   #                               toString method
   # @return {String}
-  Compiler.render = (code, _impl = parse) ->
-    _impl(code).toString()
+  render: (code) ->
+    @parse(code).toString()
 
   ##
   # @param  {Expression} expression
   # @param  {Function}   callback (optional)
   # @param  {Boolean}    compress, default is on
   # @return Object.<String:op,Array:parameters>
-  Compiler.save = \
-  _save = (expression, callback, compress = on) ->
+  save: (expression, callback, compress = on) ->
     if compress and expression.operator.name is _scalar
       return expression.parameters
     opcode = [
@@ -143,43 +151,45 @@ exports.Compiler = class Compiler
     ]
     opcode.push(
       if isExpression parameter
-        _save parameter, callback, compress
+        @save parameter, callback, compress
       else parameter
     ) for parameter in expression.parameters
     opcode
 
   ##
-  # @param  {String|Expression} code, a String or an Expression
-  # @param  {Function}          callback (optional)
-  # @param  {Boolean}           compress, default is on
+  # @param  {Array|String|Object} code, a String, opcode-Array or Object with
+  #                               toString method
+  # @param  {Function}            callback (optional)
+  # @param  {Boolean}             compress, default is on
   # @return {Array|String|Number|true|false|null}
-  Compiler.ast = \
-  _ast = (data, callback, compress = on, _impl = parse) ->
-    expression = if isExpression data then data else _impl(data)
-    ast = _save(expression, callback, compress)
-    return if compress then _compress ast else ast
+  ast: (data, callback, compress = on) ->
+    expression = if isExpression data then data else @parse(data)
+    ast = @save(expression, callback, compress)
+    if compress then @compress ast else ast
 
   ##
-  # @param  {String|Expression} data
-  # @param  {Function}          callback (optional)
-  # @param  {Boolean}           compress, default is on
+  # @param  {Array|String|Object} code, a String, opcode-Array or Object with
+  #                               toString method
+  # @param  {Function}            callback (optional)
+  # @param  {Boolean}             compress, default is on
   # @return {String}
-  Compiler.stringify = (data, callback, compress = on, _impl = parse) ->
-    opcode = _ast(data, callback, compress, _impl)
+  stringify: (data, callback, compress = on) ->
+    opcode = @ast(data, callback, compress)
     if compress
       "[#{opcode[0]},#{JSON.stringify opcode[1]}]"
     else
       JSON.stringify opcode
 
   ##
-  # @param  {String|Expression} data
-  # @param  {Function}          callback (optional)
-  # @param  {Boolean}           compress, default is on
+  # @param  {Array|String|Object} code, a String, opcode-Array or Object with
+  #                               toString method
+  # @param  {Function}            callback (optional)
+  # @param  {Boolean}             compress, default is on
   # @return Function
-  Compiler.closure = (data, callback, compress = on, prefix, _impl = parse) ->
-    opcode = _ast(data, callback, compress, _impl)
+  closure: (data, callback, compress = on, prefix) ->
+    opcode = @ast(data, callback, compress)
     if compress
-      code = _wrap.apply(null, opcode)
+      code = _wrap(opcode)
     else
       code = JSON.stringify(opcode)
     #Function "#{prefix || ''}return [#{code}][0];"
@@ -214,15 +224,16 @@ exports.Compiler = class Compiler
   # @param  {String|Array} data, opcode-String or -Array
   # @param  {Boolean}      compress, default = true
   # @return String
-  Compiler.load = _load = (data, compress = on) ->
-    opcode = if isArray data then data else _expand(data)
+  load: (data, compress = on) ->
+    opcode = if isArray data then data else @expand(data)
     _compile.apply(null, [compress].concat(opcode))
 
   ##
-  # @param  {String|Array} data, code-String or opcode-Array
-  # @param  {Function}     callback (optional)
-  # @param  {Boolean}      compress, default = true
+  # @param  {Array|String|Object} code, a String, opcode-Array or Object with
+  #                               toString method
+  # @param  {Function}            callback (optional)
+  # @param  {Boolean}             compress, default = true
   # @return String
-  Compiler.compile = (data, callback, compress = on, _impl = parse) ->
-    opcode = if isArray data then data else _ast(data, callback, false, _impl)
-    _load(opcode, compress)
+  compile: (data, callback, compress = on) ->
+    opcode = if isArray data then data else @ast(data, callback, false)
+    @load(opcode, compress)

@@ -30,17 +30,17 @@ exports = module?.exports ? this
 # @namespace GoateeScript
 exports.GoateeScript = class GoateeScript
 
-  GoateeScript.NAME       = 'goatee-script'
-  GoateeScript.VERSION    = '0.0.1'
+  GoateeScript.NAME      = require('../package.json').name
+  GoateeScript.VERSION   = require('../package.json').version
+
+  _compiler = null
 
   ##
   # @param {String} code
   # @return Expression
-  GoateeScript.parse      = do ->
-    parse = null
-    (code) ->
-      GoateeScript.parse = parse = require('./GoateeScript/Parser').parse unless parse?
-      parse(code)
+  GoateeScript.parse = (code) ->
+    _compiler ?= new (require('./GoateeScript/Compiler').Compiler)
+    _compiler.parse(code)
 
   ##
   # @param {String} code
@@ -49,47 +49,40 @@ exports.GoateeScript = class GoateeScript
   # @param {Array}  scope (optional)
   # @param {Array}  stack (optional)
   # @return mixed
-  GoateeScript.evaluate   = (code, context, variables, scope, stack) ->
-    GoateeScript.parse(code).evaluate(context, variables, scope, stack)
+  GoateeScript.evaluate = (code, context, variables, scope, stack) ->
+    _compiler ?= new (require('./GoateeScript/Compiler').Compiler)
+    _compiler.evaluate(code, context, variables, scope, stack)
 
   ##
   # @param {String} code
   # @return String
-  GoateeScript.render     = do ->
-    render = null
-    (code) ->
-      GoateeScript.render = render = require('./GoateeScript/Compiler').Compiler.render unless render?
-      render(code)
+  GoateeScript.render = (code) ->
+    _compiler ?= new (require('./GoateeScript/Compiler').Compiler)
+    _compiler.render(code)
 
   ##
   # @param  {String|Expression} code, a String or an Expression
   # @param  {Function}          callback (optional)
   # @param  {Boolean}           compress, default is true
   # @return {Array|String|Number|true|false|null}
-  GoateeScript.ast        = do ->
-    ast = null
-    (data, callback, compress) ->
-      GoateeScript.ast = ast = require('./GoateeScript/Compiler').Compiler.ast unless ast?
-      ast(data, callback, compress)
+  GoateeScript.ast = (data, callback, compress) ->
+    _compiler ?= new (require('./GoateeScript/Compiler').Compiler)
+    _compiler.ast(data, callback, compress)
 
   ##
   # @param  {String|Expression} data
   # @param  {Function}          callback (optional)
   # @param  {Boolean}           compress, default is true
   # @return String
-  GoateeScript.stringify  = do ->
-    stringify = null
-    (data, callback, compress) ->
-      GoateeScript.stringify = stringify = require('./GoateeScript/Compiler').Compiler.stringify unless stringify?
-      stringify(data, callback, compress)
+  GoateeScript.stringify = (data, callback, compress) ->
+    _compiler ?= new (require('./GoateeScript/Compiler').Compiler)
+    _compiler.stringify(data, callback, compress)
 
   ##
   # @param  {String|Array} data, code-String or opcode-Array
   # @param  {Function}     callback (optional)
   # @param  {Boolean}      compress, default = true
   # @return String
-  GoateeScript.compile    = do ->
-    compile = null
-    (data, callback, compress) ->
-      GoateeScript.compile = compile = require('./GoateeScript/Compiler').Compiler.compile unless compile?
-      compile(data, callback, compress)
+  GoateeScript.compile = (data, callback, compress) ->
+    _compiler ?= new (require('./GoateeScript/Compiler').Compiler)
+    _compiler.compile(data, callback, compress)
