@@ -1,6 +1,6 @@
 # goatee
 
-Goatee is the missing complement for handbar mustaches.
+Goatee is the missing complement for handlebar mustaches.
 
 ## Objective
 
