@@ -60,8 +60,8 @@ task 'build:once', 'compile coffee-script in “src/” to javascript in “lib/
 task 'build:parser', 'rebuild the goatee-script parser; run at least “build:once” first!', ->
   console.log 'build:parser'
 
-  js  = './lib/GoateeScript/Parser.js'
-  cs  = './src/GoateeScript/Grammar.coffee'
+  js  = './lib/Parser.js'
+  cs  = './src/Grammar.coffee'
   map = js.replace(/\.js$/, '.map')
 
   mapStat = fs.existsSync map

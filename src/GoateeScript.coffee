@@ -39,7 +39,7 @@ exports.GoateeScript = class GoateeScript
   # @param {String} code
   # @return Expression
   GoateeScript.parse = (code) ->
-    _compiler ?= new (require('./GoateeScript/Compiler').Compiler)
+    _compiler ?= new (require('./Compiler').Compiler)
     _compiler.parse(code)
 
   ##
@@ -50,14 +50,14 @@ exports.GoateeScript = class GoateeScript
   # @param {Array}  stack (optional)
   # @return mixed
   GoateeScript.evaluate = (code, context, variables, scope, stack) ->
-    _compiler ?= new (require('./GoateeScript/Compiler').Compiler)
+    _compiler ?= new (require('./Compiler').Compiler)
     _compiler.evaluate(code, context, variables, scope, stack)
 
   ##
   # @param {String} code
   # @return String
   GoateeScript.render = (code) ->
-    _compiler ?= new (require('./GoateeScript/Compiler').Compiler)
+    _compiler ?= new (require('./Compiler').Compiler)
     _compiler.render(code)
 
   ##
@@ -66,7 +66,7 @@ exports.GoateeScript = class GoateeScript
   # @param  {Boolean}           compress, default is true
   # @return {Array|String|Number|true|false|null}
   GoateeScript.ast = (data, callback, compress) ->
-    _compiler ?= new (require('./GoateeScript/Compiler').Compiler)
+    _compiler ?= new (require('./Compiler').Compiler)
     _compiler.ast(data, callback, compress)
 
   ##
@@ -75,7 +75,7 @@ exports.GoateeScript = class GoateeScript
   # @param  {Boolean}           compress, default is true
   # @return String
   GoateeScript.stringify = (data, callback, compress) ->
-    _compiler ?= new (require('./GoateeScript/Compiler').Compiler)
+    _compiler ?= new (require('./Compiler').Compiler)
     _compiler.stringify(data, callback, compress)
 
   ##
@@ -84,5 +84,5 @@ exports.GoateeScript = class GoateeScript
   # @param  {Boolean}      compress, default = true
   # @return String
   GoateeScript.compile = (data, callback, compress) ->
-    _compiler ?= new (require('./GoateeScript/Compiler').Compiler)
+    _compiler ?= new (require('./Compiler').Compiler)
     _compiler.compile(data, callback, compress)

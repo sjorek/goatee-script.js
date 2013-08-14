@@ -32,7 +32,7 @@ Benchmark = require 'benchmark'
 
 {Utility:{
   isArray
-}} = require '../GoateeScript/Utility'
+}} = require '../Utility'
 
 
 #_         ?= null
