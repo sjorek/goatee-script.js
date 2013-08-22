@@ -14,13 +14,17 @@
   "engines": {
     "node": "~0.10"
   },
+  "bin": {
+    "goatee-script": "./bin/goatee-script"
+  },
+  "files": {
+    "LICENSE",
+    "README.md"
+  },
   "directories": {
     "lib": "./lib"
   },
   "main": "./lib/GoateeScript.js",
-  "bin":          {
-    "goatee-script": "./bin/goatee-script"
-  },
   "scripts": {
     "test": "PATH=$PATH:./node_modules/.bin jasmine-node --growl --coffee --color --verbose ./src/Tests ./lib/Tests"
   },
