@@ -1,0 +1,10 @@
+.DS_Store
+.externalToolBuilders/*
+.project
+.settings/*
+.gitignore
+.npmignore
+Cakefile
+lib/Tests/*
+src/*
+
