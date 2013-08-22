@@ -24,7 +24,7 @@
   "scripts": {
     "test": "PATH=$PATH:./node_modules/.bin jasmine-node --growl --coffee --color --verbose ./src/Tests ./lib/Tests"
   },
-  "homepage":     "http://goat.ee/script",
+  "homepage":     "https://github.com/sjorek/goatee-script/",
   "bugs":         "https://github.com/sjorek/goatee-script/issues",
   "repository":   {
     "type": "git",
