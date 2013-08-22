@@ -22,7 +22,6 @@
     "README.md"
   ],
   "directories": {
-    "bin": "./bin",
     "lib": "./lib"
   },
   "main": "./lib/GoateeScript.js",
