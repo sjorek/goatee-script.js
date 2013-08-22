@@ -1,0 +1,74 @@
+<!DOCTYPE html><html lang="en"><head><title>GoateeScript</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content=""><meta name="groc-document-path" content="GoateeScript"><meta name="groc-project-path" content="src/GoateeScript.coffee"><link rel="stylesheet" type="text/css" media="all" href="assets/style.css"><script type="text/javascript" src="assets/behavior.js"></script><body><div id="meta"><div class="file-path">src/GoateeScript.coffee</div></div><div id="document"><div class="segment"><div class="code"><div class="wrapper"><span class="cm">###</span>
+<span class="cm">© Copyright 2013 Stephan Jorek &lt;stephan.jorek@gmail.com&gt;</span>
+
+<span class="cm">Permission is hereby granted, free of charge, to any person</span>
+<span class="cm">obtaining a copy of this software and associated documentation</span>
+<span class="cm">files (the &quot;Software&quot;), to deal in the Software without</span>
+<span class="cm">restriction, including without limitation the rights to use,</span>
+<span class="cm">copy, modify, merge, publish, distribute, sublicense, and/or sell</span>
+<span class="cm">copies of the Software, and to permit persons to whom the</span>
+<span class="cm">Software is furnished to do so, subject to the following</span>
+<span class="cm">conditions:</span>
+
+<span class="cm">The above copyright notice and this permission notice shall be</span>
+<span class="cm">included in all copies or substantial portions of the Software.</span>
+
+<span class="cm">THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND,</span>
+<span class="cm">EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES</span>
+<span class="cm">OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND</span>
+<span class="cm">NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT</span>
+<span class="cm">HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,</span>
+<span class="cm">WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING</span>
+<span class="cm">FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR</span>
+<span class="cm">OTHER DEALINGS IN THE SOFTWARE.</span>
+<span class="cm">###</span>
+
+<span class="nv">exports = </span><span class="nx">module</span><span class="o">?</span><span class="p">.</span><span class="nx">exports</span> <span class="o">?</span> <span class="k">this</span>
+
+<span class="c1">##</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>@class
+@namespace GoateeScript</p></div></div><div class="code"><div class="wrapper"><span class="nv">exports.GoateeScript = </span><span class="k">class</span> <span class="nx">GoateeScript</span>
+
+  <span class="nv">GoateeScript.NAME      = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;../package.json&#39;</span><span class="p">).</span><span class="nx">name</span>
+  <span class="nv">GoateeScript.VERSION   = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;../package.json&#39;</span><span class="p">).</span><span class="nx">version</span>
+
+  <span class="nv">_compiler = </span><span class="kc">null</span>
+
+  <span class="c1">##</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>@param {String} code
+@return Expression</p></div></div><div class="code"><div class="wrapper">  <span class="nv">GoateeScript.parse = </span><span class="nf">(code) -&gt;</span>
+    <span class="nx">_compiler</span> <span class="o">?=</span> <span class="k">new</span> <span class="p">(</span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;./Compiler&#39;</span><span class="p">).</span><span class="nx">Compiler</span><span class="p">)</span>
+    <span class="nx">_compiler</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">code</span><span class="p">)</span>
+
+  <span class="c1">##</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>@param {String} code
+@param {Object} context (optional)
+@param {Object} variables (optional)
+@param {Array}  scope (optional)
+@param {Array}  stack (optional)
+@return mixed</p></div></div><div class="code"><div class="wrapper">  <span class="nv">GoateeScript.evaluate = </span><span class="nf">(code, context, variables, scope, stack) -&gt;</span>
+    <span class="nx">_compiler</span> <span class="o">?=</span> <span class="k">new</span> <span class="p">(</span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;./Compiler&#39;</span><span class="p">).</span><span class="nx">Compiler</span><span class="p">)</span>
+    <span class="nx">_compiler</span><span class="p">.</span><span class="nx">evaluate</span><span class="p">(</span><span class="nx">code</span><span class="p">,</span> <span class="nx">context</span><span class="p">,</span> <span class="nx">variables</span><span class="p">,</span> <span class="nx">scope</span><span class="p">,</span> <span class="nx">stack</span><span class="p">)</span>
+
+  <span class="c1">##</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>@param {String} code
+@return String</p></div></div><div class="code"><div class="wrapper">  <span class="nv">GoateeScript.render = </span><span class="nf">(code) -&gt;</span>
+    <span class="nx">_compiler</span> <span class="o">?=</span> <span class="k">new</span> <span class="p">(</span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;./Compiler&#39;</span><span class="p">).</span><span class="nx">Compiler</span><span class="p">)</span>
+    <span class="nx">_compiler</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="nx">code</span><span class="p">)</span>
+
+  <span class="c1">##</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>@param  {String|Expression} code, a String or an Expression
+@param  {Function}          callback (optional)
+@param  {Boolean}           compress, default is true
+@return {Array|String|Number|true|false|null}</p></div></div><div class="code"><div class="wrapper">  <span class="nv">GoateeScript.ast = </span><span class="nf">(data, callback, compress) -&gt;</span>
+    <span class="nx">_compiler</span> <span class="o">?=</span> <span class="k">new</span> <span class="p">(</span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;./Compiler&#39;</span><span class="p">).</span><span class="nx">Compiler</span><span class="p">)</span>
+    <span class="nx">_compiler</span><span class="p">.</span><span class="nx">ast</span><span class="p">(</span><span class="nx">data</span><span class="p">,</span> <span class="nx">callback</span><span class="p">,</span> <span class="nx">compress</span><span class="p">)</span>
+
+  <span class="c1">##</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>@param  {String|Expression} data
+@param  {Function}          callback (optional)
+@param  {Boolean}           compress, default is true
+@return String</p></div></div><div class="code"><div class="wrapper">  <span class="nv">GoateeScript.stringify = </span><span class="nf">(data, callback, compress) -&gt;</span>
+    <span class="nx">_compiler</span> <span class="o">?=</span> <span class="k">new</span> <span class="p">(</span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;./Compiler&#39;</span><span class="p">).</span><span class="nx">Compiler</span><span class="p">)</span>
+    <span class="nx">_compiler</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">data</span><span class="p">,</span> <span class="nx">callback</span><span class="p">,</span> <span class="nx">compress</span><span class="p">)</span>
+
+  <span class="c1">##</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>@param  {String|Array} data, code-String or opcode-Array
+@param  {Function}     callback (optional)
+@param  {Boolean}      compress, default = true
+@return String</p></div></div><div class="code"><div class="wrapper">  <span class="nv">GoateeScript.compile = </span><span class="nf">(data, callback, compress) -&gt;</span>
+    <span class="nx">_compiler</span> <span class="o">?=</span> <span class="k">new</span> <span class="p">(</span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;./Compiler&#39;</span><span class="p">).</span><span class="nx">Compiler</span><span class="p">)</span>
+    <span class="nx">_compiler</span><span class="p">.</span><span class="nx">compile</span><span class="p">(</span><span class="nx">data</span><span class="p">,</span> <span class="nx">callback</span><span class="p">,</span> <span class="nx">compress</span><span class="p">)</span></div></div></div></div></body></html>

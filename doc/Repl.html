@@ -1,0 +1,191 @@
+<!DOCTYPE html><html lang="en"><head><title>Repl</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content=""><meta name="groc-document-path" content="Repl"><meta name="groc-project-path" content="src/Repl.coffee"><link rel="stylesheet" type="text/css" media="all" href="assets/style.css"><script type="text/javascript" src="assets/behavior.js"></script><body><div id="meta"><div class="file-path">src/Repl.coffee</div></div><div id="document"><div class="segment"><div class="code"><div class="wrapper"><span class="cm">###</span>
+<span class="cm">© Copyright 2013 Stephan Jorek &lt;stephan.jorek@gmail.com&gt;</span>
+<span class="cm">© Copyright 2009-2013 Jeremy Ashkenas</span>
+
+<span class="cm">Permission is hereby granted, free of charge, to any person</span>
+<span class="cm">obtaining a copy of this software and associated documentation</span>
+<span class="cm">files (the &quot;Software&quot;), to deal in the Software without</span>
+<span class="cm">restriction, including without limitation the rights to use,</span>
+<span class="cm">copy, modify, merge, publish, distribute, sublicense, and/or sell</span>
+<span class="cm">copies of the Software, and to permit persons to whom the</span>
+<span class="cm">Software is furnished to do so, subject to the following</span>
+<span class="cm">conditions:</span>
+
+<span class="cm">The above copyright notice and this permission notice shall be</span>
+<span class="cm">included in all copies or substantial portions of the Software.</span>
+
+<span class="cm">THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND,</span>
+<span class="cm">EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES</span>
+<span class="cm">OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND</span>
+<span class="cm">NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT</span>
+<span class="cm">HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,</span>
+<span class="cm">WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING</span>
+<span class="cm">FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR</span>
+<span class="cm">OTHER DEALINGS IN THE SOFTWARE.</span>
+<span class="cm">###</span>
+
+<span class="nv">fs              = </span><span class="nx">require</span> <span class="s">&#39;fs&#39;</span>
+<span class="nv">path            = </span><span class="nx">require</span> <span class="s">&#39;path&#39;</span>
+<span class="c1">#vm              = require &#39;vm&#39;</span>
+<span class="nv">NodeRepl        = </span><span class="nx">require</span> <span class="s">&#39;repl&#39;</span>
+
+<span class="p">{</span><span class="nx">GoateeScript</span><span class="o">:</span><span class="p">{</span>
+  <span class="nx">compile</span><span class="p">,</span>
+  <span class="nx">evaluate</span><span class="p">,</span>
+  <span class="nx">render</span><span class="p">,</span>
+  <span class="nx">stringify</span>
+<span class="p">}}</span>              <span class="o">=</span> <span class="nx">require</span> <span class="s">&#39;./GoateeScript&#39;</span>
+
+<span class="p">{</span><span class="nx">Expression</span><span class="p">}</span>    <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s">&#39;./Expression&#39;</span><span class="p">)</span>
+
+<span class="p">{</span><span class="nx">Utility</span><span class="o">:</span><span class="p">{</span>
+  <span class="nx">isArray</span>
+<span class="p">}}</span>              <span class="o">=</span> <span class="nx">require</span> <span class="s">&#39;./Utility&#39;</span>
+
+<span class="nv">exports = </span><span class="nx">module</span><span class="o">?</span><span class="p">.</span><span class="nx">exports</span> <span class="o">?</span> <span class="k">this</span>
+
+<span class="c1">##</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>@class
+@namespace GoateeScript</p></div></div><div class="code"><div class="wrapper"><span class="nv">exports.Repl = </span><span class="k">class</span> <span class="nx">Repl</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Creates a nice error message like, following the "standard" format
+<filename>:<line>:<col>: <message> plus the line with the error and a marker
+showing where the error is.</p></div></div><div class="code"><div class="wrapper">  <span class="nv">_prettyErrorMessage = </span><span class="nf">(error, filename, code, colorize) -&gt;</span>
+
+    <span class="k">if</span> <span class="o">not</span> <span class="nx">error</span><span class="o">?</span> <span class="o">or</span> <span class="nx">error</span> <span class="o">is</span> <span class="kc">false</span> <span class="o">or</span> <span class="p">(</span> <span class="nx">isArray</span><span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="o">and</span> <span class="nx">error</span><span class="p">.</span><span class="nx">length</span> <span class="o">is</span> <span class="mi">0</span> <span class="p">)</span>
+      <span class="k">return</span> <span class="kc">null</span>
+
+    <span class="k">if</span> <span class="nx">isArray</span> <span class="nx">error</span>
+      <span class="nv">message = </span><span class="p">[]</span>
+      <span class="k">for</span> <span class="nx">e</span> <span class="k">in</span> <span class="nx">error</span>
+        <span class="nx">message</span><span class="p">.</span><span class="nx">push</span> <span class="nx">_prettyErrorMessage</span><span class="p">(</span><span class="nx">e</span><span class="p">,</span> <span class="nx">filename</span><span class="p">,</span> <span class="nx">code</span><span class="p">,</span> <span class="nx">colorize</span><span class="p">)</span>
+      <span class="k">return</span> <span class="nx">message</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="s">&quot;\n——\n&quot;</span><span class="p">)</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Prefer original source file information stored in the error if present.</p></div></div><div class="code"><div class="wrapper">    <span class="nv">filename = </span><span class="nx">error</span><span class="p">.</span><span class="nx">filename</span> <span class="o">or</span> <span class="nx">filename</span>
+    <span class="nv">code     = </span><span class="nx">error</span><span class="p">.</span><span class="nx">code</span> <span class="o">or</span> <span class="nx">code</span>
+    <span class="nv">message  = </span><span class="nx">error</span><span class="p">.</span><span class="nx">message</span>
+
+    <span class="k">if</span> <span class="nx">colorize</span><span class="o">?</span>
+      <span class="k">if</span> <span class="nx">colorize</span> <span class="o">is</span> <span class="kc">yes</span>
+        <span class="nv">colorize = </span><span class="nf">(str) -&gt;</span> <span class="o">`</span><span class="s">&quot;\x1B[1;31m&quot;</span> <span class="o">+</span> <span class="nx">str</span> <span class="o">+</span><span class="s">&quot;\x1B[0m&quot;</span><span class="o">`</span>
+      <span class="nv">message  = </span><span class="nx">colorize</span> <span class="nx">message</span>
+
+    <span class="s">&quot;&quot;&quot;</span>
+<span class="s">    </span><span class="si">#{</span><span class="nx">filename</span><span class="si">}</span><span class="s">: </span><span class="si">#{</span><span class="nx">message</span><span class="si">}</span><span class="s"></span>
+<span class="s">    &quot;&quot;&quot;</span>
+
+  <span class="nv">_addMultilineHandler = </span><span class="nf">(repl) -&gt;</span>
+    <span class="p">{</span><span class="nx">rli</span><span class="p">,</span> <span class="nx">inputStream</span><span class="p">,</span> <span class="nx">outputStream</span><span class="p">}</span> <span class="o">=</span> <span class="nx">repl</span>
+
+    <span class="nv">multiline =</span>
+      <span class="nv">enabled: </span><span class="kc">off</span>
+      <span class="nv">initialPrompt: </span><span class="nx">repl</span><span class="p">.</span><span class="nx">prompt</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/^[^&gt; ]*/</span><span class="p">,</span> <span class="nf">(x) -&gt;</span> <span class="nx">x</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/./g</span><span class="p">,</span> <span class="s">&#39;-&#39;</span><span class="p">))</span>
+      <span class="nv">prompt: </span><span class="nx">repl</span><span class="p">.</span><span class="nx">prompt</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/^[^&gt; ]*&gt;?/</span><span class="p">,</span> <span class="nf">(x) -&gt;</span> <span class="nx">x</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/./g</span><span class="p">,</span> <span class="s">&#39;.&#39;</span><span class="p">))</span>
+      <span class="nv">buffer: </span><span class="s">&#39;&#39;</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Proxy node's line listener</p></div></div><div class="code"><div class="wrapper">    <span class="nv">nodeLineListener = </span><span class="nx">rli</span><span class="p">.</span><span class="nx">listeners</span><span class="p">(</span><span class="s">&#39;line&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="nx">rli</span><span class="p">.</span><span class="nx">removeListener</span> <span class="s">&#39;line&#39;</span><span class="p">,</span> <span class="nx">nodeLineListener</span>
+    <span class="nx">rli</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;line&#39;</span><span class="p">,</span> <span class="nf">(cmd) -&gt;</span>
+      <span class="k">if</span> <span class="nx">multiline</span><span class="p">.</span><span class="nx">enabled</span>
+        <span class="nx">multiline</span><span class="p">.</span><span class="nx">buffer</span> <span class="o">+=</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">cmd</span><span class="si">}</span><span class="s">\n&quot;</span>
+        <span class="nx">rli</span><span class="p">.</span><span class="nx">setPrompt</span> <span class="nx">multiline</span><span class="p">.</span><span class="nx">prompt</span>
+        <span class="nx">rli</span><span class="p">.</span><span class="nx">prompt</span> <span class="kc">true</span>
+      <span class="k">else</span>
+        <span class="nx">nodeLineListener</span> <span class="nx">cmd</span>
+      <span class="k">return</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Handle Ctrl-v</p></div></div><div class="code"><div class="wrapper">    <span class="nx">inputStream</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;keypress&#39;</span><span class="p">,</span> <span class="nf">(char, key) -&gt;</span>
+      <span class="k">return</span> <span class="k">unless</span> <span class="nx">key</span> <span class="o">and</span> <span class="nx">key</span><span class="p">.</span><span class="nx">ctrl</span> <span class="o">and</span> <span class="o">not</span> <span class="nx">key</span><span class="p">.</span><span class="nx">meta</span> <span class="o">and</span> <span class="o">not</span> <span class="nx">key</span><span class="p">.</span><span class="nx">shift</span> <span class="o">and</span> <span class="nx">key</span><span class="p">.</span><span class="nx">name</span> <span class="o">is</span> <span class="s">&#39;v&#39;</span>
+      <span class="k">if</span> <span class="nx">multiline</span><span class="p">.</span><span class="nx">enabled</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>allow arbitrarily switching between modes any time before multiple lines are entered</p></div></div><div class="code"><div class="wrapper">        <span class="k">unless</span> <span class="nx">multiline</span><span class="p">.</span><span class="nx">buffer</span><span class="p">.</span><span class="nx">match</span> <span class="sr">/\n/</span>
+          <span class="nv">multiline.enabled = </span><span class="o">not</span> <span class="nx">multiline</span><span class="p">.</span><span class="nx">enabled</span>
+          <span class="nx">rli</span><span class="p">.</span><span class="nx">setPrompt</span> <span class="nx">repl</span><span class="p">.</span><span class="nx">prompt</span>
+          <span class="nx">rli</span><span class="p">.</span><span class="nx">prompt</span> <span class="kc">true</span>
+          <span class="k">return</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>no-op unless the current line is empty</p></div></div><div class="code"><div class="wrapper">        <span class="k">return</span> <span class="k">if</span> <span class="nx">rli</span><span class="p">.</span><span class="nx">line</span><span class="o">?</span> <span class="o">and</span> <span class="o">not</span> <span class="nx">rli</span><span class="p">.</span><span class="nx">line</span><span class="p">.</span><span class="nx">match</span> <span class="sr">/^\s*$/</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>eval, print, loop</p></div></div><div class="code"><div class="wrapper">        <span class="nv">multiline.enabled = </span><span class="o">not</span> <span class="nx">multiline</span><span class="p">.</span><span class="nx">enabled</span>
+        <span class="nv">rli.line = </span><span class="s">&#39;&#39;</span>
+        <span class="nv">rli.cursor = </span><span class="mi">0</span>
+        <span class="nx">rli</span><span class="p">.</span><span class="nx">output</span><span class="p">.</span><span class="nx">cursorTo</span> <span class="mi">0</span>
+        <span class="nx">rli</span><span class="p">.</span><span class="nx">output</span><span class="p">.</span><span class="nx">clearLine</span> <span class="mi">1</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>XXX: multiline hack</p></div></div><div class="code"><div class="wrapper">        <span class="nv">multiline.buffer = </span><span class="nx">multiline</span><span class="p">.</span><span class="nx">buffer</span><span class="p">.</span><span class="nx">replace</span> <span class="sr">/\n/g</span><span class="p">,</span> <span class="s">&#39;\uFF00&#39;</span>
+        <span class="nx">rli</span><span class="p">.</span><span class="nx">emit</span> <span class="s">&#39;line&#39;</span><span class="p">,</span> <span class="nx">multiline</span><span class="p">.</span><span class="nx">buffer</span>
+        <span class="nv">multiline.buffer = </span><span class="s">&#39;&#39;</span>
+      <span class="k">else</span>
+        <span class="nv">multiline.enabled = </span><span class="o">not</span> <span class="nx">multiline</span><span class="p">.</span><span class="nx">enabled</span>
+        <span class="nx">rli</span><span class="p">.</span><span class="nx">setPrompt</span> <span class="nx">multiline</span><span class="p">.</span><span class="nx">initialPrompt</span>
+        <span class="nx">rli</span><span class="p">.</span><span class="nx">prompt</span> <span class="kc">true</span>
+      <span class="k">return</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Store and load command history from a file</p></div></div><div class="code"><div class="wrapper">  <span class="nv">_addHistory = </span><span class="nf">(repl, filename, maxSize) -&gt;</span>
+    <span class="nv">lastLine = </span><span class="kc">null</span>
+    <span class="k">try</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Get file info and at most maxSize of command history</p></div></div><div class="code"><div class="wrapper">      <span class="nv">stat = </span><span class="nx">fs</span><span class="p">.</span><span class="nx">statSync</span> <span class="nx">filename</span>
+      <span class="nv">size = </span><span class="nb">Math</span><span class="p">.</span><span class="nx">min</span> <span class="nx">maxSize</span><span class="p">,</span> <span class="nx">stat</span><span class="p">.</span><span class="nx">size</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Read last <code>size</code> bytes from the file</p></div></div><div class="code"><div class="wrapper">      <span class="nv">readFd = </span><span class="nx">fs</span><span class="p">.</span><span class="nx">openSync</span> <span class="nx">filename</span><span class="p">,</span> <span class="s">&#39;r&#39;</span>
+      <span class="nv">buffer = </span><span class="k">new</span> <span class="nx">Buffer</span><span class="p">(</span><span class="nx">size</span><span class="p">)</span>
+      <span class="nx">fs</span><span class="p">.</span><span class="nx">readSync</span> <span class="nx">readFd</span><span class="p">,</span> <span class="nx">buffer</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">size</span><span class="p">,</span> <span class="nx">stat</span><span class="p">.</span><span class="nx">size</span> <span class="o">-</span> <span class="nx">size</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Set the history on the interpreter</p></div></div><div class="code"><div class="wrapper">      <span class="nv">repl.rli.history = </span><span class="nx">buffer</span><span class="p">.</span><span class="nx">toString</span><span class="p">().</span><span class="nx">split</span><span class="p">(</span><span class="s">&#39;\n&#39;</span><span class="p">).</span><span class="nx">reverse</span><span class="p">()</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>If the history file was truncated we should pop off a potential partial line</p></div></div><div class="code"><div class="wrapper">      <span class="nx">repl</span><span class="p">.</span><span class="nx">rli</span><span class="p">.</span><span class="nx">history</span><span class="p">.</span><span class="nx">pop</span><span class="p">()</span> <span class="k">if</span> <span class="nx">stat</span><span class="p">.</span><span class="nx">size</span> <span class="o">&gt;</span> <span class="nx">maxSize</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Shift off the final blank newline</p></div></div><div class="code"><div class="wrapper">      <span class="nx">repl</span><span class="p">.</span><span class="nx">rli</span><span class="p">.</span><span class="nx">history</span><span class="p">.</span><span class="nx">shift</span><span class="p">()</span> <span class="k">if</span> <span class="nx">repl</span><span class="p">.</span><span class="nx">rli</span><span class="p">.</span><span class="nx">history</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">is</span> <span class="s">&#39;&#39;</span>
+      <span class="nv">repl.rli.historyIndex = </span><span class="o">-</span><span class="mi">1</span>
+      <span class="nv">lastLine = </span><span class="nx">repl</span><span class="p">.</span><span class="nx">rli</span><span class="p">.</span><span class="nx">history</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="nv">fd = </span><span class="nx">fs</span><span class="p">.</span><span class="nx">openSync</span> <span class="nx">filename</span><span class="p">,</span> <span class="s">&#39;a&#39;</span>
+
+    <span class="nx">repl</span><span class="p">.</span><span class="nx">rli</span><span class="p">.</span><span class="nx">addListener</span> <span class="s">&#39;line&#39;</span><span class="p">,</span> <span class="nf">(code) -&gt;</span>
+      <span class="k">if</span> <span class="nx">code</span> <span class="o">and</span> <span class="nx">code</span><span class="p">.</span><span class="nx">length</span> <span class="o">and</span> <span class="nx">code</span> <span class="o">isnt</span> <span class="s">&#39;.history&#39;</span> <span class="o">and</span> <span class="nx">lastLine</span> <span class="o">isnt</span> <span class="nx">code</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Save the latest command in the file</p></div></div><div class="code"><div class="wrapper">        <span class="nx">fs</span><span class="p">.</span><span class="nx">write</span> <span class="nx">fd</span><span class="p">,</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">code</span><span class="si">}</span><span class="s">\n&quot;</span>
+        <span class="nv">lastLine = </span><span class="nx">code</span>
+
+    <span class="nx">repl</span><span class="p">.</span><span class="nx">rli</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;exit&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">close</span> <span class="nx">fd</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Add a command to show the history stack</p></div></div><div class="code"><div class="wrapper">    <span class="nx">repl</span><span class="p">.</span><span class="nx">commands</span><span class="p">[</span><span class="s">&#39;.history&#39;</span><span class="p">]</span> <span class="o">=</span>
+      <span class="nv">help: </span><span class="s">&#39;Show command history&#39;</span>
+      <span class="nv">action: </span><span class="nf">-&gt;</span>
+        <span class="nx">repl</span><span class="p">.</span><span class="nx">outputStream</span><span class="p">.</span><span class="nx">write</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">repl</span><span class="p">.</span><span class="nx">rli</span><span class="p">.</span><span class="nx">history</span><span class="p">[..].</span><span class="nx">reverse</span><span class="p">().</span><span class="nx">join</span> <span class="s">&#39;\n&#39;</span><span class="si">}</span><span class="s">\n&quot;</span>
+        <span class="nx">repl</span><span class="p">.</span><span class="nx">displayPrompt</span><span class="p">()</span>
+
+  <span class="nv">Repl.defaults = _options =</span>
+    <span class="nv">command: </span><span class="p">{}</span>
+    <span class="nv">context: </span><span class="p">{}</span>
+    <span class="nv">variables: </span><span class="p">{}</span>
+    <span class="nb">eval</span><span class="o">:</span> <span class="nf">(input, context, filename, callback) -&gt;</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>XXX: multiline hack.</p></div></div><div class="code"><div class="wrapper">      <span class="nv">input = </span><span class="nx">input</span><span class="p">.</span><span class="nx">replace</span> <span class="sr">/\uFF00/g</span><span class="p">,</span> <span class="s">&#39;\n&#39;</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Node's REPL sends the input ending with a newline and then wrapped in
+parens. Unwrap all that.</p></div></div><div class="code"><div class="wrapper">      <span class="nv">input = </span><span class="nx">input</span><span class="p">.</span><span class="nx">replace</span> <span class="sr">/^\(([\s\S]*)\n\)$/m</span><span class="p">,</span> <span class="s">&#39;$1&#39;</span>
+
+      <span class="nv">context     = </span><span class="nx">_options</span><span class="p">.</span><span class="nx">context</span> <span class="o">||</span> <span class="nx">context</span>
+      <span class="nv">variables   = </span><span class="nx">_options</span><span class="p">.</span><span class="nx">variables</span> <span class="o">||</span> <span class="nx">_options</span><span class="p">.</span><span class="nx">variables</span><span class="o">=</span><span class="p">{}</span>
+      <span class="nv">error       = </span><span class="p">[]</span>
+      <span class="p">{</span>
+        <span class="nx">compile</span><span class="p">,</span>
+        <span class="nx">evaluate</span><span class="p">,</span>
+        <span class="nx">parse</span><span class="p">,</span>
+        <span class="nx">render</span><span class="p">,</span>
+        <span class="nx">stringify</span>
+      <span class="p">}</span>           <span class="o">=</span> <span class="nx">_options</span><span class="p">.</span><span class="nx">command</span>
+      <span class="p">{</span>
+        <span class="nx">mode</span><span class="p">,</span>
+        <span class="nx">compress</span>
+      <span class="p">}</span>           <span class="o">=</span> <span class="nx">_options</span><span class="p">.</span><span class="nx">flags</span>
+
+      <span class="nx">Expression</span><span class="p">.</span><span class="nx">callback</span> <span class="nf">(expression, result, stack, errors) -&gt;</span>
+        <span class="nx">context</span><span class="p">[</span><span class="s">&#39;_&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nx">result</span>
+        <span class="k">for</span> <span class="k">own</span> <span class="nx">key</span><span class="p">,</span> <span class="nx">value</span> <span class="k">of</span> <span class="nx">stack</span><span class="p">.</span><span class="nx">local</span>
+          <span class="nx">variables</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span> <span class="o">=</span> <span class="nx">value</span>
+        <span class="nv">error = </span><span class="nx">error</span><span class="p">.</span><span class="nx">concat</span><span class="p">(</span><span class="nx">errors</span><span class="p">)</span> <span class="k">if</span> <span class="nx">errors</span><span class="o">?</span>
+        <span class="k">return</span>
+
+      <span class="k">try</span>
+        <span class="nv">output =</span>
+          <span class="k">switch</span> <span class="nx">mode</span>
+            <span class="k">when</span> <span class="s">&#39;c&#39;</span> <span class="k">then</span> <span class="nx">compile</span>   <span class="nx">input</span><span class="p">,</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">compress</span>
+            <span class="k">when</span> <span class="s">&#39;p&#39;</span> <span class="k">then</span> <span class="nx">stringify</span> <span class="nx">input</span><span class="p">,</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">compress</span>
+            <span class="k">when</span> <span class="s">&#39;r&#39;</span> <span class="k">then</span> <span class="nx">render</span>    <span class="nx">input</span><span class="p">,</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">compress</span>
+            <span class="k">when</span> <span class="s">&#39;s&#39;</span> <span class="k">then</span> <span class="nx">parse</span>     <span class="nx">input</span>
+            <span class="k">else</span>          <span class="nx">evaluate</span>  <span class="nx">input</span><span class="p">,</span> <span class="nx">context</span><span class="p">,</span> <span class="nx">variables</span>
+        <span class="nx">callback</span> <span class="nx">_prettyErrorMessage</span><span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">filename</span><span class="p">,</span> <span class="nx">input</span><span class="p">,</span> <span class="kc">yes</span><span class="p">),</span> <span class="nx">output</span>
+        <span class="c1">#callback null, vm.runInContext(js, context, filename)</span>
+      <span class="k">catch</span> <span class="nx">error</span>
+        <span class="nx">callback</span> <span class="nx">_prettyErrorMessage</span><span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">filename</span><span class="p">,</span> <span class="nx">input</span><span class="p">,</span> <span class="kc">yes</span><span class="p">)</span>
+      <span class="k">return</span>
+
+  <span class="nv">Repl.start = </span><span class="nf">(command, flags = {}, options = _options) -&gt;</span>
+    <span class="p">[</span>
+      <span class="nx">major</span><span class="p">,</span> <span class="nx">minor</span> <span class="c1">#, build</span>
+    <span class="p">]</span> <span class="o">=</span> <span class="nx">process</span><span class="p">.</span><span class="nx">versions</span><span class="p">.</span><span class="nx">node</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s">&#39;.&#39;</span><span class="p">).</span><span class="nx">map</span> <span class="nf">(n) -&gt;</span> <span class="nb">parseInt</span><span class="p">(</span><span class="nx">n</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="nx">major</span> <span class="o">is</span> <span class="mi">0</span> <span class="o">and</span> <span class="nx">minor</span> <span class="o">&lt;</span> <span class="mi">10</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">warn</span> <span class="s">&quot;Node 0.10.0+ required for </span><span class="si">#{</span><span class="nx">command</span><span class="p">.</span><span class="nx">NAME</span><span class="si">}</span><span class="s"> REPL&quot;</span>
+      <span class="nx">process</span><span class="p">.</span><span class="nx">exit</span> <span class="mi">1</span>
+
+    <span class="nv">_options = </span><span class="nx">options</span>
+    <span class="nv">_options.command  = </span><span class="nx">command</span>
+    <span class="nv">_options.flags    = </span><span class="nx">flags</span>
+    <span class="nv">_options.prompt   = </span><span class="s">&quot;</span><span class="si">#{</span><span class="nx">command</span><span class="p">.</span><span class="nx">NAME</span><span class="si">}</span><span class="s">&gt; &quot;</span>
+    <span class="k">if</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">HOME</span>
+      <span class="nv">_options.historyFile = </span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">HOME</span><span class="p">,</span> <span class="s">&quot;.</span><span class="si">#{</span><span class="nx">command</span><span class="p">.</span><span class="nx">NAME</span><span class="si">}</span><span class="s">_history&quot;</span>
+      <span class="nv">_options.historyMaxInputSize = </span><span class="mi">10240</span>
+
+    <span class="nv">repl = </span><span class="nx">NodeRepl</span><span class="p">.</span><span class="nx">start</span> <span class="nx">options</span>
+    <span class="nx">repl</span><span class="p">.</span><span class="nx">on</span> <span class="s">&#39;exit&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span> <span class="nx">repl</span><span class="p">.</span><span class="nx">outputStream</span><span class="p">.</span><span class="nx">write</span> <span class="s">&#39;\n&#39;</span>
+    <span class="nx">_addMultilineHandler</span> <span class="nx">repl</span>
+    <span class="k">if</span> <span class="nx">_options</span><span class="p">.</span><span class="nx">historyFile</span><span class="o">?</span>
+      <span class="nx">_addHistory</span> <span class="nx">repl</span><span class="p">,</span> <span class="nx">_options</span><span class="p">.</span><span class="nx">historyFile</span><span class="p">,</span> <span class="nx">_options</span><span class="p">.</span><span class="nx">historyMaxInputSize</span>
+    <span class="nx">repl</span></div></div></div></div></body></html>

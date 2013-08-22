@@ -1,0 +1,40 @@
+<!DOCTYPE html><html lang="en"><head><title>Scope</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content=""><meta name="groc-document-path" content="Scope"><meta name="groc-project-path" content="src/Scope.coffee"><link rel="stylesheet" type="text/css" media="all" href="assets/style.css"><script type="text/javascript" src="assets/behavior.js"></script><body><div id="meta"><div class="file-path">src/Scope.coffee</div></div><div id="document"><div class="segment"><div class="code"><div class="wrapper"><span class="cm">###</span>
+<span class="cm">© Copyright 2013 Stephan Jorek &lt;stephan.jorek@gmail.com&gt;</span>
+
+<span class="cm">Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
+<span class="cm">you may not use this file except in compliance with the License.</span>
+<span class="cm">You may obtain a copy of the License at</span>
+
+<span class="cm">http://www.apache.org/licenses/LICENSE-2.0</span>
+
+<span class="cm">Unless required by applicable law or agreed to in writing, software</span>
+<span class="cm">distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
+<span class="cm">WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or</span>
+<span class="cm">implied. See the License for the specific language governing</span>
+<span class="cm">permissions and limitations under the License.</span>
+<span class="cm">###</span>
+
+<span class="p">{</span><span class="nx">Expression</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span> <span class="s">&#39;./Expression&#39;</span>
+
+<span class="nv">exports = </span><span class="nx">module</span><span class="o">?</span><span class="p">.</span><span class="nx">exports</span> <span class="o">?</span> <span class="k">this</span>
+
+<span class="c1">##</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>@namespace GoateeScript</p></div></div><div class="code"><div class="wrapper"><span class="nv">exports.Scope = </span><span class="k">class</span> <span class="nx">Scope</span>
+
+  <span class="c1">##</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Create a new <strong>Expression</strong> instance</p></div></div><div class="code"><div class="wrapper">  <span class="c1">#</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>@param  {String}      operator
+@param  {Array}       parameters
+@return {Expression}</p></div></div><div class="code"><div class="wrapper">  <span class="nv">create  : </span><span class="nf">(operator, parameters) -&gt;</span>
+    <span class="k">new</span> <span class="nx">Expression</span><span class="p">(</span><span class="nx">operator</span><span class="p">,</span> <span class="nx">parameters</span><span class="p">)</span>
+
+  <span class="c1">##</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Remove leading and trailing single- or double-quotes</p></div></div><div class="code"><div class="wrapper">  <span class="c1">#</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>@param {String} s
+@return String</p></div></div><div class="code"><div class="wrapper">  <span class="nv">escape  : </span><span class="nf">(s) -&gt;</span>
+    <span class="k">if</span> <span class="nx">s</span><span class="p">.</span><span class="nx">length</span> <span class="o">&lt;</span> <span class="mi">3</span> <span class="k">then</span> <span class="s">&quot;&quot;</span> <span class="k">else</span> <span class="nx">s</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nx">s</span><span class="p">.</span><span class="nx">length</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># .replace(/\\\n/,&#39;&#39;).replace(/\\([^xubfnvrt0])/g, &#39;$1&#39;)</span>
+
+  <span class="c1">##</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Add an “else”-Statement <strong>e</strong> to given “if”-Expression <strong>i</strong></p></div></div><div class="code"><div class="wrapper">  <span class="c1">#</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>@param {String} s
+@return String</p></div></div><div class="code"><div class="wrapper">  <span class="nv">addElse : </span><span class="nx">do</span> <span class="nf">-&gt;</span>
+    <span class="nv">a = </span><span class="nf">(i, e) -&gt;</span>
+      <span class="k">if</span> <span class="nx">i</span><span class="p">.</span><span class="nx">parameters</span><span class="p">.</span><span class="nx">length</span> <span class="o">is</span> <span class="mi">3</span>
+        <span class="nx">a</span><span class="p">(</span><span class="nx">i</span><span class="p">.</span><span class="nx">parameters</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="nx">e</span><span class="p">)</span>
+      <span class="k">else</span>
+        <span class="nx">i</span><span class="p">.</span><span class="nx">parameters</span><span class="p">.</span><span class="nx">push</span> <span class="nx">e</span>
+      <span class="nx">i</span>
+    <span class="nx">a</span></div></div></div></div></body></html>

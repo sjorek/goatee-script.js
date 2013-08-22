@@ -1,0 +1,126 @@
+<!DOCTYPE html><html lang="en"><head><title>Command</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content=""><meta name="groc-document-path" content="Command"><meta name="groc-project-path" content="src/Command.coffee"><link rel="stylesheet" type="text/css" media="all" href="assets/style.css"><script type="text/javascript" src="assets/behavior.js"></script><body><div id="meta"><div class="file-path">src/Command.coffee</div></div><div id="document"><div class="segment"><div class="code"><div class="wrapper"><span class="cm">###</span>
+<span class="cm">© Copyright 2013 Stephan Jorek &lt;stephan.jorek@gmail.com&gt;</span>
+<span class="cm">© Copyright 2009-2013 Jeremy Ashkenas</span>
+
+<span class="cm">Permission is hereby granted, free of charge, to any person</span>
+<span class="cm">obtaining a copy of this software and associated documentation</span>
+<span class="cm">files (the &quot;Software&quot;), to deal in the Software without</span>
+<span class="cm">restriction, including without limitation the rights to use,</span>
+<span class="cm">copy, modify, merge, publish, distribute, sublicense, and/or sell</span>
+<span class="cm">copies of the Software, and to permit persons to whom the</span>
+<span class="cm">Software is furnished to do so, subject to the following</span>
+<span class="cm">conditions:</span>
+
+<span class="cm">The above copyright notice and this permission notice shall be</span>
+<span class="cm">included in all copies or substantial portions of the Software.</span>
+
+<span class="cm">THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND,</span>
+<span class="cm">EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES</span>
+<span class="cm">OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND</span>
+<span class="cm">NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT</span>
+<span class="cm">HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,</span>
+<span class="cm">WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING</span>
+<span class="cm">FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR</span>
+<span class="cm">OTHER DEALINGS IN THE SOFTWARE.</span>
+<span class="cm">###</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>The <code>goatee-script</code> utility. Handles evaluation of statements or launch an
+interactive REPL.</p></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>External dependencies.</p></div></div><div class="code"><div class="wrapper"><span class="nv">nomnom         = </span><span class="nx">require</span> <span class="s">&#39;nomnom&#39;</span>
+<span class="p">{</span><span class="nx">spawn</span><span class="p">}</span>        <span class="o">=</span> <span class="nx">require</span> <span class="s">&#39;child_process&#39;</span>
+
+<span class="nv">exports = </span><span class="nx">module</span><span class="o">?</span><span class="p">.</span><span class="nx">exports</span> <span class="o">?</span> <span class="k">this</span>
+
+<span class="c1">##</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>@class
+@namespace GoateeScript</p></div></div><div class="code"><div class="wrapper"><span class="nv">exports.Command = </span><span class="k">class</span> <span class="nx">Command</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Top-level objects shared by all the functions.</p></div></div><div class="code"><div class="wrapper">  <span class="nv">opts        = </span><span class="kc">null</span>
+  <span class="nv">statements  = </span><span class="kc">null</span>
+
+  <span class="nv">constructor : </span><span class="p">(</span><span class="vi">@command = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;./GoateeScript&#39;</span><span class="p">).</span><span class="nx">GoateeScript</span><span class="p">)</span> <span class="nf">-&gt;</span>
+
+  <span class="nv">printLine   : </span><span class="nf">(line) -&gt;</span>
+    <span class="nx">process</span><span class="p">.</span><span class="nx">stdout</span><span class="p">.</span><span class="nx">write</span> <span class="nx">line</span> <span class="o">+</span> <span class="s">&#39;\n&#39;</span>
+
+  <span class="nv">printWarn   : </span><span class="nf">(line) -&gt;</span>
+    <span class="nx">process</span><span class="p">.</span><span class="nx">stderr</span><span class="p">.</span><span class="nx">write</span> <span class="nx">line</span> <span class="o">+</span> <span class="s">&#39;\n&#39;</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Use the <a href="http://github.com/harthur/nomnom.git">nomnom</a> to extract
+all options from <code>process.argv</code> that are specified here.</p></div></div><div class="code"><div class="wrapper">  <span class="nv">parseOptions: </span><span class="nf">-&gt;</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>The list of all the valid options that <code>goatee-script</code> knows.</p></div></div><div class="code"><div class="wrapper">    <span class="nv">opts = </span><span class="nx">nomnom</span>
+      <span class="p">.</span><span class="nx">script</span><span class="p">(</span><span class="nx">@command</span><span class="p">.</span><span class="nx">NAME</span><span class="p">)</span>
+      <span class="p">.</span><span class="nx">option</span><span class="p">(</span><span class="s">&#39;statements&#39;</span><span class="p">,</span> <span class="p">{</span>
+        <span class="nv">list: </span><span class="kc">true</span><span class="p">,</span>
+        <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+        <span class="nv">position: </span><span class="mi">0</span>
+        <span class="nv">help: </span><span class="s">&#39;string passed from the command line to evaluate&#39;</span>
+      <span class="p">})</span>
+      <span class="p">.</span><span class="nx">option</span><span class="p">(</span><span class="s">&#39;run&#39;</span><span class="p">,</span> <span class="p">{</span>
+        <span class="nv">abbr: </span><span class="s">&#39;r&#39;</span><span class="p">,</span>
+        <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
+        <span class="nv">metavar: </span><span class="s">&#39;STATEMENT&#39;</span>
+        <span class="nv">list: </span><span class="kc">true</span><span class="p">,</span>
+        <span class="nv">help: </span><span class="s">&#39;string passed from the command line to evaluate&#39;</span>
+      <span class="p">})</span>
+      <span class="p">.</span><span class="nx">option</span><span class="p">(</span><span class="s">&#39;help&#39;</span><span class="p">,</span> <span class="p">{</span>
+        <span class="nv">abbr: </span><span class="s">&#39;h&#39;</span><span class="p">,</span>
+        <span class="nv">flag: </span><span class="kc">true</span><span class="p">,</span>
+        <span class="nv">help: </span><span class="s">&#39;display this help message&#39;</span>
+      <span class="p">})</span>
+      <span class="p">.</span><span class="nx">option</span><span class="p">(</span><span class="s">&#39;interactive&#39;</span><span class="p">,</span> <span class="p">{</span>
+        <span class="nv">abbr: </span><span class="s">&#39;i&#39;</span><span class="p">,</span>
+        <span class="nv">flag: </span><span class="kc">true</span><span class="p">,</span>
+        <span class="nv">help: </span><span class="s">&quot;run an interactive `</span><span class="si">#{</span><span class="nx">@command</span><span class="p">.</span><span class="nx">NAME</span><span class="si">}</span><span class="s">` REPL&quot;</span>
+      <span class="p">})</span>
+      <span class="p">.</span><span class="nx">option</span><span class="p">(</span><span class="s">&#39;mode&#39;</span><span class="p">,</span> <span class="p">{</span>
+        <span class="nv">metavar: </span><span class="s">&#39;MODE&#39;</span>
+        <span class="nv">abbr: </span><span class="s">&#39;m&#39;</span><span class="p">,</span>
+        <span class="nv">default: </span><span class="s">&#39;eval&#39;</span><span class="p">,</span>
+        <span class="nv">choices: </span><span class="p">[</span><span class="s">&#39;compile&#39;</span><span class="p">,</span> <span class="s">&#39;c&#39;</span><span class="p">,</span> <span class="s">&#39;evaluate&#39;</span><span class="p">,</span> <span class="s">&#39;eval&#39;</span><span class="p">,</span> <span class="s">&#39;e&#39;</span><span class="p">,</span> <span class="s">&#39;print&#39;</span><span class="p">,</span> <span class="s">&#39;p&#39;</span><span class="p">,</span> <span class="s">&#39;render&#39;</span><span class="p">,</span> <span class="s">&#39;r&#39;</span><span class="p">,</span> <span class="s">&#39;stringify&#39;</span><span class="p">,</span> <span class="s">&#39;string&#39;</span><span class="p">,</span> <span class="s">&#39;s&#39;</span><span class="p">]</span>
+        <span class="nv">help: </span><span class="s">&#39;set execution-mode to [c]ompile, [e]valuate, [p]rint, [r]ender or [s]tringify given statements, default:&#39;</span>
+      <span class="p">})</span>
+      <span class="p">.</span><span class="nx">option</span><span class="p">(</span><span class="s">&#39;compress&#39;</span><span class="p">,</span> <span class="p">{</span>
+        <span class="nv">abbr: </span><span class="s">&#39;c&#39;</span><span class="p">,</span>
+        <span class="nv">default: </span><span class="kc">false</span><span class="p">,</span>
+        <span class="nv">flag: </span><span class="kc">true</span><span class="p">,</span>
+        <span class="nv">help: </span><span class="s">&#39;compress the abstract syntax tree (ast)&#39;</span>
+      <span class="p">})</span>
+      <span class="p">.</span><span class="nx">option</span><span class="p">(</span><span class="s">&#39;nodejs&#39;</span><span class="p">,</span> <span class="p">{</span>
+        <span class="nv">metavar: </span><span class="s">&#39;OPTION&#39;</span>
+        <span class="nv">list: </span><span class="kc">true</span>
+        <span class="nv">help: </span><span class="s">&#39;pass one option directly to the &quot;node&quot; binary, repeat for muliple options&#39;</span>
+      <span class="p">})</span>
+      <span class="c1">#[&#39;-t&#39;, &#39;--tokens&#39;,          &#39;print out the tokens that the lexer/rewriter produce&#39;]</span>
+      <span class="p">.</span><span class="nx">option</span><span class="p">(</span><span class="s">&#39;version&#39;</span><span class="p">,</span> <span class="p">{</span>
+        <span class="nv">abbr: </span><span class="s">&#39;v&#39;</span><span class="p">,</span>
+        <span class="nv">flag: </span><span class="kc">true</span><span class="p">,</span>
+        <span class="nv">help: </span><span class="s">&#39;display the version number and exit&#39;</span>
+      <span class="p">})</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>The help banner to print when <code>goatee-script</code> is called without arguments.</p></div></div><div class="code"><div class="wrapper">      <span class="p">.</span><span class="nx">help</span><span class="p">(</span><span class="s">&quot;If called without options, `</span><span class="si">#{</span><span class="nx">@command</span><span class="p">.</span><span class="nx">NAME</span><span class="si">}</span><span class="s">` will run interactive.&quot;</span><span class="p">)</span>
+      <span class="p">.</span><span class="nx">parse</span><span class="p">()</span>
+
+    <span class="nv">statements = </span><span class="p">[]</span>
+      <span class="p">.</span><span class="nx">concat</span><span class="p">(</span><span class="k">if</span> <span class="nx">opts</span><span class="p">.</span><span class="nx">statements</span><span class="o">?</span> <span class="k">then</span> <span class="nx">opts</span><span class="p">.</span><span class="nx">statements</span> <span class="k">else</span> <span class="p">[])</span>
+      <span class="p">.</span><span class="nx">concat</span><span class="p">(</span><span class="k">if</span> <span class="nx">opts</span><span class="p">.</span><span class="nx">run</span><span class="o">?</span> <span class="k">then</span> <span class="nx">opts</span><span class="p">.</span><span class="nx">run</span> <span class="k">else</span> <span class="p">[])</span>
+      <span class="c1">#.concat(if opts._? then opts._ else [])</span>
+
+
+    <span class="nv">opts.mode = </span><span class="nx">opts</span><span class="p">.</span><span class="nx">mode</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="nx">opts</span><span class="p">.</span><span class="nx">run</span> <span class="o">||=</span> <span class="nx">statements</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span>
+
+    <span class="nv">statements = </span><span class="nx">statements</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="s">&#39;;&#39;</span><span class="p">)</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Start up a new Node.js instance with the arguments in <code>--nodejs</code> passed to
+the <code>node</code> binary, preserving the other options.</p></div></div><div class="code"><div class="wrapper">  <span class="nv">forkNode    : </span><span class="nf">-&gt;</span>
+    <span class="nx">spawn</span> <span class="nx">process</span><span class="p">.</span><span class="nx">execPath</span><span class="p">,</span> <span class="nx">opts</span><span class="p">.</span><span class="nx">nodejs</span><span class="p">,</span>
+      <span class="nv">cwd: </span>       <span class="nx">process</span><span class="p">.</span><span class="nx">cwd</span><span class="p">()</span>
+      <span class="nv">env: </span>       <span class="nx">process</span><span class="p">.</span><span class="nx">env</span>
+      <span class="nv">customFds: </span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Print the <code>--version</code> message and exit.</p></div></div><div class="code"><div class="wrapper">  <span class="nv">version     : </span><span class="nf">-&gt;</span>
+    <span class="s">&quot;</span><span class="si">#{</span><span class="nx">@command</span><span class="p">.</span><span class="nx">NAME</span><span class="si">}</span><span class="s"> version </span><span class="si">#{</span><span class="nx">@command</span><span class="p">.</span><span class="nx">VERSION</span><span class="si">}</span><span class="s">&quot;</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Execute the given statements</p></div></div><div class="code"><div class="wrapper">  <span class="nv">execute     : </span><span class="nf">-&gt;</span>
+    <span class="k">switch</span> <span class="nx">opts</span><span class="p">.</span><span class="nx">mode</span>
+      <span class="k">when</span> <span class="s">&#39;compile&#39;</span>  <span class="p">,</span> <span class="s">&#39;c&#39;</span> <span class="k">then</span> <span class="nx">@command</span><span class="p">.</span><span class="nx">compile</span>    <span class="nx">statements</span><span class="p">,</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">opts</span><span class="p">.</span><span class="nx">compress</span>
+      <span class="k">when</span> <span class="s">&#39;print&#39;</span>    <span class="p">,</span> <span class="s">&#39;p&#39;</span> <span class="k">then</span> <span class="nx">@command</span><span class="p">.</span><span class="nx">stringify</span>  <span class="nx">statements</span><span class="p">,</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">opts</span><span class="p">.</span><span class="nx">compress</span>
+      <span class="k">when</span> <span class="s">&#39;render&#39;</span>   <span class="p">,</span> <span class="s">&#39;r&#39;</span> <span class="k">then</span> <span class="nx">@command</span><span class="p">.</span><span class="nx">render</span>     <span class="nx">statements</span><span class="p">,</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">opts</span><span class="p">.</span><span class="nx">compress</span>
+      <span class="k">when</span> <span class="s">&#39;stringify&#39;</span><span class="p">,</span> <span class="o">\</span>
+           <span class="s">&#39;string&#39;</span>   <span class="p">,</span> <span class="s">&#39;s&#39;</span> <span class="k">then</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span> <span class="nx">@command</span><span class="p">.</span><span class="nx">evaluate</span> <span class="nx">statements</span>
+      <span class="k">when</span> <span class="s">&#39;evaluate&#39;</span> <span class="p">,</span> <span class="o">\</span>
+           <span class="s">&#39;eval&#39;</span>     <span class="p">,</span> <span class="s">&#39;e&#39;</span> <span class="k">then</span> <span class="nx">@command</span><span class="p">.</span><span class="nx">evaluate</span> <span class="nx">statements</span>
+      <span class="k">else</span> <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&#39;Unknown execution-mode given.&#39;</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Run the interactive read-execute-print-loop</p></div></div><div class="code"><div class="wrapper">  <span class="nv">interactive : </span><span class="p">(</span><span class="nv">repl = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;./Repl&#39;</span><span class="p">).</span><span class="nx">Repl</span><span class="p">)</span> <span class="nf">-&gt;</span>
+    <span class="nx">repl</span><span class="p">.</span><span class="nx">start</span><span class="p">(</span><span class="nx">@command</span><span class="p">,</span> <span class="nx">opts</span><span class="p">)</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Run <code>goatee-script</code> by parsing passed options and determining what action to
+take. Flags passed after <code>--</code> will be passed verbatim to your script as
+arguments in <code>process.argv</code></p></div></div><div class="code"><div class="wrapper">  <span class="nv">run         : </span><span class="nf">-&gt;</span>
+    <span class="nx">@parseOptions</span><span class="p">()</span>
+    <span class="k">return</span> <span class="nx">@forkNode</span><span class="p">()</span>            <span class="k">if</span> <span class="nx">opts</span><span class="p">.</span><span class="nx">nodejs</span>
+    <span class="k">return</span> <span class="nx">@printLine</span> <span class="nx">@version</span><span class="p">()</span>  <span class="k">if</span> <span class="nx">opts</span><span class="p">.</span><span class="nx">version</span>
+    <span class="k">return</span> <span class="nx">@interactive</span><span class="p">()</span>         <span class="k">if</span> <span class="nx">opts</span><span class="p">.</span><span class="nx">interactive</span>
+    <span class="k">return</span> <span class="nx">@printLine</span> <span class="nx">@execute</span><span class="p">()</span>  <span class="k">if</span> <span class="nx">opts</span><span class="p">.</span><span class="nx">run</span>
+    <span class="nx">@interactive</span><span class="p">()</span></div></div></div></div></body></html>

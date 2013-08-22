@@ -1,0 +1,50 @@
+<!DOCTYPE html><html lang="en"><head><title>Stack</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content=""><meta name="groc-document-path" content="Stack"><meta name="groc-project-path" content="src/Stack.coffee"><link rel="stylesheet" type="text/css" media="all" href="assets/style.css"><script type="text/javascript" src="assets/behavior.js"></script><body><div id="meta"><div class="file-path">src/Stack.coffee</div></div><div id="document"><div class="segment"><div class="code"><div class="wrapper"><span class="cm">###</span>
+<span class="cm">© Copyright 2013 Stephan Jorek &lt;stephan.jorek@gmail.com&gt;</span>
+
+<span class="cm">Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
+<span class="cm">you may not use this file except in compliance with the License.</span>
+<span class="cm">You may obtain a copy of the License at</span>
+
+<span class="cm">http://www.apache.org/licenses/LICENSE-2.0</span>
+
+<span class="cm">Unless required by applicable law or agreed to in writing, software</span>
+<span class="cm">distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
+<span class="cm">WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or</span>
+<span class="cm">implied. See the License for the specific language governing</span>
+<span class="cm">permissions and limitations under the License.</span>
+<span class="cm">###</span>
+
+<span class="nv">global = </span><span class="nx">do</span> <span class="nf">-&gt;</span> <span class="k">this</span>
+
+<span class="nv">exports = </span><span class="nx">module</span><span class="o">?</span><span class="p">.</span><span class="nx">exports</span> <span class="o">?</span> <span class="k">this</span>
+
+<span class="c1">##</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>@namespace GoateeScript</p></div></div><div class="code"><div class="wrapper"><span class="nv">exports.Stack = </span><span class="k">class</span> <span class="nx">Stack</span>
+
+  <span class="nv">global      : </span><span class="kc">undefined</span>
+  <span class="nv">local       : </span><span class="kc">null</span>
+  <span class="nv">stack       : </span><span class="kc">null</span>
+  <span class="nv">scope       : </span><span class="kc">null</span>
+
+  <span class="nv">constructor : </span><span class="nf">(@global = global, @local = {}, @scope = [], @stack = []) -&gt;</span>
+
+  <span class="nv">destructor  : </span><span class="p">()</span> <span class="nf">-&gt;</span>
+    <span class="vi">@global = </span><span class="kc">undefined</span>
+    <span class="vi">@local  = </span><span class="kc">null</span>
+    <span class="vi">@scope  = </span><span class="kc">null</span>
+    <span class="vi">@stack  = </span><span class="kc">null</span>
+
+  <span class="nv">current     : </span><span class="nf">-&gt;</span>
+    <span class="k">if</span> <span class="nx">@stack</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">then</span> <span class="nx">@stack</span><span class="p">[</span><span class="nx">@stack</span><span class="p">.</span><span class="nx">length</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="k">else</span> <span class="kc">undefined</span>
+
+  <span class="nv">parent      : </span><span class="nf">-&gt;</span>
+    <span class="k">if</span> <span class="nx">@stack</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">then</span> <span class="nx">@stack</span><span class="p">[</span><span class="nx">@stack</span><span class="p">.</span><span class="nx">length</span> <span class="o">-</span> <span class="mi">2</span><span class="p">]</span> <span class="k">else</span> <span class="kc">undefined</span>
+
+  <span class="nv">push        : </span><span class="nf">(context, expression) -&gt;</span>
+    <span class="nx">@scope</span><span class="p">.</span><span class="nx">push</span> <span class="nx">context</span>
+    <span class="nx">@stack</span><span class="p">.</span><span class="nx">push</span> <span class="nx">expression</span>
+    <span class="k">return</span>
+
+  <span class="nv">pop        : </span><span class="p">()</span> <span class="nf">-&gt;</span>
+    <span class="nx">@scope</span><span class="p">.</span><span class="nx">pop</span><span class="p">()</span>
+    <span class="nx">@stack</span><span class="p">.</span><span class="nx">pop</span><span class="p">()</span>
+    <span class="k">return</span></div></div></div></div></body></html>

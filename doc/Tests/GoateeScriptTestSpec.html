@@ -1,0 +1,295 @@
+<!DOCTYPE html><html lang="en"><head><title>Tests/GoateeScriptTestSpec</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../"><meta name="groc-document-path" content="Tests/GoateeScriptTestSpec"><meta name="groc-project-path" content="src/Tests/GoateeScriptTestSpec.coffee"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="meta"><div class="file-path">src/Tests/GoateeScriptTestSpec.coffee</div></div><div id="document"><div class="segment"><div class="code"><div class="wrapper"><span class="cm">###</span>
+<span class="cm">© Copyright 2013 Stephan Jorek &lt;stephan.jorek@gmail.com&gt;</span>
+<span class="cm">© Copyright 2012 Kris Nye &lt;krisnye@gmail.com&gt;</span>
+
+<span class="cm">Permission is hereby granted, free of charge, to any person</span>
+<span class="cm">obtaining a copy of this software and associated documentation</span>
+<span class="cm">files (the &quot;Software&quot;), to deal in the Software without</span>
+<span class="cm">restriction, including without limitation the rights to use,</span>
+<span class="cm">copy, modify, merge, publish, distribute, sublicense, and/or sell</span>
+<span class="cm">copies of the Software, and to permit persons to whom the</span>
+<span class="cm">Software is furnished to do so, subject to the following</span>
+<span class="cm">conditions:</span>
+
+<span class="cm">The above copyright notice and this permission notice shall be</span>
+<span class="cm">included in all copies or substantial portions of the Software.</span>
+
+<span class="cm">THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND,</span>
+<span class="cm">EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES</span>
+<span class="cm">OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND</span>
+<span class="cm">NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT</span>
+<span class="cm">HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,</span>
+<span class="cm">WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING</span>
+<span class="cm">FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR</span>
+<span class="cm">OTHER DEALINGS IN THE SOFTWARE.</span>
+<span class="cm">###</span>
+
+<span class="nv">Benchmark = </span><span class="nx">require</span> <span class="s">&#39;benchmark&#39;</span>
+
+<span class="p">{</span><span class="nx">GoateeScript</span><span class="o">:</span><span class="p">{</span>
+  <span class="nx">evaluate</span><span class="p">,</span> <span class="nx">parse</span><span class="p">,</span> <span class="nx">render</span>
+<span class="p">}}</span> <span class="o">=</span> <span class="nx">require</span> <span class="s">&#39;../GoateeScript&#39;</span>
+
+<span class="p">{</span><span class="nx">Utility</span><span class="o">:</span><span class="p">{</span>
+  <span class="nx">isArray</span>
+<span class="p">}}</span> <span class="o">=</span> <span class="nx">require</span> <span class="s">&#39;../Utility&#39;</span>
+
+
+<span class="c1">#_         ?= null</span>
+<span class="c1">#expect    ?= null</span>
+<span class="c1">#describe  ?= null</span>
+<span class="c1">#xdescribe ?= null</span>
+<span class="c1">#it        ?= null</span>
+<span class="c1">#xit       ?= null</span>
+<span class="c1">#JSON      ?= null</span>
+
+<span class="nx">describe</span> <span class="s">&quot;GoateeScript&quot;</span><span class="p">,</span> <span class="nf">-&gt;</span>
+
+  <span class="nv">data      =</span>
+    <span class="nv">clothes: </span><span class="p">[</span>
+      <span class="p">{</span> <span class="nv">name: </span><span class="s">&#39;Shirt&#39;</span><span class="p">,</span> <span class="nv">sizes: </span><span class="p">[</span><span class="s">&#39;S&#39;</span><span class="p">,</span><span class="s">&#39;M&#39;</span><span class="p">,</span><span class="s">&#39;L&#39;</span><span class="p">],</span> <span class="nx">price</span><span class="o">:</span><span class="mf">14.50</span><span class="p">,</span> <span class="nv">quantity: </span><span class="mi">8</span> <span class="p">}</span>
+      <span class="p">{</span> <span class="nv">name: </span><span class="s">&#39;Pants&#39;</span><span class="p">,</span> <span class="nv">sizes: </span><span class="p">[</span><span class="mi">29</span><span class="p">,</span><span class="mi">30</span><span class="p">,</span><span class="mi">31</span><span class="p">,</span><span class="mi">32</span><span class="p">],</span> <span class="nx">price</span><span class="o">:</span><span class="mf">20.19</span><span class="p">,</span> <span class="nv">quantity: </span><span class="mi">6</span>  <span class="p">}</span>
+      <span class="p">{</span> <span class="nv">name: </span><span class="s">&#39;Shoes&#39;</span><span class="p">,</span> <span class="nv">sizes: </span><span class="p">[</span><span class="mi">8</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">10</span><span class="p">],</span> <span class="nx">price</span><span class="o">:</span><span class="mf">25.85</span><span class="p">,</span> <span class="nv">quantity: </span><span class="mi">15</span>  <span class="p">}</span>
+      <span class="p">{</span> <span class="nv">name: </span><span class="s">&#39;Ties&#39;</span> <span class="p">,</span> <span class="nv">sizes: </span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="nx">price</span><span class="o">:</span><span class="mf">3.99</span><span class="p">,</span> <span class="nv">quantity: </span><span class="mi">3</span>  <span class="p">}</span>
+    <span class="p">]</span>
+    <span class="nv">codes:</span>
+      <span class="nv">alpha: </span>  <span class="p">{</span> <span class="nv">discount: </span><span class="mi">10</span><span class="p">,</span> <span class="nx">items</span><span class="o">:</span><span class="mi">4</span> <span class="p">}</span>
+      <span class="nv">beta: </span>   <span class="p">{</span> <span class="nv">discount: </span><span class="mi">20</span><span class="p">,</span> <span class="nx">items</span><span class="o">:</span><span class="mi">2</span> <span class="p">}</span>
+      <span class="nv">charlie: </span><span class="p">{</span> <span class="nv">discount: </span><span class="mi">30</span><span class="p">,</span> <span class="nx">items</span><span class="o">:</span><span class="mi">1</span> <span class="p">}</span>
+    <span class="nv">favoriteChild: </span><span class="s">&#39;pat&#39;</span>
+    <span class="nv">children:</span>
+      <span class="nv">pat:</span>
+        <span class="nv">name: </span><span class="s">&#39;pat&#39;</span>
+        <span class="nv">age: </span><span class="mi">28</span>
+        <span class="nv">children:</span>
+          <span class="nv">jay: </span><span class="p">{</span> <span class="nv">name: </span><span class="s">&#39;jay&#39;</span><span class="p">,</span> <span class="nv">age: </span><span class="mi">4</span> <span class="p">}</span>
+          <span class="nv">bob: </span><span class="p">{</span> <span class="nv">name: </span><span class="s">&#39;bob&#39;</span><span class="p">,</span> <span class="nx">age</span><span class="o">:</span><span class="mi">8</span> <span class="p">}</span>
+      <span class="nv">skip:</span>
+        <span class="nv">name: </span><span class="s">&#39;skip&#39;</span>
+        <span class="nv">age: </span><span class="mi">30</span>
+        <span class="nv">children:</span>
+          <span class="nv">joe: </span><span class="p">{</span> <span class="nv">name: </span><span class="s">&#39;joe&#39;</span><span class="p">,</span> <span class="nv">age: </span><span class="mi">7</span> <span class="p">}</span>
+    <span class="nv">dynamic: </span><span class="mi">0</span>
+    <span class="nv">increment: </span><span class="nf">(count) -&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">dynamic</span> <span class="o">+=</span> <span class="nx">count</span>
+    <span class="nv">min: </span><span class="nf">(a, b) -&gt;</span>
+      <span class="k">return</span> <span class="nx">a</span> <span class="k">unless</span> <span class="nx">b</span><span class="o">?</span>
+      <span class="k">return</span> <span class="nx">b</span> <span class="k">unless</span> <span class="nx">a</span><span class="o">?</span>
+      <span class="k">if</span> <span class="nx">a</span><span class="p">.</span><span class="nx">valueOf</span><span class="p">()</span> <span class="o">&lt;=</span> <span class="nx">b</span><span class="p">.</span><span class="nx">valueOf</span><span class="p">()</span> <span class="k">then</span> <span class="nx">a</span> <span class="k">else</span> <span class="nx">b</span>
+    <span class="nv">max: </span><span class="nf">(a, b) -&gt;</span>
+      <span class="k">return</span> <span class="nx">a</span> <span class="k">unless</span> <span class="nx">b</span><span class="o">?</span>
+      <span class="k">return</span> <span class="nx">b</span> <span class="k">unless</span> <span class="nx">a</span><span class="o">?</span>
+      <span class="k">if</span> <span class="nx">a</span><span class="p">.</span><span class="nx">valueOf</span><span class="p">()</span> <span class="o">&gt;=</span> <span class="nx">b</span><span class="p">.</span><span class="nx">valueOf</span><span class="p">()</span> <span class="k">then</span> <span class="nx">a</span> <span class="k">else</span> <span class="nx">b</span>
+    <span class="nv">sum: sum = </span><span class="nf">(a) -&gt;</span>
+      <span class="k">return</span> <span class="mi">0</span> <span class="k">unless</span> <span class="nx">a</span><span class="o">?</span>
+      <span class="k">if</span> <span class="nx">isArray</span> <span class="nx">a</span>
+        <span class="nv">total = </span><span class="mi">0</span>
+        <span class="k">for</span> <span class="nx">item</span> <span class="k">in</span> <span class="nx">a</span>
+          <span class="nx">total</span> <span class="o">+=</span> <span class="nx">sum</span> <span class="nx">item</span>
+        <span class="k">return</span> <span class="nx">total</span>
+      <span class="nv">number = </span><span class="nb">Number</span> <span class="nx">a</span>
+      <span class="k">if</span> <span class="nb">isNaN</span> <span class="nx">number</span> <span class="k">then</span> <span class="mi">0</span> <span class="k">else</span> <span class="nx">number</span>
+
+  <span class="nv">benchmark = </span><span class="k">new</span> <span class="nx">Benchmark</span><span class="p">.</span><span class="nx">Suite</span>
+
+  <span class="nv">egal = </span><span class="nf">(code, expected) -&gt;</span>
+    <span class="nv">expression = </span><span class="nx">parse</span> <span class="nx">code</span>
+    <span class="nx">expect</span><span class="p">(</span><span class="nx">expression</span><span class="p">.</span><span class="nx">evaluate</span><span class="p">(</span><span class="nx">data</span><span class="p">)).</span><span class="nx">toBe</span> <span class="nx">expected</span>
+
+  <span class="nv">compare = </span><span class="nf">(code, expected) -&gt;</span>
+    <span class="nv">expression = </span><span class="nx">parse</span> <span class="nx">code</span>
+    <span class="nx">expect</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">expression</span><span class="p">.</span><span class="nx">evaluate</span><span class="p">(</span><span class="nx">data</span><span class="p">)))</span>
+      <span class="p">.</span><span class="nx">toBe</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">expected</span><span class="p">)</span>
+
+  <span class="nx">it</span> <span class="s">&#39;can add two positive numbers&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span>
+      <span class="nx">egal</span> <span class="s">&#39;1+1&#39;</span><span class="p">,</span> <span class="mi">2</span>
+
+  <span class="nx">xit</span> <span class="s">&#39;can add two positive numbers in given time&#39;</span><span class="p">,</span> <span class="nf">(done) -&gt;</span>
+
+    <span class="nx">benchmark</span>
+      <span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="s">&#39;goatee-script  : 1+1&#39;</span><span class="p">,</span>  <span class="nf">-&gt;</span> <span class="nx">evaluate</span><span class="p">(</span><span class="s">&#39;1+1&#39;</span><span class="p">))</span>
+      <span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="s">&#39;javascript     : 1+1&#39;</span><span class="p">,</span>  <span class="nf">-&gt;</span> <span class="mi">1</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+      <span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="s">&#39;javascript eval: 1+1&#39;</span><span class="p">,</span>  <span class="nf">-&gt;</span> <span class="nb">eval</span><span class="p">(</span><span class="s">&#39;1+1&#39;</span><span class="p">))</span>
+      <span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s">&#39;cycle&#39;</span><span class="p">,</span>    <span class="nf">(event) -&gt;</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nb">String</span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">target</span><span class="p">))</span>
+      <span class="p">)</span>
+      <span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s">&#39;complete&#39;</span><span class="p">,</span> <span class="p">()</span>      <span class="nf">-&gt;</span>
+        <span class="nx">expect</span><span class="p">(</span><span class="nx">@filter</span><span class="p">(</span><span class="s">&#39;fastest&#39;</span><span class="p">).</span><span class="nx">pluck</span><span class="p">(</span><span class="s">&#39;name&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]).</span><span class="nx">toBe</span> <span class="s">&#39;javascript     : 1+1&#39;</span>
+        <span class="nx">done</span><span class="p">()</span>
+      <span class="p">)</span>
+      <span class="p">.</span><span class="nx">run</span><span class="p">({</span><span class="nv">async: </span><span class="kc">false</span> <span class="p">})</span>
+
+  <span class="nx">it</span> <span class="s">&#39;resolves expression vectors&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span>
+      <span class="nx">expect</span><span class="p">(</span><span class="nx">parse</span><span class="p">(</span><span class="s">&#39;5&#39;</span><span class="p">).</span><span class="nx">vector</span><span class="p">).</span><span class="nx">toBe</span> <span class="kc">false</span>
+      <span class="nx">expect</span><span class="p">(</span><span class="nx">parse</span><span class="p">(</span><span class="s">&#39;5+2&#39;</span><span class="p">).</span><span class="nx">vector</span><span class="p">).</span><span class="nx">toBe</span> <span class="kc">false</span>
+      <span class="c1">#expect(parse(&#39;*&#39;).vector).toBe true</span>
+      <span class="c1">#expect(parse(&#39;*.alpha&#39;).vector).toBe true</span>
+      <span class="c1">#expect(parse(&#39;alpha.* * 12&#39;).vector).toBe true</span>
+      <span class="c1">#expect(parse(&#39;alpha.*&#39;).vector).toBe true</span>
+      <span class="nx">expect</span><span class="p">(</span><span class="nx">parse</span><span class="p">(</span><span class="s">&#39;func(alpha)&#39;</span><span class="p">).</span><span class="nx">vector</span><span class="p">).</span><span class="nx">toBe</span> <span class="kc">false</span>
+      <span class="c1">#expect(parse(&#39;func(*)&#39;).vector).toBe false</span>
+      <span class="c1">#expect(parse(&#39;func(alpha.*.beta)&#39;).vector).toBe false</span>
+
+  <span class="nx">it</span> <span class="s">&#39;resolves one or multiple collapsing “undefined” values&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span>
+      <span class="nv">statements = </span><span class="p">[</span><span class="s">&#39;&#39;</span><span class="p">,</span> <span class="s">&#39;;;;;&#39;</span><span class="p">,</span> <span class="s">&#39;;/* nix */;&#39;</span><span class="p">]</span>
+      <span class="k">for</span> <span class="nx">s</span> <span class="k">in</span> <span class="nx">statements</span>
+        <span class="nx">expect</span><span class="p">(</span><span class="nx">evaluate</span><span class="p">(</span><span class="nx">s</span><span class="p">)).</span><span class="nx">toBe</span> <span class="kc">undefined</span>
+        <span class="nx">expect</span><span class="p">(</span><span class="nx">render</span><span class="p">(</span><span class="nx">s</span><span class="p">)).</span><span class="nx">toBe</span> <span class="s">&#39;&#39;</span>
+
+  <span class="nx">it</span> <span class="s">&#39;resolves one or multiple “null” values&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span>
+      <span class="nv">statements = </span><span class="p">[</span><span class="s">&#39;null&#39;</span><span class="p">,</span> <span class="s">&#39;null;null&#39;</span><span class="p">,</span> <span class="s">&#39;null;null;null&#39;</span><span class="p">]</span>
+      <span class="k">for</span> <span class="nx">s</span> <span class="k">in</span> <span class="nx">statements</span>
+        <span class="nx">expect</span><span class="p">(</span><span class="nx">evaluate</span><span class="p">(</span><span class="nx">s</span><span class="p">)).</span><span class="nx">toBe</span> <span class="kc">null</span>
+        <span class="nx">expect</span><span class="p">(</span><span class="nx">render</span><span class="p">(</span><span class="nx">s</span><span class="p">)).</span><span class="nx">toBe</span> <span class="nx">s</span>
+
+  <span class="nx">it</span> <span class="s">&#39;resolves multiple “null” and collapsing “undefined” values&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span>
+      <span class="nv">statements = </span><span class="p">[</span><span class="s">&#39;;null;null;;&#39;</span><span class="p">,</span> <span class="s">&#39;null;;null;;&#39;</span><span class="p">,</span> <span class="s">&#39;null;/*;null;*/null;;&#39;</span><span class="p">]</span>
+      <span class="k">for</span> <span class="nx">s</span> <span class="k">in</span> <span class="nx">statements</span>
+        <span class="nx">expect</span><span class="p">(</span><span class="nx">evaluate</span><span class="p">(</span><span class="nx">s</span><span class="p">)).</span><span class="nx">toBe</span> <span class="kc">null</span>
+        <span class="nx">expect</span><span class="p">(</span><span class="nx">render</span><span class="p">(</span><span class="nx">s</span><span class="p">)).</span><span class="nx">toBe</span> <span class="s">&#39;null;null&#39;</span>
+
+  <span class="nx">it</span> <span class="s">&#39;resolves scalar values (primitives)&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span>
+    <span class="nx">egal</span> <span class="s">&quot;5&quot;</span><span class="p">,</span> <span class="mi">5</span>
+    <span class="nx">egal</span> <span class="s">&quot;&#39;5&#39;&quot;</span><span class="p">,</span> <span class="s">&#39;5&#39;</span>
+    <span class="nx">egal</span> <span class="s">&quot;1 + 2&quot;</span><span class="p">,</span> <span class="mi">3</span>
+    <span class="nx">egal</span> <span class="s">&quot;1 + 2 * 3&quot;</span><span class="p">,</span> <span class="mi">7</span>
+    <span class="nx">egal</span> <span class="s">&quot;&#39;a&#39; + &#39;b&#39;&quot;</span><span class="p">,</span> <span class="s">&#39;ab&#39;</span>
+
+  <span class="nx">it</span> <span class="s">&#39;resolves object access&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span>
+      <span class="nx">egal</span> <span class="s">&quot;codes&quot;</span><span class="p">,</span> <span class="nx">data</span><span class="p">.</span><span class="nx">codes</span>
+      <span class="nx">egal</span> <span class="s">&quot;codes.alpha&quot;</span><span class="p">,</span> <span class="nx">data</span><span class="p">.</span><span class="nx">codes</span><span class="p">.</span><span class="nx">alpha</span>
+      <span class="nx">egal</span> <span class="s">&quot;codes.alpha.discount&quot;</span><span class="p">,</span> <span class="nx">data</span><span class="p">.</span><span class="nx">codes</span><span class="p">.</span><span class="nx">alpha</span><span class="p">.</span><span class="nx">discount</span>
+
+      <span class="nx">egal</span> <span class="s">&quot;codes.discount&quot;</span><span class="p">,</span> <span class="kc">undefined</span>
+
+  <span class="nx">xit</span> <span class="s">&#39;resolves object with children access&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span>
+    <span class="nx">compare</span> <span class="s">&quot;*&quot;</span><span class="p">,</span> <span class="nx">_</span><span class="p">.</span><span class="nx">values</span> <span class="nx">data</span>
+    <span class="nx">compare</span> <span class="s">&quot;codes.*&quot;</span><span class="p">,</span> <span class="p">[</span><span class="nx">data</span><span class="p">.</span><span class="nx">codes</span><span class="p">.</span><span class="nx">alpha</span><span class="p">,</span> <span class="nx">data</span><span class="p">.</span><span class="nx">codes</span><span class="p">.</span><span class="nx">beta</span><span class="p">,</span> <span class="nx">data</span><span class="p">.</span><span class="nx">codes</span><span class="p">.</span><span class="nx">charlie</span><span class="p">]</span>
+    <span class="nx">compare</span> <span class="s">&quot;codes.*.discount&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">30</span><span class="p">]</span>
+    <span class="nx">compare</span> <span class="s">&quot;codes.*{discount &gt; 10}&quot;</span><span class="p">,</span> <span class="p">[</span><span class="nx">data</span><span class="p">.</span><span class="nx">codes</span><span class="p">.</span><span class="nx">beta</span><span class="p">,</span> <span class="nx">data</span><span class="p">.</span><span class="nx">codes</span><span class="p">.</span><span class="nx">charlie</span><span class="p">]</span>
+
+  <span class="nx">it</span> <span class="s">&#39;resolves array access&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>test numbers and indexers</p></div></div><div class="code"><div class="wrapper">    <span class="nx">egal</span> <span class="s">&quot;clothes[0]&quot;</span><span class="p">,</span> <span class="nx">data</span><span class="p">.</span><span class="nx">clothes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>test negative numbers and indexers</p></div></div><div class="code"><div class="wrapper">    <span class="nx">egal</span> <span class="s">&quot;clothes[-1]&quot;</span><span class="p">,</span> <span class="nx">data</span><span class="p">.</span><span class="nx">clothes</span><span class="p">[</span><span class="nx">data</span><span class="p">.</span><span class="nx">clothes</span><span class="p">.</span><span class="nx">length</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+  <span class="nx">it</span> <span class="s">&#39;resolves scope access&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span>
+    <span class="nx">egal</span> <span class="s">&quot;children&quot;</span><span class="p">,</span> <span class="nx">data</span><span class="p">.</span><span class="nx">children</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>because the children object contains no children property</p></div></div><div class="code"><div class="wrapper">    <span class="nx">egal</span> <span class="s">&quot;children.children&quot;</span><span class="p">,</span> <span class="kc">undefined</span>
+
+  <span class="nx">xit</span> <span class="s">&#39;resolves children access&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span>
+    <span class="nx">compare</span> <span class="s">&quot;children.*&quot;</span><span class="p">,</span> <span class="p">[</span><span class="nx">data</span><span class="p">.</span><span class="nx">children</span><span class="p">.</span><span class="nx">pat</span><span class="p">,</span> <span class="nx">data</span><span class="p">.</span><span class="nx">children</span><span class="p">.</span><span class="nx">skip</span><span class="p">]</span>
+    <span class="nx">compare</span> <span class="s">&quot;children.*.children&quot;</span><span class="p">,</span> <span class="p">[</span><span class="nx">data</span><span class="p">.</span><span class="nx">children</span><span class="p">.</span><span class="nx">pat</span><span class="p">.</span><span class="nx">children</span><span class="p">,</span> <span class="nx">data</span><span class="p">.</span><span class="nx">children</span><span class="p">.</span><span class="nx">skip</span><span class="p">.</span><span class="nx">children</span><span class="p">]</span>
+    <span class="nx">compare</span> <span class="s">&quot;children.*.children.*&quot;</span><span class="p">,</span> <span class="p">[</span><span class="nx">data</span><span class="p">.</span><span class="nx">children</span><span class="p">.</span><span class="nx">pat</span><span class="p">.</span><span class="nx">children</span><span class="p">.</span><span class="nx">jay</span><span class="p">,</span> <span class="nx">data</span><span class="p">.</span><span class="nx">children</span><span class="p">.</span><span class="nx">pat</span><span class="p">.</span><span class="nx">children</span><span class="p">.</span><span class="nx">bob</span><span class="p">,</span> <span class="nx">data</span><span class="p">.</span><span class="nx">children</span><span class="p">.</span><span class="nx">skip</span><span class="p">.</span><span class="nx">children</span><span class="p">.</span><span class="nx">joe</span><span class="p">]</span>
+
+  <span class="nx">xit</span> <span class="s">&#39;resolves object access predicates&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>bare predicates no longer supported so use this[predicate]</p></div></div><div class="code"><div class="wrapper">    <span class="nx">egal</span> <span class="s">&quot;@{clothes != null}&quot;</span><span class="p">,</span> <span class="nx">data</span>
+    <span class="nx">compare</span> <span class="s">&quot;@{clothes == null}&quot;</span><span class="p">,</span> <span class="kc">undefined</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>predicates</p></div></div><div class="code"><div class="wrapper">    <span class="nx">compare</span> <span class="s">&quot;children.*{name == &#39;skip&#39;}&quot;</span><span class="p">,</span> <span class="p">[</span><span class="nx">data</span><span class="p">.</span><span class="nx">children</span><span class="p">.</span><span class="nx">skip</span><span class="p">]</span>
+    <span class="nx">compare</span> <span class="s">&quot;children.*{children.*{age &lt; 5}}&quot;</span><span class="p">,</span> <span class="p">[</span><span class="nx">data</span><span class="p">.</span><span class="nx">children</span><span class="p">.</span><span class="nx">pat</span><span class="p">]</span>
+
+
+  <span class="nx">it</span> <span class="s">&#39;resolves constructor access&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span>
+    <span class="nx">egal</span> <span class="s">&quot;codes.constructor&quot;</span><span class="p">,</span> <span class="kc">undefined</span>
+    <span class="nx">egal</span> <span class="s">&quot;codes.__proto__&quot;</span><span class="p">,</span> <span class="kc">undefined</span>
+    <span class="nx">egal</span> <span class="s">&quot;codes.prototype&quot;</span><span class="p">,</span> <span class="kc">undefined</span>
+
+  <span class="nx">it</span> <span class="s">&#39;resolves prototype access&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span>
+    <span class="nx">egal</span> <span class="s">&quot;codes + &#39;&#39;&quot;</span><span class="p">,</span> <span class="nx">data</span><span class="p">.</span><span class="nx">codes</span><span class="p">.</span><span class="nx">toString</span><span class="p">()</span>
+    <span class="nx">egal</span> <span class="s">&quot;codes.toString()&quot;</span><span class="p">,</span> <span class="nx">data</span><span class="p">.</span><span class="nx">codes</span><span class="p">.</span><span class="nx">toString</span><span class="p">()</span>
+    <span class="nx">egal</span> <span class="s">&quot;codes.valueOf()&quot;</span><span class="p">,</span> <span class="nx">data</span><span class="p">.</span><span class="nx">codes</span><span class="p">.</span><span class="nx">valueOf</span><span class="p">()</span>
+    <span class="nx">egal</span> <span class="s">&quot;clothes.length&quot;</span><span class="p">,</span> <span class="mi">4</span>
+
+  <span class="nx">xit</span> <span class="s">&#39;resolves array access predicates&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>get the sizes of clothes that are even.</p></div></div><div class="code"><div class="wrapper">    <span class="nx">compare</span> <span class="s">&quot;clothes.*.sizes.*{@ % 2 == 0}&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">30</span><span class="p">,</span><span class="mi">32</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span>
+    <span class="nx">compare</span> <span class="s">&quot;clothes.*{sizes == &#39;M&#39; || sizes == 9}&quot;</span><span class="p">,</span> <span class="p">[</span>
+      <span class="p">{</span> <span class="nv">name: </span><span class="s">&#39;Shirt&#39;</span><span class="p">,</span> <span class="nv">sizes: </span><span class="p">[</span><span class="s">&#39;S&#39;</span><span class="p">,</span><span class="s">&#39;M&#39;</span><span class="p">,</span><span class="s">&#39;L&#39;</span><span class="p">],</span> <span class="nx">price</span><span class="o">:</span><span class="mf">14.50</span><span class="p">,</span> <span class="nv">quantity: </span><span class="mi">8</span> <span class="p">}</span>
+      <span class="p">{</span> <span class="nv">name: </span><span class="s">&#39;Shoes&#39;</span><span class="p">,</span> <span class="nv">sizes: </span><span class="p">[</span><span class="mi">8</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">10</span><span class="p">],</span> <span class="nx">price</span><span class="o">:</span><span class="mf">25.85</span><span class="p">,</span> <span class="nv">quantity: </span><span class="mi">15</span>  <span class="p">}</span>
+    <span class="p">]</span>
+
+  <span class="nx">it</span> <span class="s">&#39;resolves context references&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>test root references</p></div></div><div class="code"><div class="wrapper">    <span class="nx">egal</span> <span class="s">&quot;@&quot;</span><span class="p">,</span> <span class="nx">data</span>
+    <span class="nx">egal</span> <span class="s">&quot;$$&quot;</span><span class="p">,</span> <span class="nx">data</span>
+    <span class="nx">compare</span> <span class="s">&quot;test = 1 ; $_&quot;</span><span class="p">,</span> <span class="p">{</span><span class="nx">test</span><span class="o">:</span><span class="mi">1</span><span class="p">}</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>or more concisely</p></div></div><div class="code"><div class="wrapper">    <span class="nx">egal</span> <span class="s">&quot;children[favoriteChild]&quot;</span><span class="p">,</span> <span class="nx">data</span><span class="p">.</span><span class="nx">children</span><span class="p">.</span><span class="nx">pat</span>
+
+  <span class="nx">xit</span> <span class="s">&#39;resolves context references with predicate&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span>
+    <span class="nx">egal</span> <span class="s">&quot;children.*{name == favoriteChild}[0]&quot;</span><span class="p">,</span> <span class="nx">data</span><span class="p">.</span><span class="nx">children</span><span class="p">.</span><span class="nx">pat</span>
+
+  <span class="nx">xit</span> <span class="s">&#39;resolves context specific operation using .(local paths) syntax.&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>context specific operation using .(local paths) syntax.</p></div></div><div class="code"><div class="wrapper">    <span class="nx">egal</span> <span class="s">&quot;sum(clothes.*.(price * quantity))&quot;</span><span class="p">,</span> <span class="mf">636.86</span>
+
+  <span class="nx">it</span> <span class="s">&#39;resolves context reference function calls&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>test min and max</p></div></div><div class="code"><div class="wrapper">    <span class="nx">egal</span> <span class="s">&quot;min(12, 20)&quot;</span><span class="p">,</span> <span class="mi">12</span>
+    <span class="nx">egal</span> <span class="s">&quot;max(30, 50)&quot;</span><span class="p">,</span> <span class="mi">50</span>
+
+  <span class="nx">it</span> <span class="s">&#39;resolves object and array literals&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span>
+    <span class="nv">obj = </span><span class="p">{</span><span class="nx">alpha</span><span class="o">:</span><span class="nx">data</span><span class="p">.</span><span class="nx">codes</span><span class="p">.</span><span class="nx">alpha</span><span class="p">.</span><span class="nx">discount</span><span class="p">,</span> <span class="nx">beta</span><span class="o">:</span><span class="mi">2</span><span class="p">}</span>
+    <span class="nv">ary = </span><span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="nx">data</span><span class="p">.</span><span class="nx">codes</span><span class="p">.</span><span class="nx">beta</span><span class="p">.</span><span class="nx">discount</span><span class="p">]</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>test object literal</p></div></div><div class="code"><div class="wrapper">    <span class="nx">compare</span> <span class="s">&#39;{alpha:codes.alpha.discount,&quot;beta&quot;:2}&#39;</span><span class="p">,</span> <span class="nx">obj</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>test array literal</p></div></div><div class="code"><div class="wrapper">    <span class="nx">compare</span> <span class="s">&#39;[3,2,codes.beta.discount]&#39;</span><span class="p">,</span> <span class="nx">ary</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>test object literal and array literal</p></div></div><div class="code"><div class="wrapper">    <span class="nv">obj.charlie = </span><span class="nx">ary</span>
+    <span class="nx">compare</span> <span class="s">&#39;{alpha:codes.alpha.discount,&quot;beta&quot;:2,charlie:[3,2,codes.beta.discount]}&#39;</span><span class="p">,</span> <span class="nx">obj</span>
+
+  <span class="nx">it</span> <span class="s">&#39;resolves “if”/“else” conditions&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>compares multiline expressions too</p></div></div><div class="code"><div class="wrapper">    <span class="nv">data.dynamic = </span><span class="mi">0</span>
+    <span class="nx">egal</span> <span class="s">&quot;&quot;&quot;</span>
+<span class="s">      if (codes != null) {</span>
+<span class="s">        increment(10);</span>
+<span class="s">      }</span>
+<span class="s">      else {</span>
+<span class="s">        increment(20);</span>
+<span class="s">      };</span>
+<span class="s">      dynamic;</span>
+<span class="s">      &quot;&quot;&quot;</span><span class="p">,</span> <span class="mi">10</span>
+    <span class="nx">expect</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">dynamic</span><span class="p">).</span><span class="nx">toBe</span> <span class="mi">10</span>
+
+  <span class="nx">it</span> <span class="s">&#39;resolves chained “if”/“else if”/“else” conditions&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>compares multiline expressions too</p></div></div><div class="code"><div class="wrapper">    <span class="nv">code = </span><span class="s">&quot;&quot;&quot;</span>
+<span class="s">      if (0 === dynamic) {</span>
+<span class="s">        increment(10);</span>
+<span class="s">      }</span>
+<span class="s">      else if (1 === dynamic) {</span>
+<span class="s">        increment(19);</span>
+<span class="s">      }</span>
+<span class="s">      else {</span>
+<span class="s">        increment(30 - dynamic);</span>
+<span class="s">      };</span>
+<span class="s">      dynamic;</span>
+<span class="s">      &quot;&quot;&quot;</span>
+    <span class="nv">data.dynamic = </span><span class="mi">0</span>
+    <span class="nx">egal</span> <span class="nx">code</span><span class="p">,</span> <span class="mi">10</span>
+    <span class="nx">expect</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">dynamic</span><span class="p">).</span><span class="nx">toBe</span> <span class="mi">10</span>
+
+    <span class="nv">data.dynamic = </span><span class="mi">1</span>
+    <span class="nx">egal</span> <span class="nx">code</span><span class="p">,</span> <span class="mi">20</span>
+    <span class="nx">expect</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">dynamic</span><span class="p">).</span><span class="nx">toBe</span> <span class="mi">20</span>
+
+    <span class="nv">data.dynamic = </span><span class="mi">2</span>
+    <span class="nx">egal</span> <span class="nx">code</span><span class="p">,</span> <span class="mi">30</span>
+    <span class="nx">expect</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">dynamic</span><span class="p">).</span><span class="nx">toBe</span> <span class="mi">30</span>
+
+
+  <span class="nx">xit</span> <span class="s">&#39;resolves “for”-loop and multiline statements&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>compare for loop</p></div></div><div class="code"><div class="wrapper">    <span class="nx">compare</span> <span class="s">&quot;&quot;&quot;</span>
+<span class="s">      for (clothes) {</span>
+<span class="s">        p = price;</span>
+<span class="s">        q = quantity;</span>
+<span class="s">        p * q;</span>
+<span class="s">      }</span>
+<span class="s">      &quot;&quot;&quot;</span><span class="p">,</span> <span class="p">[</span> <span class="mi">116</span><span class="p">,</span> <span class="mf">121.14000000000001</span><span class="p">,</span> <span class="mf">387.75</span><span class="p">,</span> <span class="mf">11.97</span> <span class="p">]</span>
+
+  <span class="nx">it</span> <span class="s">&#39;resolves early terminating conditionals&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>compare early termination of OR</p></div></div><div class="code"><div class="wrapper">    <span class="nv">data.dynamic = </span><span class="mi">0</span>
+    <span class="nx">egal</span> <span class="s">&quot;increment(10) || increment(20); dynamic;&quot;</span><span class="p">,</span> <span class="mi">10</span>
+    <span class="nx">expect</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">dynamic</span><span class="p">).</span><span class="nx">toBe</span> <span class="mi">10</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>compare early termination of AND</p></div></div><div class="code"><div class="wrapper">    <span class="nv">data.dynamic = </span><span class="mi">0</span>
+    <span class="nx">egal</span> <span class="s">&quot;increment(0) &amp;&amp; increment(20); dynamic;&quot;</span><span class="p">,</span> <span class="mi">0</span>
+    <span class="nx">expect</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">dynamic</span><span class="p">).</span><span class="nx">toBe</span> <span class="mi">0</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>compare early termination of conditional</p></div></div><div class="code"><div class="wrapper">    <span class="nv">data.dynamic = </span><span class="mi">0</span>
+    <span class="nx">egal</span> <span class="s">&quot;false ? increment(10) : increment(20); dynamic;&quot;</span><span class="p">,</span> <span class="mi">20</span>
+    <span class="nx">expect</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">dynamic</span><span class="p">).</span><span class="nx">toBe</span> <span class="mi">20</span>
+
+  <span class="nx">it</span> <span class="s">&#39;resolves all mathematical assignments&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span>
+    <span class="nx">egal</span> <span class="s">&quot;&quot;&quot;</span>
+<span class="s">    variable = 40 + 5;  /* = 45 */</span>
+<span class="s">    variable *= 10;     /* = 450 */</span>
+<span class="s">    variable /= 5;      /* = 90 */</span>
+<span class="s">    variable -= 40;     /* = 50 */</span>
+<span class="s">    variable += 15;     /* = 65 */</span>
+<span class="s">    variable++    ;     /* = 66 */</span>
+<span class="s">    variable--    ;     /* = 65 */</span>
+<span class="s">    ++variable    ;     /* = 66 */</span>
+<span class="s">    --variable    ;     /* = 65 */</span>
+<span class="s">    &quot;&quot;&quot;</span><span class="p">,</span> <span class="mi">65</span>
+
+  <span class="nx">it</span> <span class="s">&#39;resolves context assignments&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span>
+    <span class="nx">egal</span> <span class="s">&quot;&quot;&quot;</span>
+<span class="s">    variable = codes;</span>
+<span class="s">    variable.alpha;</span>
+<span class="s">    &quot;&quot;&quot;</span><span class="p">,</span> <span class="nx">data</span><span class="p">.</span><span class="nx">codes</span><span class="p">.</span><span class="nx">alpha</span>
+
+  <span class="nx">it</span> <span class="s">&#39;resolves local variable and context property having the same name&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span>
+    <span class="nx">egal</span> <span class="s">&quot;&quot;&quot;</span>
+<span class="s">    favoriteChild = &#39;Kris&#39;;</span>
+<span class="s">    favoriteChild + $$favoriteChild;</span>
+<span class="s">    &quot;&quot;&quot;</span><span class="p">,</span> <span class="s">&quot;Krispat&quot;</span></div></div></div></div></body></html>

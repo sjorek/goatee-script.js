@@ -1,0 +1,35 @@
+<!DOCTYPE html><html lang="en"><head><title>Parser</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content=""><meta name="groc-document-path" content="Parser"><meta name="groc-project-path" content="src/Parser.coffee"><link rel="stylesheet" type="text/css" media="all" href="assets/style.css"><script type="text/javascript" src="assets/behavior.js"></script><body><div id="meta"><div class="file-path">src/Parser.coffee</div></div><div id="document"><div class="segment"><div class="code"><div class="wrapper"><span class="cm">###</span>
+<span class="cm">© Copyright 2013 Stephan Jorek &lt;stephan.jorek@gmail.com&gt;</span>
+
+<span class="cm">Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
+<span class="cm">you may not use this file except in compliance with the License.</span>
+<span class="cm">You may obtain a copy of the License at</span>
+
+<span class="cm">http://www.apache.org/licenses/LICENSE-2.0</span>
+
+<span class="cm">Unless required by applicable law or agreed to in writing, software</span>
+<span class="cm">distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
+<span class="cm">WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or</span>
+<span class="cm">implied. See the License for the specific language governing</span>
+<span class="cm">permissions and limitations under the License.</span>
+<span class="cm">###</span>
+
+<span class="p">{</span><span class="nx">Grammar</span><span class="p">}</span>  <span class="o">=</span> <span class="nx">require</span> <span class="s">&#39;./Grammar&#39;</span>
+
+<span class="nv">exports = </span><span class="nx">module</span><span class="o">?</span><span class="p">.</span><span class="nx">exports</span> <span class="o">?</span> <span class="k">this</span>
+
+<span class="c1">##</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Compatibillity layer for the “on-the-fly” generated parser
+@type {Parser}</p></div></div><div class="code"><div class="wrapper"><span class="nv">exports.parser = parser = </span><span class="nx">Grammar</span><span class="p">.</span><span class="nx">createParser</span><span class="p">()</span>
+<span class="nv">exports.Parser = </span><span class="nx">parser</span><span class="p">.</span><span class="nx">Parser</span><span class="p">;</span>
+<span class="nv">exports.parse  = </span><span class="p">()</span> <span class="nf">-&gt;</span> <span class="nx">parser</span><span class="p">.</span><span class="nx">parse</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="nx">parser</span><span class="p">,</span> <span class="nx">arguments</span><span class="p">)</span>
+<span class="nv">exports.main   = </span><span class="nf">(args) -&gt;</span>
+    <span class="k">if</span> <span class="o">!</span><span class="nx">args</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Usage: </span><span class="si">#{</span><span class="nx">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s"> FILE&quot;</span>
+      <span class="nx">process</span><span class="p">.</span><span class="nx">exit</span> <span class="mi">1</span>
+    <span class="nv">source = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;fs&#39;</span><span class="p">).</span><span class="nx">readFileSync</span><span class="p">(</span>
+      <span class="nx">require</span><span class="p">(</span><span class="s">&#39;path&#39;</span><span class="p">).</span><span class="nx">normalize</span><span class="p">(</span><span class="nx">args</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="s">&quot;utf8&quot;</span>
+    <span class="p">)</span>
+    <span class="nx">parser</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">source</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">module</span> <span class="o">isnt</span> <span class="kc">undefined</span> <span class="o">&amp;&amp;</span> <span class="nx">require</span><span class="p">.</span><span class="nx">main</span> <span class="o">is</span> <span class="nx">module</span><span class="p">)</span>
+  <span class="nx">exports</span><span class="p">.</span><span class="nx">main</span> <span class="nx">process</span><span class="p">.</span><span class="nx">argv</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span></div></div></div></div></body></html>

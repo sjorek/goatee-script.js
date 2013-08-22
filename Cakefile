@@ -45,6 +45,7 @@ task 'all', 'invokes “clean”, “build” and “test” in given order', ->
   invoke 'clean'
   invoke 'build'
   invoke 'test'
+  invoke 'doc'
 
 task 'build', 'invokes “build:once” and “build:parser” in given order', ->
   console.log 'build'
@@ -87,6 +88,21 @@ task 'test', 'run “build” task and tests in “tests/” afterwards', ->
   console.log 'test'
   invoke 'build' if rebuild is false
   spawn 'npm', ['test'], stdio: 'inherit', cwd: '.'
+
+
+task 'doc', 'invokes “doc:source” and “doc:github” in given order', ->
+  console.log 'doc'
+  invoke 'doc:source'
+  #invoke 'doc:github'
+
+task 'doc:source', 'rebuild the internal documentation', ->
+  console.log 'doc:source'
+  clean 'doc'
+  spawn 'groc', [], stdio: 'inherit', cwd: '.'
+
+task 'doc:github', 'rebuild the github documentation', ->
+  console.log 'doc:github'
+  spawn 'groc', '--github'.split(' '), stdio: 'inherit', cwd: '.'
 
 option '-p', '--prefix [DIR]', 'set the installation prefix for `cake install`'
 

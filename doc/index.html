@@ -1,0 +1,157 @@
+<!DOCTYPE html><html lang="en"><head><title>index</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content=""><meta name="groc-document-path" content="index"><meta name="groc-project-path" content="README.md"><link rel="stylesheet" type="text/css" media="all" href="assets/style.css"><script type="text/javascript" src="assets/behavior.js"></script><body><div id="meta"><div class="file-path">README.md</div></div><div id="document"><div class="segment"><div class="comments"><div class="wrapper"><h1 id="goateescripthttpsjorekgithubiogoateescript"><a href="http://sjorek.github.io/goatee-script/">goatee-script</a></h1>
+
+<pre><code>     _______  _______  _______  _______  _______  _______
+    |    ___||       ||       ||_     _||    ___||    ___|
+    |   | __ |   _   ||   _   |  |   |  |   |___ |   |___
+    |   ||  ||  |_|  ||  |_|  |  |   |  |    ___||    ___|
+    |   |_| ||       ||   _   |  |   |  |   |___ |   |___
+    |_______||_______||__| |__|  |___|  |_______||_______|
+                                     . ,
+                                     (\\
+                                  .--, \\__
+                                   `-.     *`-.__
+                                     |          ')
+                                    / \__.-'-, ~;
+                                   /     |   { /
+                    ._..,-.-"``~"-'      ;    (
+                 .;'                    ;'    ´
+            ~;,./                      ;'
+               ';                     ;'
+                ';                 /;'|
+                 |    .;._.,;';\   |  |
+                 \   /  /       \  |\ |
+                  \ || |         | )| )
+                  | || |         | || |
+            ~~~~~ | \| \  ~~~~~~ | \| \  ~~~~~~~
+            "''"' `##`##' "'"''" `##`##' '"''"'"
+            '"'"''"'"''"''"''"'"'''"'"'''"''"'"'
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+       _______  _______  ______    ___  _______  _______
+      |  _____||     __||    _ |  |   ||    _  ||_     _|
+      | |_____ |    |   |   |_||_ |   ||   |_| |  |   |
+      |_____  ||    |   |    __  ||   ||    ___|  |   |
+       _____| ||    |__ |   |  | ||   ||   |      |   |
+      |_______||_______||___|  |_||___||___|      |___|
+</code></pre>
+
+<p>A goatee is the perfect complement for handlebar mustaches. :-{>~</p>
+
+<h2 id="objective">Objective</h2>
+
+<p>GoateeScript provides an unique language that is implemented in, modelled after
+and compiled to “ordinary” javascript. Sounds complicated ? It isn't ! Look at
+the following example:</p>
+
+<ul>
+<li><p>Javascript:</p>
+
+<p>(function() { var test = 1 + 2 * 3 ; return test })();</p></li>
+<li><p>Coffeescript:</p>
+
+<p>do -> test = 1 + 2 * 3</p></li>
+<li><p>Goateescript:</p>
+
+<p>test = 1 + 2 * 3</p></li>
+</ul>
+
+<p>All three examples are equivalent, the first two are just indentical and all of
+them return … guess what ? … the number 7 !</p>
+
+<p>As “<a href="https://github.com/sjorek/goatee-js">goatee-js</a>” provides attributes to
+map data into markup, I decided the best way to go would be a language that is
+compact, readable and (the most important feature) has a scope consisting of
+a chain of contexts.  Still confused ?  Believe me, the haze will be lifted,
+once the framework has reached a state where it is useable.  For the time
+beeing there is a command-line interpreter to prove my concept.</p>
+
+<p>Also see “<a href="https://github.com/sjorek/goatee-rules">goatee-rules</a>”.</p>
+
+<h3 id="javascript--the-source-and-destination">Javascript – the source and destination</h3>
+
+<p>The rule of thumb is: a goateescript is a single javascript expression without
+any declarations or a collection of expressions suiteable to fit into a single
+line. The last expression's value is always returned to the invoking context.</p>
+
+<h3 id="similarities-to-javascript">Similarities to javascript</h3>
+
+<ul>
+<li>The language is a subset of javascript, without any differences in syntax
+but with less grammar. You could take a goatee-script and run it as javascript
+… but usally you will get a completly different result</li>
+</ul>
+
+<h3 id="differences-to-javascript">Differences to javascript</h3>
+
+<ul>
+<li>Variable assigments are always local to the given script</li>
+<li>Scripts have one or multiple contexts for each execution</li>
+<li>Scripts are either directly interpreted at runtime, compiled
+to interpretable bytecode (usefull for runtimes implemented
+in other languages than javascript), or pre-compiled to
+javascript, which is the fastest and production way to go</li>
+<li>Function declarations are forbidden
+<ul><li>Hence not implemented</li>
+<li>Of course you can use functions, provided by the script's context</li>
+<li>You could provide methods to declare them, which would be somewhat arkward,
+but possible</li></ul></li>
+<li>Regular-Expression declarations are forbidden
+<ul><li>Hence not implemented</li>
+<li>Of course you can use regular expressions, provided by the script's context</li>
+<li>You could provide methods to declare them, which would be somewhat arkward,
+but possible</li></ul></li>
+<li>Most javascript statements are forbidden
+<ul><li>With the exception of “if”/“else” statements all the others (“for”, “return”
+“switch”, “yield” and so on) are not implemented.  This might change in
+future but for the time beeing all of them are not neccessary in the context
+of the goatee-framework.</li>
+<li>Of course you can use use all of them in functions, provided by the context</li>
+<li>You could provide methods to declare them, which would be somewhat arkward,
+but possible</li></ul></li>
+</ul>
+
+<h2 id="installation">Installation</h2>
+
+<pre><code>$ npm install -g goatee-script
+</code></pre>
+
+<h2 id="usage">Usage</h2>
+
+<pre><code>$ goatee-script -h
+
+Usage: goatee-script [statements]... [options]
+
+statements     string passed from the command line to evaluate
+
+Options:
+   -r STATEMENT, --run STATEMENT   string passed from the command line to evaluate
+   -h, --help                      display this help message
+   -i, --interactive               run an interactive `goatee-script` REPL
+   -m MODE, --mode MODE            set execution-mode to [c]ompile, [e]valuate, [p]rint, [r]ender or [s]tringify given statements, default:  [eval]
+   -c, --compress                  compress the abstract syntax tree (ast)  [false]
+   --nodejs OPTION                 pass one option directly to the "node" binary, repeat for muliple options
+   -v, --version                   display the version number and exit
+
+If called without options, `goatee-script` will run interactive.
+</code></pre>
+
+<h2 id="development">Development</h2>
+
+<pre><code>$ git clone https://github.com/sjorek/goatee-script
+$ cd goatee-script
+$ PATH=$PATH:./node_modules/.bin cake all
+</code></pre>
+
+<h2 id="credits-go-to-">Credits go to …</h2>
+
+<ul>
+<li><p>… Zachary Carter and all contributors for their
+<a href="http://zaach.github.io/jison/">jison parser generator</a></p></li>
+<li><p>… Jeremy Ashkenas and all contributors for their
+<a href="http://coffeescript.org/">Coffee-Script</a>
+as a source of inspiration</p></li>
+<li><p>… Kris Nye for his <a href="https://github.com/krisnye/glass-script/">Glass-Script</a>
+as a source of inspiration</p></li>
+<li><p>… <a href="https://github.com/Nodeclipse/nodeclipse-1">Nodeclipse v0.4</a>
+(<a href="http://marketplace.eclipse.org/content/nodeclipse">Eclipse Marketplace</a>,
+<a href="http://www.nodeclipse.org">site</a>)</p></li>
+</ul></div></div></div></div></body></html>

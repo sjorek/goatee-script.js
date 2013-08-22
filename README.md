@@ -1,6 +1,6 @@
 
-goatee-script
-=============
+[goatee-script](http://sjorek.github.io/goatee-script/)
+=======================================================
 
          _______  _______  _______  _______  _______  _______
         |    ___||       ||       ||_     _||    ___||    ___|
@@ -35,7 +35,10 @@ goatee-script
            _____| ||    |__ |   |  | ||   ||   |      |   |
           |_______||_______||___|  |_||___||___|      |___|
 
-> :-{>~ A goatee is the perfect complement for handlebar mustaches. ~<}-:
+A goatee is the perfect complement for handlebar mustaches. :-{>~
+
+## Objective
+
 
 GoateeScript provides an unique language that is implemented in, modelled after
 and compiled to “ordinary” javascript. Sounds complicated ? It isn't ! Look at
@@ -56,7 +59,16 @@ the following example:
 All three examples are equivalent, the first two are just indentical and all of
 them return … guess what ? … the number 7 !
 
-## Javascript – the source and destination
+As “[goatee-js](https://github.com/sjorek/goatee-js)” provides attributes to
+map data into markup, I decided the best way to go would be a language that is
+compact, readable and (the most important feature) has a scope consisting of
+a chain of contexts.  Still confused ?  Believe me, the haze will be lifted,
+once the framework has reached a state where it is useable.  For the time
+beeing there is a command-line interpreter to prove my concept.
+
+Also see “[goatee-rules](https://github.com/sjorek/goatee-rules)”.
+
+### Javascript – the source and destination
 
 The rule of thumb is: a goateescript is a single javascript expression without
 any declarations or a collection of expressions suiteable to fit into a single
@@ -94,17 +106,6 @@ line. The last expression's value is always returned to the invoking context.
   - Of course you can use use all of them in functions, provided by the context
   - You could provide methods to declare them, which would be somewhat arkward,
     but possible
-
-## Objective
-
-As “[goatee-js](https://github.com/sjorek/goatee-js)” provides attributes to
-map data into markup, I decided the best way to go would be a language that is
-compact, readable and (the most important feature) has a scope consisting of
-a chain of contexts.  Still confused ?  Believe me, the haze will be lifted,
-once the framework has reached a state where it is useable.  For the time
-beeing there is a command-line interpreter to prove my concept.
-
-Also see “[goatee-rules](https://github.com/sjorek/goatee-rules)”.
 
 ## Installation
 
