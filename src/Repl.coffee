@@ -34,7 +34,7 @@ NodeRepl        = require 'repl'
   evaluate,
   render,
   stringify
-}}              = require '../GoateeScript'
+}}              = require './GoateeScript'
 
 {Expression}    = require('./Expression')
 
