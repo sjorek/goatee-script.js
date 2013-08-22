@@ -32,6 +32,13 @@ clean = (root) ->
 
 rebuild = false
 
+render = (template, data) ->
+  template.replace /\{\{\s*([\w\.]*)\s*\}\}/g, (match, path) ->
+    path  = path.split "."
+    value = data[path.shift()]
+    value = value[key] for key in path
+    value ? ""
+
 task 'all', 'invokes “clean”, “build” and “test” in given order', ->
   console.log 'all'
   rebuild = true
