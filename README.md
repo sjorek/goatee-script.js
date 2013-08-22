@@ -59,14 +59,14 @@ the following example:
 All three examples are equivalent, the first two are just indentical and all of
 them return … guess what ? … the number 7 !
 
-As “[goatee-js](https://github.com/sjorek/goatee-js)” provides attributes to
+As “[goatee-js](http://sjorek.github.io/goatee-js)” provides attributes to
 map data into markup, I decided the best way to go would be a language that is
 compact, readable and (the most important feature) has a scope consisting of
 a chain of contexts.  Still confused ?  Believe me, the haze will be lifted,
 once the framework has reached a state where it is useable.  For the time
 beeing there is a command-line interpreter to prove my concept.
 
-Also see “[goatee-rules](https://github.com/sjorek/goatee-rules)”.
+Also see “[goatee-rules](http://sjorek.github.io/goatee-rules)”.
 
 ### Javascript – the source and destination
 
