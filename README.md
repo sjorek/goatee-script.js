@@ -78,7 +78,7 @@ line. The last expression's value is always returned to the invoking context.
   javascript, which is the fastest and production way to go
 - Function declarations are forbidden
   - Hence not implemented
-  - Of course you can use functions, provided by the context
+  - Of course you can use functions, provided by the script's context
   - You could provide methods to declare them, which would be somewhat arkward,
     but possible
 - Regular-Expression declarations are forbidden
