@@ -42,7 +42,7 @@ exports.Command = class Command
   opts        = null
   statements  = null
 
-  constructor : (@command = require('../GoateeScript').GoateeScript) ->
+  constructor : (@command = require('./GoateeScript').GoateeScript) ->
 
   printLine   : (line) ->
     process.stdout.write line + '\n'
@@ -84,7 +84,7 @@ exports.Command = class Command
         abbr: 'm',
         default: 'eval',
         choices: ['compile', 'c', 'evaluate', 'eval', 'e', 'print', 'p', 'render', 'r', 'stringify', 'string', 's']
-        help: 'set execution-mode to [c]ompile, [e]valuate, [p]rint, [r]ender or [s]tringify given statements'
+        help: 'set execution-mode to [c]ompile, [e]valuate, [p]rint, [r]ender or [s]tringify given statements, default:'
       })
       .option('compress', {
         abbr: 'c',

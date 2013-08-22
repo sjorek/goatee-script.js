@@ -3,6 +3,6 @@
 var path = require('path'),
     fs   = require('fs'),
     lib  = path.join(path.dirname(fs.realpathSync(__filename)), '../lib'),
-    cmd  = new (require(lib + '/GoateeScript/Command').Command);
+    cmd  = new (require(lib + '/Command').Command);
 
 cmd.run();
