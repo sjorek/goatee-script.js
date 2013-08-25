@@ -28,24 +28,35 @@
 
 <span class="nv">exports = </span><span class="nx">module</span><span class="o">?</span><span class="p">.</span><span class="nx">exports</span> <span class="o">?</span> <span class="k">this</span>
 
-<span class="c1">##</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Expression are the glue between runtime-evaluation, -interpretation and
+<span class="c1">##</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'> </span></p>
+
+<p>Expression are the glue between runtime-evaluation, -interpretation and
 -compilation.  The parser emits these expressions, whereas the compiler
-consumes them.</p></div></div><div class="code"><div class="wrapper"><span class="c1">#</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>@class
-@namespace GoateeScript</p></div></div><div class="code"><div class="wrapper"><span class="nv">exports.Expression = </span><span class="k">class</span> <span class="nx">Expression</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Shortcuts to ease access to otherwise deeply nested properties</p></div></div><div class="code"><div class="wrapper">  <span class="nv">_stack        = </span><span class="kc">null</span>
+consumes them.</p></div></div><div class="code"><div class="wrapper"><span class="nv">exports.Expression = </span><span class="k">class</span> <span class="nx">Expression</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Shortcuts to ease access to otherwise deeply nested properties</p></div></div><div class="code"><div class="wrapper">  <span class="nv">_stack        = </span><span class="kc">null</span>
   <span class="nv">_scope        = </span><span class="kc">null</span>
   <span class="nv">_errors       = </span><span class="kc">null</span>
   <span class="nv">_global       = </span><span class="kc">null</span>
   <span class="nv">_local        = </span><span class="kc">null</span>
   <span class="nv">_operations   = </span><span class="kc">null</span>
-  <span class="nv">_parser       = </span><span class="kc">null</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>reference to <code>Expression.operations.scalar.name</code></p></div></div><div class="code"><div class="wrapper">  <span class="nv">_scalar       = </span><span class="kc">null</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>reference to <code>Expression.operations['.'].name</code></p></div></div><div class="code"><div class="wrapper">  <span class="nv">_property     = </span><span class="kc">null</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>static reference to a callback function</p></div></div><div class="code"><div class="wrapper">  <span class="nv">_callback     = </span><span class="kc">null</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>reference to <code>Expression.operations.reference.format</code></p></div></div><div class="code"><div class="wrapper">  <span class="nv">_reference    = </span><span class="kc">null</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>a wrapper around <code>Expression.operations.reference.format</code></p></div></div><div class="code"><div class="wrapper">  <span class="nv">_variable     = </span><span class="kc">null</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>reference to <code>Expression.operations.reference.evaluate</code></p></div></div><div class="code"><div class="wrapper">  <span class="nv">_resolve      = </span><span class="kc">null</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>reference to <code>Expression.operations['='].evaluate</code></p></div></div><div class="code"><div class="wrapper">  <span class="nv">_assignment   = </span><span class="kc">null</span>
+  <span class="nv">_parser       = </span><span class="kc">null</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>reference to <code>Expression.operations.scalar.name</code></p></div></div><div class="code"><div class="wrapper">  <span class="nv">_scalar       = </span><span class="kc">null</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>reference to <code>Expression.operations['.'].name</code></p></div></div><div class="code"><div class="wrapper">  <span class="nv">_property     = </span><span class="kc">null</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>static reference to a callback function</p></div></div><div class="code"><div class="wrapper">  <span class="nv">_callback     = </span><span class="kc">null</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>reference to <code>Expression.operations.reference.format</code></p></div></div><div class="code"><div class="wrapper">  <span class="nv">_reference    = </span><span class="kc">null</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>a wrapper around <code>Expression.operations.reference.format</code></p></div></div><div class="code"><div class="wrapper">  <span class="nv">_variable     = </span><span class="kc">null</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>reference to <code>Expression.operations.reference.evaluate</code></p></div></div><div class="code"><div class="wrapper">  <span class="nv">_resolve      = </span><span class="kc">null</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>reference to <code>Expression.operations['='].evaluate</code></p></div></div><div class="code"><div class="wrapper">  <span class="nv">_assignment   = </span><span class="kc">null</span>
 
-  <span class="c1">##</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Determine if the current state resolves to a property.  Used by
-<code>Expression.operations.reference.evaluate</code></p></div></div><div class="code"><div class="wrapper">  <span class="c1">#</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>@return {Boolean}</p></div></div><div class="code"><div class="wrapper">  <span class="nv">_isProperty   = </span><span class="p">()</span> <span class="nf">-&gt;</span>
+  <span class="c1">##</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'></span></p>
+
+<p>Determine if the current state resolves to a property.  Used by
+<code>Expression.operations.reference.evaluate</code></p>
+
+<p><strong>Returns a Boolean</strong></p></div></div><div class="code"><div class="wrapper">  <span class="nv">_isProperty   = </span><span class="p">()</span> <span class="nf">-&gt;</span>
     <span class="nv">p = </span><span class="nx">_stack</span><span class="p">.</span><span class="nx">parent</span><span class="p">()</span>
     <span class="nx">p</span><span class="o">?</span> <span class="o">and</span> <span class="nx">p</span><span class="p">.</span><span class="nx">operator</span><span class="p">.</span><span class="nx">name</span> <span class="o">is</span> <span class="nx">_property</span> <span class="o">and</span> <span class="nx">p</span><span class="p">.</span><span class="nx">parameters</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">is</span> <span class="nx">_stack</span><span class="p">.</span><span class="nx">current</span><span class="p">()</span>
 
-  <span class="c1">##</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>@param {Object}           context
-@param {Expression|mixed} expression</p></div></div><div class="code"><div class="wrapper">  <span class="nv">Expression.execute = _execute = </span><span class="nf">(context, expression) -&gt;</span>
+  <span class="c1">##</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'></span></p>
+
+<p>Parameters:</p>
+
+<ul>
+<li><p><strong>context must be an Object.</strong></p></li>
+<li><p><strong>expression can be an Expression or a mixed.</strong></p></li>
+</ul></div></div><div class="code"><div class="wrapper">  <span class="nv">Expression.execute = _execute = </span><span class="nf">(context, expression) -&gt;</span>
     <span class="k">return</span> <span class="nx">expression</span> <span class="k">unless</span> <span class="nx">isExpression</span> <span class="nx">expression</span>
     <span class="nx">_stack</span><span class="p">.</span><span class="nx">push</span> <span class="nx">context</span><span class="p">,</span> <span class="nx">expression</span>
     <span class="k">try</span>
@@ -55,25 +66,48 @@ consumes them.</p></div></div><div class="code"><div class="wrapper"><span class
     <span class="nx">_stack</span><span class="p">.</span><span class="nx">pop</span><span class="p">()</span>
     <span class="k">return</span> <span class="nx">result</span>
 
-  <span class="c1">##</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Set a static callback, to be invoked after an expression has been
-evaluated, but before the stack gets cleared.  Implemented as:</p></div></div><div class="code"><div class="wrapper">  <span class="c1">#</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p><code>callback(expression, result, _stack, _errors)</code></p></div></div><div class="code"><div class="wrapper">  <span class="c1">#</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>@param  {Function}
-@return {Function}</p></div></div><div class="code"><div class="wrapper">  <span class="nv">Expression.callback = </span><span class="nf">(callback) -&gt;</span>
+  <span class="c1">##</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'></span></p>
+
+<p>Set a static callback, to be invoked after an expression has been
+evaluated, but before the stack gets cleared.  Implemented as:
+  <code>callback(expression, result, _stack, _errors)</code></p>
+
+<p>Parameters:</p>
+
+<ul>
+<li><strong>A must be a Function.</strong><br/>(callback-function (closure) to invoke)</li>
+</ul>
+
+<p><strong>Returns a Function</strong></p></div></div><div class="code"><div class="wrapper">  <span class="nv">Expression.callback = </span><span class="nf">(callback) -&gt;</span>
     <span class="nv">_callback = </span><span class="nx">callback</span>
     <span class="k">return</span>
 
-  <span class="c1">##</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Get an array of all errors caught and collected during evaluation or
-<code>false</code> if none of them occured.</p></div></div><div class="code"><div class="wrapper">  <span class="c1">#</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>@return {Boolean|Array<Error>}</p></div></div><div class="code"><div class="wrapper">  <span class="nv">Expression.errors = </span><span class="p">()</span> <span class="nf">-&gt;</span>
+  <span class="c1">##</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'></span></p>
+
+<p>Get an array of all errors caught and collected during evaluation or
+<code>false</code> if none of them occured.</p>
+
+<p><strong>Returns a Boolean or an Array<Error></strong></p></div></div><div class="code"><div class="wrapper">  <span class="nv">Expression.errors = </span><span class="p">()</span> <span class="nf">-&gt;</span>
     <span class="nx">_errors</span> <span class="k">if</span> <span class="nx">_errors</span><span class="o">?</span> <span class="o">and</span> <span class="nx">_errors</span><span class="p">.</span><span class="nx">length</span> <span class="o">isnt</span> <span class="mi">0</span>
     <span class="kc">false</span>
 
-  <span class="c1">##</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>This is the start and finish of evaluations.  Resets the environment before
+  <span class="c1">##</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'></span></p>
+
+<p>This is the start and finish of evaluations.  Resets the environment before
 and after any execution.  This implementation avoids self-recursion as it
-reassigns the evaluation function.</p></div></div><div class="code"><div class="wrapper">  <span class="c1">#</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>@param {Object}           context (optional)
-@param {Expression|mixed} expression (optional)
-@param {Object}           variables (optional)
-@param {Array}            scope (optional)
-@param {Array}            stack (optional)
-@return mixed</p></div></div><div class="code"><div class="wrapper">  <span class="nv">Expression.evaluate = </span><span class="o">\</span>
+reassigns the evaluation function.</p>
+
+<p>Parameters:</p>
+
+<ul>
+<li><p><strong>context must be an Object.</strong><br/>((optional))</p></li>
+<li><p><strong>expression can be an Expression or a mixed.</strong><br/>((optional))</p></li>
+<li><p><strong>variables must be an Object.</strong><br/>((optional))</p></li>
+<li><p><strong>scope must be an Array.</strong><br/>((optional))</p></li>
+<li><p><strong>stack must be an Array.</strong><br/>((optional))</p></li>
+</ul>
+
+<p><strong>Returns a mixed</strong></p></div></div><div class="code"><div class="wrapper">  <span class="nv">Expression.evaluate = </span><span class="o">\</span>
   <span class="nv">_evaluate = </span><span class="nf">(context={}, expression, variables, scope, stack) -&gt;</span>
     <span class="k">return</span> <span class="nx">expression</span> <span class="k">unless</span> <span class="nx">isExpression</span> <span class="nx">expression</span>
 
@@ -99,10 +133,19 @@ reassigns the evaluation function.</p></div></div><div class="code"><div class="
 
     <span class="nx">result</span>
 
-  <span class="c1">##</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Process the expression and evaluate its result. Chained (sub-)expressions
-and vector operations are resolved here.</p></div></div><div class="code"><div class="wrapper">  <span class="c1">#</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>@param {Object} context
-@param {Expression} expression
-@return mixed</p></div></div><div class="code"><div class="wrapper">  <span class="nv">_process = </span><span class="nf">(context, expression) -&gt;</span>
+  <span class="c1">##</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'></span></p>
+
+<p>Process the expression and evaluate its result. Chained (sub-)expressions
+and vector operations are resolved here.</p>
+
+<p>Parameters:</p>
+
+<ul>
+<li><p><strong>context must be an Object.</strong></p></li>
+<li><p><strong>expression must be an Expression.</strong></p></li>
+</ul>
+
+<p><strong>Returns a mixed</strong></p></div></div><div class="code"><div class="wrapper">  <span class="nv">_process = </span><span class="nf">(context, expression) -&gt;</span>
     <span class="p">{</span><span class="nx">operator</span><span class="p">,</span><span class="nx">parameters</span><span class="p">}</span> <span class="o">=</span> <span class="nx">expression</span>
     <span class="k">if</span> <span class="nx">operator</span><span class="p">.</span><span class="nx">chain</span>
       <span class="k">unless</span> <span class="nx">parameters</span><span class="p">.</span><span class="nx">length</span> <span class="o">is</span> <span class="mi">2</span>
@@ -114,7 +157,7 @@ and vector operations are resolved here.</p></div></div><div class="code"><div c
         <span class="nv">values = </span><span class="p">[]</span>
         <span class="k">for</span> <span class="nx">leftValue</span> <span class="k">in</span> <span class="nx">context</span>
           <span class="nv">rightValue = </span><span class="nx">_execute</span> <span class="nx">leftValue</span><span class="p">,</span> <span class="nx">right</span>
-          <span class="nv">value = </span><span class="nx">operator</span><span class="p">.</span><span class="nx">evaluate</span><span class="p">.</span><span class="nx">call</span> <span class="nx">leftValue</span><span class="p">,</span> <span class="nx">leftValue</span><span class="p">,</span> <span class="nx">rightValue</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>see if the right part of the operation is vector or not</p></div></div><div class="code"><div class="wrapper">          <span class="k">if</span> <span class="nx">right</span><span class="p">.</span><span class="nx">vector</span>
+          <span class="nv">value = </span><span class="nx">operator</span><span class="p">.</span><span class="nx">evaluate</span><span class="p">.</span><span class="nx">call</span> <span class="nx">leftValue</span><span class="p">,</span> <span class="nx">leftValue</span><span class="p">,</span> <span class="nx">rightValue</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>see if the right part of the operation is vector or not</p></div></div><div class="code"><div class="wrapper">          <span class="k">if</span> <span class="nx">right</span><span class="p">.</span><span class="nx">vector</span>
             <span class="k">unless</span> <span class="nx">isArray</span> <span class="nx">value</span>
               <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;vector operation did not return an array as expected: </span><span class="si">#{</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span> <span class="nx">operator</span><span class="si">}</span><span class="s">&quot;</span>
             <span class="nx">values</span><span class="p">.</span><span class="nx">push</span><span class="p">.</span><span class="nx">apply</span> <span class="nx">values</span><span class="p">,</span> <span class="nx">value</span>
@@ -132,10 +175,19 @@ and vector operations are resolved here.</p></div></div><div class="code"><div c
     <span class="nx">values</span><span class="p">.</span><span class="nx">push</span> <span class="nx">_execute</span><span class="p">(</span><span class="nx">context</span><span class="p">,</span> <span class="nx">rightValue</span><span class="p">)</span> <span class="k">for</span> <span class="nx">rightValue</span> <span class="k">in</span> <span class="nx">parameters</span>
     <span class="nx">operator</span><span class="p">.</span><span class="nx">evaluate</span><span class="p">.</span><span class="nx">apply</span> <span class="nx">context</span><span class="p">,</span> <span class="nx">values</span>
 
-  <span class="c1">##</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Determine the expression's boolean value, as defined in Ecmascript 3/5/6.
+  <span class="c1">##</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'></span></p>
+
+<p>Determine the expression's boolean value, as defined in Ecmascript 3/5/6.
 Therefor arrays are processed recursivly item by item and if one of them
-resolves to a false value, this function returns false immediatly.</p></div></div><div class="code"><div class="wrapper">  <span class="c1">#</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>@param  {mixed}   value
-@return {Booelan}</p></div></div><div class="code"><div class="wrapper">  <span class="nv">Expression.booleanize = _booleanize = </span><span class="nf">(value) -&gt;</span>
+resolves to a false value, this function returns false immediatly.</p>
+
+<p>Parameters:</p>
+
+<ul>
+<li><strong>value must be a mixed.</strong></li>
+</ul>
+
+<p><strong>Returns a Booelan</strong></p></div></div><div class="code"><div class="wrapper">  <span class="nv">Expression.booleanize = _booleanize = </span><span class="nf">(value) -&gt;</span>
     <span class="k">if</span> <span class="nx">isArray</span> <span class="nx">value</span>
       <span class="k">for</span> <span class="nx">item</span> <span class="k">in</span> <span class="nx">value</span>
         <span class="k">if</span> <span class="nx">_booleanize</span> <span class="nx">item</span>
@@ -143,12 +195,21 @@ resolves to a false value, this function returns false immediatly.</p></div></di
       <span class="k">return</span> <span class="kc">false</span>
     <span class="k">return</span> <span class="nb">Boolean</span> <span class="nx">value</span>
 
-  <span class="c1">##</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Returns the given value as string.  If the given value is not an expression
+  <span class="c1">##</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'></span></p>
+
+<p>Returns the given value as string.  If the given value is not an expression
 <code>JSON.stringify</code> will be called to deliver the result.  If the expression's
 operator has a <code>format</code> function (see Èxpression.operations` below) it will
 be called with the expression parameters, otherwise a string will be build
-from those parameters.</p></div></div><div class="code"><div class="wrapper">  <span class="c1">#</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>@param  {mixed}   value
-@return {String}</p></div></div><div class="code"><div class="wrapper">  <span class="nv">Expression.stringify = _stringify = </span><span class="nf">(value) -&gt;</span>
+from those parameters.</p>
+
+<p>Parameters:</p>
+
+<ul>
+<li><strong>value must be a mixed.</strong></li>
+</ul>
+
+<p><strong>Returns a String</strong></p></div></div><div class="code"><div class="wrapper">  <span class="nv">Expression.stringify = _stringify = </span><span class="nf">(value) -&gt;</span>
     <span class="k">if</span> <span class="o">not</span> <span class="nx">isExpression</span> <span class="nx">value</span>
       <span class="k">return</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span> <span class="nx">value</span>
 
@@ -157,20 +218,21 @@ from those parameters.</p></div></div><div class="code"><div class="wrapper">  <
 
     <span class="k">if</span> <span class="nx">format</span><span class="o">?</span>
       <span class="k">return</span> <span class="nx">format</span><span class="p">.</span><span class="nx">apply</span> <span class="k">this</span><span class="p">,</span> <span class="nx">parameters</span>
-    <span class="k">else</span> <span class="k">if</span> <span class="nx">parameters</span><span class="p">.</span><span class="nx">length</span> <span class="o">is</span> <span class="mi">2</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>basic operations</p></div></div><div class="code"><div class="wrapper">      <span class="s">&quot;</span><span class="si">#{</span><span class="nx">_stringify</span> <span class="nx">parameters</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}#{</span><span class="nx">operator</span><span class="si">}#{</span><span class="nx">_stringify</span> <span class="nx">parameters</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s">&quot;</span>
-    <span class="k">else</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>block statements and … ?</p></div></div><div class="code"><div class="wrapper">      <span class="nv">format = </span><span class="p">[]</span>
+    <span class="k">else</span> <span class="k">if</span> <span class="nx">parameters</span><span class="p">.</span><span class="nx">length</span> <span class="o">is</span> <span class="mi">2</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>basic operations</p></div></div><div class="code"><div class="wrapper">      <span class="s">&quot;</span><span class="si">#{</span><span class="nx">_stringify</span> <span class="nx">parameters</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}#{</span><span class="nx">operator</span><span class="si">}#{</span><span class="nx">_stringify</span> <span class="nx">parameters</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s">&quot;</span>
+    <span class="k">else</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>block statements and … ?</p></div></div><div class="code"><div class="wrapper">      <span class="nv">format = </span><span class="p">[]</span>
       <span class="nx">format</span><span class="p">.</span><span class="nx">push</span> <span class="nx">_stringify</span><span class="p">(</span><span class="nx">parameter</span><span class="p">)</span> <span class="k">for</span> <span class="nx">parameter</span> <span class="k">in</span> <span class="nx">parameters</span>
       <span class="nx">format</span><span class="p">.</span><span class="nx">join</span> <span class="s">&#39; &#39;</span>
 
-  <span class="c1">##</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>A dictionary of all known operations an expression might perform.
-Used during runtime interpretation, stringification and compilation.</p></div></div><div class="code"><div class="wrapper">  <span class="c1">#</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>@type {Object}</p></div></div><div class="code"><div class="wrapper">  <span class="nv">Expression.operations = _operations =</span>
+  <span class="c1">##</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'> </span></p>
 
-    <span class="c1">##</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>An assignment, filled below</p></div></div><div class="code"><div class="wrapper">    <span class="s">&#39;=&#39;</span><span class="o">:</span>
+<p>A dictionary of all known operations an expression might perform.
+Used during runtime interpretation, stringification and compilation.</p></div></div><div class="code"><div class="wrapper">  <span class="nv">Expression.operations = _operations =</span>
+
+    <span class="c1">##</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>An assignment, filled below</p></div></div><div class="code"><div class="wrapper">    <span class="s">&#39;=&#39;</span><span class="o">:</span>
       <span class="nv">evaluate: </span><span class="nf">(a,b) -&gt;</span>
         <span class="nx">_local</span><span class="p">[</span><span class="nx">a</span><span class="p">]</span> <span class="o">=</span> <span class="nx">b</span>
 
-    <span class="c1">##</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Assigment operations are filled below (<code>_assign</code>)</p></div></div><div class="code"><div class="wrapper">    <span class="c1">#</span>
-    <span class="c1">#&#39;-=&#39;  : {}</span>
+    <span class="c1">##</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Assigment operations are filled below (<code>_assign</code>)</p></div></div><div class="code"><div class="wrapper">    <span class="c1">#&#39;-=&#39;  : {}</span>
     <span class="c1">#&#39;+=&#39;  : {}</span>
     <span class="c1">#&#39;*=&#39;  : {}</span>
     <span class="c1">#&#39;/=&#39;  : {}</span>
@@ -182,43 +244,41 @@ Used during runtime interpretation, stringification and compilation.</p></div></
     <span class="c1">#&#39;&amp;=&#39;  : {}</span>
     <span class="c1">#&#39;|=&#39;  : {}</span>
 
-    <span class="c1">##</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Increment and decrement operation are filled below (<code>_incdec</code>)</p></div></div><div class="code"><div class="wrapper">    <span class="c1">#</span>
-    <span class="c1">#&#39;++&#39;:</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>format: (a,b) ->
+    <span class="c1">##</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Increment and decrement operation are filled below (<code>_incdec</code>)</p></div></div><div class="code"><div class="wrapper">    <span class="c1">#&#39;++&#39;:</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>format: (a,b) ->
    if b then "#{<em>stringify(a)}++" else "++#{</em>stringify(a)}"
  evaluate: (a,b) ->
    c = _operations.reference.evaluate(a)
    _assignment.call(this, a, c + 1)
-   if b then c else c + 1</p></div></div><div class="code"><div class="wrapper">    <span class="c1">#&#39;--&#39;:</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>format: (a,b) ->
+   if b then c else c + 1</p></div></div><div class="code"><div class="wrapper">    <span class="c1">#&#39;--&#39;:</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>format: (a,b) ->
    if b then "#{<em>stringify(a)}--" else "--#{</em>stringify(a)}"
  evaluate: (a,b) ->
    c = _operations.reference.evaluate(a)
    _assignment.call(this, a, c - 1)
-   if b then c else c - 1</p></div></div><div class="code"><div class="wrapper">    <span class="c1">##</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>An object's property</p></div></div><div class="code"><div class="wrapper">    <span class="s">&#39;.&#39;</span><span class="o">:</span>
-      <span class="nv">chain   : </span><span class="kc">true</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>The formatter is not needed anymore</p></div></div><div class="code"><div class="wrapper">      <span class="c1">#format  : (a,b) -&gt; &quot;#{_stringify a}.#{_stringify b}&quot;</span>
+   if b then c else c - 1</p></div></div><div class="code"><div class="wrapper">    <span class="c1">##</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>An object's property</p></div></div><div class="code"><div class="wrapper">    <span class="s">&#39;.&#39;</span><span class="o">:</span>
+      <span class="nv">chain   : </span><span class="kc">true</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>The formatter is not needed anymore</p></div></div><div class="code"><div class="wrapper">      <span class="c1">#format  : (a,b) -&gt; &quot;#{_stringify a}.#{_stringify b}&quot;</span>
 
-      <span class="c1">##</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>a.b with a &lt;- b</p></div></div><div class="code"><div class="wrapper">      <span class="c1">#</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Function (b) bound to its container (a) now, otherwise it would have
+      <span class="c1">##</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>a.b with a &lt;- b
+Function (b) bound to its container (a) now, otherwise it would have
 the _global context as its scope.  If the container (a) is the _global
 context, (b) has already been bound to (a), hence (b) is returned as it
 is to avoid binding it twice.</p></div></div><div class="code"><div class="wrapper">      <span class="nv">evaluate: </span><span class="nf">(a,b) -&gt;</span>
         <span class="k">if</span> <span class="nx">a</span> <span class="o">isnt</span> <span class="nx">_global</span> <span class="o">and</span> <span class="nx">isFunction</span> <span class="nx">b</span> <span class="k">then</span> <span class="nx">bindFunction</span> <span class="nx">b</span><span class="p">,</span> <span class="nx">a</span> <span class="k">else</span> <span class="nx">b</span>
 
-    <span class="c1">##</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Negation and bitwise inversion operations are filled below (<code>_single</code>)</p></div></div><div class="code"><div class="wrapper">    <span class="c1">#</span>
-    <span class="c1">#&#39;!&#39;:</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>constant: true
- evaluate: (a) -> !a</p></div></div><div class="code"><div class="wrapper">    <span class="c1">#&#39;~&#39;:</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>constant: true
- evaluate: (a) -> ~a</p></div></div><div class="code"><div class="wrapper">    <span class="c1">##</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Mathemetical and bitwise operations which can not resolve early
-are filled below (<code>_pair</code>)</p></div></div><div class="code"><div class="wrapper">    <span class="c1">#</span>
-    <span class="c1">#&#39;+&#39;:</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>constant: true
- evaluate: (a,b) -> a + b</p></div></div><div class="code"><div class="wrapper">    <span class="c1">#&#39;-&#39;:</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>constant: true
- evaluate: (a,b) -> a - b</p></div></div><div class="code"><div class="wrapper">    <span class="c1">#&#39;*&#39;:</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>constant: true
- evaluate: (a,b) -> a * b</p></div></div><div class="code"><div class="wrapper">    <span class="c1">#&#39;/&#39;:</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>constant: true
- evaluate: (a,b) -> a / b</p></div></div><div class="code"><div class="wrapper">    <span class="c1">#&#39;%&#39;:</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>constant: true
- evaluate: (a,b) -> a % b</p></div></div><div class="code"><div class="wrapper">    <span class="c1">#&#39;^&#39;:</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>constant: true
- evaluate: (a,b) -> a ^ b</p></div></div><div class="code"><div class="wrapper">    <span class="c1">#&#39;&gt;&gt;&gt;&#39;:</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>constant: true
- evaluate: (a,b) -> a >>> b</p></div></div><div class="code"><div class="wrapper">    <span class="c1">#&#39;&gt;&gt;&#39;:</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>constant: true
- evaluate: (a,b) -> a >> b</p></div></div><div class="code"><div class="wrapper">    <span class="c1">#&#39;&lt;&lt;&#39;:</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>constant: true
- evaluate: (a,b) -> a &lt;&lt; b</p></div></div><div class="code"><div class="wrapper">    <span class="c1">#&#39;&amp;&#39;:</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>constant: true
- evaluate: (a,b) -> a &amp; b</p></div></div><div class="code"><div class="wrapper">    <span class="c1">#&#39;|&#39;:</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>constant: true
- evaluate: (a,b) -> a | b</p></div></div><div class="code"><div class="wrapper">    <span class="c1">##</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Early resolving boolean <code>and</code></p></div></div><div class="code"><div class="wrapper">    <span class="s">&#39;&amp;&amp;&#39;</span><span class="o">:</span>
+    <span class="c1">##</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Negation and bitwise inversion operations are filled below (<code>_single</code>)</p></div></div><div class="code"><div class="wrapper">    <span class="c1">#&#39;!&#39;:</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>constant: true
+ evaluate: (a) -> !a</p></div></div><div class="code"><div class="wrapper">    <span class="c1">#&#39;~&#39;:</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>constant: true
+ evaluate: (a) -> ~a</p></div></div><div class="code"><div class="wrapper">    <span class="c1">##</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Mathemetical and bitwise operations which can not resolve early
+are filled below (<code>_pair</code>)</p></div></div><div class="code"><div class="wrapper">    <span class="c1">#&#39;+&#39;:</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>constant: true
+ evaluate: (a,b) -> a + b</p></div></div><div class="code"><div class="wrapper">    <span class="c1">#&#39;-&#39;:</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>constant: true
+ evaluate: (a,b) -> a - b</p></div></div><div class="code"><div class="wrapper">    <span class="c1">#&#39;*&#39;:</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>constant: true
+ evaluate: (a,b) -> a * b</p></div></div><div class="code"><div class="wrapper">    <span class="c1">#&#39;/&#39;:</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>constant: true
+ evaluate: (a,b) -> a / b</p></div></div><div class="code"><div class="wrapper">    <span class="c1">#&#39;%&#39;:</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>constant: true
+ evaluate: (a,b) -> a % b</p></div></div><div class="code"><div class="wrapper">    <span class="c1">#&#39;^&#39;:</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>constant: true
+ evaluate: (a,b) -> a ^ b</p></div></div><div class="code"><div class="wrapper">    <span class="c1">#&#39;&gt;&gt;&gt;&#39;:</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>constant: true
+ evaluate: (a,b) -> a >>> b</p></div></div><div class="code"><div class="wrapper">    <span class="c1">#&#39;&gt;&gt;&#39;:</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>constant: true
+ evaluate: (a,b) -> a >> b</p></div></div><div class="code"><div class="wrapper">    <span class="c1">#&#39;&lt;&lt;&#39;:</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>constant: true
+ evaluate: (a,b) -> a &lt;&lt; b</p></div></div><div class="code"><div class="wrapper">    <span class="c1">#&#39;&amp;&#39;:</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>constant: true
+ evaluate: (a,b) -> a &amp; b</p></div></div><div class="code"><div class="wrapper">    <span class="c1">#&#39;|&#39;:</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>constant: true
+ evaluate: (a,b) -> a | b</p></div></div><div class="code"><div class="wrapper">    <span class="c1">##</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Early resolving boolean <code>and</code></p></div></div><div class="code"><div class="wrapper">    <span class="s">&#39;&amp;&amp;&#39;</span><span class="o">:</span>
       <span class="nv">raw     : </span><span class="kc">true</span>
       <span class="nv">constant: </span><span class="kc">true</span>
       <span class="nv">evaluate: </span><span class="nf">(a,b) -&gt;</span>
@@ -228,7 +288,7 @@ are filled below (<code>_pair</code>)</p></div></div><div class="code"><div clas
         <span class="nv">b = </span><span class="nx">_execute</span> <span class="k">this</span><span class="p">,</span> <span class="nx">b</span>
         <span class="k">return</span> <span class="nx">b</span>
 
-    <span class="c1">##</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Early resolving boolean <code>or</code></p></div></div><div class="code"><div class="wrapper">    <span class="s">&#39;||&#39;</span><span class="o">:</span>
+    <span class="c1">##</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Early resolving boolean <code>or</code></p></div></div><div class="code"><div class="wrapper">    <span class="s">&#39;||&#39;</span><span class="o">:</span>
       <span class="nv">raw     : </span><span class="kc">true</span>
       <span class="nv">constant: </span><span class="kc">true</span>
       <span class="nv">evaluate: </span><span class="nf">(a,b) -&gt;</span>
@@ -237,34 +297,32 @@ are filled below (<code>_pair</code>)</p></div></div><div class="code"><div clas
           <span class="k">return</span> <span class="nx">a</span>
         <span class="nv">b = </span><span class="nx">_execute</span> <span class="k">this</span><span class="p">,</span> <span class="nx">b</span>
         <span class="k">return</span> <span class="nx">b</span>
-    <span class="c1">##</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Boolean operations which can not resolve early are filled below (<code>_bools</code>)</p></div></div><div class="code"><div class="wrapper">    <span class="c1">#</span>
-    <span class="c1">#&#39;&lt;&#39;:</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>constant: true
+    <span class="c1">##</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Boolean operations which can not resolve early are filled below (<code>_bools</code>)</p></div></div><div class="code"><div class="wrapper">    <span class="c1">#&#39;&lt;&#39;:</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>constant: true
  vector: false
- evaluate: (a,b) -> a &lt; b</p></div></div><div class="code"><div class="wrapper">    <span class="c1">#&#39;&gt;&#39;:</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>constant: true
+ evaluate: (a,b) -> a &lt; b</p></div></div><div class="code"><div class="wrapper">    <span class="c1">#&#39;&gt;&#39;:</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>constant: true
  vector: false
- evaluate: (a,b) -> a > b</p></div></div><div class="code"><div class="wrapper">    <span class="c1">#&#39;&lt;=&#39;:</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>constant: true
+ evaluate: (a,b) -> a > b</p></div></div><div class="code"><div class="wrapper">    <span class="c1">#&#39;&lt;=&#39;:</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>constant: true
  vector: false
- evaluate: (a,b) -> a &lt;= b</p></div></div><div class="code"><div class="wrapper">    <span class="c1">#&#39;&gt;=&#39;:</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>constant: true
+ evaluate: (a,b) -> a &lt;= b</p></div></div><div class="code"><div class="wrapper">    <span class="c1">#&#39;&gt;=&#39;:</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>constant: true
  vector: false
- evaluate: (a,b) -> a >= b</p></div></div><div class="code"><div class="wrapper">    <span class="c1">#&#39;===&#39;:</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>constant: true
+ evaluate: (a,b) -> a >= b</p></div></div><div class="code"><div class="wrapper">    <span class="c1">#&#39;===&#39;:</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>constant: true
  vector: false
- evaluate: (a,b) -> <code>a === b</code></p></div></div><div class="code"><div class="wrapper">    <span class="c1">#&#39;!==&#39;:</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>constant: true
+ evaluate: (a,b) -> <code>a === b</code></p></div></div><div class="code"><div class="wrapper">    <span class="c1">#&#39;!==&#39;:</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>constant: true
  vector: false
- evaluate: (a,b) -> <code>a !== b</code></p></div></div><div class="code"><div class="wrapper">    <span class="c1">##</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Boolean operations which can not resolve early and keep their paramters as
-raw values are filled below (<code>_raws</code>)</p></div></div><div class="code"><div class="wrapper">    <span class="c1">#</span>
-    <span class="c1">#&#39;==&#39;:</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>constant: true
+ evaluate: (a,b) -> <code>a !== b</code></p></div></div><div class="code"><div class="wrapper">    <span class="c1">##</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Boolean operations which can not resolve early and keep their paramters as
+raw values are filled below (<code>_raws</code>)</p></div></div><div class="code"><div class="wrapper">    <span class="c1">#&#39;==&#39;:</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>constant: true
  vector: false
  raw     : true
  evaluate: (a,b) ->
    return <code>a == b</code>
    #return <code>a[0] == b</code> if isArray a and a.length is 1
-   #return <code>a == b[0]</code> if isArray b and b.length is 1</p></div></div><div class="code"><div class="wrapper">    <span class="c1">#&#39;!=&#39;:</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>constant: true
+   #return <code>a == b[0]</code> if isArray b and b.length is 1</p></div></div><div class="code"><div class="wrapper">    <span class="c1">#&#39;!=&#39;:</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>constant: true
  vector: false
  raw     : true
  evaluate: (a,b) ->
    return <code>a != b</code>
    #return <code>a[0] != b</code> if isArray a and a.length is 1
-   #return <code>a != b[0]</code> if isArray b and b.length is 1</p></div></div><div class="code"><div class="wrapper">    <span class="c1">##</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Ternary conditional clause</p></div></div><div class="code"><div class="wrapper">    <span class="s">&#39;?:&#39;</span><span class="o">:</span>
+   #return <code>a != b[0]</code> if isArray b and b.length is 1</p></div></div><div class="code"><div class="wrapper">    <span class="c1">##</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Ternary conditional clause</p></div></div><div class="code"><div class="wrapper">    <span class="s">&#39;?:&#39;</span><span class="o">:</span>
       <span class="nv">constant: </span><span class="kc">true</span>
       <span class="nv">raw     : </span><span class="kc">true</span>
       <span class="nv">vector: </span><span class="kc">false</span>
@@ -274,7 +332,7 @@ raw values are filled below (<code>_raws</code>)</p></div></div><div class="code
         <span class="nv">a = </span><span class="nx">_execute</span> <span class="k">this</span><span class="p">,</span> <span class="nx">a</span>
         <span class="nx">_execute</span> <span class="k">this</span><span class="p">,</span> <span class="k">if</span> <span class="nx">_booleanize</span> <span class="nx">a</span> <span class="k">then</span> <span class="nx">b</span> <span class="k">else</span> <span class="nx">c</span>
 
-    <span class="c1">##</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Function call</p></div></div><div class="code"><div class="wrapper">    <span class="s">&#39;()&#39;</span><span class="o">:</span>
+    <span class="c1">##</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Function call</p></div></div><div class="code"><div class="wrapper">    <span class="s">&#39;()&#39;</span><span class="o">:</span>
       <span class="nv">vector: </span><span class="kc">false</span>
       <span class="nv">format: </span><span class="nf">(f,a...) -&gt;</span>
         <span class="nx">f</span> <span class="o">+</span> <span class="s">&#39;(&#39;</span> <span class="o">+</span> <span class="nx">a</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="s">&#39;,&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#39;)&#39;</span>
@@ -283,23 +341,21 @@ raw values are filled below (<code>_raws</code>)</p></div></div><div class="code
         <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Given argument is not callable.&quot;</span> <span class="k">unless</span> <span class="nx">isFunction</span> <span class="nx">f</span>
         <span class="nx">f</span><span class="p">.</span><span class="nx">apply</span> <span class="k">this</span><span class="p">,</span> <span class="nx">a</span>
 
-    <span class="c1">##</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Array accessor</p></div></div><div class="code"><div class="wrapper">    <span class="s">&#39;[]&#39;</span><span class="o">:</span>
+    <span class="c1">##</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Array accessor</p></div></div><div class="code"><div class="wrapper">    <span class="s">&#39;[]&#39;</span><span class="o">:</span>
       <span class="nv">chain: </span><span class="kc">false</span>
       <span class="nv">vector: </span><span class="kc">false</span>
       <span class="nv">format: </span><span class="nf">(a,b) -&gt;</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">a</span><span class="si">}</span><span class="s">[</span><span class="si">#{</span><span class="nx">b</span><span class="si">}</span><span class="s">]&quot;</span>
-      <span class="nv">evaluate: </span><span class="nf">(a,b) -&gt;</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>support negative indexers, if you literally want "-1" then use a string literal</p></div></div><div class="code"><div class="wrapper">        <span class="k">if</span> <span class="nx">isNumber</span><span class="p">(</span><span class="nx">b</span><span class="p">)</span> <span class="o">and</span> <span class="nx">b</span> <span class="o">&lt;</span> <span class="mi">0</span>
+      <span class="nv">evaluate: </span><span class="nf">(a,b) -&gt;</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>support negative indexers, if you literally want "-1" then use a string literal</p></div></div><div class="code"><div class="wrapper">        <span class="k">if</span> <span class="nx">isNumber</span><span class="p">(</span><span class="nx">b</span><span class="p">)</span> <span class="o">and</span> <span class="nx">b</span> <span class="o">&lt;</span> <span class="mi">0</span>
           <span class="nx">a</span><span class="p">[(</span><span class="k">if</span> <span class="nx">a</span><span class="p">.</span><span class="nx">length</span><span class="o">?</span> <span class="k">then</span> <span class="nx">a</span><span class="p">.</span><span class="nx">length</span> <span class="k">else</span> <span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="nx">b</span><span class="p">]</span>
         <span class="k">else</span>
           <span class="nx">a</span><span class="p">[</span><span class="nx">b</span><span class="p">]</span>
 
-    <span class="c1">##</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>We dont support predicates, but might want to do so in future.</p></div></div><div class="code"><div class="wrapper">    <span class="c1">#</span>
-    <span class="c1">#&#39;{}&#39;:</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>chain: true
+    <span class="c1">##</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>We dont support predicates, but might want to do so in future.</p></div></div><div class="code"><div class="wrapper">    <span class="c1">#&#39;{}&#39;:</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>chain: true
  vector: false
  format: (a,b) -> "#{a}{#{b}}"
- evaluate: (a,b) -> if _booleanize b then a else undefined</p></div></div><div class="code"><div class="wrapper">    <span class="c1">##</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Contexts resolve much more detailed, see below.</p></div></div><div class="code"><div class="wrapper">    <span class="c1">#</span>
-    <span class="c1">#&#39;$&#39;:</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>format: -> '$'
+ evaluate: (a,b) -> if _booleanize b then a else undefined</p></div></div><div class="code"><div class="wrapper">    <span class="c1">##</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Contexts resolve much more detailed, see below.</p></div></div><div class="code"><div class="wrapper">    <span class="c1">#&#39;$&#39;:</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>format: -> '$'
  vector: false
- evaluate: -> _global</p></div></div><div class="code"><div class="wrapper">    <span class="c1">#&#39;@&#39;:</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>format: -> '@'
+ evaluate: -> _global</p></div></div><div class="code"><div class="wrapper">    <span class="c1">#&#39;@&#39;:</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>format: -> '@'
  vector: false
  evaluate: -> this</p></div></div><div class="code"><div class="wrapper">    <span class="nv">context:</span>
       <span class="nv">alias   : </span><span class="s">&#39;c&#39;</span>
@@ -328,7 +384,7 @@ raw values are filled below (<code>_raws</code>)</p></div></div><div class="code
             <span class="nx">_scope</span><span class="p">[</span><span class="k">if</span> <span class="nx">c</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">is</span> <span class="s">&quot;$&quot;</span> <span class="k">then</span> <span class="nx">c</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">else</span> <span class="nx">_scope</span><span class="p">.</span><span class="nx">length</span><span class="o">-</span><span class="nx">c</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
           <span class="k">else</span> <span class="kc">undefined</span>
 
-    <span class="c1">##</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>A property-value</p></div></div><div class="code"><div class="wrapper">    <span class="nv">property:</span>
+    <span class="c1">##</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>A property-value</p></div></div><div class="code"><div class="wrapper">    <span class="nv">property:</span>
       <span class="nv">alias   : </span><span class="s">&#39;p&#39;</span>
       <span class="nv">format  : </span><span class="nf">(a) -&gt;</span> <span class="nx">a</span>
       <span class="nv">vector  : </span><span class="kc">false</span>
@@ -338,7 +394,7 @@ raw values are filled below (<code>_raws</code>)</p></div></div><div class="code
         <span class="k">else</span>
           <span class="k">this</span><span class="p">[</span><span class="nx">a</span><span class="p">]</span>
 
-    <span class="c1">##</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>A local variable or context reference from scope</p></div></div><div class="code"><div class="wrapper">    <span class="nv">reference:</span>
+    <span class="c1">##</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>A local variable or context reference from scope</p></div></div><div class="code"><div class="wrapper">    <span class="nv">reference:</span>
       <span class="nv">alias : </span><span class="s">&#39;r&#39;</span>
       <span class="nv">format: </span><span class="nf">(a) -&gt;</span>
         <span class="k">if</span> <span class="nx">a</span> <span class="o">is</span> <span class="s">&quot;this&quot;</span>
@@ -358,43 +414,42 @@ raw values are filled below (<code>_raws</code>)</p></div></div><div class="code
           <span class="k">if</span> <span class="nx">_isProperty</span><span class="p">()</span>
             <span class="k">return</span> <span class="nx">v</span> <span class="k">if</span> <span class="k">this</span><span class="p">.</span><span class="nx">hasOwnProperty</span> <span class="nx">a</span>
           <span class="k">else</span>
-            <span class="k">return</span> <span class="nx">_local</span><span class="p">[</span><span class="nx">a</span><span class="p">]</span> <span class="k">if</span> <span class="nx">_local</span><span class="p">.</span><span class="nx">hasOwnProperty</span> <span class="nx">a</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>walk the context stack from top to bottom looking for value</p></div></div><div class="code"><div class="wrapper">            <span class="k">for</span> <span class="nx">c</span> <span class="k">in</span> <span class="nx">_scope</span> <span class="k">by</span> <span class="o">-</span><span class="mi">1</span> <span class="k">when</span> <span class="nx">c</span><span class="p">.</span><span class="nx">hasOwnProperty</span> <span class="nx">a</span>
+            <span class="k">return</span> <span class="nx">_local</span><span class="p">[</span><span class="nx">a</span><span class="p">]</span> <span class="k">if</span> <span class="nx">_local</span><span class="p">.</span><span class="nx">hasOwnProperty</span> <span class="nx">a</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>walk the context stack from top to bottom looking for value</p></div></div><div class="code"><div class="wrapper">            <span class="k">for</span> <span class="nx">c</span> <span class="k">in</span> <span class="nx">_scope</span> <span class="k">by</span> <span class="o">-</span><span class="mi">1</span> <span class="k">when</span> <span class="nx">c</span><span class="p">.</span><span class="nx">hasOwnProperty</span> <span class="nx">a</span>
               <span class="k">return</span> <span class="nx">c</span><span class="p">[</span><span class="nx">a</span><span class="p">]</span>
           <span class="nx">v</span>
 
-    <span class="c1">##</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>We dont support children, because we dont't want to deeply clone array
+    <span class="c1">##</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>We dont support children, because we dont't want to deeply clone array
 values or opbject properties.  But we might want to do so in future, if
-we can get rid of the <code>underscore</code>-dependency.</p></div></div><div class="code"><div class="wrapper">    <span class="c1">#</span>
-    <span class="c1">#children:</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>alias   : 'C'
+we can get rid of the <code>underscore</code>-dependency.</p></div></div><div class="code"><div class="wrapper">    <span class="c1">#children:</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>alias   : 'C'
  format  : -> '*'
  vector  : true
  evaluate: () ->
    if isArray @
      _.clone @
    else
-     _.values @</p></div></div><div class="code"><div class="wrapper">    <span class="c1">##</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>A number, string, boolean or null</p></div></div><div class="code"><div class="wrapper">    <span class="nv">scalar:</span>
+     _.values @</p></div></div><div class="code"><div class="wrapper">    <span class="c1">##</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>A number, string, boolean or null</p></div></div><div class="code"><div class="wrapper">    <span class="nv">scalar:</span>
       <span class="nv">alias   : </span><span class="s">&#39;s&#39;</span>
       <span class="nv">constant: </span><span class="kc">true</span>
       <span class="nv">vector  : </span><span class="kc">false</span>
       <span class="nv">format  : </span><span class="nf">(a) -&gt;</span> <span class="k">if</span> <span class="nx">a</span> <span class="o">is</span> <span class="kc">undefined</span> <span class="k">then</span> <span class="s">&#39;&#39;</span> <span class="k">else</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span> <span class="nx">a</span>
       <span class="nv">evaluate: </span><span class="nf">(a) -&gt;</span> <span class="nx">a</span>
 
-    <span class="c1">##</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>A block of statements seperated by semicolon</p></div></div><div class="code"><div class="wrapper">    <span class="nv">block:</span>
+    <span class="c1">##</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>A block of statements seperated by semicolon</p></div></div><div class="code"><div class="wrapper">    <span class="nv">block:</span>
       <span class="nv">alias   : </span><span class="s">&#39;b&#39;</span>
       <span class="nv">format  : </span><span class="nf">(s...) -&gt;</span> <span class="nx">s</span><span class="p">.</span><span class="nx">join</span> <span class="s">&#39;;&#39;</span>
       <span class="nv">evaluate: </span><span class="nf">-&gt;</span> <span class="nx">arguments</span><span class="p">[</span><span class="nx">arguments</span><span class="p">.</span><span class="nx">length</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
 
-    <span class="c1">##</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>A list of statements seperated by comma</p></div></div><div class="code"><div class="wrapper">    <span class="nv">list:</span>
+    <span class="c1">##</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>A list of statements seperated by comma</p></div></div><div class="code"><div class="wrapper">    <span class="nv">list:</span>
       <span class="nv">alias   : </span><span class="s">&#39;l&#39;</span>
       <span class="nv">format  : </span><span class="nf">(s...) -&gt;</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">s</span><span class="p">.</span><span class="nx">join</span> <span class="s">&#39;,&#39;</span><span class="si">}</span><span class="s">&quot;</span>
       <span class="nv">evaluate: </span><span class="nf">-&gt;</span> <span class="nx">arguments</span><span class="p">[</span><span class="nx">arguments</span><span class="p">.</span><span class="nx">length</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
 
-    <span class="c1">##</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>A group covers the list from above with parenthesis</p></div></div><div class="code"><div class="wrapper">    <span class="nv">group:</span>
+    <span class="c1">##</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>A group covers the list from above with parenthesis</p></div></div><div class="code"><div class="wrapper">    <span class="nv">group:</span>
       <span class="nv">alias   : </span><span class="s">&#39;g&#39;</span>
       <span class="nv">format  : </span><span class="nf">(l) -&gt;</span> <span class="s">&quot;(</span><span class="si">#{</span><span class="nx">l</span><span class="si">}</span><span class="s">)&quot;</span>
       <span class="nv">evaluate: </span><span class="nf">(l) -&gt;</span> <span class="nx">_execute</span> <span class="k">this</span><span class="p">,</span> <span class="nx">l</span>
 
-    <span class="c1">##</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>An early resolving <code>if</code>/<code>else</code> statement, uses <code>Expression.booleanize</code>
+    <span class="c1">##</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>An early resolving <code>if</code>/<code>else</code> statement, uses <code>Expression.booleanize</code>
 to determine the “truth” of parameter <code>a</code>.</p></div></div><div class="code"><div class="wrapper">    <span class="k">if</span><span class="o">:</span>
       <span class="nv">alias   : </span><span class="s">&#39;i&#39;</span>
       <span class="nv">raw     : </span><span class="kc">true</span>
@@ -410,20 +465,19 @@ to determine the “truth” of parameter <code>a</code>.</p></div></div><div cl
           <span class="nx">_execute</span> <span class="k">this</span><span class="p">,</span> <span class="nx">c</span>
         <span class="k">else</span>
           <span class="kc">undefined</span>
-    <span class="c1">##</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>We dont't support iterations, but might want to do so in future.</p></div></div><div class="code"><div class="wrapper">    <span class="c1">#</span>
-    <span class="c1">#for:</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>alias   : 'f'
+    <span class="c1">##</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>We dont't support iterations, but might want to do so in future.</p></div></div><div class="code"><div class="wrapper">    <span class="c1">#for:</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>alias   : 'f'
  raw     : true
  format  : (a,b) -> "for #{a} {#{b}}"
  evaluate: (a,b) ->
    a = _execute this, a
    return undefined unless a?
    for value in _.values a
-     _execute value, b</p></div></div><div class="code"><div class="wrapper">    <span class="c1">##</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>An array of values</p></div></div><div class="code"><div class="wrapper">    <span class="nv">array:</span>
+     _execute value, b</p></div></div><div class="code"><div class="wrapper">    <span class="c1">##</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>An array of values</p></div></div><div class="code"><div class="wrapper">    <span class="nv">array:</span>
       <span class="nv">alias   : </span><span class="s">&#39;a&#39;</span>
       <span class="nv">format  : </span><span class="nf">(e...) -&gt;</span> <span class="s">&quot;[</span><span class="si">#{</span><span class="nx">e</span><span class="p">.</span><span class="nx">join</span> <span class="s">&#39;,&#39;</span><span class="si">}</span><span class="s">]&quot;</span>
       <span class="nv">evaluate: </span><span class="nf">(e...) -&gt;</span> <span class="nx">e</span>
 
-    <span class="c1">##</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>An object of keys and values.</p></div></div><div class="code"><div class="wrapper">    <span class="nv">object:</span>
+    <span class="c1">##</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>An object of keys and values.</p></div></div><div class="code"><div class="wrapper">    <span class="nv">object:</span>
       <span class="nv">alias   : </span><span class="s">&#39;o&#39;</span>
       <span class="nv">format  : </span><span class="nf">-&gt;</span>
         <span class="nv">o = </span><span class="p">[]</span>
@@ -434,7 +488,7 @@ to determine the “truth” of parameter <code>a</code>.</p></div></div><div cl
         <span class="nx">o</span><span class="p">[</span><span class="nx">k</span><span class="p">]</span> <span class="o">=</span> <span class="nx">arguments</span><span class="p">[</span><span class="nx">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="nx">k</span><span class="p">,</span><span class="nx">i</span> <span class="k">in</span> <span class="nx">arguments</span> <span class="k">by</span> <span class="mi">2</span>
         <span class="nx">o</span>
 
-  <span class="c1">##</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Fills and adds missing <code>Expression.operations</code></p></div></div><div class="code"><div class="wrapper">  <span class="nx">do</span> <span class="nf">-&gt;</span>
+  <span class="c1">##</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Fills and adds missing <code>Expression.operations</code></p></div></div><div class="code"><div class="wrapper">  <span class="nx">do</span> <span class="nf">-&gt;</span>
 
     <span class="nv">_reference  = </span><span class="nx">_operations</span><span class="p">.</span><span class="nx">reference</span><span class="p">.</span><span class="nx">format</span>
     <span class="nv">_variable   = </span><span class="nf">(a) -&gt;</span>
@@ -478,7 +532,7 @@ to determine the “truth” of parameter <code>a</code>.</p></div></div><div cl
 
     <span class="k">for</span> <span class="nx">key</span> <span class="k">in</span> <span class="nx">_raws</span>
       <span class="nv">value = </span><span class="nx">_operations</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span>
-      <span class="nv">value.raw = </span><span class="kc">true</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>process assigments and equality</p></div></div><div class="code"><div class="wrapper">    <span class="k">for</span> <span class="nx">key</span> <span class="k">in</span> <span class="nx">_assign</span>
+      <span class="nv">value.raw = </span><span class="kc">true</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>process assigments and equality</p></div></div><div class="code"><div class="wrapper">    <span class="k">for</span> <span class="nx">key</span> <span class="k">in</span> <span class="nx">_assign</span>
       <span class="nv">value = </span><span class="k">if</span> <span class="nx">_operations</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span><span class="o">?</span> <span class="k">then</span> <span class="nx">_operations</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span> <span class="k">else</span> <span class="nx">_operations</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
       <span class="nx">value</span><span class="p">.</span><span class="nx">format</span>   <span class="o">?=</span> <span class="nx">do</span> <span class="nf">-&gt;</span>
         <span class="nv">k = </span><span class="nx">key</span>
@@ -490,7 +544,7 @@ to determine the “truth” of parameter <code>a</code>.</p></div></div><div cl
     <span class="k">for</span> <span class="nx">key</span><span class="p">,</span> <span class="nx">value</span> <span class="k">of</span> <span class="nx">_operations</span>
       <span class="nv">value.name       = </span><span class="nx">key</span>
       <span class="nv">value.toString   = </span><span class="nx">do</span> <span class="nf">-&gt;</span> <span class="nv">k = </span><span class="nx">key</span><span class="p">;</span> <span class="nf">-&gt;</span> <span class="nx">k</span>
-      <span class="nv">value.toJSON     = </span><span class="nf">-&gt;</span> <span class="nx">@name</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>process assigments and equality</p></div></div><div class="code"><div class="wrapper">      <span class="k">if</span> <span class="nx">value</span><span class="p">.</span><span class="nx">alias</span><span class="o">?</span> <span class="o">and</span> <span class="o">not</span> <span class="nx">_operations</span><span class="p">[</span><span class="nx">value</span><span class="p">.</span><span class="nx">alias</span><span class="p">]</span><span class="o">?</span>
+      <span class="nv">value.toJSON     = </span><span class="nf">-&gt;</span> <span class="nx">@name</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>process assigments and equality</p></div></div><div class="code"><div class="wrapper">      <span class="k">if</span> <span class="nx">value</span><span class="p">.</span><span class="nx">alias</span><span class="o">?</span> <span class="o">and</span> <span class="o">not</span> <span class="nx">_operations</span><span class="p">[</span><span class="nx">value</span><span class="p">.</span><span class="nx">alias</span><span class="p">]</span><span class="o">?</span>
         <span class="nx">_operations</span><span class="p">[</span><span class="nx">value</span><span class="p">.</span><span class="nx">alias</span><span class="p">]</span> <span class="o">=</span> <span class="nx">key</span>
 
     <span class="nv">_scalar    = </span><span class="nx">_operations</span><span class="p">.</span><span class="nx">scalar</span><span class="p">.</span><span class="nx">name</span>
@@ -498,39 +552,63 @@ to determine the “truth” of parameter <code>a</code>.</p></div></div><div cl
 
     <span class="k">return</span>
 
-  <span class="c1">##</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Lookup an operation by its name (~ key in <code>Expression.operations</code>)</p></div></div><div class="code"><div class="wrapper">  <span class="c1">#</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>@param  {String}  name
-@return {Object}
-@throws {Error}</p></div></div><div class="code"><div class="wrapper">  <span class="nv">Expression.operator = _operator = </span><span class="nf">(name) -&gt;</span>
+  <span class="c1">##</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'></span></p>
+
+<p>Lookup an operation by its name (~ key in <code>Expression.operations</code>)</p>
+
+<p>Parameters:</p>
+
+<ul>
+<li><strong>name must be a String.</strong></li>
+</ul>
+
+<p><strong>Returns an Object</strong><br/><strong>and</strong> <strong>Can throw an Error</strong></p></div></div><div class="code"><div class="wrapper">  <span class="nv">Expression.operator = _operator = </span><span class="nf">(name) -&gt;</span>
     <span class="k">if</span> <span class="p">(</span><span class="nv">op = </span><span class="nx">_operations</span><span class="p">[</span><span class="nx">name</span><span class="p">])</span><span class="o">?</span>
       <span class="k">return</span> <span class="k">if</span> <span class="nx">op</span><span class="p">.</span><span class="nx">name</span><span class="o">?</span> <span class="k">then</span> <span class="nx">op</span> <span class="k">else</span> <span class="nx">_operator</span> <span class="nx">op</span>
     <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;operation not found: </span><span class="si">#{</span><span class="nx">name</span><span class="si">}</span><span class="s">&quot;</span>
 
-  <span class="c1">##</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>The expressions constructor.  Depending on the operations' constant and
-vector the given paramters might get evaluated here, to save nesting depth.</p></div></div><div class="code"><div class="wrapper">  <span class="c1">#</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>@param  {String} op          expression's operation name
-@param  {Array}  parameters  expression's parameters
-@return {Expression|void}    expression or an early resolved new instance
-@constructor</p></div></div><div class="code"><div class="wrapper">  <span class="nv">constructor: </span><span class="nf">(op, @parameters=[]) -&gt;</span>
-    <span class="vi">@operator   = </span><span class="nx">_operator</span><span class="p">(</span><span class="nx">op</span><span class="p">)</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>is this expression a constant?</p></div></div><div class="code"><div class="wrapper">    <span class="vi">@constant = </span><span class="nx">@operator</span><span class="p">.</span><span class="nx">constant</span> <span class="o">is</span> <span class="kc">true</span>
+  <span class="c1">##</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'>Constructor</span></p>
+
+<p>The expressions constructor.  Depending on the operations' constant and
+vector the given paramters might get evaluated here, to save nesting depth.</p>
+
+<p>Parameters:</p>
+
+<ul>
+<li><p><strong>op must be a String.</strong><br/>(expression's operation name)</p></li>
+<li><p><strong>parameters must be an Array.</strong><br/>(expression's parameters)</p></li>
+</ul>
+
+<p><strong>Returns an Expression or a void</strong><br/>(expression or an early resolved new instance)</p></div></div><div class="code"><div class="wrapper">  <span class="nv">constructor: </span><span class="nf">(op, @parameters=[]) -&gt;</span>
+    <span class="vi">@operator   = </span><span class="nx">_operator</span><span class="p">(</span><span class="nx">op</span><span class="p">)</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>is this expression a constant?</p></div></div><div class="code"><div class="wrapper">    <span class="vi">@constant = </span><span class="nx">@operator</span><span class="p">.</span><span class="nx">constant</span> <span class="o">is</span> <span class="kc">true</span>
     <span class="k">if</span> <span class="nx">@constant</span>
       <span class="k">for</span> <span class="nx">parameter</span> <span class="k">in</span> <span class="nx">parameters</span>
         <span class="k">if</span> <span class="nx">isExpression</span><span class="p">(</span><span class="nx">parameter</span><span class="p">)</span> <span class="o">and</span> <span class="o">not</span> <span class="nx">parameter</span><span class="p">.</span><span class="nx">constant</span>
           <span class="vi">@constant = </span><span class="kc">false</span>
-          <span class="k">break</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>does this expression yield a vector result?</p></div></div><div class="code"><div class="wrapper">    <span class="vi">@vector = </span><span class="nx">@operator</span><span class="p">.</span><span class="nx">vector</span>
+          <span class="k">break</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>does this expression yield a vector result?</p></div></div><div class="code"><div class="wrapper">    <span class="vi">@vector = </span><span class="nx">@operator</span><span class="p">.</span><span class="nx">vector</span>
     <span class="k">if</span> <span class="nx">@vector</span> <span class="o">is</span> <span class="kc">undefined</span>
       <span class="vi">@vector = </span><span class="kc">false</span>     <span class="c1">#   assume false</span>
-      <span class="k">for</span> <span class="nx">parameter</span> <span class="k">in</span> <span class="nx">parameters</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>if the parameter has a vector quantity
+      <span class="k">for</span> <span class="nx">parameter</span> <span class="k">in</span> <span class="nx">parameters</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>if the parameter has a vector quantity
 then the result is a vector result</p></div></div><div class="code"><div class="wrapper">        <span class="k">if</span> <span class="nx">isExpression</span><span class="p">(</span><span class="nx">parameter</span><span class="p">)</span> <span class="o">and</span> <span class="nx">parameter</span><span class="p">.</span><span class="nx">vector</span>
           <span class="vi">@vector = </span><span class="kc">true</span>
-          <span class="k">break</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>if this expression is a constant then we pre-evaluate it now
+          <span class="k">break</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>if this expression is a constant then we pre-evaluate it now
  and just return a scalar expression with the result</p></div></div><div class="code"><div class="wrapper">    <span class="k">if</span> <span class="nx">@constant</span> <span class="o">and</span> <span class="nx">@operator</span><span class="p">.</span><span class="nx">name</span> <span class="o">isnt</span> <span class="nx">_scalar</span>
-      <span class="k">return</span> <span class="k">new</span> <span class="nx">Expression</span> <span class="s">&#39;scalar&#39;</span><span class="p">,</span> <span class="p">[</span> <span class="nx">@evaluate</span> <span class="nx">_global</span> <span class="p">]</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>otherwise return this expression</p></div></div><div class="code"><div class="wrapper">    <span class="k">return</span>
+      <span class="k">return</span> <span class="k">new</span> <span class="nx">Expression</span> <span class="s">&#39;scalar&#39;</span><span class="p">,</span> <span class="p">[</span> <span class="nx">@evaluate</span> <span class="nx">_global</span> <span class="p">]</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>otherwise return this expression</p></div></div><div class="code"><div class="wrapper">    <span class="k">return</span>
 
-  <span class="c1">##</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Allows expressions to be turned into strings</p></div></div><div class="code"><div class="wrapper">  <span class="c1">#</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>@return String</p></div></div><div class="code"><div class="wrapper">  <span class="nv">toString: </span><span class="nf">-&gt;</span>
+  <span class="c1">##</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'></span></p>
+
+<p>Allows expressions to be turned into strings</p>
+
+<p><strong>Returns a String</strong></p></div></div><div class="code"><div class="wrapper">  <span class="nv">toString: </span><span class="nf">-&gt;</span>
     <span class="k">return</span> <span class="nx">@text</span> <span class="k">unless</span> <span class="nx">@text</span> <span class="o">is</span> <span class="kc">undefined</span>
     <span class="vi">@text = </span><span class="nx">_stringify</span> <span class="k">this</span>
 
-  <span class="c1">##</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Allows expression to be turned into a kind of json-ast.  See
-<code>Compiler.coffee</code> for a complete ast-implementation</p></div></div><div class="code"><div class="wrapper">  <span class="c1">#</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>@return Object.<String:op,Array:parameters></p></div></div><div class="code"><div class="wrapper">  <span class="nv">toJSON: </span><span class="nf">(callback) -&gt;</span>
+  <span class="c1">##</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'></span></p>
+
+<p>Allows expression to be turned into a kind of json-ast.  See
+<code>Compiler.coffee</code> for a complete ast-implementation</p>
+
+<p><strong>Returns an Object.<String:op,Array:parameters></strong></p></div></div><div class="code"><div class="wrapper">  <span class="nv">toJSON: </span><span class="nf">(callback) -&gt;</span>
     <span class="k">return</span> <span class="nx">callback</span> <span class="k">this</span> <span class="k">if</span> <span class="nx">callback</span>
     <span class="k">if</span> <span class="nx">@operator</span><span class="p">.</span><span class="nx">name</span> <span class="o">is</span> <span class="s">&#39;scalar&#39;</span>
       <span class="nv">parameters = </span><span class="nx">@parameters</span>
@@ -539,9 +617,18 @@ then the result is a vector result</p></div></div><div class="code"><div class="
         <span class="k">if</span> <span class="nx">parameter</span><span class="p">.</span><span class="nx">toJSON</span><span class="o">?</span> <span class="k">then</span> <span class="nx">parameter</span><span class="p">.</span><span class="nx">toJSON</span><span class="p">()</span> <span class="k">else</span> <span class="nx">parameter</span>
     <span class="p">[</span><span class="nx">@operator</span><span class="p">.</span><span class="nx">name</span><span class="p">].</span><span class="nx">concat</span> <span class="nx">parameters</span>
 
-  <span class="c1">##</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Evaluate this expressions value</p></div></div><div class="code"><div class="wrapper">  <span class="c1">#</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>@param {Object} context (optional)
-@param {Object} variables (optional)
-@param {Array}  scope (optional)
-@param {Array}  stack (optional)
-@return mixed</p></div></div><div class="code"><div class="wrapper">  <span class="nv">evaluate: </span><span class="nf">(context, variables, scope, stack) -&gt;</span>
+  <span class="c1">##</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'></span></p>
+
+<p>Evaluate this expressions value</p>
+
+<p>Parameters:</p>
+
+<ul>
+<li><p><strong>context must be an Object.</strong><br/>((optional))</p></li>
+<li><p><strong>variables must be an Object.</strong><br/>((optional))</p></li>
+<li><p><strong>scope must be an Array.</strong><br/>((optional))</p></li>
+<li><p><strong>stack must be an Array.</strong><br/>((optional))</p></li>
+</ul>
+
+<p><strong>Returns a mixed</strong></p></div></div><div class="code"><div class="wrapper">  <span class="nv">evaluate: </span><span class="nf">(context, variables, scope, stack) -&gt;</span>
     <span class="nx">_evaluate</span> <span class="nx">context</span><span class="p">,</span> <span class="k">this</span><span class="p">,</span> <span class="nx">variables</span><span class="p">,</span> <span class="nx">scope</span><span class="p">,</span> <span class="nx">stack</span></div></div></div></div></body></html>

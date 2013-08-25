@@ -16,14 +16,13 @@
 
 <span class="nv">exports = </span><span class="nx">module</span><span class="o">?</span><span class="p">.</span><span class="nx">exports</span> <span class="o">?</span> <span class="k">this</span>
 
-<span class="c1">##</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>@class
-@namespace GoateeScript</p></div></div><div class="code"><div class="wrapper"><span class="nv">exports.Utility = </span><span class="k">class</span> <span class="nx">Utility</span>
+<span class="c1">##</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'> </span></p></div></div><div class="code"><div class="wrapper"><span class="nv">exports.Utility = </span><span class="k">class</span> <span class="nx">Utility</span>
 
   <span class="nv">_parser = </span><span class="kc">null</span>
 
   <span class="nv">_toString = </span><span class="nb">Object</span><span class="o">::</span><span class="nx">toString</span>
   <span class="nv">_call     = </span><span class="nb">Function</span><span class="o">::</span><span class="nx">call</span>
-  <span class="nv">_slice    = </span><span class="nb">Array</span><span class="o">::</span><span class="nx">slice</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>New in EcmaScript 1.5
+  <span class="nv">_slice    = </span><span class="nb">Array</span><span class="o">::</span><span class="nx">slice</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>New in EcmaScript 1.5
 http://webreflection.blogspot.com/2010/02/functionprototypebind.html
 This is still needed by Safari.</p></div></div><div class="code"><div class="wrapper">  <span class="nv">Utility.bindFunction = </span><span class="nx">do</span> <span class="nf">-&gt;</span>
     <span class="nv">_bind = </span><span class="nb">Function</span><span class="o">::</span><span class="nx">bind</span>
@@ -37,27 +36,44 @@ This is still needed by Safari.</p></div></div><div class="code"><div class="wra
         <span class="k">else</span>
           <span class="nf">-&gt;</span> <span class="nx">fn</span><span class="p">.</span><span class="nx">apply</span> <span class="nx">context</span><span class="p">,</span> <span class="nx">args</span>
 
-  <span class="c1">##</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Finds a slice of an array.</p></div></div><div class="code"><div class="wrapper">  <span class="c1">#</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>@param  {Array}  array  Array to be sliced.
-@param  {Number} start  The start of the slice.
-@param  {Number} end    The end of the slice (optional).
-@return {Array}  array  The slice of the array from start to end.</p></div></div><div class="code"><div class="wrapper">  <span class="nv">Utility.arraySlice = </span><span class="nf">(array, start, end) -&gt;</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Use
+  <span class="c1">##</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'></span></p>
+
+<p>Finds a slice of an array.</p>
+
+<p>Parameters:</p>
+
+<ul>
+<li><p><strong>array must be an Array.</strong><br/>(Array to be sliced.)</p></li>
+<li><p><strong>start must be a Number.</strong><br/>(The start of the slice.)</p></li>
+<li><p><strong>end must be a Number.</strong><br/>(The end of the slice (optional).)</p></li>
+</ul>
+
+<p><strong>Returns an Array</strong><br/>(array The slice of the array from start to end.)</p></div></div><div class="code"><div class="wrapper">  <span class="nv">Utility.arraySlice = </span><span class="nf">(array, start, end) -&gt;</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Use
   return Function.prototype.call.apply(Array.prototype.slice, arguments);
 instead of the simpler
   return Array.prototype.slice.call(array, start, opt_end);
 here because of a bug in the FF and IE implementations of
 Array.prototype.slice which causes this function to return an empty list
-if end is not provided.</p></div></div><div class="code"><div class="wrapper">    <span class="nx">_call</span><span class="p">.</span><span class="nx">apply</span> <span class="nx">_slice</span><span class="p">,</span> <span class="nx">arguments</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Modified version using String::substring instead of String::substr
-@see http://coffeescript.org/documentation/docs/underscore.html</p></div></div><div class="code"><div class="wrapper">  <span class="nv">Utility.isString = </span><span class="nf">(obj) -&gt;</span>
-    <span class="o">!!</span><span class="p">(</span><span class="nx">obj</span> <span class="o">is</span> <span class="s">&#39;&#39;</span> <span class="o">or</span> <span class="p">(</span><span class="nx">obj</span> <span class="o">and</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">charCodeAt</span> <span class="o">and</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">substring</span><span class="p">))</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>@see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/isArray</p></div></div><div class="code"><div class="wrapper">  <span class="nv">Utility.isArray = </span><span class="k">if</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">isArray</span><span class="o">?</span> <span class="o">and</span> <span class="kc">false</span> <span class="k">then</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">isArray</span> <span class="k">else</span> <span class="nf">(obj) -&gt;</span>
-    <span class="nx">_toString</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">obj</span><span class="p">)</span> <span class="o">is</span> <span class="s">&#39;[object Array]&#39;</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>@see http://coffeescript.org/documentation/docs/underscore.html</p></div></div><div class="code"><div class="wrapper">  <span class="nv">Utility.isNumber = </span><span class="nf">(obj) -&gt;</span>
-    <span class="p">(</span><span class="nx">obj</span> <span class="o">is</span> <span class="o">+</span><span class="nx">obj</span><span class="p">)</span> <span class="o">or</span> <span class="nx">_toString</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">obj</span><span class="p">)</span> <span class="o">is</span> <span class="s">&#39;[object Number]&#39;</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>@see http://coffeescript.org/documentation/docs/underscore.html</p></div></div><div class="code"><div class="wrapper">  <span class="nv">Utility.isFunction = _isFunction = </span><span class="nf">(obj) -&gt;</span>
+if end is not provided.</p></div></div><div class="code"><div class="wrapper">    <span class="nx">_call</span><span class="p">.</span><span class="nx">apply</span> <span class="nx">_slice</span><span class="p">,</span> <span class="nx">arguments</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'> </span></p>
+
+<p>Modified version using String::substring instead of String::substr</p></div></div><div class="code"><div class="wrapper">  <span class="nv">Utility.isString = </span><span class="nf">(obj) -&gt;</span>
+    <span class="o">!!</span><span class="p">(</span><span class="nx">obj</span> <span class="o">is</span> <span class="s">&#39;&#39;</span> <span class="o">or</span> <span class="p">(</span><span class="nx">obj</span> <span class="o">and</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">charCodeAt</span> <span class="o">and</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">substring</span><span class="p">))</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'> </span></p></div></div><div class="code"><div class="wrapper">  <span class="nv">Utility.isArray = </span><span class="k">if</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">isArray</span><span class="o">?</span> <span class="o">and</span> <span class="kc">false</span> <span class="k">then</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">isArray</span> <span class="k">else</span> <span class="nf">(obj) -&gt;</span>
+    <span class="nx">_toString</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">obj</span><span class="p">)</span> <span class="o">is</span> <span class="s">&#39;[object Array]&#39;</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'> </span></p></div></div><div class="code"><div class="wrapper">  <span class="nv">Utility.isNumber = </span><span class="nf">(obj) -&gt;</span>
+    <span class="p">(</span><span class="nx">obj</span> <span class="o">is</span> <span class="o">+</span><span class="nx">obj</span><span class="p">)</span> <span class="o">or</span> <span class="nx">_toString</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">obj</span><span class="p">)</span> <span class="o">is</span> <span class="s">&#39;[object Number]&#39;</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'> </span></p></div></div><div class="code"><div class="wrapper">  <span class="nv">Utility.isFunction = _isFunction = </span><span class="nf">(obj) -&gt;</span>
     <span class="o">!!</span><span class="p">(</span><span class="nx">obj</span> <span class="o">and</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">constructor</span> <span class="o">and</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">call</span> <span class="o">and</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">apply</span><span class="p">)</span>
 
   <span class="nv">Utility.isExpression = </span><span class="nf">(obj) -&gt;</span>
     <span class="nx">_isFunction</span> <span class="nx">obj</span><span class="o">?</span><span class="p">.</span><span class="nx">evaluate</span>
 
-  <span class="c1">##</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>@param  {String}     code
-@return {Expression}</p></div></div><div class="code"><div class="wrapper">  <span class="nv">Utility.parse = </span><span class="o">\</span>
+  <span class="c1">##</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'></span></p>
+
+<p>Parameters:</p>
+
+<ul>
+<li><strong>code must be a String.</strong></li>
+</ul>
+
+<p><strong>Returns an Expression</strong></p></div></div><div class="code"><div class="wrapper">  <span class="nv">Utility.parse = </span><span class="o">\</span>
   <span class="nv">Utility.parseScript = </span><span class="nx">do</span> <span class="nf">-&gt;</span>
     <span class="nv">cache  = </span><span class="p">{}</span>
     <span class="nf">(code) -&gt;</span>

@@ -35,7 +35,7 @@ exports.Scope = class Scope
   # Remove leading and trailing single- or double-quotes
   #
   # @param {String} s
-  # @return String
+  # @return {String}
   escape  : (s) ->
     if s.length < 3 then "" else s.slice(1, s.length-1) # .replace(/\\\n/,'').replace(/\\([^xubfnvrt0])/g, '$1')
 
@@ -43,7 +43,7 @@ exports.Scope = class Scope
   # Add an “else”-Statement **e** to given “if”-Expression **i**
   #
   # @param {String} s
-  # @return String
+  # @return {String}
   addElse : do ->
     a = (i, e) ->
       if i.parameters.length is 3

@@ -29,18 +29,26 @@
 
 <span class="nv">exports = </span><span class="nx">module</span><span class="o">?</span><span class="p">.</span><span class="nx">exports</span> <span class="o">?</span> <span class="k">this</span>
 
-<span class="c1">##</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>@class
-@namespace GoateeScript</p></div></div><div class="code"><div class="wrapper"><span class="nv">exports.Runtime = </span><span class="k">class</span> <span class="nx">Runtime</span>
+<span class="c1">##</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'> </span></p></div></div><div class="code"><div class="wrapper"><span class="nv">exports.Runtime = </span><span class="k">class</span> <span class="nx">Runtime</span>
 
   <span class="nv">_operations = </span><span class="nx">Expression</span><span class="p">.</span><span class="nx">operations</span>
 
-  <span class="c1">##</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>@return {Array}</p></div></div><div class="code"><div class="wrapper">  <span class="nv">Runtime.aliases  = _aliases = </span><span class="nx">do</span> <span class="nf">-&gt;</span>
+  <span class="c1">##</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'></span></p>
+
+<p><strong>Returns an Array</strong></p></div></div><div class="code"><div class="wrapper">  <span class="nv">Runtime.aliases  = _aliases = </span><span class="nx">do</span> <span class="nf">-&gt;</span>
     <span class="nv">index = </span><span class="kc">null</span>
     <span class="p">()</span> <span class="nf">-&gt;</span>
       <span class="nx">index</span> <span class="o">?</span> <span class="nv">index = </span><span class="s">&#39;abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ$_&#39;</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s">&#39;&#39;</span><span class="p">)</span>
 
-  <span class="c1">##</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>@param  {Boolean} compress, default: on
-@return {String}</p></div></div><div class="code"><div class="wrapper">  <span class="nv">Runtime.generate = </span><span class="nx">do</span> <span class="nf">-&gt;</span>
+  <span class="c1">##</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'></span></p>
+
+<p>Parameters:</p>
+
+<ul>
+<li><strong>compress must be a Boolean.</strong><br/>(, default: on)</li>
+</ul>
+
+<p><strong>Returns a String</strong></p></div></div><div class="code"><div class="wrapper">  <span class="nv">Runtime.generate = </span><span class="nx">do</span> <span class="nf">-&gt;</span>
 
     <span class="nv">aliases     = </span><span class="p">[]</span>
     <span class="k">for</span> <span class="nx">alias</span> <span class="k">in</span> <span class="nx">_aliases</span><span class="p">().</span><span class="nx">reverse</span><span class="p">()</span> <span class="k">when</span> <span class="o">not</span> <span class="nx">_operations</span><span class="p">[</span><span class="nx">alias</span><span class="p">]</span><span class="o">?</span>
@@ -210,7 +218,7 @@
 <span class="s">                            c = _stack.length &gt; 0 ? _stack[_stack.length-1] : void(0);</span>
 <span class="s">                        return p.toString() === &#39;</span><span class="si">#{</span><span class="nx">_operations</span><span class="p">[</span><span class="s">&#39;.&#39;</span><span class="p">].</span><span class="nx">alias</span><span class="si">}</span><span class="s">&#39; &amp;&amp; p[1] === c;</span>
 <span class="s">                      }</span>
-<span class="s">                      &quot;&quot;&quot;</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><pre><code> Number        :
+<span class="s">                      &quot;&quot;&quot;</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><pre><code> Number        :
    name        : 'Number'
    alias       : if index is 0 then 'Nu' else aliases[--index]
    code        : "Number"
@@ -232,7 +240,7 @@
       <span class="sr">/_call/g</span>                    <span class="p">,</span> <span class="nx">runtime</span><span class="p">.</span><span class="nx">call</span><span class="p">.</span><span class="nx">alias</span>
       <span class="sr">/([^\.])isArray/g</span>           <span class="p">,</span> <span class="s">&quot;$1</span><span class="si">#{</span><span class="nx">runtime</span><span class="p">.</span><span class="nx">isArray</span><span class="p">.</span><span class="nx">alias</span><span class="si">}</span><span class="s">&quot;</span>
       <span class="o">/</span><span class="nx">_toString</span><span class="o">/</span><span class="nx">g</span>                <span class="p">,</span> <span class="nx">runtime</span><span class="p">.</span><span class="nx">toString</span><span class="p">.</span><span class="nx">alias</span>
-      <span class="sr">/isNumber/g</span>                 <span class="p">,</span> <span class="nx">runtime</span><span class="p">.</span><span class="nx">global</span><span class="p">.</span><span class="nx">alias</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><pre><code> /(Nu)mber/g                 , runtime.Number.alias
+      <span class="sr">/isNumber/g</span>                 <span class="p">,</span> <span class="nx">runtime</span><span class="p">.</span><span class="nx">global</span><span class="p">.</span><span class="nx">alias</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><pre><code> /(Nu)mber/g                 , runtime.Number.alias
 </code></pre></div></div><div class="code"><div class="wrapper">      <span class="sr">/isFunction/g</span>               <span class="p">,</span> <span class="nx">runtime</span><span class="p">.</span><span class="nx">isFunction</span><span class="p">.</span><span class="nx">alias</span>
       <span class="sr">/bindFunction/g</span>             <span class="p">,</span> <span class="nx">runtime</span><span class="p">.</span><span class="nx">bindFunction</span><span class="p">.</span><span class="nx">alias</span>
       <span class="sr">/_isProperty/g</span>              <span class="p">,</span> <span class="nx">runtime</span><span class="p">.</span><span class="nx">isProperty</span><span class="p">.</span><span class="nx">alias</span>
@@ -283,7 +291,7 @@
     <span class="nx">assemble</span> <span class="nx">runtime</span>
     <span class="nx">assemble</span> <span class="nx">_operations</span>
 
-    <span class="nv">code = </span><span class="s">&quot;var </span><span class="si">#{</span><span class="nx">vars</span><span class="p">.</span><span class="nx">join</span> <span class="s">&#39;,\n&#39;</span><span class="si">}</span><span class="s">;\n</span><span class="si">#{</span><span class="nx">body</span><span class="p">.</span><span class="nx">join</span> <span class="s">&#39;;\n&#39;</span><span class="si">}</span><span class="s">;&quot;</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>remove comments and linebreaks</p></div></div><div class="code"><div class="wrapper">    <span class="nv">js = </span><span class="nx">code</span>
+    <span class="nv">code = </span><span class="s">&quot;var </span><span class="si">#{</span><span class="nx">vars</span><span class="p">.</span><span class="nx">join</span> <span class="s">&#39;,\n&#39;</span><span class="si">}</span><span class="s">;\n</span><span class="si">#{</span><span class="nx">body</span><span class="p">.</span><span class="nx">join</span> <span class="s">&#39;;\n&#39;</span><span class="si">}</span><span class="s">;&quot;</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>remove comments and linebreaks</p></div></div><div class="code"><div class="wrapper">    <span class="nv">js = </span><span class="nx">code</span>
       <span class="p">.</span><span class="nx">replace</span><span class="p">(</span> <span class="sr">/\/\*(?:.|[\r\n])*?\*\/\s*|/g</span>   <span class="p">,</span> <span class="s">&#39;&#39;</span>  <span class="p">)</span>
       <span class="p">.</span><span class="nx">replace</span><span class="p">(</span> <span class="sr">/\s*[;]\s*[\}]/g</span>                <span class="p">,</span> <span class="s">&#39;}&#39;</span> <span class="p">)</span>
       <span class="p">.</span><span class="nx">replace</span><span class="p">(</span> <span class="sr">/([,;])[\r\n]/g</span>                 <span class="p">,</span> <span class="s">&#39;$1&#39;</span><span class="p">)</span>

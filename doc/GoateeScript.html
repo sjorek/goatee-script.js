@@ -25,50 +25,91 @@
 
 <span class="nv">exports = </span><span class="nx">module</span><span class="o">?</span><span class="p">.</span><span class="nx">exports</span> <span class="o">?</span> <span class="k">this</span>
 
-<span class="c1">##</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>@class
-@namespace GoateeScript</p></div></div><div class="code"><div class="wrapper"><span class="nv">exports.GoateeScript = </span><span class="k">class</span> <span class="nx">GoateeScript</span>
+<span class="c1">##</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'> </span></p></div></div><div class="code"><div class="wrapper"><span class="nv">exports.GoateeScript = </span><span class="k">class</span> <span class="nx">GoateeScript</span>
 
   <span class="nv">GoateeScript.NAME      = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;../package.json&#39;</span><span class="p">).</span><span class="nx">name</span>
   <span class="nv">GoateeScript.VERSION   = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;../package.json&#39;</span><span class="p">).</span><span class="nx">version</span>
 
   <span class="nv">_compiler = </span><span class="kc">null</span>
 
-  <span class="c1">##</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>@param {String} code
-@return Expression</p></div></div><div class="code"><div class="wrapper">  <span class="nv">GoateeScript.parse = </span><span class="nf">(code) -&gt;</span>
+  <span class="c1">##</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'></span></p>
+
+<p>Parameters:</p>
+
+<ul>
+<li><strong>code must be a String.</strong></li>
+</ul>
+
+<p><strong>Returns an Expression</strong></p></div></div><div class="code"><div class="wrapper">  <span class="nv">GoateeScript.parse = </span><span class="nf">(code) -&gt;</span>
     <span class="nx">_compiler</span> <span class="o">?=</span> <span class="k">new</span> <span class="p">(</span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;./Compiler&#39;</span><span class="p">).</span><span class="nx">Compiler</span><span class="p">)</span>
     <span class="nx">_compiler</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">code</span><span class="p">)</span>
 
-  <span class="c1">##</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>@param {String} code
-@param {Object} context (optional)
-@param {Object} variables (optional)
-@param {Array}  scope (optional)
-@param {Array}  stack (optional)
-@return mixed</p></div></div><div class="code"><div class="wrapper">  <span class="nv">GoateeScript.evaluate = </span><span class="nf">(code, context, variables, scope, stack) -&gt;</span>
+  <span class="c1">##</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'></span></p>
+
+<p>Parameters:</p>
+
+<ul>
+<li><p><strong>code must be a String.</strong></p></li>
+<li><p><strong>context must be an Object.</strong><br/>((optional))</p></li>
+<li><p><strong>variables must be an Object.</strong><br/>((optional))</p></li>
+<li><p><strong>scope must be an Array.</strong><br/>((optional))</p></li>
+<li><p><strong>stack must be an Array.</strong><br/>((optional))</p></li>
+</ul>
+
+<p><strong>Returns a mixed</strong></p></div></div><div class="code"><div class="wrapper">  <span class="nv">GoateeScript.evaluate = </span><span class="nf">(code, context, variables, scope, stack) -&gt;</span>
     <span class="nx">_compiler</span> <span class="o">?=</span> <span class="k">new</span> <span class="p">(</span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;./Compiler&#39;</span><span class="p">).</span><span class="nx">Compiler</span><span class="p">)</span>
     <span class="nx">_compiler</span><span class="p">.</span><span class="nx">evaluate</span><span class="p">(</span><span class="nx">code</span><span class="p">,</span> <span class="nx">context</span><span class="p">,</span> <span class="nx">variables</span><span class="p">,</span> <span class="nx">scope</span><span class="p">,</span> <span class="nx">stack</span><span class="p">)</span>
 
-  <span class="c1">##</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>@param {String} code
-@return String</p></div></div><div class="code"><div class="wrapper">  <span class="nv">GoateeScript.render = </span><span class="nf">(code) -&gt;</span>
+  <span class="c1">##</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'></span></p>
+
+<p>Parameters:</p>
+
+<ul>
+<li><strong>code must be a String.</strong></li>
+</ul>
+
+<p><strong>Returns a String</strong></p></div></div><div class="code"><div class="wrapper">  <span class="nv">GoateeScript.render = </span><span class="nf">(code) -&gt;</span>
     <span class="nx">_compiler</span> <span class="o">?=</span> <span class="k">new</span> <span class="p">(</span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;./Compiler&#39;</span><span class="p">).</span><span class="nx">Compiler</span><span class="p">)</span>
     <span class="nx">_compiler</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="nx">code</span><span class="p">)</span>
 
-  <span class="c1">##</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>@param  {String|Expression} code, a String or an Expression
-@param  {Function}          callback (optional)
-@param  {Boolean}           compress, default is true
-@return {Array|String|Number|true|false|null}</p></div></div><div class="code"><div class="wrapper">  <span class="nv">GoateeScript.ast = </span><span class="nf">(data, callback, compress) -&gt;</span>
+  <span class="c1">##</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'></span></p>
+
+<p>Parameters:</p>
+
+<ul>
+<li><p><strong>code can be a String or an Expression.</strong><br/>(, a String or an Expression)</p></li>
+<li><p><strong>callback must be a Function.</strong><br/>((optional))</p></li>
+<li><p><strong>compress must be a Boolean.</strong><br/>(, default is true)</p></li>
+</ul>
+
+<p><strong>Returns an Array or a String or a Number or a true or a false or a null</strong></p></div></div><div class="code"><div class="wrapper">  <span class="nv">GoateeScript.ast = </span><span class="nf">(data, callback, compress) -&gt;</span>
     <span class="nx">_compiler</span> <span class="o">?=</span> <span class="k">new</span> <span class="p">(</span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;./Compiler&#39;</span><span class="p">).</span><span class="nx">Compiler</span><span class="p">)</span>
     <span class="nx">_compiler</span><span class="p">.</span><span class="nx">ast</span><span class="p">(</span><span class="nx">data</span><span class="p">,</span> <span class="nx">callback</span><span class="p">,</span> <span class="nx">compress</span><span class="p">)</span>
 
-  <span class="c1">##</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>@param  {String|Expression} data
-@param  {Function}          callback (optional)
-@param  {Boolean}           compress, default is true
-@return String</p></div></div><div class="code"><div class="wrapper">  <span class="nv">GoateeScript.stringify = </span><span class="nf">(data, callback, compress) -&gt;</span>
+  <span class="c1">##</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'></span></p>
+
+<p>Parameters:</p>
+
+<ul>
+<li><p><strong>data can be a String or an Expression.</strong></p></li>
+<li><p><strong>callback must be a Function.</strong><br/>((optional))</p></li>
+<li><p><strong>compress must be a Boolean.</strong><br/>(, default is true)</p></li>
+</ul>
+
+<p><strong>Returns a String</strong></p></div></div><div class="code"><div class="wrapper">  <span class="nv">GoateeScript.stringify = </span><span class="nf">(data, callback, compress) -&gt;</span>
     <span class="nx">_compiler</span> <span class="o">?=</span> <span class="k">new</span> <span class="p">(</span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;./Compiler&#39;</span><span class="p">).</span><span class="nx">Compiler</span><span class="p">)</span>
     <span class="nx">_compiler</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">data</span><span class="p">,</span> <span class="nx">callback</span><span class="p">,</span> <span class="nx">compress</span><span class="p">)</span>
 
-  <span class="c1">##</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>@param  {String|Array} data, code-String or opcode-Array
-@param  {Function}     callback (optional)
-@param  {Boolean}      compress, default = true
-@return String</p></div></div><div class="code"><div class="wrapper">  <span class="nv">GoateeScript.compile = </span><span class="nf">(data, callback, compress) -&gt;</span>
+  <span class="c1">##</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'></span></p>
+
+<p>Parameters:</p>
+
+<ul>
+<li><p><strong>data can be a String or an Array.</strong><br/>(, code-String or opcode-Array)</p></li>
+<li><p><strong>callback must be a Function.</strong><br/>((optional))</p></li>
+<li><p><strong>compress must be a Boolean.</strong><br/>(, default = true)</p></li>
+</ul>
+
+<p><strong>Returns a String</strong></p></div></div><div class="code"><div class="wrapper">  <span class="nv">GoateeScript.compile = </span><span class="nf">(data, callback, compress) -&gt;</span>
     <span class="nx">_compiler</span> <span class="o">?=</span> <span class="k">new</span> <span class="p">(</span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;./Compiler&#39;</span><span class="p">).</span><span class="nx">Compiler</span><span class="p">)</span>
     <span class="nx">_compiler</span><span class="p">.</span><span class="nx">compile</span><span class="p">(</span><span class="nx">data</span><span class="p">,</span> <span class="nx">callback</span><span class="p">,</span> <span class="nx">compress</span><span class="p">)</span></div></div></div></div></body></html>

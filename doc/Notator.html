@@ -16,43 +16,77 @@
 
 <span class="nv">exports = </span><span class="nx">module</span><span class="o">?</span><span class="p">.</span><span class="nx">exports</span> <span class="o">?</span> <span class="k">this</span>
 
-<span class="c1">##</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>The Notator provides static methods to declare jison-Grammars as json.</p></div></div><div class="code"><div class="wrapper"><span class="c1">#</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>@class
-@namespace GoateeScript</p></div></div><div class="code"><div class="wrapper"><span class="nv">exports.Notator = </span><span class="k">class</span> <span class="nx">Notator</span>
+<span class="c1">##</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'> </span></p>
 
-  <span class="c1">##</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Pattern to match a single-statement-function's return value.</p></div></div><div class="code"><div class="wrapper">  <span class="c1">#</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Lifted from coffeescript:
-@see http://jashkenas.github.com/coffee-script/documentation/docs/grammar.html</p></div></div><div class="code"><div class="wrapper">  <span class="c1">#</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>@type {RegExp}</p></div></div><div class="code"><div class="wrapper">  <span class="nv">Notator.unwrap = unwrap = </span><span class="sr">/^function\s*\(\)\s*\{\s*return\s*([\s\S]*);\s*\}/</span>
+<p>The Notator provides static methods to declare jison-Grammars as json.</p></div></div><div class="code"><div class="wrapper"><span class="nv">exports.Notator = </span><span class="k">class</span> <span class="nx">Notator</span>
 
-  <span class="c1">##</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Wraps a multi-statement action into a closure call onto <code>this</code>.</p></div></div><div class="code"><div class="wrapper">  <span class="c1">#</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>@param  {Function|mixed}    action    optional function or object with
-                                      <code>object.toString</code>-capabillity
-@return {String}</p></div></div><div class="code"><div class="wrapper">  <span class="nv">Notator.wrap = wrap = </span><span class="nf">(action) -&gt;</span>
+  <span class="c1">##</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'> </span></p>
+
+<p>Pattern to match a single-statement-function's return value.
+Lifted from coffeescript:</p></div></div><div class="code"><div class="wrapper">  <span class="nv">Notator.unwrap = unwrap = </span><span class="sr">/^function\s*\(\)\s*\{\s*return\s*([\s\S]*);\s*\}/</span>
+
+  <span class="c1">##</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'></span></p>
+
+<p>Wraps a multi-statement action into a closure call onto <code>this</code>.</p>
+
+<p>Parameters:</p>
+
+<ul>
+<li><strong>action can be a Function or a mixed.</strong><br/>(optional function or object with <code>object.toString</code>-capabillity)</li>
+</ul>
+
+<p><strong>Returns a String</strong></p></div></div><div class="code"><div class="wrapper">  <span class="nv">Notator.wrap = wrap = </span><span class="nf">(action) -&gt;</span>
     <span class="s">&quot;(</span><span class="si">#{</span><span class="nx">action</span><span class="si">}</span><span class="s">.call(this))&quot;</span>
 
-  <span class="c1">##</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Produce an operation</p></div></div><div class="code"><div class="wrapper">  <span class="c1">#</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Lifted from coffeescript:
-@see http://jashkenas.github.com/coffee-script/documentation/docs/grammar.html</p></div></div><div class="code"><div class="wrapper">  <span class="c1">#</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>@param  {String}            pattern   suitable for jison's regexp-parser
-@param  {Function|mixed}    action    optional function or object with
-                                      <code>object.toString</code>-capabillity
-@param  {mixed}             options   passed trough if an <code>action</code> is present
-@return {Array}</p></div></div><div class="code"><div class="wrapper">  <span class="nv">Notator.operation = Notator.o = </span><span class="nf">(pattern, action, options) -&gt;</span>
+  <span class="c1">##</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'> </span></p>
+
+<p>Produce an operation
+Lifted from coffeescript:</p>
+
+<p>Parameters:</p>
+
+<ul>
+<li><p><strong>pattern must be a String.</strong><br/>(suitable for jison's regexp-parser)</p></li>
+<li><p><strong>action can be a Function or a mixed.</strong><br/>(optional function or object with <code>object.toString</code>-capabillity)</p></li>
+<li><p><strong>options must be a mixed.</strong><br/>(passed trough if an <code>action</code> is present)</p></li>
+</ul>
+
+<p><strong>Returns an Array</strong></p></div></div><div class="code"><div class="wrapper">  <span class="nv">Notator.operation = Notator.o = </span><span class="nf">(pattern, action, options) -&gt;</span>
       <span class="k">return</span> <span class="p">[</span><span class="nx">pattern</span><span class="p">,</span> <span class="s">&#39;$$ = $1;&#39;</span><span class="p">,</span> <span class="nx">options</span><span class="p">]</span> <span class="k">unless</span> <span class="nx">action</span>
       <span class="nv">action = </span><span class="k">if</span> <span class="nv">match = </span><span class="nx">unwrap</span><span class="p">.</span><span class="nx">exec</span> <span class="nx">action</span> <span class="k">then</span> <span class="nx">match</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">else</span> <span class="nx">wrap</span> <span class="nx">action</span>
       <span class="p">[</span><span class="nx">pattern</span><span class="p">,</span> <span class="s">&quot;$$ = </span><span class="si">#{</span><span class="nx">action</span><span class="si">}</span><span class="s">;&quot;</span><span class="p">,</span> <span class="nx">options</span><span class="p">]</span>
 
-  <span class="c1">##</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Resolve and return an operation value.  Usually used to declare lexer tokens
-and root operations.</p></div></div><div class="code"><div class="wrapper">  <span class="c1">#</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>@param  {String}            pattern   suitable for jison's regexp-parser
-@param  {Function|mixed}    action    optional function or object with
-                                      <code>object.toString</code>-capabillity
-@return {Array}</p></div></div><div class="code"><div class="wrapper">  <span class="nv">Notator.resolve = Notator.r = </span><span class="nf">(pattern, action) -&gt;</span>
+  <span class="c1">##</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'></span></p>
+
+<p>Resolve and return an operation value.  Usually used to declare lexer tokens
+and root operations.</p>
+
+<p>Parameters:</p>
+
+<ul>
+<li><p><strong>pattern must be a String.</strong><br/>(suitable for jison's regexp-parser)</p></li>
+<li><p><strong>action can be a Function or a mixed.</strong><br/>(optional function or object with <code>object.toString</code>-capabillity)</p></li>
+</ul>
+
+<p><strong>Returns an Array</strong></p></div></div><div class="code"><div class="wrapper">  <span class="nv">Notator.resolve = Notator.r = </span><span class="nf">(pattern, action) -&gt;</span>
       <span class="k">if</span> <span class="nx">pattern</span><span class="p">.</span><span class="nx">source</span><span class="o">?</span>
           <span class="nv">pattern = </span><span class="nx">pattern</span><span class="p">.</span><span class="nx">source</span>
       <span class="k">return</span> <span class="p">[</span><span class="nx">pattern</span><span class="p">,</span> <span class="s">&#39;return;&#39;</span><span class="p">]</span> <span class="k">unless</span> <span class="nx">action</span>
       <span class="nv">action = </span><span class="k">if</span> <span class="nv">match = </span><span class="nx">unwrap</span><span class="p">.</span><span class="nx">exec</span> <span class="nx">action</span> <span class="k">then</span> <span class="nx">match</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">else</span> <span class="nx">wrap</span> <span class="nx">action</span>
       <span class="p">[</span><span class="nx">pattern</span><span class="p">,</span> <span class="s">&quot;return </span><span class="si">#{</span><span class="nx">action</span><span class="si">}</span><span class="s">;&quot;</span><span class="p">]</span>
 
-  <span class="c1">##</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Resolve and return an operation value with start conditions, eg. to declare
-lexer tokens for sub-languages like regular expressions in javascript.</p></div></div><div class="code"><div class="wrapper">  <span class="c1">#</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>@see http://zaach.github.io/jison/docs/#lexical-analysis
-@see http://dinosaur.compilertools.net/flex/flex_11.html</p></div></div><div class="code"><div class="wrapper">  <span class="c1">#</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>@param  {Array}           condition suitable for jison's regexp-parser
-@param  {String}          pattern   suitable for jison's regexp-parser
-@param  {Function|mixed}  action    optional function or object with
-                                    <code>object.toString</code>-capabillity
-@return {Array}</p></div></div><div class="code"><div class="wrapper">  <span class="nv">Notator.conditional = Notator.c = </span><span class="nf">(conditions, pattern, action) -&gt;</span>
+  <span class="c1">##</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'> </span></p>
+
+<p>Resolve and return an operation value with start conditions, eg. to declare
+lexer tokens for sub-languages like regular expressions in javascript.</p>
+
+<p>Parameters:</p>
+
+<ul>
+<li><p><strong>condition must be an Array.</strong><br/>(suitable for jison's regexp-parser)</p></li>
+<li><p><strong>pattern must be a String.</strong><br/>(suitable for jison's regexp-parser)</p></li>
+<li><p><strong>action can be a Function or a mixed.</strong><br/>(optional function or object with <code>object.toString</code>-capabillity)</p></li>
+</ul>
+
+<p><strong>Returns an Array</strong></p></div></div><div class="code"><div class="wrapper">  <span class="nv">Notator.conditional = Notator.c = </span><span class="nf">(conditions, pattern, action) -&gt;</span>
     <span class="p">[</span><span class="nx">conditions</span><span class="p">].</span><span class="nx">concat</span> <span class="nx">Notator</span><span class="p">.</span><span class="nx">resolve</span> <span class="nx">pattern</span><span class="p">,</span> <span class="nx">action</span></div></div></div></div></body></html>

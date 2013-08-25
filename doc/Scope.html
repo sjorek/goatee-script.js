@@ -18,19 +18,46 @@
 
 <span class="nv">exports = </span><span class="nx">module</span><span class="o">?</span><span class="p">.</span><span class="nx">exports</span> <span class="o">?</span> <span class="k">this</span>
 
-<span class="c1">##</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>@namespace GoateeScript</p></div></div><div class="code"><div class="wrapper"><span class="nv">exports.Scope = </span><span class="k">class</span> <span class="nx">Scope</span>
+<span class="c1">##</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'> </span></p></div></div><div class="code"><div class="wrapper"><span class="nv">exports.Scope = </span><span class="k">class</span> <span class="nx">Scope</span>
 
-  <span class="c1">##</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Create a new <strong>Expression</strong> instance</p></div></div><div class="code"><div class="wrapper">  <span class="c1">#</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>@param  {String}      operator
-@param  {Array}       parameters
-@return {Expression}</p></div></div><div class="code"><div class="wrapper">  <span class="nv">create  : </span><span class="nf">(operator, parameters) -&gt;</span>
+  <span class="c1">##</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'></span></p>
+
+<p>Create a new <strong>Expression</strong> instance</p>
+
+<p>Parameters:</p>
+
+<ul>
+<li><p><strong>operator must be a String.</strong></p></li>
+<li><p><strong>parameters must be an Array.</strong></p></li>
+</ul>
+
+<p><strong>Returns an Expression</strong></p></div></div><div class="code"><div class="wrapper">  <span class="nv">create  : </span><span class="nf">(operator, parameters) -&gt;</span>
     <span class="k">new</span> <span class="nx">Expression</span><span class="p">(</span><span class="nx">operator</span><span class="p">,</span> <span class="nx">parameters</span><span class="p">)</span>
 
-  <span class="c1">##</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Remove leading and trailing single- or double-quotes</p></div></div><div class="code"><div class="wrapper">  <span class="c1">#</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>@param {String} s
-@return String</p></div></div><div class="code"><div class="wrapper">  <span class="nv">escape  : </span><span class="nf">(s) -&gt;</span>
+  <span class="c1">##</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'></span></p>
+
+<p>Remove leading and trailing single- or double-quotes</p>
+
+<p>Parameters:</p>
+
+<ul>
+<li><strong>s must be a String.</strong></li>
+</ul>
+
+<p><strong>Returns a String</strong></p></div></div><div class="code"><div class="wrapper">  <span class="nv">escape  : </span><span class="nf">(s) -&gt;</span>
     <span class="k">if</span> <span class="nx">s</span><span class="p">.</span><span class="nx">length</span> <span class="o">&lt;</span> <span class="mi">3</span> <span class="k">then</span> <span class="s">&quot;&quot;</span> <span class="k">else</span> <span class="nx">s</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nx">s</span><span class="p">.</span><span class="nx">length</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># .replace(/\\\n/,&#39;&#39;).replace(/\\([^xubfnvrt0])/g, &#39;$1&#39;)</span>
 
-  <span class="c1">##</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>Add an “else”-Statement <strong>e</strong> to given “if”-Expression <strong>i</strong></p></div></div><div class="code"><div class="wrapper">  <span class="c1">#</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>@param {String} s
-@return String</p></div></div><div class="code"><div class="wrapper">  <span class="nv">addElse : </span><span class="nx">do</span> <span class="nf">-&gt;</span>
+  <span class="c1">##</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'></span></p>
+
+<p>Add an “else”-Statement <strong>e</strong> to given “if”-Expression <strong>i</strong></p>
+
+<p>Parameters:</p>
+
+<ul>
+<li><strong>s must be a String.</strong></li>
+</ul>
+
+<p><strong>Returns a String</strong></p></div></div><div class="code"><div class="wrapper">  <span class="nv">addElse : </span><span class="nx">do</span> <span class="nf">-&gt;</span>
     <span class="nv">a = </span><span class="nf">(i, e) -&gt;</span>
       <span class="k">if</span> <span class="nx">i</span><span class="p">.</span><span class="nx">parameters</span><span class="p">.</span><span class="nx">length</span> <span class="o">is</span> <span class="mi">3</span>
         <span class="nx">a</span><span class="p">(</span><span class="nx">i</span><span class="p">.</span><span class="nx">parameters</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="nx">e</span><span class="p">)</span>

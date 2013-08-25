@@ -35,8 +35,7 @@
 
 <span class="nv">exports = </span><span class="nx">module</span><span class="o">?</span><span class="p">.</span><span class="nx">exports</span> <span class="o">?</span> <span class="k">this</span>
 
-<span class="c1">##</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>@class
-@namespace GoateeScript</p></div></div><div class="code"><div class="wrapper"><span class="nv">exports.Compiler = </span><span class="k">class</span> <span class="nx">Compiler</span>
+<span class="c1">##</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'> </span></p></div></div><div class="code"><div class="wrapper"><span class="nv">exports.Compiler = </span><span class="k">class</span> <span class="nx">Compiler</span>
 
   <span class="nv">_aliasSymbol = </span><span class="sr">/^[a-zA-Z$_]$/</span>
   <span class="nv">_operations = </span><span class="nx">Expression</span><span class="p">.</span><span class="nx">operations</span>
@@ -45,9 +44,16 @@
   <span class="nv">_aliases    = </span><span class="nx">aliases</span><span class="p">().</span><span class="nx">join</span><span class="p">(</span><span class="s">&#39;,&#39;</span><span class="p">)</span>
   <span class="nv">_arguments  = </span><span class="s">&quot;,&#39;&quot;</span> <span class="o">+</span> <span class="nx">aliases</span><span class="p">().</span><span class="nx">join</span><span class="p">(</span><span class="s">&quot;&#39;,&#39;&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="s">&quot;&#39;&quot;</span>
 
-  <span class="c1">##</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>@param  {String}       code
-@param  {Object|Array} map (optional)
-@return String</p></div></div><div class="code"><div class="wrapper">  <span class="nv">_wrap = </span><span class="nf">(code, map) -&gt;</span>
+  <span class="c1">##</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'></span></p>
+
+<p>Parameters:</p>
+
+<ul>
+<li><p><strong>code must be a String.</strong></p></li>
+<li><p><strong>map can be an Object or an Array.</strong><br/>((optional))</p></li>
+</ul>
+
+<p><strong>Returns a String</strong></p></div></div><div class="code"><div class="wrapper">  <span class="nv">_wrap = </span><span class="nf">(code, map) -&gt;</span>
     <span class="k">if</span> <span class="nx">map</span><span class="o">?</span>
       <span class="nv">keys = </span><span class="k">if</span> <span class="nx">isArray</span> <span class="nx">map</span> <span class="k">then</span> <span class="nx">map</span> <span class="k">else</span> <span class="p">(</span><span class="nx">k</span> <span class="k">for</span> <span class="k">own</span> <span class="nx">k</span><span class="p">,</span><span class="nx">v</span> <span class="k">of</span> <span class="nx">map</span><span class="p">)</span>
       <span class="nv">args = </span><span class="k">if</span> <span class="nx">keys</span><span class="p">.</span><span class="nx">length</span> <span class="o">is</span> <span class="mi">0</span> <span class="k">then</span> <span class="s">&#39;&#39;</span> <span class="k">else</span> <span class="s">&quot;,&#39;&quot;</span> <span class="o">+</span> <span class="nx">keys</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="s">&quot;&#39;,&#39;&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="s">&quot;&#39;&quot;</span>
@@ -58,12 +64,24 @@
     <span class="s">&quot;(function(</span><span class="si">#{</span><span class="nx">keys</span><span class="si">}</span><span class="s">) { return </span><span class="si">#{</span><span class="nx">code</span><span class="si">}</span><span class="s">; }).call(this</span><span class="si">#{</span><span class="nx">args</span><span class="si">}</span><span class="s">)&quot;</span>
 
 
-  <span class="c1">##</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>@param  {Function}  parseImpl
-@constructor</p></div></div><div class="code"><div class="wrapper">  <span class="nv">constructor: </span><span class="nf">(@parseImpl = parse) -&gt;</span>
+  <span class="c1">##</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'>Constructor</span></p>
 
-  <span class="c1">##</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>@param  {Array}      ast
-@param  {Object}     map of aliases
-@return Array.<Array,Object></p></div></div><div class="code"><div class="wrapper">  <span class="nv">compress: </span><span class="nf">(ast, map = {}) -&gt;</span>
+<p>Parameters:</p>
+
+<ul>
+<li><strong>parseImpl must be a Function.</strong></li>
+</ul></div></div><div class="code"><div class="wrapper">  <span class="nv">constructor: </span><span class="nf">(@parseImpl = parse) -&gt;</span>
+
+  <span class="c1">##</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'></span></p>
+
+<p>Parameters:</p>
+
+<ul>
+<li><p><strong>ast must be an Array.</strong></p></li>
+<li><p><strong>map must be an Object.</strong><br/>(of aliases)</p></li>
+</ul>
+
+<p><strong>Returns an Array.<Array,Object></strong></p></div></div><div class="code"><div class="wrapper">  <span class="nv">compress: </span><span class="nf">(ast, map = {}) -&gt;</span>
     <span class="nv">code = </span><span class="k">for</span> <span class="nx">o</span> <span class="k">in</span> <span class="nx">ast</span>
       <span class="k">if</span> <span class="o">not</span> <span class="nx">o</span><span class="o">?</span>
         <span class="s">&#39;&#39;</span> <span class="o">+</span> <span class="nx">o</span>
@@ -80,13 +98,27 @@
         <span class="nx">c</span>
     <span class="p">[</span><span class="s">&quot;[</span><span class="si">#{</span><span class="nx">code</span><span class="p">.</span><span class="nx">join</span> <span class="s">&#39;,&#39;</span><span class="si">}</span><span class="s">]&quot;</span><span class="p">,</span> <span class="nx">map</span><span class="p">]</span>
 
-  <span class="c1">##</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>@param  {String}        code
-@return Array</p></div></div><div class="code"><div class="wrapper">  <span class="nv">expand: </span><span class="nx">do</span> <span class="nf">-&gt;</span>
+  <span class="c1">##</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'></span></p>
+
+<p>Parameters:</p>
+
+<ul>
+<li><strong>code must be a String.</strong></li>
+</ul>
+
+<p><strong>Returns an Array</strong></p></div></div><div class="code"><div class="wrapper">  <span class="nv">expand: </span><span class="nx">do</span> <span class="nf">-&gt;</span>
     <span class="nv">code = </span><span class="nx">_wrap</span> <span class="s">&quot;function(opcode){ return eval(&#39;[&#39; + opcode + &#39;][0]&#39;); }&quot;</span>
     <span class="nb">Function</span><span class="p">(</span><span class="s">&quot;return </span><span class="si">#{</span><span class="nx">code</span><span class="si">}</span><span class="s">&quot;</span><span class="p">)()</span>
 
-  <span class="c1">##</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>@param  {Array|String|Number|true|false|null} opcode ast
-@return Expression</p></div></div><div class="code"><div class="wrapper">  <span class="nv">toExpression: </span><span class="nf">(opcode) -&gt;</span>
+  <span class="c1">##</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'></span></p>
+
+<p>Parameters:</p>
+
+<ul>
+<li><strong>opcode can be an Array, a String, a Number, a true, a false, or a null.</strong><br/>(ast)</li>
+</ul>
+
+<p><strong>Returns an Expression</strong></p></div></div><div class="code"><div class="wrapper">  <span class="nv">toExpression: </span><span class="nf">(opcode) -&gt;</span>
     <span class="nv">state = </span><span class="kc">false</span>
     <span class="k">if</span> <span class="o">not</span> <span class="nx">opcode</span><span class="o">?</span> <span class="o">or</span> <span class="o">not</span> <span class="p">(</span><span class="nv">state = </span><span class="nx">isArray</span> <span class="nx">opcode</span><span class="p">)</span> <span class="o">or</span> <span class="mi">2</span> <span class="o">&gt;</span> <span class="p">(</span><span class="nv">state = </span><span class="nx">opcode</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span>
       <span class="k">return</span> <span class="k">new</span> <span class="nx">Expression</span> <span class="s">&#39;scalar&#39;</span><span class="p">,</span> <span class="o">\</span>
@@ -98,31 +130,56 @@
       <span class="nx">parameters</span><span class="p">[</span><span class="nx">index</span><span class="p">]</span> <span class="o">=</span> <span class="k">if</span> <span class="nx">isArray</span> <span class="nx">value</span> <span class="k">then</span> <span class="nx">@toExpression</span> <span class="nx">value</span> <span class="k">else</span> <span class="nx">value</span>
     <span class="k">new</span> <span class="nx">Expression</span><span class="p">(</span><span class="nx">operator</span><span class="p">,</span> <span class="nx">parameters</span><span class="p">)</span>
 
-  <span class="c1">##</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>@param  {Array|String|Object} code, a String, opcode-Array or Object with
-                              toString method
-@return Expression</p></div></div><div class="code"><div class="wrapper">  <span class="nv">parse: </span><span class="nf">(code) -&gt;</span>
+  <span class="c1">##</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'></span></p>
+
+<p>Parameters:</p>
+
+<ul>
+<li><strong>code can be an Array, a String, or an Object.</strong><br/>(, a String, opcode-Array or Object with toString method)</li>
+</ul>
+
+<p><strong>Returns an Expression</strong></p></div></div><div class="code"><div class="wrapper">  <span class="nv">parse: </span><span class="nf">(code) -&gt;</span>
     <span class="k">return</span> <span class="nx">@parseImpl</span><span class="p">(</span><span class="nx">code</span><span class="p">)</span> <span class="k">if</span> <span class="nx">isString</span> <span class="nx">code</span>
     <span class="nx">@toExpression</span><span class="p">(</span><span class="nx">code</span><span class="p">)</span>
 
-  <span class="c1">##</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>@param  {Array|String|Object} code, a String, opcode-Array or Object with
-                              toString method
-@param  {Object}              context (optional)
-@param  {Object}              variables (optional)
-@param  {Array}               scope (optional)
-@param  {Array}               stack (optional)
-@return mixed</p></div></div><div class="code"><div class="wrapper">  <span class="nv">evaluate: </span><span class="nf">(code, context, variables, scope, stack) -&gt;</span>
+  <span class="c1">##</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'></span></p>
+
+<p>Parameters:</p>
+
+<ul>
+<li><p><strong>code can be an Array, a String, or an Object.</strong><br/>(, a String, opcode-Array or Object with toString method)</p></li>
+<li><p><strong>context must be an Object.</strong><br/>((optional))</p></li>
+<li><p><strong>variables must be an Object.</strong><br/>((optional))</p></li>
+<li><p><strong>scope must be an Array.</strong><br/>((optional))</p></li>
+<li><p><strong>stack must be an Array.</strong><br/>((optional))</p></li>
+</ul>
+
+<p><strong>Returns a mixed</strong></p></div></div><div class="code"><div class="wrapper">  <span class="nv">evaluate: </span><span class="nf">(code, context, variables, scope, stack) -&gt;</span>
     <span class="nv">expression = </span><span class="nx">@parse</span><span class="p">(</span><span class="nx">code</span><span class="p">)</span>
     <span class="nx">expression</span><span class="p">.</span><span class="nx">evaluate</span><span class="p">(</span><span class="nx">context</span><span class="p">,</span> <span class="nx">variables</span><span class="p">,</span> <span class="nx">scope</span><span class="p">,</span> <span class="nx">stack</span><span class="p">)</span>
 
-  <span class="c1">##</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>@param  {Array|String|Object} code, a String, opcode-Array or Object with
-                              toString method
-@return {String}</p></div></div><div class="code"><div class="wrapper">  <span class="nv">render: </span><span class="nf">(code) -&gt;</span>
+  <span class="c1">##</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'></span></p>
+
+<p>Parameters:</p>
+
+<ul>
+<li><strong>code can be an Array, a String, or an Object.</strong><br/>(, a String, opcode-Array or Object with toString method)</li>
+</ul>
+
+<p><strong>Returns a String</strong></p></div></div><div class="code"><div class="wrapper">  <span class="nv">render: </span><span class="nf">(code) -&gt;</span>
     <span class="nx">@parse</span><span class="p">(</span><span class="nx">code</span><span class="p">).</span><span class="nx">toString</span><span class="p">()</span>
 
-  <span class="c1">##</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>@param  {Expression} expression
-@param  {Function}   callback (optional)
-@param  {Boolean}    compress, default is on
-@return Object.<String:op,Array:parameters></p></div></div><div class="code"><div class="wrapper">  <span class="nv">save: </span><span class="nf">(expression, callback, compress = on) -&gt;</span>
+  <span class="c1">##</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'></span></p>
+
+<p>Parameters:</p>
+
+<ul>
+<li><p><strong>expression must be an Expression.</strong></p></li>
+<li><p><strong>callback must be a Function.</strong><br/>((optional))</p></li>
+<li><p><strong>compress must be a Boolean.</strong><br/>(, default is on)</p></li>
+</ul>
+
+<p><strong>Returns an Object.<String:op,Array:parameters></strong></p></div></div><div class="code"><div class="wrapper">  <span class="nv">save: </span><span class="nf">(expression, callback, compress = on) -&gt;</span>
     <span class="k">if</span> <span class="nx">compress</span> <span class="o">and</span> <span class="nx">expression</span><span class="p">.</span><span class="nx">operator</span><span class="p">.</span><span class="nx">name</span> <span class="o">is</span> <span class="nx">_scalar</span>
       <span class="k">return</span> <span class="nx">expression</span><span class="p">.</span><span class="nx">parameters</span>
     <span class="nv">opcode = </span><span class="p">[</span>
@@ -136,31 +193,49 @@
     <span class="p">)</span> <span class="k">for</span> <span class="nx">parameter</span> <span class="k">in</span> <span class="nx">expression</span><span class="p">.</span><span class="nx">parameters</span>
     <span class="nx">opcode</span>
 
-  <span class="c1">##</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>@param  {Array|String|Object} code, a String, opcode-Array or Object with
-                              toString method
-@param  {Function}            callback (optional)
-@param  {Boolean}             compress, default is on
-@return {Array|String|Number|true|false|null}</p></div></div><div class="code"><div class="wrapper">  <span class="nv">ast: </span><span class="nf">(data, callback, compress = on) -&gt;</span>
+  <span class="c1">##</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'></span></p>
+
+<p>Parameters:</p>
+
+<ul>
+<li><p><strong>code can be an Array, a String, or an Object.</strong><br/>(, a String, opcode-Array or Object with toString method)</p></li>
+<li><p><strong>callback must be a Function.</strong><br/>((optional))</p></li>
+<li><p><strong>compress must be a Boolean.</strong><br/>(, default is on)</p></li>
+</ul>
+
+<p><strong>Returns an Array or a String or a Number or a true or a false or a null</strong></p></div></div><div class="code"><div class="wrapper">  <span class="nv">ast: </span><span class="nf">(data, callback, compress = on) -&gt;</span>
     <span class="nv">expression = </span><span class="k">if</span> <span class="nx">isExpression</span> <span class="nx">data</span> <span class="k">then</span> <span class="nx">data</span> <span class="k">else</span> <span class="nx">@parse</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span>
     <span class="nv">ast = </span><span class="nx">@save</span><span class="p">(</span><span class="nx">expression</span><span class="p">,</span> <span class="nx">callback</span><span class="p">,</span> <span class="nx">compress</span><span class="p">)</span>
     <span class="k">if</span> <span class="nx">compress</span> <span class="k">then</span> <span class="nx">@compress</span> <span class="nx">ast</span> <span class="k">else</span> <span class="nx">ast</span>
 
-  <span class="c1">##</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>@param  {Array|String|Object} code, a String, opcode-Array or Object with
-                              toString method
-@param  {Function}            callback (optional)
-@param  {Boolean}             compress, default is on
-@return {String}</p></div></div><div class="code"><div class="wrapper">  <span class="nv">stringify: </span><span class="nf">(data, callback, compress = on) -&gt;</span>
+  <span class="c1">##</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'></span></p>
+
+<p>Parameters:</p>
+
+<ul>
+<li><p><strong>code can be an Array, a String, or an Object.</strong><br/>(, a String, opcode-Array or Object with toString method)</p></li>
+<li><p><strong>callback must be a Function.</strong><br/>((optional))</p></li>
+<li><p><strong>compress must be a Boolean.</strong><br/>(, default is on)</p></li>
+</ul>
+
+<p><strong>Returns a String</strong></p></div></div><div class="code"><div class="wrapper">  <span class="nv">stringify: </span><span class="nf">(data, callback, compress = on) -&gt;</span>
     <span class="nv">opcode = </span><span class="nx">@ast</span><span class="p">(</span><span class="nx">data</span><span class="p">,</span> <span class="nx">callback</span><span class="p">,</span> <span class="nx">compress</span><span class="p">)</span>
     <span class="k">if</span> <span class="nx">compress</span>
       <span class="s">&quot;[</span><span class="si">#{</span><span class="nx">opcode</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s">,</span><span class="si">#{</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span> <span class="nx">opcode</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s">]&quot;</span>
     <span class="k">else</span>
       <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span> <span class="nx">opcode</span>
 
-  <span class="c1">##</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>@param  {Array|String|Object} code, a String, opcode-Array or Object with
-                              toString method
-@param  {Function}            callback (optional)
-@param  {Boolean}             compress, default is on
-@return Function</p></div></div><div class="code"><div class="wrapper">  <span class="nv">closure: </span><span class="nf">(data, callback, compress = on, prefix) -&gt;</span>
+  <span class="c1">##</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'></span></p>
+
+<p>Parameters:</p>
+
+<ul>
+<li><p><strong>code can be an Array, a String, or an Object.</strong><br/>(, a String, opcode-Array or Object with toString method)</p></li>
+<li><p><strong>callback must be a Function.</strong><br/>((optional))</p></li>
+<li><p><strong>compress must be a Boolean.</strong><br/>(, default is on)</p></li>
+</ul>
+
+<p><strong>Returns a Function</strong></p></div></div><div class="code"><div class="wrapper">  <span class="nv">closure: </span><span class="nf">(data, callback, compress = on, prefix) -&gt;</span>
     <span class="nv">opcode = </span><span class="nx">@ast</span><span class="p">(</span><span class="nx">data</span><span class="p">,</span> <span class="nx">callback</span><span class="p">,</span> <span class="nx">compress</span><span class="p">)</span>
     <span class="k">if</span> <span class="nx">compress</span>
       <span class="nv">code = </span><span class="nx">_wrap</span><span class="p">(</span><span class="nx">opcode</span><span class="p">)</span>
@@ -169,10 +244,17 @@
     <span class="c1">#Function &quot;#{prefix || &#39;&#39;}return [#{code}][0];&quot;</span>
     <span class="nb">Function</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">prefix</span> <span class="o">||</span> <span class="s">&#39;&#39;</span><span class="si">}</span><span class="s">return </span><span class="si">#{</span><span class="nx">code</span><span class="si">}</span><span class="s">;&quot;</span>
 
-  <span class="c1">##</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>@param  {String}  operator
-@param  {Array}   parameters
-@param  {Boolean} compress
-@return String</p></div></div><div class="code"><div class="wrapper">  <span class="nv">_compile = </span><span class="nf">(compress, operator, parameters...) -&gt;</span>
+  <span class="c1">##</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'></span></p>
+
+<p>Parameters:</p>
+
+<ul>
+<li><p><strong>operator must be a String.</strong></p></li>
+<li><p><strong>parameters must be an Array.</strong></p></li>
+<li><p><strong>compress must be a Boolean.</strong></p></li>
+</ul>
+
+<p><strong>Returns a String</strong></p></div></div><div class="code"><div class="wrapper">  <span class="nv">_compile = </span><span class="nf">(compress, operator, parameters...) -&gt;</span>
 
     <span class="k">return</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">operator</span><span class="p">)</span> <span class="k">if</span> <span class="nx">parameters</span><span class="p">.</span><span class="nx">length</span> <span class="o">is</span> <span class="mi">0</span>
 
@@ -192,16 +274,29 @@
 
     <span class="s">&quot;</span><span class="si">#{</span><span class="nx">id</span><span class="si">}</span><span class="s">(</span><span class="si">#{</span><span class="nx">parameters</span><span class="p">.</span><span class="nx">join</span> <span class="s">&#39;,&#39;</span><span class="si">}</span><span class="s">)&quot;</span>
 
-  <span class="c1">##</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>@param  {String|Array} data, opcode-String or -Array
-@param  {Boolean}      compress, default = true
-@return String</p></div></div><div class="code"><div class="wrapper">  <span class="nv">load: </span><span class="nf">(data, compress = on) -&gt;</span>
+  <span class="c1">##</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'></span></p>
+
+<p>Parameters:</p>
+
+<ul>
+<li><p><strong>data can be a String or an Array.</strong><br/>(, opcode-String or -Array)</p></li>
+<li><p><strong>compress must be a Boolean.</strong><br/>(, default = true)</p></li>
+</ul>
+
+<p><strong>Returns a String</strong></p></div></div><div class="code"><div class="wrapper">  <span class="nv">load: </span><span class="nf">(data, compress = on) -&gt;</span>
     <span class="nv">opcode = </span><span class="k">if</span> <span class="nx">isArray</span> <span class="nx">data</span> <span class="k">then</span> <span class="nx">data</span> <span class="k">else</span> <span class="nx">@expand</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span>
     <span class="nx">_compile</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="p">[</span><span class="nx">compress</span><span class="p">].</span><span class="nx">concat</span><span class="p">(</span><span class="nx">opcode</span><span class="p">))</span>
 
-  <span class="c1">##</span></div></div></div><div class="segment"><div class="comments"><div class="wrapper"><p>@param  {Array|String|Object} code, a String, opcode-Array or Object with
-                              toString method
-@param  {Function}            callback (optional)
-@param  {Boolean}             compress, default = true
-@return String</p></div></div><div class="code"><div class="wrapper">  <span class="nv">compile: </span><span class="nf">(data, callback, compress = on) -&gt;</span>
+  <span class="c1">##</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'></span></p>
+
+<p>Parameters:</p>
+
+<ul>
+<li><p><strong>code can be an Array, a String, or an Object.</strong><br/>(, a String, opcode-Array or Object with toString method)</p></li>
+<li><p><strong>callback must be a Function.</strong><br/>((optional))</p></li>
+<li><p><strong>compress must be a Boolean.</strong><br/>(, default = true)</p></li>
+</ul>
+
+<p><strong>Returns a String</strong></p></div></div><div class="code"><div class="wrapper">  <span class="nv">compile: </span><span class="nf">(data, callback, compress = on) -&gt;</span>
     <span class="nv">opcode = </span><span class="k">if</span> <span class="nx">isArray</span> <span class="nx">data</span> <span class="k">then</span> <span class="nx">data</span> <span class="k">else</span> <span class="nx">@ast</span><span class="p">(</span><span class="nx">data</span><span class="p">,</span> <span class="nx">callback</span><span class="p">,</span> <span class="kc">false</span><span class="p">)</span>
     <span class="nx">@load</span><span class="p">(</span><span class="nx">opcode</span><span class="p">,</span> <span class="nx">compress</span><span class="p">)</span></div></div></div></div></body></html>

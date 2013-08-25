@@ -95,7 +95,7 @@ exports.Expression = class Expression
   #
   #   `callback(expression, result, _stack, _errors)`
   #
-  # @param  {Function}
+  # @param  {Function}  A callback-function (closure) to invoke
   # @return {Function}
   Expression.callback = (callback) ->
     _callback = callback
@@ -120,7 +120,7 @@ exports.Expression = class Expression
   # @param {Object}           variables (optional)
   # @param {Array}            scope (optional)
   # @param {Array}            stack (optional)
-  # @return mixed
+  # @return {mixed}
   Expression.evaluate = \
   _evaluate = (context={}, expression, variables, scope, stack) ->
     return expression unless isExpression expression
@@ -153,7 +153,7 @@ exports.Expression = class Expression
   #
   # @param {Object} context
   # @param {Expression} expression
-  # @return mixed
+  # @return {mixed}
   _process = (context, expression) ->
     {operator,parameters} = expression
     if operator.chain
@@ -755,7 +755,7 @@ exports.Expression = class Expression
   ##
   # Allows expressions to be turned into strings
   #
-  # @return String
+  # @return {String}
   toString: ->
     return @text unless @text is undefined
     @text = _stringify this
@@ -764,7 +764,7 @@ exports.Expression = class Expression
   # Allows expression to be turned into a kind of json-ast.  See
   # `Compiler.coffee` for a complete ast-implementation
   #
-  # @return Object.<String:op,Array:parameters>
+  # @return {Object.<String:op,Array:parameters>}
   toJSON: (callback) ->
     return callback this if callback
     if @operator.name is 'scalar'
@@ -781,6 +781,6 @@ exports.Expression = class Expression
   # @param {Object} variables (optional)
   # @param {Array}  scope (optional)
   # @param {Array}  stack (optional)
-  # @return mixed
+  # @return {mixed}
   evaluate: (context, variables, scope, stack) ->
     _evaluate context, this, variables, scope, stack

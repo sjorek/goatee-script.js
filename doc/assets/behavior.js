@@ -96,6 +96,7 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
           "nameMatchers": [".coffee", "Cakefile"],
           "pygmentsLexer": "coffee-script",
           "singleLineComment": ["#"],
+          "ignorePrefix": "}",
           "name": "CoffeeScript"
         },
         "sourcePath": "/Users/sjorek/Documents/Projects/Mesch/Workspace/goatee-script/src/Command.coffee",
@@ -112,6 +113,7 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
           "nameMatchers": [".coffee", "Cakefile"],
           "pygmentsLexer": "coffee-script",
           "singleLineComment": ["#"],
+          "ignorePrefix": "}",
           "name": "CoffeeScript"
         },
         "sourcePath": "/Users/sjorek/Documents/Projects/Mesch/Workspace/goatee-script/src/Compiler.coffee",
@@ -128,6 +130,7 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
           "nameMatchers": [".coffee", "Cakefile"],
           "pygmentsLexer": "coffee-script",
           "singleLineComment": ["#"],
+          "ignorePrefix": "}",
           "name": "CoffeeScript"
         },
         "sourcePath": "/Users/sjorek/Documents/Projects/Mesch/Workspace/goatee-script/src/Expression.coffee",
@@ -144,6 +147,7 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
           "nameMatchers": [".coffee", "Cakefile"],
           "pygmentsLexer": "coffee-script",
           "singleLineComment": ["#"],
+          "ignorePrefix": "}",
           "name": "CoffeeScript"
         },
         "sourcePath": "/Users/sjorek/Documents/Projects/Mesch/Workspace/goatee-script/src/GoateeScript.coffee",
@@ -160,6 +164,7 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
           "nameMatchers": [".coffee", "Cakefile"],
           "pygmentsLexer": "coffee-script",
           "singleLineComment": ["#"],
+          "ignorePrefix": "}",
           "name": "CoffeeScript"
         },
         "sourcePath": "/Users/sjorek/Documents/Projects/Mesch/Workspace/goatee-script/src/Grammar.coffee",
@@ -186,6 +191,7 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
           "nameMatchers": [".coffee", "Cakefile"],
           "pygmentsLexer": "coffee-script",
           "singleLineComment": ["#"],
+          "ignorePrefix": "}",
           "name": "CoffeeScript"
         },
         "sourcePath": "/Users/sjorek/Documents/Projects/Mesch/Workspace/goatee-script/src/Notator.coffee",
@@ -202,6 +208,7 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
           "nameMatchers": [".coffee", "Cakefile"],
           "pygmentsLexer": "coffee-script",
           "singleLineComment": ["#"],
+          "ignorePrefix": "}",
           "name": "CoffeeScript"
         },
         "sourcePath": "/Users/sjorek/Documents/Projects/Mesch/Workspace/goatee-script/src/Parser.coffee",
@@ -218,6 +225,7 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
           "nameMatchers": [".coffee", "Cakefile"],
           "pygmentsLexer": "coffee-script",
           "singleLineComment": ["#"],
+          "ignorePrefix": "}",
           "name": "CoffeeScript"
         },
         "sourcePath": "/Users/sjorek/Documents/Projects/Mesch/Workspace/goatee-script/src/Repl.coffee",
@@ -234,6 +242,7 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
           "nameMatchers": [".coffee", "Cakefile"],
           "pygmentsLexer": "coffee-script",
           "singleLineComment": ["#"],
+          "ignorePrefix": "}",
           "name": "CoffeeScript"
         },
         "sourcePath": "/Users/sjorek/Documents/Projects/Mesch/Workspace/goatee-script/src/Runtime.coffee",
@@ -250,6 +259,7 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
           "nameMatchers": [".coffee", "Cakefile"],
           "pygmentsLexer": "coffee-script",
           "singleLineComment": ["#"],
+          "ignorePrefix": "}",
           "name": "CoffeeScript"
         },
         "sourcePath": "/Users/sjorek/Documents/Projects/Mesch/Workspace/goatee-script/src/Scope.coffee",
@@ -266,6 +276,7 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
           "nameMatchers": [".coffee", "Cakefile"],
           "pygmentsLexer": "coffee-script",
           "singleLineComment": ["#"],
+          "ignorePrefix": "}",
           "name": "CoffeeScript"
         },
         "sourcePath": "/Users/sjorek/Documents/Projects/Mesch/Workspace/goatee-script/src/Stack.coffee",
@@ -290,6 +301,7 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
               "nameMatchers": [".coffee", "Cakefile"],
               "pygmentsLexer": "coffee-script",
               "singleLineComment": ["#"],
+              "ignorePrefix": "}",
               "name": "CoffeeScript"
             },
             "sourcePath": "/Users/sjorek/Documents/Projects/Mesch/Workspace/goatee-script/src/Tests/GoateeScriptTestSpec.coffee",
@@ -308,6 +320,7 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
           "nameMatchers": [".coffee", "Cakefile"],
           "pygmentsLexer": "coffee-script",
           "singleLineComment": ["#"],
+          "ignorePrefix": "}",
           "name": "CoffeeScript"
         },
         "sourcePath": "/Users/sjorek/Documents/Projects/Mesch/Workspace/goatee-script/src/Utility.coffee",

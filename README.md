@@ -132,9 +132,21 @@ line. The last expression's value is always returned to the invoking context.
 
 ## Development
 
+Preperation (once):
+
     $ git clone https://github.com/sjorek/goatee-script
     $ cd goatee-script
+    $ npm install
+
+For *nix-like environments (verified):
+
     $ PATH=$PATH:./node_modules/.bin cake all
+
+For Windows environments (not verified):
+
+    $ set path=%PATH%;.\node_modules\.bin
+    $ setx path "%PATH%"
+    $ cake all
 
 ## Credits go to …
 

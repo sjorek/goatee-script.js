@@ -37,7 +37,7 @@ exports.GoateeScript = class GoateeScript
 
   ##
   # @param {String} code
-  # @return Expression
+  # @return {Expression}
   GoateeScript.parse = (code) ->
     _compiler ?= new (require('./Compiler').Compiler)
     _compiler.parse(code)
@@ -48,14 +48,14 @@ exports.GoateeScript = class GoateeScript
   # @param {Object} variables (optional)
   # @param {Array}  scope (optional)
   # @param {Array}  stack (optional)
-  # @return mixed
+  # @return {mixed}
   GoateeScript.evaluate = (code, context, variables, scope, stack) ->
     _compiler ?= new (require('./Compiler').Compiler)
     _compiler.evaluate(code, context, variables, scope, stack)
 
   ##
   # @param {String} code
-  # @return String
+  # @return {String}
   GoateeScript.render = (code) ->
     _compiler ?= new (require('./Compiler').Compiler)
     _compiler.render(code)
@@ -73,7 +73,7 @@ exports.GoateeScript = class GoateeScript
   # @param  {String|Expression} data
   # @param  {Function}          callback (optional)
   # @param  {Boolean}           compress, default is true
-  # @return String
+  # @return {String}
   GoateeScript.stringify = (data, callback, compress) ->
     _compiler ?= new (require('./Compiler').Compiler)
     _compiler.stringify(data, callback, compress)
@@ -82,7 +82,7 @@ exports.GoateeScript = class GoateeScript
   # @param  {String|Array} data, code-String or opcode-Array
   # @param  {Function}     callback (optional)
   # @param  {Boolean}      compress, default = true
-  # @return String
+  # @return {String}
   GoateeScript.compile = (data, callback, compress) ->
     _compiler ?= new (require('./Compiler').Compiler)
     _compiler.compile(data, callback, compress)

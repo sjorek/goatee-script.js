@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><title>index</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content=""><meta name="groc-document-path" content="index"><meta name="groc-project-path" content="README.md"><link rel="stylesheet" type="text/css" media="all" href="assets/style.css"><script type="text/javascript" src="assets/behavior.js"></script><body><div id="meta"><div class="file-path">README.md</div></div><div id="document"><div class="segment"><div class="comments"><div class="wrapper"><h1 id="goateescripthttpsjorekgithubiogoateescript"><a href="http://sjorek.github.io/goatee-script/">goatee-script</a></h1>
+<!DOCTYPE html><html lang="en"><head><title>index</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content=""><meta name="groc-document-path" content="index"><meta name="groc-project-path" content="README.md"><link rel="stylesheet" type="text/css" media="all" href="assets/style.css"><script type="text/javascript" src="assets/behavior.js"></script><body><div id="meta"><div class="file-path">README.md</div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><h1 id="goateescripthttpsjorekgithubiogoateescript"><a href="http://sjorek.github.io/goatee-script/">goatee-script</a></h1>
 
 <pre><code>     _______  _______  _______  _______  _______  _______
     |    ___||       ||       ||_     _||    ___||    ___|
@@ -22,10 +22,10 @@
                  \   /  /       \  |\ |
                   \ || |         | )| )
                   | || |         | || |
-            ~~~~~ | \| \  ~~~~~~ | \| \  ~~~~~~~
+            ~~~&lt;del&gt; | \| \  &lt;/del&gt;~~&lt;del&gt; | \| \  &lt;/del&gt;~~~&lt;del&gt;
             "''"' `##`##' "'"''" `##`##' '"''"'"
             '"'"''"'"''"''"''"'"'''"'"'''"''"'"'
-            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            &lt;/del&gt;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
        _______  _______  ______    ___  _______  _______
       |  _____||     __||    _ |  |   ||    _  ||_     _|
       | |_____ |    |   |   |_||_ |   ||   |_| |  |   |
@@ -136,9 +136,23 @@ If called without options, `goatee-script` will run interactive.
 
 <h2 id="development">Development</h2>
 
+<p>Preperation (once):</p>
+
 <pre><code>$ git clone https://github.com/sjorek/goatee-script
 $ cd goatee-script
-$ PATH=$PATH:./node_modules/.bin cake all
+$ npm install
+</code></pre>
+
+<p>For *nix-like environments (verified):</p>
+
+<pre><code>$ PATH=$PATH:./node_modules/.bin cake all
+</code></pre>
+
+<p>For Windows environments (not verified):</p>
+
+<pre><code>$ set path=%PATH%;.\node_modules\.bin
+$ setx path "%PATH%"
+$ cake all
 </code></pre>
 
 <h2 id="credits-go-to-">Credits go to …</h2>

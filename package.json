@@ -34,7 +34,7 @@
     "coffee-script": "~1.6",
     "jison": "~0.4",
     "benchmark": "~1.0",
-    "groc": "~0.4",
+    "groc": "sjorek/groc",
     "jasmine-node": "~1.11"
   },
   "readmeFilename": "README.md"
