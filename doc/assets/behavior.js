@@ -97,6 +97,25 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
           "pygmentsLexer": "coffee-script",
           "singleLineComment": ["#"],
           "ignorePrefix": "}",
+          "foldPrefix": "-",
+          "name": "CoffeeScript"
+        },
+        "sourcePath": "/Users/sjorek/Documents/Projects/Mesch/Workspace/goatee-script/Cakefile",
+        "projectPath": "Cakefile",
+        "targetPath": "Cakefile",
+        "title": "Cakefile"
+      },
+      "depth": 1,
+      "outline": []
+    }, {
+      "type": "file",
+      "data": {
+        "language": {
+          "nameMatchers": [".coffee", "Cakefile"],
+          "pygmentsLexer": "coffee-script",
+          "singleLineComment": ["#"],
+          "ignorePrefix": "}",
+          "foldPrefix": "-",
           "name": "CoffeeScript"
         },
         "sourcePath": "/Users/sjorek/Documents/Projects/Mesch/Workspace/goatee-script/src/Command.coffee",
@@ -114,6 +133,7 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
           "pygmentsLexer": "coffee-script",
           "singleLineComment": ["#"],
           "ignorePrefix": "}",
+          "foldPrefix": "-",
           "name": "CoffeeScript"
         },
         "sourcePath": "/Users/sjorek/Documents/Projects/Mesch/Workspace/goatee-script/src/Compiler.coffee",
@@ -131,6 +151,7 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
           "pygmentsLexer": "coffee-script",
           "singleLineComment": ["#"],
           "ignorePrefix": "}",
+          "foldPrefix": "-",
           "name": "CoffeeScript"
         },
         "sourcePath": "/Users/sjorek/Documents/Projects/Mesch/Workspace/goatee-script/src/Expression.coffee",
@@ -148,6 +169,7 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
           "pygmentsLexer": "coffee-script",
           "singleLineComment": ["#"],
           "ignorePrefix": "}",
+          "foldPrefix": "-",
           "name": "CoffeeScript"
         },
         "sourcePath": "/Users/sjorek/Documents/Projects/Mesch/Workspace/goatee-script/src/GoateeScript.coffee",
@@ -165,6 +187,7 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
           "pygmentsLexer": "coffee-script",
           "singleLineComment": ["#"],
           "ignorePrefix": "}",
+          "foldPrefix": "-",
           "name": "CoffeeScript"
         },
         "sourcePath": "/Users/sjorek/Documents/Projects/Mesch/Workspace/goatee-script/src/Grammar.coffee",
@@ -173,17 +196,7 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
         "title": "Grammar"
       },
       "depth": 1,
-      "outline": [
-        {
-          "type": "heading",
-          "data": {
-            "level": 2,
-            "title": "The syntax description notated in Backus-Naur-Format",
-            "slug": "the-syntax-description-notated-in-backus-naur-format"
-          },
-          "depth": 2
-        }
-      ]
+      "outline": []
     }, {
       "type": "file",
       "data": {
@@ -192,6 +205,7 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
           "pygmentsLexer": "coffee-script",
           "singleLineComment": ["#"],
           "ignorePrefix": "}",
+          "foldPrefix": "-",
           "name": "CoffeeScript"
         },
         "sourcePath": "/Users/sjorek/Documents/Projects/Mesch/Workspace/goatee-script/src/Notator.coffee",
@@ -209,6 +223,7 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
           "pygmentsLexer": "coffee-script",
           "singleLineComment": ["#"],
           "ignorePrefix": "}",
+          "foldPrefix": "-",
           "name": "CoffeeScript"
         },
         "sourcePath": "/Users/sjorek/Documents/Projects/Mesch/Workspace/goatee-script/src/Parser.coffee",
@@ -226,6 +241,7 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
           "pygmentsLexer": "coffee-script",
           "singleLineComment": ["#"],
           "ignorePrefix": "}",
+          "foldPrefix": "-",
           "name": "CoffeeScript"
         },
         "sourcePath": "/Users/sjorek/Documents/Projects/Mesch/Workspace/goatee-script/src/Repl.coffee",
@@ -243,6 +259,7 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
           "pygmentsLexer": "coffee-script",
           "singleLineComment": ["#"],
           "ignorePrefix": "}",
+          "foldPrefix": "-",
           "name": "CoffeeScript"
         },
         "sourcePath": "/Users/sjorek/Documents/Projects/Mesch/Workspace/goatee-script/src/Runtime.coffee",
@@ -260,6 +277,7 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
           "pygmentsLexer": "coffee-script",
           "singleLineComment": ["#"],
           "ignorePrefix": "}",
+          "foldPrefix": "-",
           "name": "CoffeeScript"
         },
         "sourcePath": "/Users/sjorek/Documents/Projects/Mesch/Workspace/goatee-script/src/Scope.coffee",
@@ -277,6 +295,7 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
           "pygmentsLexer": "coffee-script",
           "singleLineComment": ["#"],
           "ignorePrefix": "}",
+          "foldPrefix": "-",
           "name": "CoffeeScript"
         },
         "sourcePath": "/Users/sjorek/Documents/Projects/Mesch/Workspace/goatee-script/src/Stack.coffee",
@@ -302,6 +321,7 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
               "pygmentsLexer": "coffee-script",
               "singleLineComment": ["#"],
               "ignorePrefix": "}",
+              "foldPrefix": "-",
               "name": "CoffeeScript"
             },
             "sourcePath": "/Users/sjorek/Documents/Projects/Mesch/Workspace/goatee-script/src/Tests/GoateeScriptTestSpec.coffee",
@@ -321,6 +341,7 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
           "pygmentsLexer": "coffee-script",
           "singleLineComment": ["#"],
           "ignorePrefix": "}",
+          "foldPrefix": "-",
           "name": "CoffeeScript"
         },
         "sourcePath": "/Users/sjorek/Documents/Projects/Mesch/Workspace/goatee-script/src/Utility.coffee",
@@ -670,7 +691,7 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
     search$.bind('keyup search', function(evt) {
       return searchNodes(search$.val());
     });
-    return search$.keydown(function(evt) {
+    search$.keydown(function(evt) {
       if (evt.keyCode === 27) {
         if (search$.val().trim() === '') {
           return search$.blur();
@@ -678,6 +699,13 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
           return search$.val('');
         }
       }
+    });
+    return $('.code.folded .marker').each(function(index, marker) {
+      var marker$;
+      marker$ = $(marker);
+      return marker$.click(function(evt) {
+        return marker$.parent().toggleClass('folded');
+      });
     });
   });
 

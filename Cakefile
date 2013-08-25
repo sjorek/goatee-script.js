@@ -89,20 +89,33 @@ task 'test', 'run “build” task and tests in “tests/” afterwards', ->
   invoke 'build' if rebuild is false
   spawn 'npm', ['test'], stdio: 'inherit', cwd: '.'
 
+option '-v', '--verbose [LEVEL]', 'set groc\'s verbosity level (documentation generation) [0,1,2]'
 
 task 'doc', 'invokes “doc:source” and “doc:github” in given order', ->
   console.log 'doc'
   invoke 'doc:source'
   #invoke 'doc:github'
 
-task 'doc:source', 'rebuild the internal documentation', ->
+task 'doc:source', 'rebuild the internal documentation', (options) ->
   console.log 'doc:source'
   clean 'doc'
-  spawn 'groc', [], stdio: 'inherit', cwd: '.'
+  opts  = []
+  if options['verbose']?
+    opts.push '--verbose' if 0 < options.verbose
+    opts.push '--very-verbose' if 1 < options.verbose
+  else
+    opts.push '--silent'
+  spawn 'groc', opts, stdio: 'inherit', cwd: '.'
 
-task 'doc:github', 'rebuild the github documentation', ->
+task 'doc:github', 'rebuild the github documentation', (options) ->
   console.log 'doc:github'
-  spawn 'groc', '--github'.split(' '), stdio: 'inherit', cwd: '.'
+  opts  = ['--github']
+  if options['verbose']?
+    opts.push '--verbose' if 0 < options.verbose
+    opts.push '--very-verbose' if 1 < options.verbose
+  else
+    opts.push '--silent'
+  spawn 'groc', opts, stdio: 'inherit', cwd: '.'
 
 option '-p', '--prefix [DIR]', 'set the installation prefix for `cake install`'
 

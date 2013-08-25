@@ -1,3 +1,5 @@
 {
-  "glob": ["src/**/*.coffee", "README.md"]
+  "glob": ["src/**/*.coffee", "README.md", "Cakefile"],
+  "showdown": "table",
+  "whitespace-after-token": true
 }

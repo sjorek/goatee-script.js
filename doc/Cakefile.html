@@ -1,0 +1,136 @@
+<!DOCTYPE html><html lang="en"><head><title>Cakefile</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content=""><meta name="groc-document-path" content="Cakefile"><meta name="groc-project-path" content="Cakefile"><link rel="stylesheet" type="text/css" media="all" href="assets/style.css"><script type="text/javascript" src="assets/behavior.js"></script><body><div id="meta"><div class="file-path">Cakefile</div></div><div id="document"><div class="segment"><div class="code"><div class="wrapper"><span class="nv">fs      = </span><span class="nx">require</span> <span class="s">&#39;fs&#39;</span>
+<span class="p">{</span><span class="nx">exec</span><span class="p">,</span><span class="nx">spawn</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span> <span class="s">&#39;child_process&#39;</span>
+<span class="c1">#task = invoke = option = -&gt;</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>ANSI Terminal Colors.</p></div></div><div class="code"><div class="wrapper"><span class="nv">bold = red = green = reset = </span><span class="s">&#39;&#39;</span>
+<span class="k">unless</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">NODE_DISABLE_COLORS</span>
+  <span class="nv">bold  = </span><span class="s">&#39;\x1B[0;1m&#39;</span>
+  <span class="nv">red   = </span><span class="s">&#39;\x1B[0;31m&#39;</span>
+  <span class="nv">green = </span><span class="s">&#39;\x1B[0;32m&#39;</span>
+  <span class="nv">reset = </span><span class="s">&#39;\x1B[0m&#39;</span>
+
+<span class="nv">log = </span><span class="nf">(error, stdout, stderr) -&gt;</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">stdout</span><span class="p">,</span> <span class="nx">stderr</span>
+  <span class="c1">#console.log(error.message) if error?</span>
+
+<span class="nv">clean = </span><span class="nf">(root) -&gt;</span>
+  <span class="k">try</span>
+    <span class="nv">files = </span><span class="nx">fs</span><span class="p">.</span><span class="nx">readdirSync</span> <span class="nx">root</span>
+  <span class="k">catch</span> <span class="nx">e</span>
+    <span class="nx">log</span> <span class="kc">null</span><span class="p">,</span> <span class="s">&#39;&#39;</span><span class="p">,</span> <span class="nx">e</span><span class="p">.</span><span class="nx">message</span>
+    <span class="k">return</span>
+  <span class="k">if</span>  <span class="nx">files</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="nx">file</span> <span class="k">in</span> <span class="nx">files</span>
+      <span class="nv">path = </span><span class="s">&quot;</span><span class="si">#{</span><span class="nx">root</span><span class="si">}</span><span class="s">/</span><span class="si">#{</span><span class="nx">file</span><span class="si">}</span><span class="s">&quot;</span>
+      <span class="nv">stat = </span><span class="nx">fs</span><span class="p">.</span><span class="nx">lstatSync</span> <span class="nx">path</span>
+      <span class="k">if</span> <span class="nx">stat</span><span class="p">.</span><span class="nx">isFile</span><span class="p">()</span> <span class="o">or</span> <span class="nx">stat</span><span class="p">.</span><span class="nx">isSymbolicLink</span><span class="p">()</span>
+        <span class="nx">fs</span><span class="p">.</span><span class="nx">unlinkSync</span> <span class="nx">path</span>
+      <span class="k">else</span>
+        <span class="nx">clean</span> <span class="nx">path</span>
+  <span class="nx">fs</span><span class="p">.</span><span class="nx">rmdirSync</span> <span class="nx">root</span>
+
+<span class="nv">rebuild = </span><span class="kc">false</span>
+
+<span class="nv">render = </span><span class="nf">(template, data) -&gt;</span>
+  <span class="nx">template</span><span class="p">.</span><span class="nx">replace</span> <span class="sr">/\{\{\s*([\w\.]*)\s*\}\}/g</span><span class="p">,</span> <span class="nf">(match, path) -&gt;</span>
+    <span class="nv">path  = </span><span class="nx">path</span><span class="p">.</span><span class="nx">split</span> <span class="s">&quot;.&quot;</span>
+    <span class="nv">value = </span><span class="nx">data</span><span class="p">[</span><span class="nx">path</span><span class="p">.</span><span class="nx">shift</span><span class="p">()]</span>
+    <span class="nv">value = </span><span class="nx">value</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span> <span class="k">for</span> <span class="nx">key</span> <span class="k">in</span> <span class="nx">path</span>
+    <span class="nx">value</span> <span class="o">?</span> <span class="s">&quot;&quot;</span>
+
+<span class="nx">task</span> <span class="s">&#39;all&#39;</span><span class="p">,</span> <span class="s">&#39;invokes “clean”, “build” and “test” in given order&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&#39;all&#39;</span>
+  <span class="nv">rebuild = </span><span class="kc">true</span>
+  <span class="nx">invoke</span> <span class="s">&#39;clean&#39;</span>
+  <span class="nx">invoke</span> <span class="s">&#39;build&#39;</span>
+  <span class="nx">invoke</span> <span class="s">&#39;test&#39;</span>
+  <span class="nx">invoke</span> <span class="s">&#39;doc&#39;</span>
+
+<span class="nx">task</span> <span class="s">&#39;build&#39;</span><span class="p">,</span> <span class="s">&#39;invokes “build:once” and “build:parser” in given order&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&#39;build&#39;</span>
+  <span class="nv">rebuild = </span><span class="kc">true</span>
+  <span class="nx">invoke</span> <span class="s">&#39;build:once&#39;</span>
+  <span class="nx">invoke</span> <span class="s">&#39;build:parser&#39;</span>
+
+<span class="nx">task</span> <span class="s">&#39;clean&#39;</span><span class="p">,</span> <span class="s">&#39;cleans “lib/” and “test/” folders&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&#39;clean&#39;</span>
+  <span class="nx">clean</span> <span class="s">&#39;lib&#39;</span>
+
+<span class="nx">task</span> <span class="s">&#39;build:watch&#39;</span><span class="p">,</span> <span class="s">&#39;compile coffee-script in “src/” to javascript in “lib/” continiously&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&#39;build:watch&#39;</span>
+  <span class="nx">spawn</span> <span class="s">&#39;coffee&#39;</span><span class="p">,</span> <span class="s">&#39;-o ../lib/ -mcw .&#39;</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s">&#39; &#39;</span><span class="p">),</span> <span class="nv">stdio: </span><span class="s">&#39;inherit&#39;</span><span class="p">,</span> <span class="nv">cwd: </span><span class="s">&#39;src&#39;</span>
+
+<span class="nx">task</span> <span class="s">&#39;build:once&#39;</span><span class="p">,</span> <span class="s">&#39;compile coffee-script in “src/” to javascript in “lib/” once&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&#39;build:once&#39;</span>
+  <span class="nx">spawn</span> <span class="s">&#39;coffee&#39;</span><span class="p">,</span> <span class="s">&#39;-o ../lib/ -mc .&#39;</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s">&#39; &#39;</span><span class="p">),</span> <span class="nv">stdio: </span><span class="s">&#39;inherit&#39;</span><span class="p">,</span> <span class="nv">cwd: </span><span class="s">&#39;src&#39;</span>
+
+<span class="nx">task</span> <span class="s">&#39;build:parser&#39;</span><span class="p">,</span> <span class="s">&#39;rebuild the goatee-script parser; run at least “build:once” first!&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&#39;build:parser&#39;</span>
+
+  <span class="nv">js  = </span><span class="s">&#39;./lib/Parser.js&#39;</span>
+  <span class="nv">cs  = </span><span class="s">&#39;./src/Grammar.coffee&#39;</span>
+  <span class="nv">map = </span><span class="nx">js</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/\.js$/</span><span class="p">,</span> <span class="s">&#39;.map&#39;</span><span class="p">)</span>
+
+  <span class="nv">mapStat = </span><span class="nx">fs</span><span class="p">.</span><span class="nx">existsSync</span> <span class="nx">map</span>
+  <span class="nv">jsStat  = </span><span class="k">if</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">existsSync</span> <span class="nx">js</span> <span class="k">then</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">statSync</span> <span class="nx">js</span> <span class="k">else</span> <span class="kc">false</span>
+  <span class="nv">csStat  = </span><span class="k">if</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">existsSync</span> <span class="nx">cs</span> <span class="k">then</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">statSync</span> <span class="nx">cs</span> <span class="k">else</span> <span class="kc">false</span>
+
+  <span class="k">if</span> <span class="p">(</span><span class="nx">rebuild</span> <span class="o">is</span> <span class="kc">true</span> <span class="o">or</span> <span class="nx">mapStat</span> <span class="o">isnt</span> <span class="kc">false</span> <span class="o">or</span> <span class="nx">jsStat</span> <span class="o">is</span> <span class="kc">false</span> <span class="o">or</span>
+      <span class="nx">jsStat</span><span class="p">.</span><span class="nx">mtime</span> <span class="o">&lt;</span> <span class="nx">csStat</span><span class="p">.</span><span class="nx">mtime</span> <span class="o">or</span> <span class="nx">jsStat</span><span class="p">.</span><span class="nx">size</span> <span class="o">&lt;</span> <span class="nx">csStat</span><span class="p">.</span><span class="nx">size</span><span class="p">)</span>
+    <span class="nx">require</span> <span class="s">&#39;jison&#39;</span> <span class="c1"># TODO This seems to be important, have to figure out why !</span>
+    <span class="p">{</span><span class="nx">Grammar</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="nx">cs</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/\.coffee$/</span><span class="p">,</span><span class="s">&#39;&#39;</span><span class="p">))</span>
+    <span class="nv">grammar   = </span><span class="k">new</span> <span class="nx">Grammar</span>
+    <span class="nx">fs</span><span class="p">.</span><span class="nx">writeFileSync</span> <span class="nx">js</span><span class="p">,</span> <span class="nx">grammar</span><span class="p">.</span><span class="nx">create</span><span class="p">()</span>
+  <span class="k">try</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">unlinkSync</span> <span class="nx">map</span> <span class="k">if</span> <span class="nx">rebuild</span> <span class="o">is</span> <span class="kc">true</span> <span class="o">or</span> <span class="nx">mapStat</span> <span class="o">is</span> <span class="kc">true</span>
+
+<span class="nx">task</span> <span class="s">&#39;test&#39;</span><span class="p">,</span> <span class="s">&#39;run “build” task and tests in “tests/” afterwards&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&#39;test&#39;</span>
+  <span class="nx">invoke</span> <span class="s">&#39;build&#39;</span> <span class="k">if</span> <span class="nx">rebuild</span> <span class="o">is</span> <span class="kc">false</span>
+  <span class="nx">spawn</span> <span class="s">&#39;npm&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s">&#39;test&#39;</span><span class="p">],</span> <span class="nv">stdio: </span><span class="s">&#39;inherit&#39;</span><span class="p">,</span> <span class="nv">cwd: </span><span class="s">&#39;.&#39;</span>
+
+<span class="nx">option</span> <span class="s">&#39;-v&#39;</span><span class="p">,</span> <span class="s">&#39;--verbose [LEVEL]&#39;</span><span class="p">,</span> <span class="s">&#39;set groc\&#39;s verbosity level (documentation generation) [0,1,2]&#39;</span>
+
+<span class="nx">task</span> <span class="s">&#39;doc&#39;</span><span class="p">,</span> <span class="s">&#39;invokes “doc:source” and “doc:github” in given order&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&#39;doc&#39;</span>
+  <span class="nx">invoke</span> <span class="s">&#39;doc:source&#39;</span>
+  <span class="c1">#invoke &#39;doc:github&#39;</span>
+
+<span class="nx">task</span> <span class="s">&#39;doc:source&#39;</span><span class="p">,</span> <span class="s">&#39;rebuild the internal documentation&#39;</span><span class="p">,</span> <span class="nf">(options) -&gt;</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&#39;doc:source&#39;</span>
+  <span class="nx">clean</span> <span class="s">&#39;doc&#39;</span>
+  <span class="nv">opts  = </span><span class="p">[]</span>
+  <span class="k">if</span> <span class="nx">options</span><span class="p">[</span><span class="s">&#39;verbose&#39;</span><span class="p">]</span><span class="o">?</span>
+    <span class="nx">opts</span><span class="p">.</span><span class="nx">push</span> <span class="s">&#39;--verbose&#39;</span> <span class="k">if</span> <span class="mi">0</span> <span class="o">&lt;</span> <span class="nx">options</span><span class="p">.</span><span class="nx">verbose</span>
+    <span class="nx">opts</span><span class="p">.</span><span class="nx">push</span> <span class="s">&#39;--very-verbose&#39;</span> <span class="k">if</span> <span class="mi">1</span> <span class="o">&lt;</span> <span class="nx">options</span><span class="p">.</span><span class="nx">verbose</span>
+  <span class="k">else</span>
+    <span class="nx">opts</span><span class="p">.</span><span class="nx">push</span> <span class="s">&#39;--silent&#39;</span>
+  <span class="nx">spawn</span> <span class="s">&#39;groc&#39;</span><span class="p">,</span> <span class="nx">opts</span><span class="p">,</span> <span class="nv">stdio: </span><span class="s">&#39;inherit&#39;</span><span class="p">,</span> <span class="nv">cwd: </span><span class="s">&#39;.&#39;</span>
+
+<span class="nx">task</span> <span class="s">&#39;doc:github&#39;</span><span class="p">,</span> <span class="s">&#39;rebuild the github documentation&#39;</span><span class="p">,</span> <span class="nf">(options) -&gt;</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&#39;doc:github&#39;</span>
+  <span class="nv">opts  = </span><span class="p">[</span><span class="s">&#39;--github&#39;</span><span class="p">]</span>
+  <span class="k">if</span> <span class="nx">options</span><span class="p">[</span><span class="s">&#39;verbose&#39;</span><span class="p">]</span><span class="o">?</span>
+    <span class="nx">opts</span><span class="p">.</span><span class="nx">push</span> <span class="s">&#39;--verbose&#39;</span> <span class="k">if</span> <span class="mi">0</span> <span class="o">&lt;</span> <span class="nx">options</span><span class="p">.</span><span class="nx">verbose</span>
+    <span class="nx">opts</span><span class="p">.</span><span class="nx">push</span> <span class="s">&#39;--very-verbose&#39;</span> <span class="k">if</span> <span class="mi">1</span> <span class="o">&lt;</span> <span class="nx">options</span><span class="p">.</span><span class="nx">verbose</span>
+  <span class="k">else</span>
+    <span class="nx">opts</span><span class="p">.</span><span class="nx">push</span> <span class="s">&#39;--silent&#39;</span>
+  <span class="nx">spawn</span> <span class="s">&#39;groc&#39;</span><span class="p">,</span> <span class="nx">opts</span><span class="p">,</span> <span class="nv">stdio: </span><span class="s">&#39;inherit&#39;</span><span class="p">,</span> <span class="nv">cwd: </span><span class="s">&#39;.&#39;</span>
+
+<span class="nx">option</span> <span class="s">&#39;-p&#39;</span><span class="p">,</span> <span class="s">&#39;--prefix [DIR]&#39;</span><span class="p">,</span> <span class="s">&#39;set the installation prefix for `cake install`&#39;</span>
+
+<span class="nx">task</span> <span class="s">&#39;install&#39;</span><span class="p">,</span> <span class="s">&#39;install GoateeScript into /usr/local (or --prefix)&#39;</span><span class="p">,</span> <span class="nf">(options) -&gt;</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&#39;install&#39;</span>
+  <span class="nv">base = </span><span class="nx">options</span><span class="p">.</span><span class="nx">prefix</span> <span class="o">or</span> <span class="s">&#39;/usr/local&#39;</span>
+  <span class="nv">lib  = </span><span class="s">&quot;</span><span class="si">#{</span><span class="nx">base</span><span class="si">}</span><span class="s">/lib/goatee-script&quot;</span>
+  <span class="nv">bin  = </span><span class="s">&quot;</span><span class="si">#{</span><span class="nx">base</span><span class="si">}</span><span class="s">/bin&quot;</span>
+  <span class="nv">node = </span><span class="s">&quot;~/.node_libraries/goatee-script&quot;</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span>   <span class="s">&quot;Installing GoateeScript to </span><span class="si">#{</span><span class="nx">lib</span><span class="si">}</span><span class="s">&quot;</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span>   <span class="s">&quot;Linking to </span><span class="si">#{</span><span class="nx">node</span><span class="si">}</span><span class="s">&quot;</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span>   <span class="s">&quot;Linking &#39;goatee&#39; to </span><span class="si">#{</span><span class="nx">bin</span><span class="si">}</span><span class="s">/goatee-script&quot;</span>
+  <span class="nx">exec</span><span class="p">([</span>
+    <span class="s">&quot;mkdir -p </span><span class="si">#{</span><span class="nx">lib</span><span class="si">}</span><span class="s"> </span><span class="si">#{</span><span class="nx">bin</span><span class="si">}</span><span class="s">&quot;</span>
+    <span class="s">&quot;cp -rf bin lib LICENSE README.md package.json src </span><span class="si">#{</span><span class="nx">lib</span><span class="si">}</span><span class="s">&quot;</span>
+    <span class="s">&quot;ln -sfn </span><span class="si">#{</span><span class="nx">lib</span><span class="si">}</span><span class="s">/bin/goatee-script </span><span class="si">#{</span><span class="nx">bin</span><span class="si">}</span><span class="s">/goatee-script&quot;</span>
+    <span class="s">&quot;mkdir -p ~/.node_libraries&quot;</span>
+    <span class="s">&quot;ln -sfn </span><span class="si">#{</span><span class="nx">lib</span><span class="si">}</span><span class="s">/lib/goatee-script </span><span class="si">#{</span><span class="nx">node</span><span class="si">}</span><span class="s">&quot;</span>
+  <span class="p">].</span><span class="nx">join</span><span class="p">(</span><span class="s">&#39; &amp;&amp; &#39;</span><span class="p">),</span> <span class="nf">(err, stdout, stderr) -&gt;</span>
+    <span class="k">if</span> <span class="nx">err</span> <span class="k">then</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">stderr</span><span class="p">.</span><span class="nx">trim</span><span class="p">()</span> <span class="k">else</span> <span class="nx">log</span> <span class="s">&#39;done&#39;</span><span class="p">,</span> <span class="nx">green</span>
+  <span class="p">)</span></div></div></div></div></body></html>
