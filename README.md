@@ -148,6 +148,11 @@ For Windows environments (not verified):
     $ setx path "%PATH%"
     $ cake all
 
+## Documentation
+
+Annotated sources are available here:
+[http://sjorek.github.io/goatee-script/](http://sjorek.github.io/goatee-script/)
+
 ## Credits go to …
 
 - … Zachary Carter and all contributors for their

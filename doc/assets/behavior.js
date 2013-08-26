@@ -16,6 +16,7 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
         "sourcePath": "/Users/sjorek/Documents/Projects/Mesch/Workspace/goatee-script/README.md",
         "projectPath": "README.md",
         "targetPath": "index",
+        "pageTitle": "goatee-js",
         "title": "index"
       },
       "depth": 1,
@@ -83,6 +84,14 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
           "type": "heading",
           "data": {
             "level": 2,
+            "title": "Documentation",
+            "slug": "documentation"
+          },
+          "depth": 2
+        }, {
+          "type": "heading",
+          "data": {
+            "level": 2,
             "title": "Credits go to …",
             "slug": "credits-go-to-"
           },
@@ -103,6 +112,7 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
         "sourcePath": "/Users/sjorek/Documents/Projects/Mesch/Workspace/goatee-script/Cakefile",
         "projectPath": "Cakefile",
         "targetPath": "Cakefile",
+        "pageTitle": "Cakefile",
         "title": "Cakefile"
       },
       "depth": 1,
@@ -121,6 +131,7 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
         "sourcePath": "/Users/sjorek/Documents/Projects/Mesch/Workspace/goatee-script/src/Command.coffee",
         "projectPath": "src/Command.coffee",
         "targetPath": "Command",
+        "pageTitle": "Command",
         "title": "Command"
       },
       "depth": 1,
@@ -139,6 +150,7 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
         "sourcePath": "/Users/sjorek/Documents/Projects/Mesch/Workspace/goatee-script/src/Compiler.coffee",
         "projectPath": "src/Compiler.coffee",
         "targetPath": "Compiler",
+        "pageTitle": "Compiler",
         "title": "Compiler"
       },
       "depth": 1,
@@ -157,6 +169,7 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
         "sourcePath": "/Users/sjorek/Documents/Projects/Mesch/Workspace/goatee-script/src/Expression.coffee",
         "projectPath": "src/Expression.coffee",
         "targetPath": "Expression",
+        "pageTitle": "Expression",
         "title": "Expression"
       },
       "depth": 1,
@@ -175,6 +188,7 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
         "sourcePath": "/Users/sjorek/Documents/Projects/Mesch/Workspace/goatee-script/src/GoateeScript.coffee",
         "projectPath": "src/GoateeScript.coffee",
         "targetPath": "GoateeScript",
+        "pageTitle": "GoateeScript",
         "title": "GoateeScript"
       },
       "depth": 1,
@@ -193,6 +207,7 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
         "sourcePath": "/Users/sjorek/Documents/Projects/Mesch/Workspace/goatee-script/src/Grammar.coffee",
         "projectPath": "src/Grammar.coffee",
         "targetPath": "Grammar",
+        "pageTitle": "Grammar",
         "title": "Grammar"
       },
       "depth": 1,
@@ -211,6 +226,7 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
         "sourcePath": "/Users/sjorek/Documents/Projects/Mesch/Workspace/goatee-script/src/Notator.coffee",
         "projectPath": "src/Notator.coffee",
         "targetPath": "Notator",
+        "pageTitle": "Notator",
         "title": "Notator"
       },
       "depth": 1,
@@ -229,6 +245,7 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
         "sourcePath": "/Users/sjorek/Documents/Projects/Mesch/Workspace/goatee-script/src/Parser.coffee",
         "projectPath": "src/Parser.coffee",
         "targetPath": "Parser",
+        "pageTitle": "Parser",
         "title": "Parser"
       },
       "depth": 1,
@@ -247,6 +264,7 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
         "sourcePath": "/Users/sjorek/Documents/Projects/Mesch/Workspace/goatee-script/src/Repl.coffee",
         "projectPath": "src/Repl.coffee",
         "targetPath": "Repl",
+        "pageTitle": "Repl",
         "title": "Repl"
       },
       "depth": 1,
@@ -265,6 +283,7 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
         "sourcePath": "/Users/sjorek/Documents/Projects/Mesch/Workspace/goatee-script/src/Runtime.coffee",
         "projectPath": "src/Runtime.coffee",
         "targetPath": "Runtime",
+        "pageTitle": "Runtime",
         "title": "Runtime"
       },
       "depth": 1,
@@ -283,6 +302,7 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
         "sourcePath": "/Users/sjorek/Documents/Projects/Mesch/Workspace/goatee-script/src/Scope.coffee",
         "projectPath": "src/Scope.coffee",
         "targetPath": "Scope",
+        "pageTitle": "Scope",
         "title": "Scope"
       },
       "depth": 1,
@@ -301,6 +321,7 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
         "sourcePath": "/Users/sjorek/Documents/Projects/Mesch/Workspace/goatee-script/src/Stack.coffee",
         "projectPath": "src/Stack.coffee",
         "targetPath": "Stack",
+        "pageTitle": "Stack",
         "title": "Stack"
       },
       "depth": 1,
@@ -327,6 +348,7 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
             "sourcePath": "/Users/sjorek/Documents/Projects/Mesch/Workspace/goatee-script/src/Tests/GoateeScriptTestSpec.coffee",
             "projectPath": "src/Tests/GoateeScriptTestSpec.coffee",
             "targetPath": "Tests/GoateeScriptTestSpec",
+            "pageTitle": "Tests/GoateeScriptTestSpec",
             "title": "GoateeScriptTestSpec"
           },
           "depth": 2,
@@ -347,6 +369,7 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
         "sourcePath": "/Users/sjorek/Documents/Projects/Mesch/Workspace/goatee-script/src/Utility.coffee",
         "projectPath": "src/Utility.coffee",
         "targetPath": "Utility",
+        "pageTitle": "Utility",
         "title": "Utility"
       },
       "depth": 1,
