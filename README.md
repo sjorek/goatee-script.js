@@ -131,8 +131,7 @@ line. The last expression's value is always returned to the invoking context.
 
 ## Documentation
 
-Annotated sources are available here:
-[http://sjorek.github.io/goatee-script/](http://sjorek.github.io/goatee-script/)
+Read the [annotated sources](http://sjorek.github.io/goatee-script/).
 
 ## Development
 
