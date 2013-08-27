@@ -42,20 +42,22 @@
 and compiled to “ordinary” javascript. Sounds complicated ? It isn't ! Look at
 the following example:</p>
 
-<ul>
-<li><p>Javascript:</p>
+<p>Javascript:</p>
 
-<p>(function() { var test = 1 + 2 * 3 ; return test })();</p></li>
-<li><p>Coffeescript:</p>
+<pre><code>(function() { var test = 1 + 2 * 3 ; return test })();
+</code></pre>
 
-<p>do -> test = 1 + 2 * 3</p></li>
-<li><p>Goateescript:</p>
+<p>Coffeescript:</p>
 
-<p>test = 1 + 2 * 3</p></li>
-</ul>
+<pre><code>do -&gt; test = 1 + 2 * 3
+</code></pre>
 
-<p>All three examples are equivalent, the first two are just indentical and all of
-them return … guess what ? … the number 7 !</p>
+<p>Goateescript:</p>
+
+<pre><code>test = 1 + 2 * 3
+</code></pre>
+
+<p>All three examples are equivalent and all of them return the number <em>7</em>.</p>
 
 <p>As “<a href="http://sjorek.github.io/goatee-js">goatee-js</a>” provides attributes to
 map data into markup, I decided the best way to go would be a language that is
@@ -134,43 +136,48 @@ Options:
 If called without options, `goatee-script` will run interactive.
 </code></pre>
 
+<h2 id="documentation">Documentation</h2>
+
+<p>Annotated sources are available here:
+<a href="http://sjorek.github.io/goatee-script/">http://sjorek.github.io/goatee-script/</a></p>
+
 <h2 id="development">Development</h2>
 
-<p>Preperation (once):</p>
+<p>Install dependencies:</p>
+
+<ul>
+<li><a href="http://git-scm.com">git-scm</a></li>
+<li><a href="http://nodejs.org">node.js <em>(≥ 0.10)</em></a></li>
+<li><a href="http://pygments.org">pygments</a></li>
+</ul>
+
+<p>Install project:</p>
 
 <pre><code>$ git clone https://github.com/sjorek/goatee-script
 $ cd goatee-script
 $ npm install
 </code></pre>
 
-<p>For *nix-like environments (verified):</p>
+<p>Run build in *nix-like environments:</p>
 
 <pre><code>$ PATH=$PATH:./node_modules/.bin cake all
 </code></pre>
 
-<p>For Windows environments (not verified):</p>
+<p>Run build in Windows environments (<strong>not tested</strong>):</p>
 
 <pre><code>$ set path=%PATH%;.\node_modules\.bin
 $ setx path "%PATH%"
 $ cake all
 </code></pre>
 
-<h2 id="documentation">Documentation</h2>
-
-<p>Annotated sources are available here:
-<a href="http://sjorek.github.io/goatee-script/">http://sjorek.github.io/goatee-script/</a></p>
-
 <h2 id="credits-go-to-">Credits go to …</h2>
 
 <ul>
-<li><p>… Zachary Carter and all contributors for their
+<li><p>… Zachary Carter and all contributors of
 <a href="http://zaach.github.io/jison/">jison parser generator</a></p></li>
-<li><p>… Jeremy Ashkenas and all contributors for their
+<li><p>… Jeremy Ashkenas and all contributors of
 <a href="http://coffeescript.org/">Coffee-Script</a>
 as a source of inspiration</p></li>
 <li><p>… Kris Nye for his <a href="https://github.com/krisnye/glass-script/">Glass-Script</a>
 as a source of inspiration</p></li>
-<li><p>… <a href="https://github.com/Nodeclipse/nodeclipse-1">Nodeclipse v0.4</a>
-(<a href="http://marketplace.eclipse.org/content/nodeclipse">Eclipse Marketplace</a>,
-<a href="http://www.nodeclipse.org">site</a>)</p></li>
 </ul></div></div></div></div></body></html>
