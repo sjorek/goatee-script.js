@@ -56,7 +56,7 @@ Goateescript:
 
     test = 1 + 2 * 3
 
-All three examples are equivalent and all of them return the number *7*.
+All three examples are equivalent and return the number **7**.
 
 As “[goatee-js](http://sjorek.github.io/goatee-js)” provides attributes to
 map data into markup, I decided the best way to go would be a language that is
