@@ -54,6 +54,7 @@ exports.Command = class Command
   # all options from `process.argv` that are specified here.
   parseOptions: ->
     # The list of all the valid options that `goatee-script` knows.
+    shift_line = "\n                                  "
     opts = nomnom
       .script(@command.NAME)
       .option('statements', {
@@ -67,44 +68,43 @@ exports.Command = class Command
         type: 'string'
         metavar: 'STATEMENT'
         list: true,
-        help: 'string passed from the command line to evaluate'
+        help: "string passed from the command line to #{shift_line} evaluate\n"
       })
       .option('help', {
         abbr: 'h',
         flag: true,
-        help: 'display this help message'
+        help: "display this help message\n"
       })
       .option('interactive', {
         abbr: 'i',
         flag: true,
-        help: "run an interactive `#{@command.NAME}` REPL"
+        help: "run an interactive `#{@command.NAME}` read-#{shift_line} execute-print-loop (repl)\n"
       })
       .option('mode', {
         metavar: 'MODE'
         abbr: 'm',
         default: 'eval',
         choices: ['compile', 'c', 'evaluate', 'eval', 'e', 'print', 'p', 'render', 'r', 'stringify', 'string', 's']
-        help: 'set execution-mode to [c]ompile, [e]valuate, [p]rint, [r]ender or [s]tringify given statements, default:'
+        help: "[c]ompile, [e]valuate, [p]rint, [r]ender #{shift_line} or [s]tringify statements, default:"
       })
       .option('compress', {
         abbr: 'c',
-        default: false,
         flag: true,
-        help: 'compress the abstract syntax tree (ast)'
+        help: "compress the abstract syntax tree (ast)\n"
       })
       .option('nodejs', {
         metavar: 'OPTION'
         list: true
-        help: 'pass one option directly to the "node" binary, repeat for muliple options'
+        help: "pass one option directly to the 'node' #{shift_line} binary, repeat for muliple options\n"
       })
       #['-t', '--tokens',          'print out the tokens that the lexer/rewriter produce']
       .option('version', {
         abbr: 'v',
         flag: true,
-        help: 'display the version number and exit'
+        help: "display the version number and exit"
       })
       # The help banner to print when `goatee-script` is called without arguments.
-      .help("If called without options, `#{@command.NAME}` will run interactive.")
+      .help("If called without options, `#{@command.NAME}` will run interactive.\n")
       .parse()
 
     statements = []

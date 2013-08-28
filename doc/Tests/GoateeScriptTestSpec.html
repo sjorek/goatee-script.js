@@ -1,30 +1,26 @@
-<!DOCTYPE html><html lang="en"><head><title>Tests/GoateeScriptTestSpec</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../"><meta name="groc-document-path" content="Tests/GoateeScriptTestSpec"><meta name="groc-project-path" content="src/Tests/GoateeScriptTestSpec.coffee"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="meta"><div class="file-path">src/Tests/GoateeScriptTestSpec.coffee</div></div><div id="document"><div class="segment"><div class="code"><div class="wrapper"><span class="cm">###</span>
-<span class="cm">© Copyright 2013 Stephan Jorek &lt;stephan.jorek@gmail.com&gt;</span>
-<span class="cm">© Copyright 2012 Kris Nye &lt;krisnye@gmail.com&gt;</span>
+<!DOCTYPE html><html lang="en"><head><title>Tests/GoateeScriptTestSpec</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../"><meta name="groc-document-path" content="Tests/GoateeScriptTestSpec"><meta name="groc-project-path" content="src/Tests/GoateeScriptTestSpec.coffee"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="meta"><div class="file-path">src/Tests/GoateeScriptTestSpec.coffee</div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><p>© Copyright 2013 Stephan Jorek <a href="&#109;&#x61;&#105;&#x6c;&#x74;&#111;:s&#116;e&#112;&#x68;a&#x6e;&#x2e;&#106;&#x6f;&#x72;&#x65;&#x6b;&#x40;&#103;&#109;&#x61;&#x69;l&#46;&#x63;&#111;&#x6d;">s&#116;e&#112;&#x68;a&#x6e;&#x2e;&#106;&#x6f;&#x72;&#x65;&#x6b;&#x40;&#103;&#109;&#x61;&#x69;l&#46;&#x63;&#111;&#x6d;</a>
+© Copyright 2012 Kris Nye <a href="&#109;a&#105;&#x6c;&#x74;&#x6f;:k&#114;&#105;&#x73;&#x6e;&#121;&#101;&#x40;&#103;m&#x61;&#x69;&#x6c;.&#x63;&#111;&#x6d;">k&#114;&#105;&#x73;&#x6e;&#121;&#101;&#x40;&#103;m&#x61;&#x69;&#x6c;.&#x63;&#111;&#x6d;</a></p>
 
-<span class="cm">Permission is hereby granted, free of charge, to any person</span>
-<span class="cm">obtaining a copy of this software and associated documentation</span>
-<span class="cm">files (the &quot;Software&quot;), to deal in the Software without</span>
-<span class="cm">restriction, including without limitation the rights to use,</span>
-<span class="cm">copy, modify, merge, publish, distribute, sublicense, and/or sell</span>
-<span class="cm">copies of the Software, and to permit persons to whom the</span>
-<span class="cm">Software is furnished to do so, subject to the following</span>
-<span class="cm">conditions:</span>
+<p>Permission is hereby granted, free of charge, to any person
+obtaining a copy of this software and associated documentation
+files (the "Software"), to deal in the Software without
+restriction, including without limitation the rights to use,
+copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the
+Software is furnished to do so, subject to the following
+conditions:</p>
 
-<span class="cm">The above copyright notice and this permission notice shall be</span>
-<span class="cm">included in all copies or substantial portions of the Software.</span>
+<p>The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.</p>
 
-<span class="cm">THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND,</span>
-<span class="cm">EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES</span>
-<span class="cm">OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND</span>
-<span class="cm">NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT</span>
-<span class="cm">HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,</span>
-<span class="cm">WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING</span>
-<span class="cm">FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR</span>
-<span class="cm">OTHER DEALINGS IN THE SOFTWARE.</span>
-<span class="cm">###</span>
-
-<span class="nv">Benchmark = </span><span class="nx">require</span> <span class="s">&#39;benchmark&#39;</span>
+<p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+OTHER DEALINGS IN THE SOFTWARE.</p></div></div><div class="code"><div class="wrapper"><span class="nv">Benchmark = </span><span class="nx">require</span> <span class="s">&#39;benchmark&#39;</span>
 
 <span class="p">{</span><span class="nx">GoateeScript</span><span class="o">:</span><span class="p">{</span>
   <span class="nx">evaluate</span><span class="p">,</span> <span class="nx">parse</span><span class="p">,</span> <span class="nx">render</span>
@@ -32,18 +28,13 @@
 
 <span class="p">{</span><span class="nx">Utility</span><span class="o">:</span><span class="p">{</span>
   <span class="nx">isArray</span>
-<span class="p">}}</span> <span class="o">=</span> <span class="nx">require</span> <span class="s">&#39;../Utility&#39;</span>
-
-
-<span class="c1">#_         ?= null</span>
-<span class="c1">#expect    ?= null</span>
-<span class="c1">#describe  ?= null</span>
-<span class="c1">#xdescribe ?= null</span>
-<span class="c1">#it        ?= null</span>
-<span class="c1">#xit       ?= null</span>
-<span class="c1">#JSON      ?= null</span>
-
-<span class="nx">describe</span> <span class="s">&quot;GoateeScript&quot;</span><span class="p">,</span> <span class="nf">-&gt;</span>
+<span class="p">}}</span> <span class="o">=</span> <span class="nx">require</span> <span class="s">&#39;../Utility&#39;</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>_         ?= null
+expect    ?= null
+describe  ?= null
+xdescribe ?= null
+it        ?= null
+xit       ?= null
+JSON      ?= null</p></div></div><div class="code"><div class="wrapper"><span class="nx">describe</span> <span class="s">&quot;GoateeScript&quot;</span><span class="p">,</span> <span class="nf">-&gt;</span>
 
   <span class="nv">data      =</span>
     <span class="nv">clothes: </span><span class="p">[</span>
@@ -120,16 +111,11 @@
 
   <span class="nx">it</span> <span class="s">&#39;resolves expression vectors&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span>
       <span class="nx">expect</span><span class="p">(</span><span class="nx">parse</span><span class="p">(</span><span class="s">&#39;5&#39;</span><span class="p">).</span><span class="nx">vector</span><span class="p">).</span><span class="nx">toBe</span> <span class="kc">false</span>
-      <span class="nx">expect</span><span class="p">(</span><span class="nx">parse</span><span class="p">(</span><span class="s">&#39;5+2&#39;</span><span class="p">).</span><span class="nx">vector</span><span class="p">).</span><span class="nx">toBe</span> <span class="kc">false</span>
-      <span class="c1">#expect(parse(&#39;*&#39;).vector).toBe true</span>
-      <span class="c1">#expect(parse(&#39;*.alpha&#39;).vector).toBe true</span>
-      <span class="c1">#expect(parse(&#39;alpha.* * 12&#39;).vector).toBe true</span>
-      <span class="c1">#expect(parse(&#39;alpha.*&#39;).vector).toBe true</span>
-      <span class="nx">expect</span><span class="p">(</span><span class="nx">parse</span><span class="p">(</span><span class="s">&#39;func(alpha)&#39;</span><span class="p">).</span><span class="nx">vector</span><span class="p">).</span><span class="nx">toBe</span> <span class="kc">false</span>
-      <span class="c1">#expect(parse(&#39;func(*)&#39;).vector).toBe false</span>
-      <span class="c1">#expect(parse(&#39;func(alpha.*.beta)&#39;).vector).toBe false</span>
-
-  <span class="nx">it</span> <span class="s">&#39;resolves one or multiple collapsing “undefined” values&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span>
+      <span class="nx">expect</span><span class="p">(</span><span class="nx">parse</span><span class="p">(</span><span class="s">&#39;5+2&#39;</span><span class="p">).</span><span class="nx">vector</span><span class="p">).</span><span class="nx">toBe</span> <span class="kc">false</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>expect(parse('<em>').vector).toBe true
+expect(parse('</em>.alpha').vector).toBe true
+expect(parse('alpha.* * 12').vector).toBe true
+expect(parse('alpha.*').vector).toBe true</p></div></div><div class="code"><div class="wrapper">      <span class="nx">expect</span><span class="p">(</span><span class="nx">parse</span><span class="p">(</span><span class="s">&#39;func(alpha)&#39;</span><span class="p">).</span><span class="nx">vector</span><span class="p">).</span><span class="nx">toBe</span> <span class="kc">false</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>expect(parse('func(<em>)').vector).toBe false
+expect(parse('func(alpha.</em>.beta)').vector).toBe false</p></div></div><div class="code"><div class="wrapper">  <span class="nx">it</span> <span class="s">&#39;resolves one or multiple collapsing “undefined” values&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span>
       <span class="nv">statements = </span><span class="p">[</span><span class="s">&#39;&#39;</span><span class="p">,</span> <span class="s">&#39;;;;;&#39;</span><span class="p">,</span> <span class="s">&#39;;/* nix */;&#39;</span><span class="p">]</span>
       <span class="k">for</span> <span class="nx">s</span> <span class="k">in</span> <span class="nx">statements</span>
         <span class="nx">expect</span><span class="p">(</span><span class="nx">evaluate</span><span class="p">(</span><span class="nx">s</span><span class="p">)).</span><span class="nx">toBe</span> <span class="kc">undefined</span>

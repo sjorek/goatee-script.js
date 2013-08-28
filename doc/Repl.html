@@ -1,33 +1,27 @@
-<!DOCTYPE html><html lang="en"><head><title>Repl</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content=""><meta name="groc-document-path" content="Repl"><meta name="groc-project-path" content="src/Repl.coffee"><link rel="stylesheet" type="text/css" media="all" href="assets/style.css"><script type="text/javascript" src="assets/behavior.js"></script><body><div id="meta"><div class="file-path">src/Repl.coffee</div></div><div id="document"><div class="segment"><div class="code"><div class="wrapper"><span class="cm">###</span>
-<span class="cm">© Copyright 2013 Stephan Jorek &lt;stephan.jorek@gmail.com&gt;</span>
-<span class="cm">© Copyright 2009-2013 Jeremy Ashkenas</span>
+<!DOCTYPE html><html lang="en"><head><title>Repl</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content=""><meta name="groc-document-path" content="Repl"><meta name="groc-project-path" content="src/Repl.coffee"><link rel="stylesheet" type="text/css" media="all" href="assets/style.css"><script type="text/javascript" src="assets/behavior.js"></script><body><div id="meta"><div class="file-path">src/Repl.coffee</div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><p>© Copyright 2013 Stephan Jorek <a href="m&#97;&#x69;&#x6c;&#116;&#111;:&#x73;&#116;&#101;&#x70;&#104;&#97;&#110;&#46;&#x6a;&#x6f;&#x72;&#101;&#107;&#64;&#x67;&#x6d;&#97;&#105;&#x6c;&#46;&#x63;o&#109;">&#x73;&#116;&#101;&#x70;&#104;&#97;&#110;&#46;&#x6a;&#x6f;&#x72;&#101;&#107;&#64;&#x67;&#x6d;&#97;&#105;&#x6c;&#46;&#x63;o&#109;</a>
+© Copyright 2009-2013 Jeremy Ashkenas</p>
 
-<span class="cm">Permission is hereby granted, free of charge, to any person</span>
-<span class="cm">obtaining a copy of this software and associated documentation</span>
-<span class="cm">files (the &quot;Software&quot;), to deal in the Software without</span>
-<span class="cm">restriction, including without limitation the rights to use,</span>
-<span class="cm">copy, modify, merge, publish, distribute, sublicense, and/or sell</span>
-<span class="cm">copies of the Software, and to permit persons to whom the</span>
-<span class="cm">Software is furnished to do so, subject to the following</span>
-<span class="cm">conditions:</span>
+<p>Permission is hereby granted, free of charge, to any person
+obtaining a copy of this software and associated documentation
+files (the "Software"), to deal in the Software without
+restriction, including without limitation the rights to use,
+copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the
+Software is furnished to do so, subject to the following
+conditions:</p>
 
-<span class="cm">The above copyright notice and this permission notice shall be</span>
-<span class="cm">included in all copies or substantial portions of the Software.</span>
+<p>The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.</p>
 
-<span class="cm">THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND,</span>
-<span class="cm">EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES</span>
-<span class="cm">OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND</span>
-<span class="cm">NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT</span>
-<span class="cm">HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,</span>
-<span class="cm">WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING</span>
-<span class="cm">FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR</span>
-<span class="cm">OTHER DEALINGS IN THE SOFTWARE.</span>
-<span class="cm">###</span>
-
-<span class="nv">fs              = </span><span class="nx">require</span> <span class="s">&#39;fs&#39;</span>
-<span class="nv">path            = </span><span class="nx">require</span> <span class="s">&#39;path&#39;</span>
-<span class="c1">#vm              = require &#39;vm&#39;</span>
-<span class="nv">NodeRepl        = </span><span class="nx">require</span> <span class="s">&#39;repl&#39;</span>
+<p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+OTHER DEALINGS IN THE SOFTWARE.</p></div></div><div class="code"><div class="wrapper"><span class="nv">fs              = </span><span class="nx">require</span> <span class="s">&#39;fs&#39;</span>
+<span class="nv">path            = </span><span class="nx">require</span> <span class="s">&#39;path&#39;</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>vm              = require 'vm'</p></div></div><div class="code"><div class="wrapper"><span class="nv">NodeRepl        = </span><span class="nx">require</span> <span class="s">&#39;repl&#39;</span>
 
 <span class="p">{</span><span class="nx">GoateeScript</span><span class="o">:</span><span class="p">{</span>
   <span class="nx">compile</span><span class="p">,</span>
@@ -42,9 +36,9 @@
   <span class="nx">isArray</span>
 <span class="p">}}</span>              <span class="o">=</span> <span class="nx">require</span> <span class="s">&#39;./Utility&#39;</span>
 
-<span class="nv">exports = </span><span class="nx">module</span><span class="o">?</span><span class="p">.</span><span class="nx">exports</span> <span class="o">?</span> <span class="k">this</span>
+<span class="nv">exports = </span><span class="nx">module</span><span class="o">?</span><span class="p">.</span><span class="nx">exports</span> <span class="o">?</span> <span class="k">this</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p>#</p>
 
-<span class="c1">##</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'> </span></p></div></div><div class="code"><div class="wrapper"><span class="nv">exports.Repl = </span><span class="k">class</span> <span class="nx">Repl</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Creates a nice error message like, following the "standard" format
+<p><span class='doc-section-header'> namespace GoateeScript</span></p></div></div><div class="code"><div class="wrapper"><span class="nv">exports.Repl = </span><span class="k">class</span> <span class="nx">Repl</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Creates a nice error message like, following the "standard" format
 <filename>:<line>:<col>: <message> plus the line with the error and a marker
 showing where the error is.</p></div></div><div class="code"><div class="wrapper">  <span class="nv">_prettyErrorMessage = </span><span class="nf">(error, filename, code, colorize) -&gt;</span>
 
@@ -64,9 +58,7 @@ showing where the error is.</p></div></div><div class="code"><div class="wrapper
         <span class="nv">colorize = </span><span class="nf">(str) -&gt;</span> <span class="o">`</span><span class="s">&quot;\x1B[1;31m&quot;</span> <span class="o">+</span> <span class="nx">str</span> <span class="o">+</span><span class="s">&quot;\x1B[0m&quot;</span><span class="o">`</span>
       <span class="nv">message  = </span><span class="nx">colorize</span> <span class="nx">message</span>
 
-    <span class="s">&quot;&quot;&quot;</span>
-<span class="s">    </span><span class="si">#{</span><span class="nx">filename</span><span class="si">}</span><span class="s">: </span><span class="si">#{</span><span class="nx">message</span><span class="si">}</span><span class="s"></span>
-<span class="s">    &quot;&quot;&quot;</span>
+    <span class="s">&quot;&quot;&quot;</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>{filename}: #{message}</p></div></div><div class="code"><div class="wrapper"><span class="s">    &quot;&quot;&quot;</span>
 
   <span class="nv">_addMultilineHandler = </span><span class="nf">(repl) -&gt;</span>
     <span class="p">{</span><span class="nx">rli</span><span class="p">,</span> <span class="nx">inputStream</span><span class="p">,</span> <span class="nx">outputStream</span><span class="p">}</span> <span class="o">=</span> <span class="nx">repl</span>
@@ -159,9 +151,7 @@ parens. Unwrap all that.</p></div></div><div class="code"><div class="wrapper"> 
             <span class="k">when</span> <span class="s">&#39;r&#39;</span> <span class="k">then</span> <span class="nx">render</span>    <span class="nx">input</span><span class="p">,</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">compress</span>
             <span class="k">when</span> <span class="s">&#39;s&#39;</span> <span class="k">then</span> <span class="nx">parse</span>     <span class="nx">input</span>
             <span class="k">else</span>          <span class="nx">evaluate</span>  <span class="nx">input</span><span class="p">,</span> <span class="nx">context</span><span class="p">,</span> <span class="nx">variables</span>
-        <span class="nx">callback</span> <span class="nx">_prettyErrorMessage</span><span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">filename</span><span class="p">,</span> <span class="nx">input</span><span class="p">,</span> <span class="kc">yes</span><span class="p">),</span> <span class="nx">output</span>
-        <span class="c1">#callback null, vm.runInContext(js, context, filename)</span>
-      <span class="k">catch</span> <span class="nx">error</span>
+        <span class="nx">callback</span> <span class="nx">_prettyErrorMessage</span><span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">filename</span><span class="p">,</span> <span class="nx">input</span><span class="p">,</span> <span class="kc">yes</span><span class="p">),</span> <span class="nx">output</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>callback null, vm.runInContext(js, context, filename)</p></div></div><div class="code"><div class="wrapper">      <span class="k">catch</span> <span class="nx">error</span>
         <span class="nx">callback</span> <span class="nx">_prettyErrorMessage</span><span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">filename</span><span class="p">,</span> <span class="nx">input</span><span class="p">,</span> <span class="kc">yes</span><span class="p">)</span>
       <span class="k">return</span>
 

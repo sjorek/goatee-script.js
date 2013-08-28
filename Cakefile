@@ -30,6 +30,18 @@ clean = (root) ->
         clean path
   fs.rmdirSync root
 
+option '-v', '--verbose [LEVEL]', 'set groc\'s verbosity level during documentation generation. [0=silent,1,2,3]'
+
+groc = (verbose = 1, options = []) ->
+  options.push '--languages'
+  options.push process.cwd() + '/misc/groc_languages'
+  if verbose? and 0 < verbose
+    options.push '--verbose' if 1 < verbose
+    options.push '--very-verbose' if 2 < verbose
+  else
+    options.push '--silent'
+  spawn 'groc', options, stdio: 'inherit', cwd: '.'
+
 rebuild = false
 
 render = (template, data) ->
@@ -89,8 +101,6 @@ task 'test', 'run “build” task and tests in “tests/” afterwards', ->
   invoke 'build' if rebuild is false
   spawn 'npm', ['test'], stdio: 'inherit', cwd: '.'
 
-option '-v', '--verbose [LEVEL]', 'set groc\'s verbosity level (documentation generation) [0,1,2]'
-
 task 'doc', 'invokes “doc:source” and “doc:github” in given order', ->
   console.log 'doc'
   invoke 'doc:source'
@@ -99,23 +109,11 @@ task 'doc', 'invokes “doc:source” and “doc:github” in given order', ->
 task 'doc:source', 'rebuild the internal documentation', (options) ->
   console.log 'doc:source'
   clean 'doc'
-  opts  = []
-  if options['verbose']?
-    opts.push '--verbose' if 0 < options.verbose
-    opts.push '--very-verbose' if 1 < options.verbose
-  else
-    opts.push '--silent'
-  spawn 'groc', opts, stdio: 'inherit', cwd: '.'
+  groc options['verbose']
 
 task 'doc:github', 'rebuild the github documentation', (options) ->
   console.log 'doc:github'
-  opts  = ['--github']
-  if options['verbose']?
-    opts.push '--verbose' if 0 < options.verbose
-    opts.push '--very-verbose' if 1 < options.verbose
-  else
-    opts.push '--silent'
-  spawn 'groc', opts, stdio: 'inherit', cwd: '.'
+  groc options['verbose'], ['--github']
 
 option '-p', '--prefix [DIR]', 'set the installation prefix for `cake install`'
 

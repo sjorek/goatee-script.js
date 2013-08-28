@@ -3,5 +3,5 @@
   "index": "README.md",
   "title": "goatee-script",
   "showdown": "table",
-  "whitespace-after-token": true
+  "whitespace-after-token": false
 }
