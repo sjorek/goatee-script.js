@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><title>Command</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content=""><meta name="groc-document-path" content="Command"><meta name="groc-project-path" content="src/Command.coffee"><link rel="stylesheet" type="text/css" media="all" href="assets/style.css"><script type="text/javascript" src="assets/behavior.js"></script><body><div id="meta"><div class="file-path">src/Command.coffee</div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><p>© Copyright 2013 Stephan Jorek <a href="&#109;&#x61;&#x69;&#x6c;&#116;o:&#115;&#x74;&#x65;&#x70;h&#97;&#110;&#x2e;&#106;&#111;&#x72;&#x65;&#107;&#64;gm&#x61;&#105;&#108;&#x2e;&#x63;&#111;&#109;">&#115;&#x74;&#x65;&#x70;h&#97;&#110;&#x2e;&#106;&#111;&#x72;&#x65;&#107;&#64;gm&#x61;&#105;&#108;&#x2e;&#x63;&#111;&#109;</a>
+<!DOCTYPE html><html lang="en"><head><title>Command</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content=""><meta name="groc-document-path" content="Command"><meta name="groc-project-path" content="src/Command.coffee"><link rel="stylesheet" type="text/css" media="all" href="assets/style.css"><script type="text/javascript" src="assets/behavior.js"></script><body><div id="meta"><div class="file-path">src/Command.coffee</div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><p>© Copyright 2013 Stephan Jorek <a href="&#x6d;&#97;&#105;&#x6c;&#116;&#x6f;:s&#x74;&#x65;p&#x68;a&#x6e;&#x2e;&#x6a;&#111;&#114;&#101;&#107;&#x40;&#x67;&#x6d;&#97;&#105;&#x6c;&#46;&#x63;&#111;&#109;">s&#x74;&#x65;p&#x68;a&#x6e;&#x2e;&#x6a;&#111;&#114;&#101;&#107;&#x40;&#x67;&#x6d;&#97;&#105;&#x6c;&#46;&#x63;&#111;&#109;</a>
 © Copyright 2009-2013 Jeremy Ashkenas</p>
 
 <p>Permission is hereby granted, free of charge, to any person
@@ -50,17 +50,17 @@ all options from <code>process.argv</code> that are specified here.</p></div></d
         <span class="nv">type: </span><span class="s">&#39;string&#39;</span>
         <span class="nv">metavar: </span><span class="s">&#39;STATEMENT&#39;</span>
         <span class="nv">list: </span><span class="kc">true</span><span class="p">,</span>
-        <span class="nv">help: </span><span class="s">&quot;string passed from the command line to </span><span class="si">#{</span><span class="nx">shift_line</span><span class="si">}</span><span class="s"> evaluate\n&quot;</span>
+        <span class="nv">help: </span><span class="s">&quot;string passed from the command line to </span><span class="si">#{</span><span class="nx">shift_line</span><span class="si">}</span><span class="s"> evaluate&quot;</span>
       <span class="p">})</span>
       <span class="p">.</span><span class="nx">option</span><span class="p">(</span><span class="s">&#39;help&#39;</span><span class="p">,</span> <span class="p">{</span>
         <span class="nv">abbr: </span><span class="s">&#39;h&#39;</span><span class="p">,</span>
         <span class="nv">flag: </span><span class="kc">true</span><span class="p">,</span>
-        <span class="nv">help: </span><span class="s">&quot;display this help message\n&quot;</span>
+        <span class="nv">help: </span><span class="s">&quot;display this help message&quot;</span>
       <span class="p">})</span>
       <span class="p">.</span><span class="nx">option</span><span class="p">(</span><span class="s">&#39;interactive&#39;</span><span class="p">,</span> <span class="p">{</span>
         <span class="nv">abbr: </span><span class="s">&#39;i&#39;</span><span class="p">,</span>
         <span class="nv">flag: </span><span class="kc">true</span><span class="p">,</span>
-        <span class="nv">help: </span><span class="s">&quot;run an interactive `</span><span class="si">#{</span><span class="nx">@command</span><span class="p">.</span><span class="nx">NAME</span><span class="si">}</span><span class="s">` read-</span><span class="si">#{</span><span class="nx">shift_line</span><span class="si">}</span><span class="s"> execute-print-loop (repl)\n&quot;</span>
+        <span class="nv">help: </span><span class="s">&quot;run an interactive `</span><span class="si">#{</span><span class="nx">@command</span><span class="p">.</span><span class="nx">NAME</span><span class="si">}</span><span class="s">` read-</span><span class="si">#{</span><span class="nx">shift_line</span><span class="si">}</span><span class="s"> execute-print-loop (repl)&quot;</span>
       <span class="p">})</span>
       <span class="p">.</span><span class="nx">option</span><span class="p">(</span><span class="s">&#39;mode&#39;</span><span class="p">,</span> <span class="p">{</span>
         <span class="nv">metavar: </span><span class="s">&#39;MODE&#39;</span>
@@ -72,17 +72,17 @@ all options from <code>process.argv</code> that are specified here.</p></div></d
       <span class="p">.</span><span class="nx">option</span><span class="p">(</span><span class="s">&#39;compress&#39;</span><span class="p">,</span> <span class="p">{</span>
         <span class="nv">abbr: </span><span class="s">&#39;c&#39;</span><span class="p">,</span>
         <span class="nv">flag: </span><span class="kc">true</span><span class="p">,</span>
-        <span class="nv">help: </span><span class="s">&quot;compress the abstract syntax tree (ast)\n&quot;</span>
+        <span class="nv">help: </span><span class="s">&quot;compress the abstract syntax tree (ast)&quot;</span>
       <span class="p">})</span>
       <span class="p">.</span><span class="nx">option</span><span class="p">(</span><span class="s">&#39;nodejs&#39;</span><span class="p">,</span> <span class="p">{</span>
         <span class="nv">metavar: </span><span class="s">&#39;OPTION&#39;</span>
         <span class="nv">list: </span><span class="kc">true</span>
-        <span class="nv">help: </span><span class="s">&quot;pass one option directly to the &#39;node&#39; </span><span class="si">#{</span><span class="nx">shift_line</span><span class="si">}</span><span class="s"> binary, repeat for muliple options\n&quot;</span>
+        <span class="nv">help: </span><span class="s">&quot;pass one option directly to the &#39;node&#39; </span><span class="si">#{</span><span class="nx">shift_line</span><span class="si">}</span><span class="s"> binary, repeat for muliple options&quot;</span>
       <span class="p">})</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>['-t', '--tokens',          'print out the tokens that the lexer/rewriter produce']</p></div></div><div class="code"><div class="wrapper">      <span class="p">.</span><span class="nx">option</span><span class="p">(</span><span class="s">&#39;version&#39;</span><span class="p">,</span> <span class="p">{</span>
         <span class="nv">abbr: </span><span class="s">&#39;v&#39;</span><span class="p">,</span>
         <span class="nv">flag: </span><span class="kc">true</span><span class="p">,</span>
         <span class="nv">help: </span><span class="s">&quot;display the version number and exit&quot;</span>
-      <span class="p">})</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>The help banner to print when <code>goatee-script</code> is called without arguments.</p></div></div><div class="code"><div class="wrapper">      <span class="p">.</span><span class="nx">help</span><span class="p">(</span><span class="s">&quot;If called without options, `</span><span class="si">#{</span><span class="nx">@command</span><span class="p">.</span><span class="nx">NAME</span><span class="si">}</span><span class="s">` will run interactive.\n&quot;</span><span class="p">)</span>
+      <span class="p">})</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>The help banner to print when <code>goatee-script</code> is called without arguments.</p></div></div><div class="code"><div class="wrapper">      <span class="p">.</span><span class="nx">help</span><span class="p">(</span><span class="s">&quot;If called without options, `</span><span class="si">#{</span><span class="nx">@command</span><span class="p">.</span><span class="nx">NAME</span><span class="si">}</span><span class="s">` will run interactive.&quot;</span><span class="p">)</span>
       <span class="p">.</span><span class="nx">parse</span><span class="p">()</span>
 
     <span class="nv">statements = </span><span class="p">[]</span>

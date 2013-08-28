@@ -68,17 +68,17 @@ exports.Command = class Command
         type: 'string'
         metavar: 'STATEMENT'
         list: true,
-        help: "string passed from the command line to #{shift_line} evaluate\n"
+        help: "string passed from the command line to #{shift_line} evaluate"
       })
       .option('help', {
         abbr: 'h',
         flag: true,
-        help: "display this help message\n"
+        help: "display this help message"
       })
       .option('interactive', {
         abbr: 'i',
         flag: true,
-        help: "run an interactive `#{@command.NAME}` read-#{shift_line} execute-print-loop (repl)\n"
+        help: "run an interactive `#{@command.NAME}` read-#{shift_line} execute-print-loop (repl)"
       })
       .option('mode', {
         metavar: 'MODE'
@@ -90,12 +90,12 @@ exports.Command = class Command
       .option('compress', {
         abbr: 'c',
         flag: true,
-        help: "compress the abstract syntax tree (ast)\n"
+        help: "compress the abstract syntax tree (ast)"
       })
       .option('nodejs', {
         metavar: 'OPTION'
         list: true
-        help: "pass one option directly to the 'node' #{shift_line} binary, repeat for muliple options\n"
+        help: "pass one option directly to the 'node' #{shift_line} binary, repeat for muliple options"
       })
       #['-t', '--tokens',          'print out the tokens that the lexer/rewriter produce']
       .option('version', {
@@ -104,7 +104,7 @@ exports.Command = class Command
         help: "display the version number and exit"
       })
       # The help banner to print when `goatee-script` is called without arguments.
-      .help("If called without options, `#{@command.NAME}` will run interactive.\n")
+      .help("If called without options, `#{@command.NAME}` will run interactive.")
       .parse()
 
     statements = []

@@ -121,19 +121,14 @@ line. The last expression's value is always returned to the invoking context.
     Options:
        -r STATEMENT, --run STATEMENT   string passed from the command line to
                                        evaluate
-
        -h, --help                      display this help message
-
        -i, --interactive               run an interactive `goatee-script` read-
                                        execute-print-loop (repl)
-
        -m MODE, --mode MODE            [c]ompile, [e]valuate, [p]rint, [r]ender
                                        or [s]tringify statements, default:  [eval]
        -c, --compress                  compress the abstract syntax tree (ast)
-
        --nodejs OPTION                 pass one option directly to the 'node'
                                        binary, repeat for muliple options
-
        -v, --version                   display the version number and exit
 
     If called without options, `goatee-script` will run interactive.
