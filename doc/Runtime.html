@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><title>Runtime</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content=""><meta name="groc-document-path" content="Runtime"><meta name="groc-project-path" content="src/Runtime.coffee"><link rel="stylesheet" type="text/css" media="all" href="assets/style.css"><script type="text/javascript" src="assets/behavior.js"></script><body><div id="meta"><div class="file-path">src/Runtime.coffee</div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><p>© Copyright 2013 Stephan Jorek <a href="&#109;&#x61;&#x69;&#x6c;&#x74;&#111;:&#115;&#x74;&#101;&#x70;&#x68;a&#x6e;&#x2e;&#x6a;&#111;&#114;&#101;k&#64;&#x67;&#x6d;&#97;&#x69;&#x6c;&#46;&#99;&#111;&#x6d;">&#115;&#x74;&#101;&#x70;&#x68;a&#x6e;&#x2e;&#x6a;&#111;&#114;&#101;k&#64;&#x67;&#x6d;&#97;&#x69;&#x6c;&#46;&#99;&#111;&#x6d;</a></p>
+<!DOCTYPE html><html lang="en"><head><title>Runtime</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content=""><meta name="groc-document-path" content="Runtime"><meta name="groc-project-path" content="src/Runtime.coffee"><link rel="stylesheet" type="text/css" media="all" href="assets/style.css"><script type="text/javascript" src="assets/behavior.js"></script><body><div id="meta"><div class="file-path">src/Runtime.coffee</div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><p>© Copyright 2013 Stephan Jorek <a href="&#109;&#x61;&#105;&#x6c;&#x74;o:&#115;&#x74;&#x65;&#x70;&#x68;&#97;&#110;&#x2e;&#x6a;&#111;&#x72;&#x65;&#107;&#64;&#103;&#109;&#x61;&#105;&#108;&#46;c&#111;m">&#115;&#x74;&#x65;&#x70;&#x68;&#97;&#110;&#x2e;&#x6a;&#111;&#x72;&#x65;&#107;&#64;&#103;&#109;&#x61;&#105;&#108;&#46;c&#111;m</a></p>
 
 <p>Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -23,20 +23,20 @@ permissions and limitations under the License.</p></div></div><div class="code">
   <span class="nx">parse</span>
 <span class="p">}}</span>              <span class="o">=</span> <span class="nx">require</span> <span class="s">&#39;./Utility&#39;</span>
 
-<span class="nv">exports = </span><span class="nx">module</span><span class="o">?</span><span class="p">.</span><span class="nx">exports</span> <span class="o">?</span> <span class="k">this</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p>#</p>
+<span class="nv">exports = </span><span class="nx">module</span><span class="o">?</span><span class="p">.</span><span class="nx">exports</span> <span class="o">?</span> <span class="k">this</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'> namespace GoateeScript</span></p>
 
-<p><span class='doc-section-header'> namespace GoateeScript</span></p></div></div><div class="code"><div class="wrapper"><span class="nv">exports.Runtime = </span><span class="k">class</span> <span class="nx">Runtime</span>
+<p>#</p></div></div><div class="code"><div class="wrapper"><span class="nv">exports.Runtime = </span><span class="k">class</span> <span class="nx">Runtime</span>
 
-  <span class="nv">_operations = </span><span class="nx">Expression</span><span class="p">.</span><span class="nx">operations</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p>#</p>
+  <span class="nv">_operations = </span><span class="nx">Expression</span><span class="p">.</span><span class="nx">operations</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'></span></p>
 
-<p><span class='doc-section-header'></span></p>
+<p>#</p>
 
 <p><strong>Returns an Array</strong></p></div></div><div class="code"><div class="wrapper">  <span class="nv">Runtime.aliases  = _aliases = </span><span class="nx">do</span> <span class="nf">-&gt;</span>
     <span class="nv">index = </span><span class="kc">null</span>
     <span class="p">()</span> <span class="nf">-&gt;</span>
-      <span class="nx">index</span> <span class="o">?</span> <span class="nv">index = </span><span class="s">&#39;abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ$_&#39;</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s">&#39;&#39;</span><span class="p">)</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p>#</p>
+      <span class="nx">index</span> <span class="o">?</span> <span class="nv">index = </span><span class="s">&#39;abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ$_&#39;</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s">&#39;&#39;</span><span class="p">)</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'></span></p>
 
-<p><span class='doc-section-header'></span></p>
+<p>#</p>
 
 <p>Parameters:</p>
 

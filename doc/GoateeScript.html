@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><title>GoateeScript</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content=""><meta name="groc-document-path" content="GoateeScript"><meta name="groc-project-path" content="src/GoateeScript.coffee"><link rel="stylesheet" type="text/css" media="all" href="assets/style.css"><script type="text/javascript" src="assets/behavior.js"></script><body><div id="meta"><div class="file-path">src/GoateeScript.coffee</div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><p>© Copyright 2013 Stephan Jorek <a href="&#109;&#x61;&#x69;&#108;&#x74;&#x6f;:&#x73;&#x74;&#101;&#x70;&#104;&#x61;&#110;&#46;&#x6a;&#x6f;&#x72;&#x65;&#x6b;&#x40;&#103;&#109;&#x61;&#x69;l&#x2e;&#x63;&#111;&#109;">&#x73;&#x74;&#101;&#x70;&#104;&#x61;&#110;&#46;&#x6a;&#x6f;&#x72;&#x65;&#x6b;&#x40;&#103;&#109;&#x61;&#x69;l&#x2e;&#x63;&#111;&#109;</a></p>
+<!DOCTYPE html><html lang="en"><head><title>GoateeScript</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content=""><meta name="groc-document-path" content="GoateeScript"><meta name="groc-project-path" content="src/GoateeScript.coffee"><link rel="stylesheet" type="text/css" media="all" href="assets/style.css"><script type="text/javascript" src="assets/behavior.js"></script><body><div id="meta"><div class="file-path">src/GoateeScript.coffee</div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><p>© Copyright 2013 Stephan Jorek <a href="&#109;&#97;&#x69;&#x6c;&#x74;&#x6f;:&#115;&#116;&#101;&#112;&#x68;&#x61;&#110;&#46;&#106;o&#114;&#x65;&#x6b;&#x40;&#103;&#109;&#97;&#105;&#x6c;&#x2e;&#x63;&#111;&#109;">&#115;&#116;&#101;&#112;&#x68;&#x61;&#110;&#46;&#106;o&#114;&#x65;&#x6b;&#x40;&#103;&#109;&#97;&#105;&#x6c;&#x2e;&#x63;&#111;&#109;</a></p>
 
 <p>Permission is hereby granted, free of charge, to any person
 obtaining a copy of this software and associated documentation
@@ -19,16 +19,16 @@ NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
 HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
 WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-OTHER DEALINGS IN THE SOFTWARE.</p></div></div><div class="code"><div class="wrapper"><span class="nv">exports = </span><span class="nx">module</span><span class="o">?</span><span class="p">.</span><span class="nx">exports</span> <span class="o">?</span> <span class="k">this</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p>#</p>
+OTHER DEALINGS IN THE SOFTWARE.</p></div></div><div class="code"><div class="wrapper"><span class="nv">exports = </span><span class="nx">module</span><span class="o">?</span><span class="p">.</span><span class="nx">exports</span> <span class="o">?</span> <span class="k">this</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'> namespace GoateeScript</span></p>
 
-<p><span class='doc-section-header'> namespace GoateeScript</span></p></div></div><div class="code"><div class="wrapper"><span class="nv">exports.GoateeScript = </span><span class="k">class</span> <span class="nx">GoateeScript</span>
+<p>#</p></div></div><div class="code"><div class="wrapper"><span class="nv">exports.GoateeScript = </span><span class="k">class</span> <span class="nx">GoateeScript</span>
 
   <span class="nv">GoateeScript.NAME      = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;../package.json&#39;</span><span class="p">).</span><span class="nx">name</span>
   <span class="nv">GoateeScript.VERSION   = </span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;../package.json&#39;</span><span class="p">).</span><span class="nx">version</span>
 
-  <span class="nv">_compiler = </span><span class="kc">null</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p>#</p>
+  <span class="nv">_compiler = </span><span class="kc">null</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'></span></p>
 
-<p><span class='doc-section-header'></span></p>
+<p>#</p>
 
 <p>Parameters:</p>
 
@@ -38,9 +38,9 @@ OTHER DEALINGS IN THE SOFTWARE.</p></div></div><div class="code"><div class="wra
 
 <p><strong>Returns an Expression</strong></p></div></div><div class="code"><div class="wrapper">  <span class="nv">GoateeScript.parse = </span><span class="nf">(code) -&gt;</span>
     <span class="nx">_compiler</span> <span class="o">?=</span> <span class="k">new</span> <span class="p">(</span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;./Compiler&#39;</span><span class="p">).</span><span class="nx">Compiler</span><span class="p">)</span>
-    <span class="nx">_compiler</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">code</span><span class="p">)</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p>#</p>
+    <span class="nx">_compiler</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">code</span><span class="p">)</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'></span></p>
 
-<p><span class='doc-section-header'></span></p>
+<p>#</p>
 
 <p>Parameters:</p>
 
@@ -54,9 +54,9 @@ OTHER DEALINGS IN THE SOFTWARE.</p></div></div><div class="code"><div class="wra
 
 <p><strong>Returns a mixed</strong></p></div></div><div class="code"><div class="wrapper">  <span class="nv">GoateeScript.evaluate = </span><span class="nf">(code, context, variables, scope, stack) -&gt;</span>
     <span class="nx">_compiler</span> <span class="o">?=</span> <span class="k">new</span> <span class="p">(</span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;./Compiler&#39;</span><span class="p">).</span><span class="nx">Compiler</span><span class="p">)</span>
-    <span class="nx">_compiler</span><span class="p">.</span><span class="nx">evaluate</span><span class="p">(</span><span class="nx">code</span><span class="p">,</span> <span class="nx">context</span><span class="p">,</span> <span class="nx">variables</span><span class="p">,</span> <span class="nx">scope</span><span class="p">,</span> <span class="nx">stack</span><span class="p">)</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p>#</p>
+    <span class="nx">_compiler</span><span class="p">.</span><span class="nx">evaluate</span><span class="p">(</span><span class="nx">code</span><span class="p">,</span> <span class="nx">context</span><span class="p">,</span> <span class="nx">variables</span><span class="p">,</span> <span class="nx">scope</span><span class="p">,</span> <span class="nx">stack</span><span class="p">)</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'></span></p>
 
-<p><span class='doc-section-header'></span></p>
+<p>#</p>
 
 <p>Parameters:</p>
 
@@ -66,9 +66,9 @@ OTHER DEALINGS IN THE SOFTWARE.</p></div></div><div class="code"><div class="wra
 
 <p><strong>Returns a String</strong></p></div></div><div class="code"><div class="wrapper">  <span class="nv">GoateeScript.render = </span><span class="nf">(code) -&gt;</span>
     <span class="nx">_compiler</span> <span class="o">?=</span> <span class="k">new</span> <span class="p">(</span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;./Compiler&#39;</span><span class="p">).</span><span class="nx">Compiler</span><span class="p">)</span>
-    <span class="nx">_compiler</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="nx">code</span><span class="p">)</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p>#</p>
+    <span class="nx">_compiler</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="nx">code</span><span class="p">)</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'></span></p>
 
-<p><span class='doc-section-header'></span></p>
+<p>#</p>
 
 <p>Parameters:</p>
 
@@ -80,9 +80,9 @@ OTHER DEALINGS IN THE SOFTWARE.</p></div></div><div class="code"><div class="wra
 
 <p><strong>Returns an Array or a String or a Number or a true or a false or a null</strong></p></div></div><div class="code"><div class="wrapper">  <span class="nv">GoateeScript.ast = </span><span class="nf">(data, callback, compress) -&gt;</span>
     <span class="nx">_compiler</span> <span class="o">?=</span> <span class="k">new</span> <span class="p">(</span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;./Compiler&#39;</span><span class="p">).</span><span class="nx">Compiler</span><span class="p">)</span>
-    <span class="nx">_compiler</span><span class="p">.</span><span class="nx">ast</span><span class="p">(</span><span class="nx">data</span><span class="p">,</span> <span class="nx">callback</span><span class="p">,</span> <span class="nx">compress</span><span class="p">)</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p>#</p>
+    <span class="nx">_compiler</span><span class="p">.</span><span class="nx">ast</span><span class="p">(</span><span class="nx">data</span><span class="p">,</span> <span class="nx">callback</span><span class="p">,</span> <span class="nx">compress</span><span class="p">)</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'></span></p>
 
-<p><span class='doc-section-header'></span></p>
+<p>#</p>
 
 <p>Parameters:</p>
 
@@ -94,9 +94,9 @@ OTHER DEALINGS IN THE SOFTWARE.</p></div></div><div class="code"><div class="wra
 
 <p><strong>Returns a String</strong></p></div></div><div class="code"><div class="wrapper">  <span class="nv">GoateeScript.stringify = </span><span class="nf">(data, callback, compress) -&gt;</span>
     <span class="nx">_compiler</span> <span class="o">?=</span> <span class="k">new</span> <span class="p">(</span><span class="nx">require</span><span class="p">(</span><span class="s">&#39;./Compiler&#39;</span><span class="p">).</span><span class="nx">Compiler</span><span class="p">)</span>
-    <span class="nx">_compiler</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">data</span><span class="p">,</span> <span class="nx">callback</span><span class="p">,</span> <span class="nx">compress</span><span class="p">)</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p>#</p>
+    <span class="nx">_compiler</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">data</span><span class="p">,</span> <span class="nx">callback</span><span class="p">,</span> <span class="nx">compress</span><span class="p">)</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'></span></p>
 
-<p><span class='doc-section-header'></span></p>
+<p>#</p>
 
 <p>Parameters:</p>
 

@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><title>Expression</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content=""><meta name="groc-document-path" content="Expression"><meta name="groc-project-path" content="src/Expression.coffee"><link rel="stylesheet" type="text/css" media="all" href="assets/style.css"><script type="text/javascript" src="assets/behavior.js"></script><body><div id="meta"><div class="file-path">src/Expression.coffee</div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><p>© Copyright 2013 Stephan Jorek <a href="&#x6d;&#97;&#x69;&#x6c;&#x74;o:&#115;&#116;&#101;&#112;&#104;&#x61;&#110;&#x2e;&#x6a;&#111;r&#x65;&#x6b;&#x40;&#x67;&#x6d;&#x61;&#105;&#108;&#x2e;&#99;&#111;&#109;">&#115;&#116;&#101;&#112;&#104;&#x61;&#110;&#x2e;&#x6a;&#111;r&#x65;&#x6b;&#x40;&#x67;&#x6d;&#x61;&#105;&#108;&#x2e;&#99;&#111;&#109;</a></p>
+<!DOCTYPE html><html lang="en"><head><title>Expression</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content=""><meta name="groc-document-path" content="Expression"><meta name="groc-project-path" content="src/Expression.coffee"><link rel="stylesheet" type="text/css" media="all" href="assets/style.css"><script type="text/javascript" src="assets/behavior.js"></script><body><div id="meta"><div class="file-path">src/Expression.coffee</div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><p>© Copyright 2013 Stephan Jorek <a href="&#x6d;&#x61;&#x69;&#108;&#116;&#111;:&#x73;&#x74;&#x65;&#112;&#x68;&#x61;&#110;&#46;&#x6a;o&#114;&#101;&#107;&#64;g&#109;&#97;&#105;&#108;&#x2e;&#x63;o&#109;">&#x73;&#x74;&#x65;&#112;&#x68;&#x61;&#110;&#46;&#x6a;o&#114;&#101;&#107;&#64;g&#109;&#97;&#105;&#108;&#x2e;&#x63;o&#109;</a></p>
 
 <p>Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -22,28 +22,28 @@ permissions and limitations under the License.</p></div></div><div class="code">
   <span class="nx">isExpression</span>
 <span class="p">}}</span>              <span class="o">=</span> <span class="nx">require</span> <span class="s">&#39;./Utility&#39;</span>
 
-<span class="nv">exports = </span><span class="nx">module</span><span class="o">?</span><span class="p">.</span><span class="nx">exports</span> <span class="o">?</span> <span class="k">this</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p>#
+<span class="nv">exports = </span><span class="nx">module</span><span class="o">?</span><span class="p">.</span><span class="nx">exports</span> <span class="o">?</span> <span class="k">this</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'> namespace GoateeScript</span></p>
+
+<p>#
 Expression are the glue between runtime-evaluation, -interpretation and
 -compilation.  The parser emits these expressions, whereas the compiler
-consumes them.</p>
-
-<p><span class='doc-section-header'> namespace GoateeScript</span></p></div></div><div class="code"><div class="wrapper"><span class="nv">exports.Expression = </span><span class="k">class</span> <span class="nx">Expression</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Shortcuts to ease access to otherwise deeply nested properties</p></div></div><div class="code"><div class="wrapper">  <span class="nv">_stack        = </span><span class="kc">null</span>
+consumes them.</p></div></div><div class="code"><div class="wrapper"><span class="nv">exports.Expression = </span><span class="k">class</span> <span class="nx">Expression</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Shortcuts to ease access to otherwise deeply nested properties</p></div></div><div class="code"><div class="wrapper">  <span class="nv">_stack        = </span><span class="kc">null</span>
   <span class="nv">_scope        = </span><span class="kc">null</span>
   <span class="nv">_errors       = </span><span class="kc">null</span>
   <span class="nv">_global       = </span><span class="kc">null</span>
   <span class="nv">_local        = </span><span class="kc">null</span>
   <span class="nv">_operations   = </span><span class="kc">null</span>
-  <span class="nv">_parser       = </span><span class="kc">null</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>reference to <code>Expression.operations.scalar.name</code></p></div></div><div class="code"><div class="wrapper">  <span class="nv">_scalar       = </span><span class="kc">null</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>reference to <code>Expression.operations['.'].name</code></p></div></div><div class="code"><div class="wrapper">  <span class="nv">_property     = </span><span class="kc">null</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>static reference to a callback function</p></div></div><div class="code"><div class="wrapper">  <span class="nv">_callback     = </span><span class="kc">null</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>reference to <code>Expression.operations.reference.format</code></p></div></div><div class="code"><div class="wrapper">  <span class="nv">_reference    = </span><span class="kc">null</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>a wrapper around <code>Expression.operations.reference.format</code></p></div></div><div class="code"><div class="wrapper">  <span class="nv">_variable     = </span><span class="kc">null</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>reference to <code>Expression.operations.reference.evaluate</code></p></div></div><div class="code"><div class="wrapper">  <span class="nv">_resolve      = </span><span class="kc">null</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>reference to <code>Expression.operations['='].evaluate</code></p></div></div><div class="code"><div class="wrapper">  <span class="nv">_assignment   = </span><span class="kc">null</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p>#
+  <span class="nv">_parser       = </span><span class="kc">null</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>reference to <code>Expression.operations.scalar.name</code></p></div></div><div class="code"><div class="wrapper">  <span class="nv">_scalar       = </span><span class="kc">null</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>reference to <code>Expression.operations['.'].name</code></p></div></div><div class="code"><div class="wrapper">  <span class="nv">_property     = </span><span class="kc">null</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>static reference to a callback function</p></div></div><div class="code"><div class="wrapper">  <span class="nv">_callback     = </span><span class="kc">null</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>reference to <code>Expression.operations.reference.format</code></p></div></div><div class="code"><div class="wrapper">  <span class="nv">_reference    = </span><span class="kc">null</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>a wrapper around <code>Expression.operations.reference.format</code></p></div></div><div class="code"><div class="wrapper">  <span class="nv">_variable     = </span><span class="kc">null</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>reference to <code>Expression.operations.reference.evaluate</code></p></div></div><div class="code"><div class="wrapper">  <span class="nv">_resolve      = </span><span class="kc">null</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>reference to <code>Expression.operations['='].evaluate</code></p></div></div><div class="code"><div class="wrapper">  <span class="nv">_assignment   = </span><span class="kc">null</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'></span></p>
+
+<p>#
 Determine if the current state resolves to a property.  Used by
 <code>Expression.operations.reference.evaluate</code></p>
 
-<p><span class='doc-section-header'></span></p>
-
 <p><strong>Returns a Boolean</strong></p></div></div><div class="code"><div class="wrapper">  <span class="nv">_isProperty   = </span><span class="p">()</span> <span class="nf">-&gt;</span>
     <span class="nv">p = </span><span class="nx">_stack</span><span class="p">.</span><span class="nx">parent</span><span class="p">()</span>
-    <span class="nx">p</span><span class="o">?</span> <span class="o">and</span> <span class="nx">p</span><span class="p">.</span><span class="nx">operator</span><span class="p">.</span><span class="nx">name</span> <span class="o">is</span> <span class="nx">_property</span> <span class="o">and</span> <span class="nx">p</span><span class="p">.</span><span class="nx">parameters</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">is</span> <span class="nx">_stack</span><span class="p">.</span><span class="nx">current</span><span class="p">()</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p>#</p>
+    <span class="nx">p</span><span class="o">?</span> <span class="o">and</span> <span class="nx">p</span><span class="p">.</span><span class="nx">operator</span><span class="p">.</span><span class="nx">name</span> <span class="o">is</span> <span class="nx">_property</span> <span class="o">and</span> <span class="nx">p</span><span class="p">.</span><span class="nx">parameters</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">is</span> <span class="nx">_stack</span><span class="p">.</span><span class="nx">current</span><span class="p">()</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'></span></p>
 
-<p><span class='doc-section-header'></span></p>
+<p>#</p>
 
 <p>Parameters:</p>
 
@@ -58,12 +58,12 @@ Determine if the current state resolves to a property.  Used by
     <span class="k">catch</span> <span class="nx">e</span>
       <span class="p">(</span><span class="nx">_errors</span> <span class="o">?=</span> <span class="p">[]).</span><span class="nx">push</span> <span class="nx">e</span>
     <span class="nx">_stack</span><span class="p">.</span><span class="nx">pop</span><span class="p">()</span>
-    <span class="k">return</span> <span class="nx">result</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p>#
+    <span class="k">return</span> <span class="nx">result</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'></span></p>
+
+<p>#
 Set a static callback, to be invoked after an expression has been
 evaluated, but before the stack gets cleared.  Implemented as:
   <code>callback(expression, result, _stack, _errors)</code></p>
-
-<p><span class='doc-section-header'></span></p>
 
 <p>Parameters:</p>
 
@@ -73,20 +73,20 @@ evaluated, but before the stack gets cleared.  Implemented as:
 
 <p><strong>Returns a Function</strong></p></div></div><div class="code"><div class="wrapper">  <span class="nv">Expression.callback = </span><span class="nf">(callback) -&gt;</span>
     <span class="nv">_callback = </span><span class="nx">callback</span>
-    <span class="k">return</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p>#
+    <span class="k">return</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'></span></p>
+
+<p>#
 Get an array of all errors caught and collected during evaluation or
 <code>false</code> if none of them occured.</p>
 
-<p><span class='doc-section-header'></span></p>
-
 <p><strong>Returns a Boolean or an Array<Error></strong></p></div></div><div class="code"><div class="wrapper">  <span class="nv">Expression.errors = </span><span class="p">()</span> <span class="nf">-&gt;</span>
     <span class="nx">_errors</span> <span class="k">if</span> <span class="nx">_errors</span><span class="o">?</span> <span class="o">and</span> <span class="nx">_errors</span><span class="p">.</span><span class="nx">length</span> <span class="o">isnt</span> <span class="mi">0</span>
-    <span class="kc">false</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p>#
+    <span class="kc">false</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'></span></p>
+
+<p>#
 This is the start and finish of evaluations.  Resets the environment before
 and after any execution.  This implementation avoids self-recursion as it
 reassigns the evaluation function.</p>
-
-<p><span class='doc-section-header'></span></p>
 
 <p>Parameters:</p>
 
@@ -122,11 +122,11 @@ reassigns the evaluation function.</p>
       <span class="nv">_local    = </span><span class="kc">null</span>
       <span class="nv">_evaluate = </span><span class="nx">Expression</span><span class="p">.</span><span class="nx">evaluate</span>
 
-    <span class="nx">result</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p>#
+    <span class="nx">result</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'></span></p>
+
+<p>#
 Process the expression and evaluate its result. Chained (sub-)expressions
 and vector operations are resolved here.</p>
-
-<p><span class='doc-section-header'></span></p>
 
 <p>Parameters:</p>
 
@@ -163,12 +163,12 @@ and vector operations are resolved here.</p>
 
     <span class="nv">values = </span><span class="p">[]</span>
     <span class="nx">values</span><span class="p">.</span><span class="nx">push</span> <span class="nx">_execute</span><span class="p">(</span><span class="nx">context</span><span class="p">,</span> <span class="nx">rightValue</span><span class="p">)</span> <span class="k">for</span> <span class="nx">rightValue</span> <span class="k">in</span> <span class="nx">parameters</span>
-    <span class="nx">operator</span><span class="p">.</span><span class="nx">evaluate</span><span class="p">.</span><span class="nx">apply</span> <span class="nx">context</span><span class="p">,</span> <span class="nx">values</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p>#
+    <span class="nx">operator</span><span class="p">.</span><span class="nx">evaluate</span><span class="p">.</span><span class="nx">apply</span> <span class="nx">context</span><span class="p">,</span> <span class="nx">values</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'></span></p>
+
+<p>#
 Determine the expression's boolean value, as defined in Ecmascript 3/5/6.
 Therefor arrays are processed recursivly item by item and if one of them
 resolves to a false value, this function returns false immediatly.</p>
-
-<p><span class='doc-section-header'></span></p>
 
 <p>Parameters:</p>
 
@@ -182,14 +182,14 @@ resolves to a false value, this function returns false immediatly.</p>
         <span class="k">if</span> <span class="nx">_booleanize</span> <span class="nx">item</span>
           <span class="k">return</span> <span class="kc">true</span>
       <span class="k">return</span> <span class="kc">false</span>
-    <span class="k">return</span> <span class="nb">Boolean</span> <span class="nx">value</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p>#
+    <span class="k">return</span> <span class="nb">Boolean</span> <span class="nx">value</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'></span></p>
+
+<p>#
 Returns the given value as string.  If the given value is not an expression
 <code>JSON.stringify</code> will be called to deliver the result.  If the expression's
 operator has a <code>format</code> function (see Èxpression.operations` below) it will
 be called with the expression parameters, otherwise a string will be build
 from those parameters.</p>
-
-<p><span class='doc-section-header'></span></p>
 
 <p>Parameters:</p>
 
@@ -209,11 +209,11 @@ from those parameters.</p>
     <span class="k">else</span> <span class="k">if</span> <span class="nx">parameters</span><span class="p">.</span><span class="nx">length</span> <span class="o">is</span> <span class="mi">2</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>basic operations</p></div></div><div class="code"><div class="wrapper">      <span class="s">&quot;</span><span class="si">#{</span><span class="nx">_stringify</span> <span class="nx">parameters</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}#{</span><span class="nx">operator</span><span class="si">}#{</span><span class="nx">_stringify</span> <span class="nx">parameters</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s">&quot;</span>
     <span class="k">else</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>block statements and … ?</p></div></div><div class="code"><div class="wrapper">      <span class="nv">format = </span><span class="p">[]</span>
       <span class="nx">format</span><span class="p">.</span><span class="nx">push</span> <span class="nx">_stringify</span><span class="p">(</span><span class="nx">parameter</span><span class="p">)</span> <span class="k">for</span> <span class="nx">parameter</span> <span class="k">in</span> <span class="nx">parameters</span>
-      <span class="nx">format</span><span class="p">.</span><span class="nx">join</span> <span class="s">&#39; &#39;</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p>#
-A dictionary of all known operations an expression might perform.
-Used during runtime interpretation, stringification and compilation.</p>
+      <span class="nx">format</span><span class="p">.</span><span class="nx">join</span> <span class="s">&#39; &#39;</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'> of type <em>Object</em></span></p>
 
-<p><span class='doc-section-header'> of type <em>Object</em></span></p></div></div><div class="code"><div class="wrapper">  <span class="nv">Expression.operations = _operations =</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>#
+<p>#
+A dictionary of all known operations an expression might perform.
+Used during runtime interpretation, stringification and compilation.</p></div></div><div class="code"><div class="wrapper">  <span class="nv">Expression.operations = _operations =</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>#
 An assignment, filled below</p></div></div><div class="code"><div class="wrapper">    <span class="s">&#39;=&#39;</span><span class="o">:</span>
       <span class="nv">evaluate: </span><span class="nf">(a,b) -&gt;</span>
         <span class="nx">_local</span><span class="p">[</span><span class="nx">a</span><span class="p">]</span> <span class="o">=</span> <span class="nx">b</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>#
@@ -585,10 +585,10 @@ Fills and adds missing <code>Expression.operations</code></p></div></div><div cl
     <span class="nv">_scalar    = </span><span class="nx">_operations</span><span class="p">.</span><span class="nx">scalar</span><span class="p">.</span><span class="nx">name</span>
     <span class="nv">_property  = </span><span class="nx">_operations</span><span class="p">[</span><span class="s">&#39;.&#39;</span><span class="p">].</span><span class="nx">name</span>
 
-    <span class="k">return</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p>#
-Lookup an operation by its name (~ key in <code>Expression.operations</code>)</p>
+    <span class="k">return</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'></span></p>
 
-<p><span class='doc-section-header'></span></p>
+<p>#
+Lookup an operation by its name (~ key in <code>Expression.operations</code>)</p>
 
 <p>Parameters:</p>
 
@@ -599,11 +599,11 @@ Lookup an operation by its name (~ key in <code>Expression.operations</code>)</p
 <p><strong>Returns an Object</strong><br/><strong>and</strong> <strong>Can throw an Error</strong></p></div></div><div class="code"><div class="wrapper">  <span class="nv">Expression.operator = _operator = </span><span class="nf">(name) -&gt;</span>
     <span class="k">if</span> <span class="p">(</span><span class="nv">op = </span><span class="nx">_operations</span><span class="p">[</span><span class="nx">name</span><span class="p">])</span><span class="o">?</span>
       <span class="k">return</span> <span class="k">if</span> <span class="nx">op</span><span class="p">.</span><span class="nx">name</span><span class="o">?</span> <span class="k">then</span> <span class="nx">op</span> <span class="k">else</span> <span class="nx">_operator</span> <span class="nx">op</span>
-    <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;operation not found: </span><span class="si">#{</span><span class="nx">name</span><span class="si">}</span><span class="s">&quot;</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p>#
+    <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;operation not found: </span><span class="si">#{</span><span class="nx">name</span><span class="si">}</span><span class="s">&quot;</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'>Constructor</span></p>
+
+<p>#
 The expressions constructor.  Depending on the operations' constant and
 vector the given paramters might get evaluated here, to save nesting depth.</p>
-
-<p><span class='doc-section-header'>Constructor</span></p>
 
 <p>Parameters:</p>
 
@@ -626,18 +626,18 @@ then the result is a vector result</p></div></div><div class="code"><div class="
           <span class="vi">@vector = </span><span class="kc">true</span>
           <span class="k">break</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>if this expression is a constant then we pre-evaluate it now
  and just return a scalar expression with the result</p></div></div><div class="code"><div class="wrapper">    <span class="k">if</span> <span class="nx">@constant</span> <span class="o">and</span> <span class="nx">@operator</span><span class="p">.</span><span class="nx">name</span> <span class="o">isnt</span> <span class="nx">_scalar</span>
-      <span class="k">return</span> <span class="k">new</span> <span class="nx">Expression</span> <span class="s">&#39;scalar&#39;</span><span class="p">,</span> <span class="p">[</span> <span class="nx">@evaluate</span> <span class="nx">_global</span> <span class="p">]</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>otherwise return this expression</p></div></div><div class="code"><div class="wrapper">    <span class="k">return</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p>#
-Allows expressions to be turned into strings</p>
+      <span class="k">return</span> <span class="k">new</span> <span class="nx">Expression</span> <span class="s">&#39;scalar&#39;</span><span class="p">,</span> <span class="p">[</span> <span class="nx">@evaluate</span> <span class="nx">_global</span> <span class="p">]</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>otherwise return this expression</p></div></div><div class="code"><div class="wrapper">    <span class="k">return</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'></span></p>
 
-<p><span class='doc-section-header'></span></p>
+<p>#
+Allows expressions to be turned into strings</p>
 
 <p><strong>Returns a String</strong></p></div></div><div class="code"><div class="wrapper">  <span class="nv">toString: </span><span class="nf">-&gt;</span>
     <span class="k">return</span> <span class="nx">@text</span> <span class="k">unless</span> <span class="nx">@text</span> <span class="o">is</span> <span class="kc">undefined</span>
-    <span class="vi">@text = </span><span class="nx">_stringify</span> <span class="k">this</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p>#
+    <span class="vi">@text = </span><span class="nx">_stringify</span> <span class="k">this</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'></span></p>
+
+<p>#
 Allows expression to be turned into a kind of json-ast.  See
 <code>Compiler.coffee</code> for a complete ast-implementation</p>
-
-<p><span class='doc-section-header'></span></p>
 
 <p><strong>Returns an Object.<String:op,Array:parameters></strong></p></div></div><div class="code"><div class="wrapper">  <span class="nv">toJSON: </span><span class="nf">(callback) -&gt;</span>
     <span class="k">return</span> <span class="nx">callback</span> <span class="k">this</span> <span class="k">if</span> <span class="nx">callback</span>
@@ -646,10 +646,10 @@ Allows expression to be turned into a kind of json-ast.  See
     <span class="k">else</span>
       <span class="nv">parameters = </span><span class="k">for</span> <span class="nx">parameter</span> <span class="k">in</span> <span class="nx">@parameters</span>
         <span class="k">if</span> <span class="nx">parameter</span><span class="p">.</span><span class="nx">toJSON</span><span class="o">?</span> <span class="k">then</span> <span class="nx">parameter</span><span class="p">.</span><span class="nx">toJSON</span><span class="p">()</span> <span class="k">else</span> <span class="nx">parameter</span>
-    <span class="p">[</span><span class="nx">@operator</span><span class="p">.</span><span class="nx">name</span><span class="p">].</span><span class="nx">concat</span> <span class="nx">parameters</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p>#
-Evaluate this expressions value</p>
+    <span class="p">[</span><span class="nx">@operator</span><span class="p">.</span><span class="nx">name</span><span class="p">].</span><span class="nx">concat</span> <span class="nx">parameters</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'></span></p>
 
-<p><span class='doc-section-header'></span></p>
+<p>#
+Evaluate this expressions value</p>
 
 <p>Parameters:</p>
 

@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><title>Notator</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content=""><meta name="groc-document-path" content="Notator"><meta name="groc-project-path" content="src/Notator.coffee"><link rel="stylesheet" type="text/css" media="all" href="assets/style.css"><script type="text/javascript" src="assets/behavior.js"></script><body><div id="meta"><div class="file-path">src/Notator.coffee</div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><p>© Copyright 2013 Stephan Jorek <a href="&#x6d;&#97;&#x69;&#108;&#x74;&#111;:&#x73;&#x74;&#101;&#x70;&#x68;&#97;n&#x2e;&#x6a;&#111;&#x72;&#x65;&#107;&#64;&#103;&#x6d;&#97;&#105;&#108;&#46;&#x63;&#111;&#109;">&#x73;&#x74;&#101;&#x70;&#x68;&#97;n&#x2e;&#x6a;&#111;&#x72;&#x65;&#107;&#64;&#103;&#x6d;&#97;&#105;&#108;&#46;&#x63;&#111;&#109;</a></p>
+<!DOCTYPE html><html lang="en"><head><title>Notator</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content=""><meta name="groc-document-path" content="Notator"><meta name="groc-project-path" content="src/Notator.coffee"><link rel="stylesheet" type="text/css" media="all" href="assets/style.css"><script type="text/javascript" src="assets/behavior.js"></script><body><div id="meta"><div class="file-path">src/Notator.coffee</div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><p>© Copyright 2013 Stephan Jorek <a href="&#x6d;&#97;&#x69;&#108;t&#x6f;:s&#116;&#101;&#112;&#x68;&#97;&#x6e;&#x2e;&#106;or&#x65;&#x6b;&#x40;&#103;&#109;&#x61;&#x69;&#108;&#x2e;&#x63;o&#109;">s&#116;&#101;&#112;&#x68;&#97;&#x6e;&#x2e;&#106;or&#x65;&#x6b;&#x40;&#103;&#109;&#x61;&#x69;&#108;&#x2e;&#x63;o&#109;</a></p>
 
 <p>Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -10,17 +10,17 @@ You may obtain a copy of the License at</p>
 distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
 implied. See the License for the specific language governing
-permissions and limitations under the License.</p></div></div><div class="code"><div class="wrapper"><span class="nv">exports = </span><span class="nx">module</span><span class="o">?</span><span class="p">.</span><span class="nx">exports</span> <span class="o">?</span> <span class="k">this</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p>#
-The Notator provides static methods to declare jison-Grammars as json.</p>
+permissions and limitations under the License.</p></div></div><div class="code"><div class="wrapper"><span class="nv">exports = </span><span class="nx">module</span><span class="o">?</span><span class="p">.</span><span class="nx">exports</span> <span class="o">?</span> <span class="k">this</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'> namespace GoateeScript</span></p>
 
-<p><span class='doc-section-header'> namespace GoateeScript</span></p></div></div><div class="code"><div class="wrapper"><span class="nv">exports.Notator = </span><span class="k">class</span> <span class="nx">Notator</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p>#
+<p>#
+The Notator provides static methods to declare jison-Grammars as json.</p></div></div><div class="code"><div class="wrapper"><span class="nv">exports.Notator = </span><span class="k">class</span> <span class="nx">Notator</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'> see http://jashkenas.github.com/coffee-script/documentation/docs/grammar.html and of type <em>RegExp</em></span></p>
+
+<p>#
 Pattern to match a single-statement-function's return value.
-Lifted from coffeescript:</p>
+Lifted from coffeescript:</p></div></div><div class="code"><div class="wrapper">  <span class="nv">Notator.unwrap = unwrap = </span><span class="sr">/^function\s*\(\)\s*\{\s*return\s*([\s\S]*);\s*\}/</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'></span></p>
 
-<p><span class='doc-section-header'> see http://jashkenas.github.com/coffee-script/documentation/docs/grammar.html and of type <em>RegExp</em></span></p></div></div><div class="code"><div class="wrapper">  <span class="nv">Notator.unwrap = unwrap = </span><span class="sr">/^function\s*\(\)\s*\{\s*return\s*([\s\S]*);\s*\}/</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p>#
+<p>#
 Wraps a multi-statement action into a closure call onto <code>this</code>.</p>
-
-<p><span class='doc-section-header'></span></p>
 
 <p>Parameters:</p>
 
@@ -29,11 +29,11 @@ Wraps a multi-statement action into a closure call onto <code>this</code>.</p>
 </ul>
 
 <p><strong>Returns a String</strong></p></div></div><div class="code"><div class="wrapper">  <span class="nv">Notator.wrap = wrap = </span><span class="nf">(action) -&gt;</span>
-    <span class="s">&quot;(</span><span class="si">#{</span><span class="nx">action</span><span class="si">}</span><span class="s">.call(this))&quot;</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p>#
+    <span class="s">&quot;(</span><span class="si">#{</span><span class="nx">action</span><span class="si">}</span><span class="s">.call(this))&quot;</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'> see http://jashkenas.github.com/coffee-script/documentation/docs/grammar.html</span></p>
+
+<p>#
 Produce an operation
 Lifted from coffeescript:</p>
-
-<p><span class='doc-section-header'> see http://jashkenas.github.com/coffee-script/documentation/docs/grammar.html</span></p>
 
 <p>Parameters:</p>
 
@@ -46,11 +46,11 @@ Lifted from coffeescript:</p>
 <p><strong>Returns an Array</strong></p></div></div><div class="code"><div class="wrapper">  <span class="nv">Notator.operation = Notator.o = </span><span class="nf">(pattern, action, options) -&gt;</span>
       <span class="k">return</span> <span class="p">[</span><span class="nx">pattern</span><span class="p">,</span> <span class="s">&#39;$$ = $1;&#39;</span><span class="p">,</span> <span class="nx">options</span><span class="p">]</span> <span class="k">unless</span> <span class="nx">action</span>
       <span class="nv">action = </span><span class="k">if</span> <span class="nv">match = </span><span class="nx">unwrap</span><span class="p">.</span><span class="nx">exec</span> <span class="nx">action</span> <span class="k">then</span> <span class="nx">match</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">else</span> <span class="nx">wrap</span> <span class="nx">action</span>
-      <span class="p">[</span><span class="nx">pattern</span><span class="p">,</span> <span class="s">&quot;$$ = </span><span class="si">#{</span><span class="nx">action</span><span class="si">}</span><span class="s">;&quot;</span><span class="p">,</span> <span class="nx">options</span><span class="p">]</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p>#
+      <span class="p">[</span><span class="nx">pattern</span><span class="p">,</span> <span class="s">&quot;$$ = </span><span class="si">#{</span><span class="nx">action</span><span class="si">}</span><span class="s">;&quot;</span><span class="p">,</span> <span class="nx">options</span><span class="p">]</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'></span></p>
+
+<p>#
 Resolve and return an operation value.  Usually used to declare lexer tokens
 and root operations.</p>
-
-<p><span class='doc-section-header'></span></p>
 
 <p>Parameters:</p>
 
@@ -64,11 +64,11 @@ and root operations.</p>
           <span class="nv">pattern = </span><span class="nx">pattern</span><span class="p">.</span><span class="nx">source</span>
       <span class="k">return</span> <span class="p">[</span><span class="nx">pattern</span><span class="p">,</span> <span class="s">&#39;return;&#39;</span><span class="p">]</span> <span class="k">unless</span> <span class="nx">action</span>
       <span class="nv">action = </span><span class="k">if</span> <span class="nv">match = </span><span class="nx">unwrap</span><span class="p">.</span><span class="nx">exec</span> <span class="nx">action</span> <span class="k">then</span> <span class="nx">match</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">else</span> <span class="nx">wrap</span> <span class="nx">action</span>
-      <span class="p">[</span><span class="nx">pattern</span><span class="p">,</span> <span class="s">&quot;return </span><span class="si">#{</span><span class="nx">action</span><span class="si">}</span><span class="s">;&quot;</span><span class="p">]</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p>#
+      <span class="p">[</span><span class="nx">pattern</span><span class="p">,</span> <span class="s">&quot;return </span><span class="si">#{</span><span class="nx">action</span><span class="si">}</span><span class="s">;&quot;</span><span class="p">]</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'> see http://zaach.github.io/jison/docs/#lexical-analysis and see http://dinosaur.compilertools.net/flex/flex_11.html</span></p>
+
+<p>#
 Resolve and return an operation value with start conditions, eg. to declare
 lexer tokens for sub-languages like regular expressions in javascript.</p>
-
-<p><span class='doc-section-header'> see http://zaach.github.io/jison/docs/#lexical-analysis and see http://dinosaur.compilertools.net/flex/flex_11.html</span></p>
 
 <p>Parameters:</p>
 

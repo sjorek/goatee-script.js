@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><title>Compiler</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content=""><meta name="groc-document-path" content="Compiler"><meta name="groc-project-path" content="src/Compiler.coffee"><link rel="stylesheet" type="text/css" media="all" href="assets/style.css"><script type="text/javascript" src="assets/behavior.js"></script><body><div id="meta"><div class="file-path">src/Compiler.coffee</div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><p>© Copyright 2013 Stephan Jorek <a href="&#109;&#x61;&#x69;l&#116;&#x6f;:&#x73;t&#x65;&#112;&#x68;&#x61;&#110;&#x2e;&#106;&#111;&#114;&#101;&#x6b;&#x40;&#x67;&#x6d;&#97;&#x69;&#108;&#x2e;&#x63;&#111;&#109;">&#x73;t&#x65;&#112;&#x68;&#x61;&#110;&#x2e;&#106;&#111;&#114;&#101;&#x6b;&#x40;&#x67;&#x6d;&#97;&#x69;&#108;&#x2e;&#x63;&#111;&#109;</a></p>
+<!DOCTYPE html><html lang="en"><head><title>Compiler</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content=""><meta name="groc-document-path" content="Compiler"><meta name="groc-project-path" content="src/Compiler.coffee"><link rel="stylesheet" type="text/css" media="all" href="assets/style.css"><script type="text/javascript" src="assets/behavior.js"></script><body><div id="meta"><div class="file-path">src/Compiler.coffee</div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><p>© Copyright 2013 Stephan Jorek <a href="&#x6d;&#97;&#x69;&#108;t&#111;:&#115;&#116;&#101;&#x70;&#104;&#97;n&#46;&#x6a;&#x6f;&#x72;&#x65;k&#x40;&#x67;&#109;&#97;&#x69;&#108;&#46;&#99;&#x6f;&#109;">&#115;&#116;&#101;&#x70;&#104;&#97;n&#46;&#x6a;&#x6f;&#x72;&#x65;k&#x40;&#x67;&#109;&#97;&#x69;&#108;&#46;&#99;&#x6f;&#109;</a></p>
 
 <p>Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,18 +25,18 @@ permissions and limitations under the License.</p></div></div><div class="code">
   <span class="nx">isFunction</span><span class="p">,</span>
   <span class="nx">isExpression</span><span class="p">,</span>
   <span class="nx">parse</span>
-<span class="p">}}</span>              <span class="o">=</span> <span class="nx">require</span> <span class="s">&#39;./Utility&#39;</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>JSON = Function = null</p></div></div><div class="code"><div class="wrapper"><span class="nv">exports = </span><span class="nx">module</span><span class="o">?</span><span class="p">.</span><span class="nx">exports</span> <span class="o">?</span> <span class="k">this</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p>#</p>
+<span class="p">}}</span>              <span class="o">=</span> <span class="nx">require</span> <span class="s">&#39;./Utility&#39;</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>JSON = Function = null</p></div></div><div class="code"><div class="wrapper"><span class="nv">exports = </span><span class="nx">module</span><span class="o">?</span><span class="p">.</span><span class="nx">exports</span> <span class="o">?</span> <span class="k">this</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'> namespace GoateeScript</span></p>
 
-<p><span class='doc-section-header'> namespace GoateeScript</span></p></div></div><div class="code"><div class="wrapper"><span class="nv">exports.Compiler = </span><span class="k">class</span> <span class="nx">Compiler</span>
+<p>#</p></div></div><div class="code"><div class="wrapper"><span class="nv">exports.Compiler = </span><span class="k">class</span> <span class="nx">Compiler</span>
 
   <span class="nv">_aliasSymbol = </span><span class="sr">/^[a-zA-Z$_]$/</span>
   <span class="nv">_operations = </span><span class="nx">Expression</span><span class="p">.</span><span class="nx">operations</span>
   <span class="nv">_scalar     = </span><span class="nx">_operations</span><span class="p">.</span><span class="nx">scalar</span><span class="p">.</span><span class="nx">name</span>
 
   <span class="nv">_aliases    = </span><span class="nx">aliases</span><span class="p">().</span><span class="nx">join</span><span class="p">(</span><span class="s">&#39;,&#39;</span><span class="p">)</span>
-  <span class="nv">_arguments  = </span><span class="s">&quot;,&#39;&quot;</span> <span class="o">+</span> <span class="nx">aliases</span><span class="p">().</span><span class="nx">join</span><span class="p">(</span><span class="s">&quot;&#39;,&#39;&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="s">&quot;&#39;&quot;</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p>#</p>
+  <span class="nv">_arguments  = </span><span class="s">&quot;,&#39;&quot;</span> <span class="o">+</span> <span class="nx">aliases</span><span class="p">().</span><span class="nx">join</span><span class="p">(</span><span class="s">&quot;&#39;,&#39;&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="s">&quot;&#39;&quot;</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'></span></p>
 
-<p><span class='doc-section-header'></span></p>
+<p>#</p>
 
 <p>Parameters:</p>
 
@@ -53,17 +53,17 @@ permissions and limitations under the License.</p></div></div><div class="code">
     <span class="k">else</span>
       <span class="nv">keys = </span><span class="nx">_aliases</span>
       <span class="nv">args = </span><span class="nx">_arguments</span>
-    <span class="s">&quot;(function(</span><span class="si">#{</span><span class="nx">keys</span><span class="si">}</span><span class="s">) { return </span><span class="si">#{</span><span class="nx">code</span><span class="si">}</span><span class="s">; }).call(this</span><span class="si">#{</span><span class="nx">args</span><span class="si">}</span><span class="s">)&quot;</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p>#</p>
+    <span class="s">&quot;(function(</span><span class="si">#{</span><span class="nx">keys</span><span class="si">}</span><span class="s">) { return </span><span class="si">#{</span><span class="nx">code</span><span class="si">}</span><span class="s">; }).call(this</span><span class="si">#{</span><span class="nx">args</span><span class="si">}</span><span class="s">)&quot;</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'>Constructor</span></p>
 
-<p><span class='doc-section-header'>Constructor</span></p>
+<p>#</p>
 
 <p>Parameters:</p>
 
 <ul>
 <li><strong>parseImpl must be a Function.</strong></li>
-</ul></div></div><div class="code"><div class="wrapper">  <span class="nv">constructor: </span><span class="nf">(@parseImpl = parse) -&gt;</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p>#</p>
+</ul></div></div><div class="code"><div class="wrapper">  <span class="nv">constructor: </span><span class="nf">(@parseImpl = parse) -&gt;</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'></span></p>
 
-<p><span class='doc-section-header'></span></p>
+<p>#</p>
 
 <p>Parameters:</p>
 
@@ -87,9 +87,9 @@ permissions and limitations under the License.</p></div></div><div class="code">
       <span class="k">else</span>
         <span class="p">[</span><span class="nx">c</span><span class="p">,</span> <span class="nx">map</span><span class="p">]</span> <span class="o">=</span> <span class="nx">@compress</span><span class="p">(</span><span class="nx">o</span><span class="p">,</span> <span class="nx">map</span><span class="p">)</span>
         <span class="nx">c</span>
-    <span class="p">[</span><span class="s">&quot;[</span><span class="si">#{</span><span class="nx">code</span><span class="p">.</span><span class="nx">join</span> <span class="s">&#39;,&#39;</span><span class="si">}</span><span class="s">]&quot;</span><span class="p">,</span> <span class="nx">map</span><span class="p">]</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p>#</p>
+    <span class="p">[</span><span class="s">&quot;[</span><span class="si">#{</span><span class="nx">code</span><span class="p">.</span><span class="nx">join</span> <span class="s">&#39;,&#39;</span><span class="si">}</span><span class="s">]&quot;</span><span class="p">,</span> <span class="nx">map</span><span class="p">]</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'></span></p>
 
-<p><span class='doc-section-header'></span></p>
+<p>#</p>
 
 <p>Parameters:</p>
 
@@ -99,9 +99,9 @@ permissions and limitations under the License.</p></div></div><div class="code">
 
 <p><strong>Returns an Array</strong></p></div></div><div class="code"><div class="wrapper">  <span class="nv">expand: </span><span class="nx">do</span> <span class="nf">-&gt;</span>
     <span class="nv">code = </span><span class="nx">_wrap</span> <span class="s">&quot;function(opcode){ return eval(&#39;[&#39; + opcode + &#39;][0]&#39;); }&quot;</span>
-    <span class="nb">Function</span><span class="p">(</span><span class="s">&quot;return </span><span class="si">#{</span><span class="nx">code</span><span class="si">}</span><span class="s">&quot;</span><span class="p">)()</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p>#</p>
+    <span class="nb">Function</span><span class="p">(</span><span class="s">&quot;return </span><span class="si">#{</span><span class="nx">code</span><span class="si">}</span><span class="s">&quot;</span><span class="p">)()</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'></span></p>
 
-<p><span class='doc-section-header'></span></p>
+<p>#</p>
 
 <p>Parameters:</p>
 
@@ -119,9 +119,9 @@ permissions and limitations under the License.</p></div></div><div class="code">
     <span class="nv">operator   = </span><span class="nx">parameters</span><span class="p">.</span><span class="nx">shift</span><span class="p">()</span>
     <span class="k">for</span> <span class="nx">value</span><span class="p">,</span> <span class="nx">index</span> <span class="k">in</span> <span class="nx">parameters</span>
       <span class="nx">parameters</span><span class="p">[</span><span class="nx">index</span><span class="p">]</span> <span class="o">=</span> <span class="k">if</span> <span class="nx">isArray</span> <span class="nx">value</span> <span class="k">then</span> <span class="nx">@toExpression</span> <span class="nx">value</span> <span class="k">else</span> <span class="nx">value</span>
-    <span class="k">new</span> <span class="nx">Expression</span><span class="p">(</span><span class="nx">operator</span><span class="p">,</span> <span class="nx">parameters</span><span class="p">)</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p>#</p>
+    <span class="k">new</span> <span class="nx">Expression</span><span class="p">(</span><span class="nx">operator</span><span class="p">,</span> <span class="nx">parameters</span><span class="p">)</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'></span></p>
 
-<p><span class='doc-section-header'></span></p>
+<p>#</p>
 
 <p>Parameters:</p>
 
@@ -131,9 +131,9 @@ permissions and limitations under the License.</p></div></div><div class="code">
 
 <p><strong>Returns an Expression</strong></p></div></div><div class="code"><div class="wrapper">  <span class="nv">parse: </span><span class="nf">(code) -&gt;</span>
     <span class="k">return</span> <span class="nx">@parseImpl</span><span class="p">(</span><span class="nx">code</span><span class="p">)</span> <span class="k">if</span> <span class="nx">isString</span> <span class="nx">code</span>
-    <span class="nx">@toExpression</span><span class="p">(</span><span class="nx">code</span><span class="p">)</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p>#</p>
+    <span class="nx">@toExpression</span><span class="p">(</span><span class="nx">code</span><span class="p">)</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'></span></p>
 
-<p><span class='doc-section-header'></span></p>
+<p>#</p>
 
 <p>Parameters:</p>
 
@@ -147,9 +147,9 @@ permissions and limitations under the License.</p></div></div><div class="code">
 
 <p><strong>Returns a mixed</strong></p></div></div><div class="code"><div class="wrapper">  <span class="nv">evaluate: </span><span class="nf">(code, context, variables, scope, stack) -&gt;</span>
     <span class="nv">expression = </span><span class="nx">@parse</span><span class="p">(</span><span class="nx">code</span><span class="p">)</span>
-    <span class="nx">expression</span><span class="p">.</span><span class="nx">evaluate</span><span class="p">(</span><span class="nx">context</span><span class="p">,</span> <span class="nx">variables</span><span class="p">,</span> <span class="nx">scope</span><span class="p">,</span> <span class="nx">stack</span><span class="p">)</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p>#</p>
+    <span class="nx">expression</span><span class="p">.</span><span class="nx">evaluate</span><span class="p">(</span><span class="nx">context</span><span class="p">,</span> <span class="nx">variables</span><span class="p">,</span> <span class="nx">scope</span><span class="p">,</span> <span class="nx">stack</span><span class="p">)</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'></span></p>
 
-<p><span class='doc-section-header'></span></p>
+<p>#</p>
 
 <p>Parameters:</p>
 
@@ -158,9 +158,9 @@ permissions and limitations under the License.</p></div></div><div class="code">
 </ul>
 
 <p><strong>Returns a String</strong></p></div></div><div class="code"><div class="wrapper">  <span class="nv">render: </span><span class="nf">(code) -&gt;</span>
-    <span class="nx">@parse</span><span class="p">(</span><span class="nx">code</span><span class="p">).</span><span class="nx">toString</span><span class="p">()</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p>#</p>
+    <span class="nx">@parse</span><span class="p">(</span><span class="nx">code</span><span class="p">).</span><span class="nx">toString</span><span class="p">()</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'></span></p>
 
-<p><span class='doc-section-header'></span></p>
+<p>#</p>
 
 <p>Parameters:</p>
 
@@ -182,9 +182,9 @@ permissions and limitations under the License.</p></div></div><div class="code">
         <span class="nx">@save</span> <span class="nx">parameter</span><span class="p">,</span> <span class="nx">callback</span><span class="p">,</span> <span class="nx">compress</span>
       <span class="k">else</span> <span class="nx">parameter</span>
     <span class="p">)</span> <span class="k">for</span> <span class="nx">parameter</span> <span class="k">in</span> <span class="nx">expression</span><span class="p">.</span><span class="nx">parameters</span>
-    <span class="nx">opcode</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p>#</p>
+    <span class="nx">opcode</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'></span></p>
 
-<p><span class='doc-section-header'></span></p>
+<p>#</p>
 
 <p>Parameters:</p>
 
@@ -197,9 +197,9 @@ permissions and limitations under the License.</p></div></div><div class="code">
 <p><strong>Returns an Array or a String or a Number or a true or a false or a null</strong></p></div></div><div class="code"><div class="wrapper">  <span class="nv">ast: </span><span class="nf">(data, callback, compress = on) -&gt;</span>
     <span class="nv">expression = </span><span class="k">if</span> <span class="nx">isExpression</span> <span class="nx">data</span> <span class="k">then</span> <span class="nx">data</span> <span class="k">else</span> <span class="nx">@parse</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span>
     <span class="nv">ast = </span><span class="nx">@save</span><span class="p">(</span><span class="nx">expression</span><span class="p">,</span> <span class="nx">callback</span><span class="p">,</span> <span class="nx">compress</span><span class="p">)</span>
-    <span class="k">if</span> <span class="nx">compress</span> <span class="k">then</span> <span class="nx">@compress</span> <span class="nx">ast</span> <span class="k">else</span> <span class="nx">ast</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p>#</p>
+    <span class="k">if</span> <span class="nx">compress</span> <span class="k">then</span> <span class="nx">@compress</span> <span class="nx">ast</span> <span class="k">else</span> <span class="nx">ast</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'></span></p>
 
-<p><span class='doc-section-header'></span></p>
+<p>#</p>
 
 <p>Parameters:</p>
 
@@ -214,9 +214,9 @@ permissions and limitations under the License.</p></div></div><div class="code">
     <span class="k">if</span> <span class="nx">compress</span>
       <span class="s">&quot;[</span><span class="si">#{</span><span class="nx">opcode</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s">,</span><span class="si">#{</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span> <span class="nx">opcode</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s">]&quot;</span>
     <span class="k">else</span>
-      <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span> <span class="nx">opcode</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p>#</p>
+      <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span> <span class="nx">opcode</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'></span></p>
 
-<p><span class='doc-section-header'></span></p>
+<p>#</p>
 
 <p>Parameters:</p>
 
@@ -231,9 +231,9 @@ permissions and limitations under the License.</p></div></div><div class="code">
     <span class="k">if</span> <span class="nx">compress</span>
       <span class="nv">code = </span><span class="nx">_wrap</span><span class="p">(</span><span class="nx">opcode</span><span class="p">)</span>
     <span class="k">else</span>
-      <span class="nv">code = </span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">opcode</span><span class="p">)</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Function "#{prefix || ''}return [#{code}][0];"</p></div></div><div class="code"><div class="wrapper">    <span class="nb">Function</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">prefix</span> <span class="o">||</span> <span class="s">&#39;&#39;</span><span class="si">}</span><span class="s">return </span><span class="si">#{</span><span class="nx">code</span><span class="si">}</span><span class="s">;&quot;</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p>#</p>
+      <span class="nv">code = </span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">opcode</span><span class="p">)</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Function "#{prefix || ''}return [#{code}][0];"</p></div></div><div class="code"><div class="wrapper">    <span class="nb">Function</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">prefix</span> <span class="o">||</span> <span class="s">&#39;&#39;</span><span class="si">}</span><span class="s">return </span><span class="si">#{</span><span class="nx">code</span><span class="si">}</span><span class="s">;&quot;</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'></span></p>
 
-<p><span class='doc-section-header'></span></p>
+<p>#</p>
 
 <p>Parameters:</p>
 
@@ -261,9 +261,9 @@ permissions and limitations under the License.</p></div></div><div class="code">
       <span class="k">else</span>
         <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">parameter</span><span class="p">)</span>
 
-    <span class="s">&quot;</span><span class="si">#{</span><span class="nx">id</span><span class="si">}</span><span class="s">(</span><span class="si">#{</span><span class="nx">parameters</span><span class="p">.</span><span class="nx">join</span> <span class="s">&#39;,&#39;</span><span class="si">}</span><span class="s">)&quot;</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p>#</p>
+    <span class="s">&quot;</span><span class="si">#{</span><span class="nx">id</span><span class="si">}</span><span class="s">(</span><span class="si">#{</span><span class="nx">parameters</span><span class="p">.</span><span class="nx">join</span> <span class="s">&#39;,&#39;</span><span class="si">}</span><span class="s">)&quot;</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'></span></p>
 
-<p><span class='doc-section-header'></span></p>
+<p>#</p>
 
 <p>Parameters:</p>
 
@@ -274,9 +274,9 @@ permissions and limitations under the License.</p></div></div><div class="code">
 
 <p><strong>Returns a String</strong></p></div></div><div class="code"><div class="wrapper">  <span class="nv">load: </span><span class="nf">(data, compress = on) -&gt;</span>
     <span class="nv">opcode = </span><span class="k">if</span> <span class="nx">isArray</span> <span class="nx">data</span> <span class="k">then</span> <span class="nx">data</span> <span class="k">else</span> <span class="nx">@expand</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span>
-    <span class="nx">_compile</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="p">[</span><span class="nx">compress</span><span class="p">].</span><span class="nx">concat</span><span class="p">(</span><span class="nx">opcode</span><span class="p">))</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p>#</p>
+    <span class="nx">_compile</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="p">[</span><span class="nx">compress</span><span class="p">].</span><span class="nx">concat</span><span class="p">(</span><span class="nx">opcode</span><span class="p">))</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'></span></p>
 
-<p><span class='doc-section-header'></span></p>
+<p>#</p>
 
 <p>Parameters:</p>
 

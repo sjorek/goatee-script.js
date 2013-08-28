@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><title>Grammar</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content=""><meta name="groc-document-path" content="Grammar"><meta name="groc-project-path" content="src/Grammar.coffee"><link rel="stylesheet" type="text/css" media="all" href="assets/style.css"><script type="text/javascript" src="assets/behavior.js"></script><body><div id="meta"><div class="file-path">src/Grammar.coffee</div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><p>© Copyright 2013 Stephan Jorek <a href="&#x6d;ai&#108;&#116;&#111;:&#115;&#116;&#101;&#x70;h&#97;&#x6e;&#46;&#106;&#111;&#114;&#x65;&#x6b;&#x40;&#103;&#109;&#x61;&#105;&#x6c;&#46;&#99;&#111;&#109;">&#115;&#116;&#101;&#x70;h&#97;&#x6e;&#46;&#106;&#111;&#114;&#x65;&#x6b;&#x40;&#103;&#109;&#x61;&#105;&#x6c;&#46;&#99;&#111;&#109;</a></p>
+<!DOCTYPE html><html lang="en"><head><title>Grammar</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content=""><meta name="groc-document-path" content="Grammar"><meta name="groc-project-path" content="src/Grammar.coffee"><link rel="stylesheet" type="text/css" media="all" href="assets/style.css"><script type="text/javascript" src="assets/behavior.js"></script><body><div id="meta"><div class="file-path">src/Grammar.coffee</div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><p>© Copyright 2013 Stephan Jorek <a href="&#x6d;&#97;i&#108;t&#111;:&#x73;&#116;&#101;&#112;&#x68;&#x61;&#110;.j&#111;&#x72;&#101;&#x6b;&#x40;&#x67;&#x6d;&#x61;&#105;&#108;&#46;&#x63;&#x6f;&#x6d;">&#x73;&#116;&#101;&#112;&#x68;&#x61;&#110;.j&#111;&#x72;&#101;&#x6b;&#x40;&#x67;&#x6d;&#x61;&#105;&#108;&#46;&#x63;&#x6f;&#x6d;</a></p>
 
 <p>Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -16,15 +16,15 @@ permissions and limitations under the License.</p></div></div><div class="code">
 <span class="p">}}</span>          <span class="o">=</span> <span class="nx">require</span> <span class="s">&#39;./Notator&#39;</span>
 <span class="p">{</span><span class="nx">Scope</span><span class="p">}</span>     <span class="o">=</span> <span class="nx">require</span> <span class="s">&#39;./Scope&#39;</span>
 
-<span class="nv">exports     = </span><span class="nx">module</span><span class="o">?</span><span class="p">.</span><span class="nx">exports</span> <span class="o">?</span> <span class="k">this</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p>#
-The <code>goatee-script</code> grammar definition</p>
+<span class="nv">exports     = </span><span class="nx">module</span><span class="o">?</span><span class="p">.</span><span class="nx">exports</span> <span class="o">?</span> <span class="k">this</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'></span></p>
 
-<p><span class='doc-section-header'></span></p></div></div><div class="code"><div class="wrapper"><span class="nv">exports.Grammar = </span><span class="k">class</span> <span class="nx">Grammar</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Actually this is not needed, but it looks nicer ;-)</p></div></div><div class="code"><div class="wrapper">  <span class="nv">$1 = $2 = $3 = $4 = $5 = $6 = $7 = $8 = </span><span class="kc">null</span>
+<p>#
+The <code>goatee-script</code> grammar definition</p></div></div><div class="code"><div class="wrapper"><span class="nv">exports.Grammar = </span><span class="k">class</span> <span class="nx">Grammar</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Actually this is not needed, but it looks nicer ;-)</p></div></div><div class="code"><div class="wrapper">  <span class="nv">$1 = $2 = $3 = $4 = $5 = $6 = $7 = $8 = </span><span class="kc">null</span>
 
-  <span class="nv">yy = </span><span class="k">new</span> <span class="nx">Scope</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p>#
+  <span class="nv">yy = </span><span class="k">new</span> <span class="nx">Scope</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'></span></p>
+
+<p>#
 Initializes the <strong>Parser</strong> with our <strong>Grammar</strong></p>
-
-<p><span class='doc-section-header'></span></p>
 
 <p>Parameters:</p>
 
@@ -46,13 +46,13 @@ Initializes the <strong>Parser</strong> with our <strong>Grammar</strong></p>
    set.apply(lexer,args)
 </code></pre></div></div><div class="code"><div class="wrapper">      <span class="nx">parser</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>assignment operation shortcut</p></div></div><div class="code"><div class="wrapper">  <span class="nv">Grammar.aop = aop = </span><span class="nf">(op) -&gt;</span> <span class="nx">o</span> <span class="s">&quot;REFERENCE </span><span class="si">#{</span><span class="nx">op</span><span class="si">}</span><span class="s"> Expression&quot;</span><span class="p">,</span> <span class="nf">-&gt;</span>
     <span class="nx">yy</span><span class="p">.</span><span class="nx">create</span> <span class="nx">$2</span><span class="p">,</span> <span class="p">[</span><span class="nx">$1</span><span class="p">,</span> <span class="nx">$3</span><span class="p">]</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>binary operation shortcut</p></div></div><div class="code"><div class="wrapper">  <span class="nv">Grammar.bop = bop = </span><span class="nf">(op) -&gt;</span> <span class="nx">o</span> <span class="s">&quot;Expression </span><span class="si">#{</span><span class="nx">op</span><span class="si">}</span><span class="s"> Expression&quot;</span><span class="p">,</span> <span class="nf">-&gt;</span>
-    <span class="nx">yy</span><span class="p">.</span><span class="nx">create</span> <span class="nx">$2</span><span class="p">,</span> <span class="p">[</span><span class="nx">$1</span><span class="p">,</span> <span class="nx">$3</span><span class="p">]</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p>#
+    <span class="nx">yy</span><span class="p">.</span><span class="nx">create</span> <span class="nx">$2</span><span class="p">,</span> <span class="p">[</span><span class="nx">$1</span><span class="p">,</span> <span class="nx">$3</span><span class="p">]</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'>Constructor</span></p>
+
+<p>#
 Now that we have our <strong>Grammar.bnf</strong> and our <strong>Grammar.operators</strong>, so
 we can create our <strong>Jison.Parser</strong>.  We do this by processing all of our
 rules, recording all terminals (every symbol which does not appear as the
-name of a rule above) as "tokens".</p>
-
-<p><span class='doc-section-header'>Constructor</span></p></div></div><div class="code"><div class="wrapper">  <span class="nv">constructor: </span><span class="p">()</span> <span class="nf">-&gt;</span>
+name of a rule above) as "tokens".</p></div></div><div class="code"><div class="wrapper">  <span class="nv">constructor: </span><span class="p">()</span> <span class="nf">-&gt;</span>
     <span class="nv">bnf = </span><span class="nx">@bnf</span>
     <span class="nv">tokens = </span><span class="p">[]</span>
     <span class="nv">known = </span><span class="p">{}</span>
@@ -65,14 +65,14 @@ name of a rule above) as "tokens".</p>
         <span class="nx">alt</span>
     <span class="k">for</span> <span class="k">own</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">alternatives</span> <span class="k">of</span> <span class="nx">bnf</span>
       <span class="nx">bnf</span><span class="p">[</span><span class="nx">name</span><span class="p">]</span> <span class="o">=</span> <span class="nx">tokenize</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="nx">alternatives</span><span class="p">)</span>
-    <span class="vi">@tokens = </span><span class="nx">tokens</span><span class="p">.</span><span class="nx">join</span> <span class="s">&#39; &#39;</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p>#
-Space-seperated list of grammar tokens, produced by this class' constructor</p>
+    <span class="vi">@tokens = </span><span class="nx">tokens</span><span class="p">.</span><span class="nx">join</span> <span class="s">&#39; &#39;</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'> of type <em>String</em></span></p>
 
-<p><span class='doc-section-header'> of type <em>String</em></span></p></div></div><div class="code"><div class="wrapper">  <span class="nv">tokens : </span><span class="kc">null</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p>#
+<p>#
+Space-seperated list of grammar tokens, produced by this class' constructor</p></div></div><div class="code"><div class="wrapper">  <span class="nv">tokens : </span><span class="kc">null</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'></span></p>
+
+<p>#
 Create and return the parsers source code wrapped into a closure, still
 keeping the value of <code>this</code>.</p>
-
-<p><span class='doc-section-header'></span></p>
 
 <p><strong>Returns a String</strong></p></div></div><div class="code"><div class="wrapper">  <span class="nv">create: </span><span class="p">(</span><span class="nv">comment = </span><span class="s">&#39;Goatee Script Parser&#39;</span><span class="p">,</span> <span class="nv">prefix  = </span><span class="s">&#39;&#39;</span><span class="p">,</span> <span class="o">\</span>
            <span class="nv">suffix  = </span><span class="s">&#39;parser.yy = new (require(&quot;./Scope&quot;).Scope);&#39;</span><span class="p">)</span> <span class="nf">-&gt;</span>
@@ -172,9 +172,9 @@ compare with ES3/ES5/ES6</p></div></div><div class="code"><div class="wrapper"> 
       <span class="nx">r</span> <span class="sr">/\|/</span>                      <span class="p">,</span> <span class="nf">-&gt;</span> <span class="s">&#39;|&#39;</span>
       <span class="nx">r</span> <span class="s">&#39;~&#39;</span>                       <span class="p">,</span> <span class="nf">-&gt;</span> <span class="s">&#39;~&#39;</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Assignment operator</p></div></div><div class="code"><div class="wrapper">      <span class="nx">r</span> <span class="s">&#39;=&#39;</span>                       <span class="p">,</span> <span class="nf">-&gt;</span> <span class="s">&#39;=&#39;</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>EOF is always last …
 TODO Figure out why the EOF token is “$”</p></div></div><div class="code"><div class="wrapper">      <span class="nx">r</span> <span class="s">&#39;$&#39;</span>                       <span class="p">,</span> <span class="nf">-&gt;</span> <span class="s">&#39;EOF&#39;</span>
-    <span class="p">]</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p>declare operator precedence from highest to lowest</p>
+    <span class="p">]</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'> see https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Operators/Operator_Precedence</span></p>
 
-<p><span class='doc-section-header'> see https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Operators/Operator_Precedence</span></p></div></div><div class="code"><div class="wrapper">  <span class="nv">operators: </span><span class="p">[</span>
+<p>declare operator precedence from highest to lowest</p></div></div><div class="code"><div class="wrapper">  <span class="nv">operators: </span><span class="p">[</span>
     <span class="p">[</span><span class="s">&#39;left&#39;</span><span class="p">,</span> <span class="s">&#39;.&#39;</span><span class="p">,</span> <span class="s">&#39;[&#39;</span><span class="p">,</span> <span class="s">&#39;]&#39;</span><span class="p">]</span>                  <span class="c1">#  1 member</span>
     <span class="p">[</span><span class="s">&#39;right&#39;</span><span class="p">,</span> <span class="s">&#39;NEW&#39;</span><span class="p">]</span>                         <span class="c1">#    new</span>
     <span class="p">[</span><span class="s">&#39;left&#39;</span><span class="p">,</span> <span class="s">&#39;(&#39;</span><span class="p">,</span> <span class="s">&#39;)&#39;</span><span class="p">]</span>                       <span class="c1">#  2 call</span>
@@ -197,10 +197,10 @@ TODO Figure out why the EOF token is “$”</p></div></div><div class="code"><d
     <span class="p">[</span><span class="s">&#39;right&#39;</span><span class="p">,</span> <span class="s">&#39;=&#39;</span><span class="p">,</span>    <span class="s">&#39;+=&#39;</span><span class="p">,</span> <span class="s">&#39;-=&#39;</span><span class="p">,</span>  <span class="s">&#39;*=&#39;</span><span class="p">,</span> <span class="err">\</span>   <span class="c1"># 17 assignments</span>
               <span class="s">&#39;/=&#39;</span><span class="p">,</span>   <span class="s">&#39;%=&#39;</span><span class="p">,</span> <span class="s">&#39;&lt;&lt;=&#39;</span><span class="p">,</span> <span class="s">&#39;&gt;&gt;=&#39;</span><span class="p">,</span>
               <span class="s">&#39;&gt;&gt;&gt;=&#39;</span><span class="p">,</span> <span class="s">&#39;&amp;=&#39;</span><span class="p">,</span> <span class="s">&#39;^=&#39;</span><span class="p">,</span>  <span class="s">&#39;|=&#39;</span><span class="p">]</span>
-    <span class="p">[</span><span class="s">&#39;left&#39;</span><span class="p">,</span> <span class="s">&#39;,&#39;</span><span class="p">]</span>                            <span class="c1"># 18 comma</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p>Reverse the operators because jison orders precedence from low to high,
-and we have it high to low</p>
+    <span class="p">[</span><span class="s">&#39;left&#39;</span><span class="p">,</span> <span class="s">&#39;,&#39;</span><span class="p">]</span>                            <span class="c1"># 18 comma</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'> see ([Yacc] (http://dinosaur.compilertools.net/yacc/index.html)).</span></p>
 
-<p><span class='doc-section-header'> see ([Yacc] (http://dinosaur.compilertools.net/yacc/index.html)).</span></p></div></div><div class="code"><div class="wrapper">  <span class="p">].</span><span class="nx">reverse</span><span class="p">()</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>The <strong>Script</strong> is the top-level node in the syntax tree.</p></div></div><div class="code"><div class="wrapper">  <span class="nv">startSymbol : </span><span class="s">&#39;Script&#39;</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>#</p>
+<p>Reverse the operators because jison orders precedence from low to high,
+and we have it high to low</p></div></div><div class="code"><div class="wrapper">  <span class="p">].</span><span class="nx">reverse</span><span class="p">()</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>The <strong>Script</strong> is the top-level node in the syntax tree.</p></div></div><div class="code"><div class="wrapper">  <span class="nv">startSymbol : </span><span class="s">&#39;Script&#39;</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>#</p>
 
 <h2 id="the-syntax-description-notated-in-backus-naur-format">The syntax description notated in Backus-Naur-Format</h2></div></div><div class="code"><div class="wrapper">  <span class="nv">bnf:</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Since we parse bottom-up, all parsing must end here.</p></div></div><div class="code"><div class="wrapper">    <span class="nv">Script: </span><span class="p">[</span>
       <span class="nx">r</span> <span class="s">&#39;End&#39;</span>                       <span class="p">,</span> <span class="nf">-&gt;</span> <span class="nx">yy</span><span class="p">.</span><span class="nx">create</span> <span class="s">&#39;scalar&#39;</span><span class="p">,</span> <span class="p">[</span><span class="kc">undefined</span><span class="p">]</span>
