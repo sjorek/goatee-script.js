@@ -1,6 +1,6 @@
 ###
-© Copyright 2013 Stephan Jorek <stephan.jorek@gmail.com>
-© Copyright 2009-2013 Jeremy Ashkenas
+© Copyright 2013 [Stephan Jorek](stephan.jorek@gmail.com) /
+© Copyright 2009-2013 [Jeremy Ashkenas](https://github.com/jashkenas)
 
 Permission is hereby granted, free of charge, to any person
 obtaining a copy of this software and associated documentation
