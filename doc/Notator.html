@@ -20,10 +20,10 @@ NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
 HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
 WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-OTHER DEALINGS IN THE SOFTWARE.</p></div></div><div class="code"><div class="wrapper"><span class="nv">exports = </span><span class="nx">module</span><span class="o">?</span><span class="p">.</span><span class="nx">exports</span> <span class="o">?</span> <span class="k">this</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'> namespace GoateeScript</span></p>
+OTHER DEALINGS IN THE SOFTWARE.</p></div></div><div class="code"><div class="wrapper"><span class="nv">exports = </span><span class="nx">module</span><span class="o">?</span><span class="p">.</span><span class="nx">exports</span> <span class="o">?</span> <span class="k">this</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'>Class is in namespace <em>GoateeScript</em></span></p>
 
 <p>#
-The Notator provides static methods to declare jison-Grammars as json.</p></div></div><div class="code"><div class="wrapper"><span class="nv">exports.Notator = </span><span class="k">class</span> <span class="nx">Notator</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'> see http://jashkenas.github.com/coffee-script/documentation/docs/grammar.html and of type <em>RegExp</em></span></p>
+The Notator provides static methods to declare jison-Grammars as json.</p></div></div><div class="code"><div class="wrapper"><span class="nv">exports.Notator = </span><span class="k">class</span> <span class="nx">Notator</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'> refers to <a href="http://jashkenas.github.com/coffee-script/documentation/docs/grammar.html">http://jashkenas.github.com/coffee-script/documentation/docs/grammar.html</a> and is of type <em>RegExp</em></span></p>
 
 <p>#
 Pattern to match a single-statement-function's return value.
@@ -39,7 +39,7 @@ Wraps a multi-statement action into a closure call onto <code>this</code>.</p>
 </ul>
 
 <p><strong>Returns a String</strong></p></div></div><div class="code"><div class="wrapper">  <span class="nv">Notator.wrap = wrap = </span><span class="nf">(action) -&gt;</span>
-    <span class="s">&quot;(</span><span class="si">#{</span><span class="nx">action</span><span class="si">}</span><span class="s">.call(this))&quot;</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'> see http://jashkenas.github.com/coffee-script/documentation/docs/grammar.html</span></p>
+    <span class="s">&quot;(</span><span class="si">#{</span><span class="nx">action</span><span class="si">}</span><span class="s">.call(this))&quot;</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'> refers to <a href="http://jashkenas.github.com/coffee-script/documentation/docs/grammar.html">http://jashkenas.github.com/coffee-script/documentation/docs/grammar.html</a></span></p>
 
 <p>#
 Produce an operation
@@ -74,7 +74,7 @@ and root operations.</p>
           <span class="nv">pattern = </span><span class="nx">pattern</span><span class="p">.</span><span class="nx">source</span>
       <span class="k">return</span> <span class="p">[</span><span class="nx">pattern</span><span class="p">,</span> <span class="s">&#39;return;&#39;</span><span class="p">]</span> <span class="k">unless</span> <span class="nx">action</span>
       <span class="nv">action = </span><span class="k">if</span> <span class="nv">match = </span><span class="nx">unwrap</span><span class="p">.</span><span class="nx">exec</span> <span class="nx">action</span> <span class="k">then</span> <span class="nx">match</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">else</span> <span class="nx">wrap</span> <span class="nx">action</span>
-      <span class="p">[</span><span class="nx">pattern</span><span class="p">,</span> <span class="s">&quot;return </span><span class="si">#{</span><span class="nx">action</span><span class="si">}</span><span class="s">;&quot;</span><span class="p">]</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'> see http://zaach.github.io/jison/docs/#lexical-analysis and see http://dinosaur.compilertools.net/flex/flex_11.html</span></p>
+      <span class="p">[</span><span class="nx">pattern</span><span class="p">,</span> <span class="s">&quot;return </span><span class="si">#{</span><span class="nx">action</span><span class="si">}</span><span class="s">;&quot;</span><span class="p">]</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'> refers to <a href="http://zaach.github.io/jison/docs/#lexical-analysis">http://zaach.github.io/jison/docs/#lexical-analysis</a> and refers to <a href="http://dinosaur.compilertools.net/flex/flex_11.html">http://dinosaur.compilertools.net/flex/flex_11.html</a></span></p>
 
 <p>#
 Resolve and return an operation value with start conditions, eg. to declare

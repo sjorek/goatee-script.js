@@ -22,7 +22,7 @@ permissions and limitations under the License.</p></div></div><div class="code">
   <span class="nx">isExpression</span>
 <span class="p">}}</span>              <span class="o">=</span> <span class="nx">require</span> <span class="s">&#39;./Utility&#39;</span>
 
-<span class="nv">exports = </span><span class="nx">module</span><span class="o">?</span><span class="p">.</span><span class="nx">exports</span> <span class="o">?</span> <span class="k">this</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'> namespace GoateeScript</span></p>
+<span class="nv">exports = </span><span class="nx">module</span><span class="o">?</span><span class="p">.</span><span class="nx">exports</span> <span class="o">?</span> <span class="k">this</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'>Class is in namespace <em>GoateeScript</em></span></p>
 
 <p>#
 Expression are the glue between runtime-evaluation, -interpretation and
@@ -209,7 +209,7 @@ from those parameters.</p>
     <span class="k">else</span> <span class="k">if</span> <span class="nx">parameters</span><span class="p">.</span><span class="nx">length</span> <span class="o">is</span> <span class="mi">2</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>basic operations</p></div></div><div class="code"><div class="wrapper">      <span class="s">&quot;</span><span class="si">#{</span><span class="nx">_stringify</span> <span class="nx">parameters</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}#{</span><span class="nx">operator</span><span class="si">}#{</span><span class="nx">_stringify</span> <span class="nx">parameters</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s">&quot;</span>
     <span class="k">else</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>block statements and … ?</p></div></div><div class="code"><div class="wrapper">      <span class="nv">format = </span><span class="p">[]</span>
       <span class="nx">format</span><span class="p">.</span><span class="nx">push</span> <span class="nx">_stringify</span><span class="p">(</span><span class="nx">parameter</span><span class="p">)</span> <span class="k">for</span> <span class="nx">parameter</span> <span class="k">in</span> <span class="nx">parameters</span>
-      <span class="nx">format</span><span class="p">.</span><span class="nx">join</span> <span class="s">&#39; &#39;</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'> of type <em>Object</em></span></p>
+      <span class="nx">format</span><span class="p">.</span><span class="nx">join</span> <span class="s">&#39; &#39;</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'> is of type <em>Object</em></span></p>
 
 <p>#
 A dictionary of all known operations an expression might perform.
