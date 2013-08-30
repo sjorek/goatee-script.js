@@ -16,8 +16,8 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
         "sourcePath": "/Users/sjorek/Documents/Projects/Mesch/Workspace (Aptana)/goatee-script/README.md",
         "projectPath": "README.md",
         "targetPath": "index",
-        "pageTitle": "goatee-script",
-        "title": "goatee-script"
+        "pageTitle": "goatee-script [ version 0.1.0 ]",
+        "title": "goatee-script [ version 0.1.0 ]"
       },
       "depth": 1,
       "outline": [

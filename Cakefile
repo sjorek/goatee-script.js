@@ -33,6 +33,9 @@ clean = (root) ->
 option '-v', '--verbose [LEVEL]', 'set groc\'s verbosity level during documentation generation. [0=silent,1,2,3]'
 
 groc = (verbose = 1, options = []) ->
+  pkg = require './package.json'
+  options.push '--title'
+  options.push "#{pkg.name} [ version #{pkg.version} ]"
   options.push '--languages'
   options.push process.cwd() + '/misc/groc_languages'
   if verbose? and 0 < verbose
