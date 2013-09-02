@@ -1,5 +1,5 @@
 ###
-© Copyright 2013 [Stephan Jorek](stephan.jorek@gmail.com)
+© Copyright 2013 Stephan Jorek <stephan.jorek@gmail.com>
 © Copyright 2012 Kris Nye <krisnye@gmail.com>
 
 Permission is hereby granted, free of charge, to any person
