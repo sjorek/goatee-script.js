@@ -96,7 +96,7 @@ exports.Compiler = class Compiler
     Function("return #{code}")()
 
   ##
-  # @param  {Array|String|Number|true|false|null} opcode ast
+  # @param  {Array|String|Number|Boolean} [opcode=null] ast
   # @return {Expression}
   toExpression: (opcode) ->
     state = false
