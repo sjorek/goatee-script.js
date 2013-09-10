@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><title>Notator</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content=""><meta name="groc-document-path" content="Notator"><meta name="groc-project-path" content="src/Notator.coffee"><link rel="stylesheet" type="text/css" media="all" href="assets/style.css"><script type="text/javascript" src="assets/behavior.js"></script><body><div id="meta"><div class="file-path">src/Notator.coffee</div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><p>© Copyright 2013 Stephan Jorek <a href="&#x6d;&#x61;&#x69;&#x6c;&#x74;&#111;:&#x73;&#116;&#101;&#112;&#x68;&#97;&#110;&#x2e;&#x6a;&#x6f;&#114;&#x65;&#x6b;&#64;g&#x6d;&#x61;i&#x6c;&#x2e;&#99;&#111;&#x6d;">&#x73;&#116;&#101;&#112;&#x68;&#97;&#110;&#x2e;&#x6a;&#x6f;&#114;&#x65;&#x6b;&#64;g&#x6d;&#x61;i&#x6c;&#x2e;&#99;&#111;&#x6d;</a> <br />
+<!DOCTYPE html><html lang="en"><head><title>Notator</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content=""><meta name="groc-document-path" content="Notator"><meta name="groc-project-path" content="src/Notator.coffee"><link rel="stylesheet" type="text/css" media="all" href="assets/style.css"><script type="text/javascript" src="assets/behavior.js"></script><body><div id="meta"><div class="file-path">src/Notator.coffee</div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><p>© Copyright 2013 Stephan Jorek <a href="m&#97;&#105;&#108;&#x74;&#x6f;:s&#x74;&#101;&#x70;&#x68;&#97;n&#x2e;&#x6a;&#111;&#114;&#x65;&#x6b;&#x40;&#103;&#x6d;&#x61;&#x69;&#108;&#46;&#99;o&#x6d;">s&#x74;&#101;&#x70;&#x68;&#97;n&#x2e;&#x6a;&#111;&#114;&#x65;&#x6b;&#x40;&#103;&#x6d;&#x61;&#x69;&#108;&#46;&#99;o&#x6d;</a> <br />
 © Copyright 2009-2013 Jeremy Ashkenas <a href="https://github.com/jashkenas">https://github.com/jashkenas</a></p>
 
 <p>Permission is hereby granted, free of charge, to any person
@@ -20,73 +20,105 @@ NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
 HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
 WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-OTHER DEALINGS IN THE SOFTWARE.</p></div></div><div class="code"><div class="wrapper"><span class="nv">exports = </span><span class="nx">module</span><span class="o">?</span><span class="p">.</span><span class="nx">exports</span> <span class="o">?</span> <span class="k">this</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'>Class is in namespace <em>GoateeScript</em></span></p>
+OTHER DEALINGS IN THE SOFTWARE.</p></div></div><div class="code"><div class="wrapper"><span class="nv">exports = </span><span class="nx">module</span><span class="o">?</span><span class="p">.</span><span class="nx">exports</span> <span class="o">?</span> <span class="k">this</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'>Class  is in namespace <em>GoateeScript</em></span></p>
 
 <p>#
-The Notator provides static methods to declare jison-Grammars as json.</p></div></div><div class="code"><div class="wrapper"><span class="nv">exports.Notator = </span><span class="k">class</span> <span class="nx">Notator</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'> refers to <a href="http://jashkenas.github.com/coffee-script/documentation/docs/grammar.html">http://jashkenas.github.com/coffee-script/documentation/docs/grammar.html</a> and is of type <em>RegExp</em></span></p>
+The Notator provides static methods to declare jison-Grammars as json.</p>
+
+<p><br/><br/></p></div></div><div class="code"><div class="wrapper"><span class="nv">exports.Notator = </span><span class="k">class</span> <span class="nx">Notator</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'> is a <em><a href="https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/RegExp">RegExp</a></em></span></p>
 
 <p>#
 Pattern to match a single-statement-function's return value.
-Lifted from coffeescript:</p></div></div><div class="code"><div class="wrapper">  <span class="nv">Notator.unwrap = unwrap = </span><span class="sr">/^function\s*\(\)\s*\{\s*return\s*([\s\S]*);\s*\}/</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'></span></p>
+Lifted from coffeescript:</p>
 
-<p>#
-Wraps a multi-statement action into a closure call onto <code>this</code>.</p>
-
-<p>Parameters:</p>
+<p>Reference:</p>
 
 <ul>
-<li><strong>action can be a Function or a mixed.</strong><br/>(optional function or object with <code>object.toString</code>-capabillity)</li>
+<li><a href="http://jashkenas.github.com/coffee-script/documentation/docs/grammar.html">http://jashkenas.github.com/coffee-script/documentation/docs/grammar.html</a></li>
 </ul>
 
-<p><strong>Returns a String</strong></p></div></div><div class="code"><div class="wrapper">  <span class="nv">Notator.wrap = wrap = </span><span class="nf">(action) -&gt;</span>
-    <span class="s">&quot;(</span><span class="si">#{</span><span class="nx">action</span><span class="si">}</span><span class="s">.call(this))&quot;</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'> refers to <a href="http://jashkenas.github.com/coffee-script/documentation/docs/grammar.html">http://jashkenas.github.com/coffee-script/documentation/docs/grammar.html</a></span></p>
+<p><br/><br/></p></div></div><div class="code"><div class="wrapper">  <span class="nv">Notator.unwrap = unwrap = </span><span class="sr">/^function\s*\(\)\s*\{\s*return\s*([\s\S]*);\s*\}/</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p>#
+Wraps a multi-statement action into a closure call onto <code>this</code>.</p>
 
-<p>#
+<p><strong>Parameter:</strong></p>
+
+<ul>
+<li><strong><em>action</em> can be a <em><a href="https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Function">Function</a></em> or a <em>mixed</em></strong> <br />
+optional function or object with <code>object.toString</code>-capabillity</li>
+</ul>
+
+<p><strong>Returns a <em><a href="https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/String">String</a></em></strong></p>
+
+<p><br/><br/></p></div></div><div class="code"><div class="wrapper">  <span class="nv">Notator.wrap = wrap = </span><span class="nf">(action) -&gt;</span>
+    <span class="s">&quot;(</span><span class="si">#{</span><span class="nx">action</span><span class="si">}</span><span class="s">.call(this))&quot;</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p>#
 Produce an operation
 Lifted from coffeescript:</p>
 
-<p>Parameters:</p>
+<p><strong>Parameters:</strong></p>
 
 <ul>
-<li><p><strong>pattern must be a String.</strong><br/>(suitable for jison's regexp-parser)</p></li>
-<li><p><strong>action can be a Function or a mixed.</strong><br/>(optional function or object with <code>object.toString</code>-capabillity)</p></li>
-<li><p><strong>options must be a mixed.</strong><br/>(passed trough if an <code>action</code> is present)</p></li>
+<li><p><strong><em>pattern</em> must be a <em><a href="https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/String">String</a></em></strong> <br />
+suitable for jison's regexp-parser</p></li>
+<li><p><strong><em>action</em> can be a <em><a href="https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Function">Function</a></em> or a <em>mixed</em></strong> <br />
+optional function or object with <code>object.toString</code>-capabillity</p></li>
+<li><p><strong><em>options</em> can be of any type</strong> <br />
+passed trough if an <code>action</code> is present</p></li>
 </ul>
 
-<p><strong>Returns an Array</strong></p></div></div><div class="code"><div class="wrapper">  <span class="nv">Notator.operation = Notator.o = </span><span class="nf">(pattern, action, options) -&gt;</span>
+<p><strong>Returns an <em><a href="https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Array">Array</a></em></strong></p>
+
+<p>Reference:</p>
+
+<ul>
+<li><a href="http://jashkenas.github.com/coffee-script/documentation/docs/grammar.html">http://jashkenas.github.com/coffee-script/documentation/docs/grammar.html</a></li>
+</ul>
+
+<p><br/><br/></p></div></div><div class="code"><div class="wrapper">  <span class="nv">Notator.operation = Notator.o = </span><span class="nf">(pattern, action, options) -&gt;</span>
       <span class="k">return</span> <span class="p">[</span><span class="nx">pattern</span><span class="p">,</span> <span class="s">&#39;$$ = $1;&#39;</span><span class="p">,</span> <span class="nx">options</span><span class="p">]</span> <span class="k">unless</span> <span class="nx">action</span>
       <span class="nv">action = </span><span class="k">if</span> <span class="nv">match = </span><span class="nx">unwrap</span><span class="p">.</span><span class="nx">exec</span> <span class="nx">action</span> <span class="k">then</span> <span class="nx">match</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">else</span> <span class="nx">wrap</span> <span class="nx">action</span>
-      <span class="p">[</span><span class="nx">pattern</span><span class="p">,</span> <span class="s">&quot;$$ = </span><span class="si">#{</span><span class="nx">action</span><span class="si">}</span><span class="s">;&quot;</span><span class="p">,</span> <span class="nx">options</span><span class="p">]</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'></span></p>
-
-<p>#
+      <span class="p">[</span><span class="nx">pattern</span><span class="p">,</span> <span class="s">&quot;$$ = </span><span class="si">#{</span><span class="nx">action</span><span class="si">}</span><span class="s">;&quot;</span><span class="p">,</span> <span class="nx">options</span><span class="p">]</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p>#
 Resolve and return an operation value.  Usually used to declare lexer tokens
 and root operations.</p>
 
-<p>Parameters:</p>
+<p><strong>Parameters:</strong></p>
 
 <ul>
-<li><p><strong>pattern must be a String.</strong><br/>(suitable for jison's regexp-parser)</p></li>
-<li><p><strong>action can be a Function or a mixed.</strong><br/>(optional function or object with <code>object.toString</code>-capabillity)</p></li>
+<li><p><strong><em>pattern</em> must be a <em><a href="https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/String">String</a></em></strong> <br />
+suitable for jison's regexp-parser</p></li>
+<li><p><strong><em>action</em> can be a <em><a href="https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Function">Function</a></em> or a <em>mixed</em></strong> <br />
+optional function or object with <code>object.toString</code>-capabillity</p></li>
 </ul>
 
-<p><strong>Returns an Array</strong></p></div></div><div class="code"><div class="wrapper">  <span class="nv">Notator.resolve = Notator.r = </span><span class="nf">(pattern, action) -&gt;</span>
+<p><strong>Returns an <em><a href="https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Array">Array</a></em></strong></p>
+
+<p><br/><br/></p></div></div><div class="code"><div class="wrapper">  <span class="nv">Notator.resolve = Notator.r = </span><span class="nf">(pattern, action) -&gt;</span>
       <span class="k">if</span> <span class="nx">pattern</span><span class="p">.</span><span class="nx">source</span><span class="o">?</span>
           <span class="nv">pattern = </span><span class="nx">pattern</span><span class="p">.</span><span class="nx">source</span>
       <span class="k">return</span> <span class="p">[</span><span class="nx">pattern</span><span class="p">,</span> <span class="s">&#39;return;&#39;</span><span class="p">]</span> <span class="k">unless</span> <span class="nx">action</span>
       <span class="nv">action = </span><span class="k">if</span> <span class="nv">match = </span><span class="nx">unwrap</span><span class="p">.</span><span class="nx">exec</span> <span class="nx">action</span> <span class="k">then</span> <span class="nx">match</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">else</span> <span class="nx">wrap</span> <span class="nx">action</span>
-      <span class="p">[</span><span class="nx">pattern</span><span class="p">,</span> <span class="s">&quot;return </span><span class="si">#{</span><span class="nx">action</span><span class="si">}</span><span class="s">;&quot;</span><span class="p">]</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'> refers to <a href="http://zaach.github.io/jison/docs/#lexical-analysis">http://zaach.github.io/jison/docs/#lexical-analysis</a> and refers to <a href="http://dinosaur.compilertools.net/flex/flex_11.html">http://dinosaur.compilertools.net/flex/flex_11.html</a></span></p>
-
-<p>#
+      <span class="p">[</span><span class="nx">pattern</span><span class="p">,</span> <span class="s">&quot;return </span><span class="si">#{</span><span class="nx">action</span><span class="si">}</span><span class="s">;&quot;</span><span class="p">]</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p>#
 Resolve and return an operation value with start conditions, eg. to declare
 lexer tokens for sub-languages like regular expressions in javascript.</p>
 
-<p>Parameters:</p>
+<p><strong>Parameters:</strong></p>
 
 <ul>
-<li><p><strong>condition must be an Array.</strong><br/>(suitable for jison's regexp-parser)</p></li>
-<li><p><strong>pattern must be a String.</strong><br/>(suitable for jison's regexp-parser)</p></li>
-<li><p><strong>action can be a Function or a mixed.</strong><br/>(optional function or object with <code>object.toString</code>-capabillity)</p></li>
+<li><p><strong><em>condition</em> must be an <em><a href="https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Array">Array</a></em></strong> <br />
+suitable for jison's regexp-parser</p></li>
+<li><p><strong><em>pattern</em> must be a <em><a href="https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/String">String</a></em></strong> <br />
+suitable for jison's regexp-parser</p></li>
+<li><p><strong><em>action</em> can be a <em><a href="https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Function">Function</a></em> or a <em>mixed</em></strong> <br />
+optional function or object with <code>object.toString</code>-capabillity</p></li>
 </ul>
 
-<p><strong>Returns an Array</strong></p></div></div><div class="code"><div class="wrapper">  <span class="nv">Notator.conditional = Notator.c = </span><span class="nf">(conditions, pattern, action) -&gt;</span>
+<p><strong>Returns an <em><a href="https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Array">Array</a></em></strong></p>
+
+<p>References:</p>
+
+<ul>
+<li><p><a href="http://zaach.github.io/jison/docs/#lexical-analysis">http://zaach.github.io/jison/docs/#lexical-analysis</a></p></li>
+<li><p><a href="http://dinosaur.compilertools.net/flex/flex_11.html">http://dinosaur.compilertools.net/flex/flex_11.html</a></p></li>
+</ul>
+
+<p><br/><br/></p></div></div><div class="code"><div class="wrapper">  <span class="nv">Notator.conditional = Notator.c = </span><span class="nf">(conditions, pattern, action) -&gt;</span>
     <span class="p">[</span><span class="nx">conditions</span><span class="p">].</span><span class="nx">concat</span> <span class="nx">Notator</span><span class="p">.</span><span class="nx">resolve</span> <span class="nx">pattern</span><span class="p">,</span> <span class="nx">action</span></div></div></div></div></body></html>

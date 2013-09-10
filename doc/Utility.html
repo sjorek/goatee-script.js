@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><title>Utility</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content=""><meta name="groc-document-path" content="Utility"><meta name="groc-project-path" content="src/Utility.coffee"><link rel="stylesheet" type="text/css" media="all" href="assets/style.css"><script type="text/javascript" src="assets/behavior.js"></script><body><div id="meta"><div class="file-path">src/Utility.coffee</div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><p>© Copyright 2013 Stephan Jorek <a href="&#109;&#x61;i&#x6c;&#116;&#x6f;:&#115;&#116;&#101;&#112;&#x68;a&#110;.&#x6a;&#x6f;&#114;&#101;k&#64;g&#109;&#97;&#105;&#x6c;&#46;&#99;&#x6f;&#109;">&#115;&#116;&#101;&#112;&#x68;a&#110;.&#x6a;&#x6f;&#114;&#101;k&#64;g&#109;&#97;&#105;&#x6c;&#46;&#99;&#x6f;&#109;</a>  </p>
+<!DOCTYPE html><html lang="en"><head><title>Utility</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content=""><meta name="groc-document-path" content="Utility"><meta name="groc-project-path" content="src/Utility.coffee"><link rel="stylesheet" type="text/css" media="all" href="assets/style.css"><script type="text/javascript" src="assets/behavior.js"></script><body><div id="meta"><div class="file-path">src/Utility.coffee</div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><p>© Copyright 2013 Stephan Jorek <a href="&#109;&#x61;&#105;&#108;&#x74;&#x6f;:&#115;&#x74;e&#x70;h&#97;&#110;&#46;&#x6a;&#111;&#x72;&#x65;&#107;&#x40;&#103;&#109;&#x61;&#105;&#x6c;&#x2e;&#99;&#111;&#109;">&#115;&#x74;e&#x70;h&#97;&#110;&#46;&#x6a;&#111;&#x72;&#x65;&#107;&#x40;&#103;&#109;&#x61;&#105;&#x6c;&#x2e;&#99;&#111;&#109;</a>  </p>
 
 <p>Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -10,9 +10,11 @@ You may obtain a copy of the License at</p>
 distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
 implied. See the License for the specific language governing
-permissions and limitations under the License.</p></div></div><div class="code"><div class="wrapper"><span class="nv">exports = </span><span class="nx">module</span><span class="o">?</span><span class="p">.</span><span class="nx">exports</span> <span class="o">?</span> <span class="k">this</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'>Class is in namespace <em>GoateeScript</em></span></p>
+permissions and limitations under the License.</p></div></div><div class="code"><div class="wrapper"><span class="nv">exports = </span><span class="nx">module</span><span class="o">?</span><span class="p">.</span><span class="nx">exports</span> <span class="o">?</span> <span class="k">this</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'>Class  is in namespace <em>GoateeScript</em></span></p>
 
-<p>#</p></div></div><div class="code"><div class="wrapper"><span class="nv">exports.Utility = </span><span class="k">class</span> <span class="nx">Utility</span>
+<p>#</p>
+
+<p><br/><br/></p></div></div><div class="code"><div class="wrapper"><span class="nv">exports.Utility = </span><span class="k">class</span> <span class="nx">Utility</span>
 
   <span class="nv">_parser = </span><span class="kc">null</span>
 
@@ -30,45 +32,72 @@ This is still needed by Safari.</p></div></div><div class="code"><div class="wra
         <span class="k">if</span> <span class="nx">args</span><span class="p">.</span><span class="nx">length</span> <span class="o">is</span> <span class="mi">0</span>
           <span class="nf">-&gt;</span> <span class="nx">fn</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">context</span><span class="p">)</span>
         <span class="k">else</span>
-          <span class="nf">-&gt;</span> <span class="nx">fn</span><span class="p">.</span><span class="nx">apply</span> <span class="nx">context</span><span class="p">,</span> <span class="nx">args</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'></span></p>
-
-<p>#
+          <span class="nf">-&gt;</span> <span class="nx">fn</span><span class="p">.</span><span class="nx">apply</span> <span class="nx">context</span><span class="p">,</span> <span class="nx">args</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p>#
 Finds a slice of an array.</p>
 
-<p>Parameters:</p>
+<p><strong>Parameters:</strong></p>
 
 <ul>
-<li><p><strong>array must be an Array.</strong><br/>(Array to be sliced.)</p></li>
-<li><p><strong>start must be a Number.</strong><br/>(The start of the slice.)</p></li>
-<li><p><strong>end must be a Number.</strong><br/>(The end of the slice (optional).)</p></li>
+<li><p><strong><em>array</em> must be an <em><a href="https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Array">Array</a></em></strong> <br />
+Array to be sliced.</p></li>
+<li><p><strong><em>start</em> must be a <em><a href="https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Number">Number</a></em></strong> <br />
+The start of the slice.</p></li>
+<li><p><strong><em>end</em> must be a <em><a href="https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Number">Number</a></em></strong> <br />
+The end of the slice (optional).</p></li>
 </ul>
 
-<p><strong>Returns an Array</strong><br/>(array The slice of the array from start to end.)</p></div></div><div class="code"><div class="wrapper">  <span class="nv">Utility.arraySlice = </span><span class="nf">(array, start, end) -&gt;</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Use
+<p><strong>Returns an <em><a href="https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Array">Array</a></em></strong><br/>array The slice of the array from start to end.<br/></p>
+
+<p><br/><br/></p></div></div><div class="code"><div class="wrapper">  <span class="nv">Utility.arraySlice = </span><span class="nf">(array, start, end) -&gt;</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Use
   return Function.prototype.call.apply(Array.prototype.slice, arguments);
 instead of the simpler
   return Array.prototype.slice.call(array, start, opt_end);
 here because of a bug in the FF and IE implementations of
 Array.prototype.slice which causes this function to return an empty list
-if end is not provided.</p></div></div><div class="code"><div class="wrapper">    <span class="nx">_call</span><span class="p">.</span><span class="nx">apply</span> <span class="nx">_slice</span><span class="p">,</span> <span class="nx">arguments</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'> refers to <a href="http://coffeescript.org/documentation/docs/underscore.html">http://coffeescript.org/documentation/docs/underscore.html</a></span></p>
+if end is not provided.</p></div></div><div class="code"><div class="wrapper">    <span class="nx">_call</span><span class="p">.</span><span class="nx">apply</span> <span class="nx">_slice</span><span class="p">,</span> <span class="nx">arguments</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p>Modified version using String::substring instead of String::substr</p>
 
-<p>Modified version using String::substring instead of String::substr</p></div></div><div class="code"><div class="wrapper">  <span class="nv">Utility.isString = </span><span class="nf">(obj) -&gt;</span>
-    <span class="o">!!</span><span class="p">(</span><span class="nx">obj</span> <span class="o">is</span> <span class="s">&#39;&#39;</span> <span class="o">or</span> <span class="p">(</span><span class="nx">obj</span> <span class="o">and</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">charCodeAt</span> <span class="o">and</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">substring</span><span class="p">))</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'> refers to <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/isArray">https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/isArray</a></span></p></div></div><div class="code"><div class="wrapper">  <span class="nv">Utility.isArray = </span><span class="k">if</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">isArray</span><span class="o">?</span> <span class="o">and</span> <span class="kc">false</span> <span class="k">then</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">isArray</span> <span class="k">else</span> <span class="nf">(obj) -&gt;</span>
-    <span class="nx">_toString</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">obj</span><span class="p">)</span> <span class="o">is</span> <span class="s">&#39;[object Array]&#39;</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'> refers to <a href="http://coffeescript.org/documentation/docs/underscore.html">http://coffeescript.org/documentation/docs/underscore.html</a></span></p></div></div><div class="code"><div class="wrapper">  <span class="nv">Utility.isNumber = </span><span class="nf">(obj) -&gt;</span>
-    <span class="p">(</span><span class="nx">obj</span> <span class="o">is</span> <span class="o">+</span><span class="nx">obj</span><span class="p">)</span> <span class="o">or</span> <span class="nx">_toString</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">obj</span><span class="p">)</span> <span class="o">is</span> <span class="s">&#39;[object Number]&#39;</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'> refers to <a href="http://coffeescript.org/documentation/docs/underscore.html">http://coffeescript.org/documentation/docs/underscore.html</a></span></p></div></div><div class="code"><div class="wrapper">  <span class="nv">Utility.isFunction = _isFunction = </span><span class="nf">(obj) -&gt;</span>
+<p>Reference:</p>
+
+<ul>
+<li><a href="http://coffeescript.org/documentation/docs/underscore.html">http://coffeescript.org/documentation/docs/underscore.html</a></li>
+</ul>
+
+<p><br/><br/></p></div></div><div class="code"><div class="wrapper">  <span class="nv">Utility.isString = </span><span class="nf">(obj) -&gt;</span>
+    <span class="o">!!</span><span class="p">(</span><span class="nx">obj</span> <span class="o">is</span> <span class="s">&#39;&#39;</span> <span class="o">or</span> <span class="p">(</span><span class="nx">obj</span> <span class="o">and</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">charCodeAt</span> <span class="o">and</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">substring</span><span class="p">))</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p>Reference:</p>
+
+<ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/isArray">https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/isArray</a></li>
+</ul>
+
+<p><br/><br/></p></div></div><div class="code"><div class="wrapper">  <span class="nv">Utility.isArray = </span><span class="k">if</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">isArray</span><span class="o">?</span> <span class="o">and</span> <span class="kc">false</span> <span class="k">then</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">isArray</span> <span class="k">else</span> <span class="nf">(obj) -&gt;</span>
+    <span class="nx">_toString</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">obj</span><span class="p">)</span> <span class="o">is</span> <span class="s">&#39;[object Array]&#39;</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p>Reference:</p>
+
+<ul>
+<li><a href="http://coffeescript.org/documentation/docs/underscore.html">http://coffeescript.org/documentation/docs/underscore.html</a></li>
+</ul>
+
+<p><br/><br/></p></div></div><div class="code"><div class="wrapper">  <span class="nv">Utility.isNumber = </span><span class="nf">(obj) -&gt;</span>
+    <span class="p">(</span><span class="nx">obj</span> <span class="o">is</span> <span class="o">+</span><span class="nx">obj</span><span class="p">)</span> <span class="o">or</span> <span class="nx">_toString</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">obj</span><span class="p">)</span> <span class="o">is</span> <span class="s">&#39;[object Number]&#39;</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p>Reference:</p>
+
+<ul>
+<li><a href="http://coffeescript.org/documentation/docs/underscore.html">http://coffeescript.org/documentation/docs/underscore.html</a></li>
+</ul>
+
+<p><br/><br/></p></div></div><div class="code"><div class="wrapper">  <span class="nv">Utility.isFunction = _isFunction = </span><span class="nf">(obj) -&gt;</span>
     <span class="o">!!</span><span class="p">(</span><span class="nx">obj</span> <span class="o">and</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">constructor</span> <span class="o">and</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">call</span> <span class="o">and</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">apply</span><span class="p">)</span>
 
   <span class="nv">Utility.isExpression = </span><span class="nf">(obj) -&gt;</span>
-    <span class="nx">_isFunction</span> <span class="nx">obj</span><span class="o">?</span><span class="p">.</span><span class="nx">evaluate</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'></span></p>
+    <span class="nx">_isFunction</span> <span class="nx">obj</span><span class="o">?</span><span class="p">.</span><span class="nx">evaluate</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p>#</p>
 
-<p>#</p>
-
-<p>Parameters:</p>
+<p><strong>Parameter:</strong></p>
 
 <ul>
-<li><strong>code must be a String.</strong></li>
+<li><strong><em>code</em> must be a <em><a href="https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/String">String</a></em></strong></li>
 </ul>
 
-<p><strong>Returns an Expression</strong></p></div></div><div class="code"><div class="wrapper">  <span class="nv">Utility.parse = </span><span class="o">\</span>
+<p><strong>Returns an <em>Expression</em></strong></p>
+
+<p><br/><br/></p></div></div><div class="code"><div class="wrapper">  <span class="nv">Utility.parse = </span><span class="o">\</span>
   <span class="nv">Utility.parseScript = </span><span class="nx">do</span> <span class="nf">-&gt;</span>
     <span class="nv">cache  = </span><span class="p">{}</span>
     <span class="nf">(code) -&gt;</span>

@@ -108,6 +108,539 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
           "singleLineComment": ["#"],
           "ignorePrefix": "!",
           "foldPrefix": "~",
+          "doctags": {
+            "description": {
+              "section": "description",
+              "markdown": "{value}"
+            },
+            "abstract": {
+              "section": "access"
+            },
+            "constant": {
+              "section": "access"
+            },
+            "deprecated": {
+              "section": "access"
+            },
+            "internal": {
+              "section": "access"
+            },
+            "private": {
+              "section": "access"
+            },
+            "protected": {
+              "section": "access"
+            },
+            "public": {
+              "valuePrefix": "as",
+              "section": "access"
+            },
+            "static": {
+              "section": "access"
+            },
+            "constructor": {
+              "section": "special"
+            },
+            "destructor": {
+              "section": "special"
+            },
+            "class": {
+              "section": "type",
+              "markdown": "class *{type}*"
+            },
+            "event": {
+              "section": "type"
+            },
+            "method": {
+              "section": "type",
+              "markdown": "method *{type}*"
+            },
+            "mixin": {
+              "section": "type",
+              "markdown": "mixin *{type}*"
+            },
+            "module": {
+              "section": "type",
+              "markdown": "module *{type}*"
+            },
+            "package": {
+              "section": "type",
+              "markdown": "package *{type}*"
+            },
+            "property": {
+              "section": "type",
+              "markdown": "property *{type}*"
+            },
+            "accessor": {
+              "section": "flag",
+              "markdown": "is an accessor"
+            },
+            "async": {
+              "section": "flag",
+              "markdown": "is asynchronous"
+            },
+            "asynchronous": "async",
+            "getter": {
+              "section": "flag",
+              "markdown": "is a getter"
+            },
+            "recursive": {
+              "section": "flag",
+              "markdown": "is recursive"
+            },
+            "refactor": {
+              "section": "flag",
+              "markdown": "needs to be refactored"
+            },
+            "setter": {
+              "section": "flag",
+              "markdown": "is a setter"
+            },
+            "alias": {
+              "valuePrefix": "as",
+              "section": "metadata",
+              "markdown": "is aliased as *{type}*"
+            },
+            "augments": {
+              "section": "metadata",
+              "markdown": "extends *{type}*"
+            },
+            "extends": {
+              "section": "metadata",
+              "markdown": "extends *{type}*"
+            },
+            "fires": {
+              "section": "metadata"
+            },
+            "memberof": {
+              "section": "metadata",
+              "markdown": "is a member of *{type}*"
+            },
+            "mixes": {
+              "section": "metadata",
+              "markdown": "mixes *{type}* in"
+            },
+            "namespace": {
+              "section": "metadata",
+              "markdown": "is in namespace *{value}*"
+            },
+            "publishes": {
+              "section": "metadata"
+            },
+            "requests": {
+              "section": "metadata",
+              "markdown": "makes an ajax request to <{value}>"
+            },
+            "since": {
+              "section": "metadata",
+              "markdown": "is available since version {value}"
+            },
+            "subscribes": {
+              "valuePrefix": "to",
+              "section": "metadata",
+              "markdown": "subscribes to {type}"
+            },
+            "type": {
+              "section": "metadata"
+            },
+            "version": {
+              "section": "metadata",
+              "markdown": "has version {value}"
+            },
+            "author": {
+              "section": "authors"
+            },
+            "see": {
+              "section": "references"
+            },
+            "todo": {
+              "section": "todo",
+              "markdown": "TODO: {value}"
+            },
+            "example": {
+              "section": "example",
+              "markdown": "{value}"
+            },
+            "examples": "example",
+            "usage": "example",
+            "howto": {
+              "section": "howto",
+              "markdown": "{value}"
+            },
+            "note": {
+              "section": "discard"
+            },
+            "notes": "note",
+            "param": {
+              "section": "params"
+            },
+            "params": "param",
+            "parameters": "param",
+            "return": {
+              "section": "returns"
+            },
+            "returns": "return",
+            "throw": {
+              "section": "throws"
+            },
+            "throws": "throw",
+            "defaultNoValue": {
+              "section": "flag"
+            },
+            "defaultHasValue": {
+              "section": "metadata"
+            }
+          },
+          "namespace": {
+            "separator": ".",
+            "types": [
+              {
+                "goatee.Script.": ["http://sjorek.github.io/goatee-script/", "goatee."],
+                "goatee.Rules.": ["http://sjorek.github.io/goatee-rules/", "goatee."],
+                "goatee.": ["http://sjorek.github.io/goatee-js/", "goatee."]
+              }, {
+                "Array": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Array",
+                "ArrayBuffer": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/ArrayBuffer",
+                "Boolean": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Boolean",
+                "Collator": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Collator",
+                "DataView": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/DataView",
+                "Date": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Date",
+                "DateTimeFormat": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/DateTimeFormat",
+                "Error": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Error",
+                "EvalError": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/EvalError",
+                "Float32Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Float32Array",
+                "Float64Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Float64Array",
+                "Function": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Function",
+                "Infinity": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Infinity",
+                "Int8Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Int8Array",
+                "Int16Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Int16Array",
+                "Int32Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Int32Array",
+                "InternalError": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/InternalError",
+                "Intl": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Intl",
+                "Intl.Collator": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Collator",
+                "Intl.DateTimeFormat": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/DateTimeFormat",
+                "Intl.NumberFormat": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/NumberFormat",
+                "Iterator": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Iterator",
+                "JSON": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/JSON",
+                "Math": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Math",
+                "NaN": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/NaN",
+                "Number": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Number",
+                "NumberFormat": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/NumberFormat",
+                "Object": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Object",
+                "ParallelArray": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/ParallelArray",
+                "Proxy": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Proxy",
+                "RangeError": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/RangeError",
+                "ReferenceError": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/ReferenceError",
+                "RegExp": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/RegExp",
+                "StopIteration": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/StopIteration",
+                "String": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/String",
+                "SyntaxError": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/SyntaxError",
+                "TypeError": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/TypeError",
+                "URIError": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/URIError",
+                "Uint8Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Uint8Array",
+                "Uint8ClampedArray": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Uint8ClampedArray",
+                "Uint16Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Uint16Array",
+                "Uint32Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Uint32Array",
+                "null": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/null",
+                "undefined": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/undefined"
+              }, {
+                "Attr": "https://developer.mozilla.org/en/docs/Web/API/Attr",
+                "CDATASection": "https://developer.mozilla.org/en/docs/Web/API/CDATASection",
+                "CanvasGradient": "https://developer.mozilla.org/en/docs/Web/API/CanvasGradient",
+                "CanvasPattern": "https://developer.mozilla.org/en/docs/Web/API/CanvasPattern",
+                "CanvasPixelArray": "https://developer.mozilla.org/en/docs/Web/API/CanvasPixelArray",
+                "CanvasRenderingContext2D": "https://developer.mozilla.org/en/docs/Web/API/CanvasRenderingContext2D",
+                "CharacterData": "https://developer.mozilla.org/en/docs/Web/API/CharacterData",
+                "ChildNode": "https://developer.mozilla.org/en/docs/Web/API/ChildNode",
+                "Comment": "https://developer.mozilla.org/en/docs/Web/API/Comment",
+                "CustomEvent": "https://developer.mozilla.org/en/docs/Web/API/CustomEvent",
+                "DOMConfiguration": "https://developer.mozilla.org/en/docs/Web/API/DOMConfiguration",
+                "DOMError": "https://developer.mozilla.org/en/docs/Web/API/DOMError",
+                "DOMErrorHandler": "https://developer.mozilla.org/en/docs/Web/API/DOMErrorHandler",
+                "DOMException": "https://developer.mozilla.org/en/docs/Web/API/DOMException",
+                "DOMImplementation": "https://developer.mozilla.org/en/docs/Web/API/DOMImplementation",
+                "DOMImplementationList": "https://developer.mozilla.org/en/docs/Web/API/DOMImplementationList",
+                "DOMImplementationRegistry": "https://developer.mozilla.org/en/docs/Web/API/DOMImplementationRegistry",
+                "DOMImplementationSource": "https://developer.mozilla.org/en/docs/Web/API/DOMImplementationSource",
+                "DOMLocator": "https://developer.mozilla.org/en/docs/Web/API/DOMLocator",
+                "DOMObject": "https://developer.mozilla.org/en/docs/Web/API/DOMObject",
+                "DOMSettableTokenList": "https://developer.mozilla.org/en/docs/Web/API/DOMSettableTokenList",
+                "DOMString": "https://developer.mozilla.org/en/docs/Web/API/DOMString",
+                "DOMStringList": "https://developer.mozilla.org/en/docs/Web/API/DOMStringList",
+                "DOMStringMap": "https://developer.mozilla.org/en/docs/Web/API/DOMStringMap",
+                "DOMTimeStamp": "https://developer.mozilla.org/en/docs/Web/API/DOMTimeStamp",
+                "DOMTokenList": "https://developer.mozilla.org/en/docs/Web/API/DOMTokenList",
+                "DOMUserData": "https://developer.mozilla.org/en/docs/Web/API/DOMUserData",
+                "Document": "https://developer.mozilla.org/en/docs/Web/API/Document",
+                "DocumentFragment": "https://developer.mozilla.org/en/docs/Web/API/DocumentFragment",
+                "DocumentType": "https://developer.mozilla.org/en/docs/Web/API/DocumentType",
+                "Element": "https://developer.mozilla.org/en/docs/Web/API/Element",
+                "ElementTimeControl": "https://developer.mozilla.org/en/docs/Web/API/ElementTimeControl",
+                "Entity": "https://developer.mozilla.org/en/docs/Web/API/Entity",
+                "EntityReference": "https://developer.mozilla.org/en/docs/Web/API/EntityReference",
+                "Event": "https://developer.mozilla.org/en/docs/Web/API/Event",
+                "EventTarget": "https://developer.mozilla.org/en/docs/Web/API/EventTarget",
+                "HTMLAllCollection": "https://developer.mozilla.org/en/docs/Web/API/HTMLAllCollection",
+                "HTMLAnchorElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLAnchorElement",
+                "HTMLAppletElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLAppletElement",
+                "HTMLAreaElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLAreaElement",
+                "HTMLAudioElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLAudioElement",
+                "HTMLBRElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLBRElement",
+                "HTMLBaseElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLBaseElement",
+                "HTMLBaseFontElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLBaseFontElement",
+                "HTMLBodyElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLBodyElement",
+                "HTMLButtonElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLButtonElement",
+                "HTMLCanvasElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLCanvasElement",
+                "HTMLCollection": "https://developer.mozilla.org/en/docs/Web/API/HTMLCollection",
+                "HTMLDListElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLDListElement",
+                "HTMLDataElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLDataElement",
+                "HTMLDataListElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLDataListElement",
+                "HTMLDirectoryElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLDirectoryElement",
+                "HTMLDivElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLDivElement",
+                "HTMLElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLElement",
+                "HTMLEmbedElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLEmbedElement",
+                "HTMLFieldSetElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLFieldSetElement",
+                "HTMLFontElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLFontElement",
+                "HTMLFormControlsCollection": "https://developer.mozilla.org/en/docs/Web/API/HTMLFormControlsCollection",
+                "HTMLFormElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLFormElement",
+                "HTMLFrameElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLFrameElement",
+                "HTMLFrameSetElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLFrameSetElement",
+                "HTMLHRElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLHRElement",
+                "HTMLHeadElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLHeadElement",
+                "HTMLHeadingElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLHeadingElement",
+                "HTMLHtmlElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLHtmlElement",
+                "HTMLIFrameElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLIFrameElement",
+                "HTMLImageElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLImageElement",
+                "HTMLInputElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLInputElement",
+                "HTMLIsIndexElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLIsIndexElement",
+                "HTMLKeygenElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLKeygenElement",
+                "HTMLLIElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLLIElement",
+                "HTMLLabelElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLLabelElement",
+                "HTMLLegendElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLLegendElement",
+                "HTMLLinkElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLLinkElement",
+                "HTMLMapElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLMapElement",
+                "HTMLMediaElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLMediaElement",
+                "HTMLMenuElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLMenuElement",
+                "HTMLMetaElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLMetaElement",
+                "HTMLMeterElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLMeterElement",
+                "HTMLModElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLModElement",
+                "HTMLOListElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLOListElement",
+                "HTMLObjectElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLObjectElement",
+                "HTMLOptGroupElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLOptGroupElement",
+                "HTMLOptionElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLOptionElement",
+                "HTMLOptionsCollection": "https://developer.mozilla.org/en/docs/Web/API/HTMLOptionsCollection",
+                "HTMLOutputElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLOutputElement",
+                "HTMLParagraphElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLParagraphElement",
+                "HTMLParamElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLParamElement",
+                "HTMLPreElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLPreElement",
+                "HTMLProgressElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLProgressElement",
+                "HTMLPropertiesCollection": "https://developer.mozilla.org/en/docs/Web/API/HTMLPropertiesCollection",
+                "HTMLQuoteElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLQuoteElement",
+                "HTMLScriptElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLScriptElement",
+                "HTMLSelectElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLSelectElement",
+                "HTMLSourceElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLSourceElement",
+                "HTMLSpanElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLSpanElement",
+                "HTMLStyleElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLStyleElement",
+                "HTMLTableCaptionElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableCaptionElement",
+                "HTMLTableCellElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableCellElement",
+                "HTMLTableColElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableColElement",
+                "HTMLTableDataCellElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableDataCellElement",
+                "HTMLTableElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableElement",
+                "HTMLTableHeaderCellElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableHeaderCellElement",
+                "HTMLTableRowElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableRowElement",
+                "HTMLTableSectionElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableSectionElement",
+                "HTMLTextAreaElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTextAreaElement",
+                "HTMLTimeElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTimeElement",
+                "HTMLTitleElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTitleElement",
+                "HTMLTrackElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTrackElement",
+                "HTMLUListElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLUListElement",
+                "HTMLUnknownElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLUnknownElement",
+                "HTMLVideoElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLVideoElement",
+                "ImageData": "https://developer.mozilla.org/en/docs/Web/API/ImageData",
+                "MediaError": "https://developer.mozilla.org/en/docs/Web/API/MediaError",
+                "MutationObserver": "https://developer.mozilla.org/en/docs/Web/API/MutationObserver",
+                "MutationRecord": "https://developer.mozilla.org/en/docs/Web/API/MutationRecord",
+                "NameList": "https://developer.mozilla.org/en/docs/Web/API/NameList",
+                "NamedNodeMap": "https://developer.mozilla.org/en/docs/Web/API/NamedNodeMap",
+                "Node": "https://developer.mozilla.org/en/docs/Web/API/Node",
+                "NodeFilter": "https://developer.mozilla.org/en/docs/Web/API/NodeFilter",
+                "NodeIterator": "https://developer.mozilla.org/en/docs/Web/API/NodeIterator",
+                "NodeList": "https://developer.mozilla.org/en/docs/Web/API/NodeList",
+                "Notation": "https://developer.mozilla.org/en/docs/Web/API/Notation",
+                "NotifyAudioAvailableEvent": "https://developer.mozilla.org/en/docs/Web/API/NotifyAudioAvailableEvent",
+                "ParentNode": "https://developer.mozilla.org/en/docs/Web/API/ParentNode",
+                "ProcessingInstruction": "https://developer.mozilla.org/en/docs/Web/API/ProcessingInstruction",
+                "Promise": "https://developer.mozilla.org/en/docs/Web/API/Promise",
+                "PromiseResolver": "https://developer.mozilla.org/en/docs/Web/API/PromiseResolver",
+                "RadioNodeList": "https://developer.mozilla.org/en/docs/Web/API/RadioNodeList",
+                "Range": "https://developer.mozilla.org/en/docs/Web/API/Range",
+                "SVGAElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAElement",
+                "SVGAltGlyphDefElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAltGlyphDefElement",
+                "SVGAltGlyphElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAltGlyphElement",
+                "SVGAltGlyphItemElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAltGlyphItemElement",
+                "SVGAngle": "https://developer.mozilla.org/en/docs/Web/API/SVGAngle",
+                "SVGAnimateColorElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimateColorElement",
+                "SVGAnimateElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimateElement",
+                "SVGAnimateMotionElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimateMotionElement",
+                "SVGAnimateTransformElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimateTransformElement",
+                "SVGAnimatedAngle": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedAngle",
+                "SVGAnimatedBoolean": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedBoolean",
+                "SVGAnimatedEnumeration": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedEnumeration",
+                "SVGAnimatedInteger": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedInteger",
+                "SVGAnimatedLength": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedLength",
+                "SVGAnimatedLengthList": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedLengthList",
+                "SVGAnimatedNumber": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedNumber",
+                "SVGAnimatedNumberList": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedNumberList",
+                "SVGAnimatedPathData": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedPathData",
+                "SVGAnimatedPoints": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedPoints",
+                "SVGAnimatedPreserveAspectRatio": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedPreserveAspectRatio",
+                "SVGAnimatedRect": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedRect",
+                "SVGAnimatedString": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedString",
+                "SVGAnimatedTransformList": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedTransformList",
+                "SVGAnimationElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimationElement",
+                "SVGCSSRule": "https://developer.mozilla.org/en/docs/Web/API/SVGCSSRule",
+                "SVGCircleElement": "https://developer.mozilla.org/en/docs/Web/API/SVGCircleElement",
+                "SVGClipPathElement": "https://developer.mozilla.org/en/docs/Web/API/SVGClipPathElement",
+                "SVGColor": "https://developer.mozilla.org/en/docs/Web/API/SVGColor",
+                "SVGColorProfileElement": "https://developer.mozilla.org/en/docs/Web/API/SVGColorProfileElement",
+                "SVGColorProfileRule": "https://developer.mozilla.org/en/docs/Web/API/SVGColorProfileRule",
+                "SVGComponentTransferFunctionElement": "https://developer.mozilla.org/en/docs/Web/API/SVGComponentTransferFunctionElement",
+                "SVGCursorElement": "https://developer.mozilla.org/en/docs/Web/API/SVGCursorElement",
+                "SVGDefsElement": "https://developer.mozilla.org/en/docs/Web/API/SVGDefsElement",
+                "SVGDescElement": "https://developer.mozilla.org/en/docs/Web/API/SVGDescElement",
+                "SVGElement": "https://developer.mozilla.org/en/docs/Web/API/SVGElement",
+                "SVGElementInstance": "https://developer.mozilla.org/en/docs/Web/API/SVGElementInstance",
+                "SVGElementInstanceList": "https://developer.mozilla.org/en/docs/Web/API/SVGElementInstanceList",
+                "SVGEllipseElement": "https://developer.mozilla.org/en/docs/Web/API/SVGEllipseElement",
+                "SVGExternalResourcesRequired": "https://developer.mozilla.org/en/docs/Web/API/SVGExternalResourcesRequired",
+                "SVGFEBlendElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEBlendElement",
+                "SVGFEColorMatrixElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEColorMatrixElement",
+                "SVGFEComponentTransferElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEComponentTransferElement",
+                "SVGFECompositeElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFECompositeElement",
+                "SVGFEConvolveMatrixElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEConvolveMatrixElement",
+                "SVGFEDiffuseLightingElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEDiffuseLightingElement",
+                "SVGFEDisplacementMapElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEDisplacementMapElement",
+                "SVGFEDistantLightElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEDistantLightElement",
+                "SVGFEFloodElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEFloodElement",
+                "SVGFEFuncAElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEFuncAElement",
+                "SVGFEFuncBElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEFuncBElement",
+                "SVGFEFuncGElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEFuncGElement",
+                "SVGFEFuncRElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEFuncRElement",
+                "SVGFEGaussianBlurElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEGaussianBlurElement",
+                "SVGFEImageElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEImageElement",
+                "SVGFEMergeElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEMergeElement",
+                "SVGFEMergeNodeElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEMergeNodeElement",
+                "SVGFEMorphologyElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEMorphologyElement",
+                "SVGFEOffsetElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEOffsetElement",
+                "SVGFEPointLightElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEPointLightElement",
+                "SVGFESpecularLightingElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFESpecularLightingElement",
+                "SVGFESpotLightElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFESpotLightElement",
+                "SVGFETileElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFETileElement",
+                "SVGFETurbulenceElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFETurbulenceElement",
+                "SVGFilterElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFilterElement",
+                "SVGFilterPrimitiveStandardAttributes": "https://developer.mozilla.org/en/docs/Web/API/SVGFilterPrimitiveStandardAttributes",
+                "SVGFitToViewBox": "https://developer.mozilla.org/en/docs/Web/API/SVGFitToViewBox",
+                "SVGFontElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFontElement",
+                "SVGFontFaceElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFontFaceElement",
+                "SVGFontFaceFormatElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFontFaceFormatElement",
+                "SVGFontFaceNameElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFontFaceNameElement",
+                "SVGFontFaceSrcElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFontFaceSrcElement",
+                "SVGFontFaceUriElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFontFaceUriElement",
+                "SVGForeignObjectElement": "https://developer.mozilla.org/en/docs/Web/API/SVGForeignObjectElement",
+                "SVGGElement": "https://developer.mozilla.org/en/docs/Web/API/SVGGElement",
+                "SVGGlyphElement": "https://developer.mozilla.org/en/docs/Web/API/SVGGlyphElement",
+                "SVGGlyphRefElement": "https://developer.mozilla.org/en/docs/Web/API/SVGGlyphRefElement",
+                "SVGGradientElement": "https://developer.mozilla.org/en/docs/Web/API/SVGGradientElement",
+                "SVGHKernElement": "https://developer.mozilla.org/en/docs/Web/API/SVGHKernElement",
+                "SVGICCColor": "https://developer.mozilla.org/en/docs/Web/API/SVGICCColor",
+                "SVGImageElement": "https://developer.mozilla.org/en/docs/Web/API/SVGImageElement",
+                "SVGLangSpace": "https://developer.mozilla.org/en/docs/Web/API/SVGLangSpace",
+                "SVGLength": "https://developer.mozilla.org/en/docs/Web/API/SVGLength",
+                "SVGLengthList": "https://developer.mozilla.org/en/docs/Web/API/SVGLengthList",
+                "SVGLineElement": "https://developer.mozilla.org/en/docs/Web/API/SVGLineElement",
+                "SVGLinearGradientElement": "https://developer.mozilla.org/en/docs/Web/API/SVGLinearGradientElement",
+                "SVGLocatable": "https://developer.mozilla.org/en/docs/Web/API/SVGLocatable",
+                "SVGMPathElement": "https://developer.mozilla.org/en/docs/Web/API/SVGMPathElement",
+                "SVGMarkerElement": "https://developer.mozilla.org/en/docs/Web/API/SVGMarkerElement",
+                "SVGMaskElement": "https://developer.mozilla.org/en/docs/Web/API/SVGMaskElement",
+                "SVGMatrix": "https://developer.mozilla.org/en/docs/Web/API/SVGMatrix",
+                "SVGMetadataElement": "https://developer.mozilla.org/en/docs/Web/API/SVGMetadataElement",
+                "SVGMissingGlyphElement": "https://developer.mozilla.org/en/docs/Web/API/SVGMissingGlyphElement",
+                "SVGNumber": "https://developer.mozilla.org/en/docs/Web/API/SVGNumber",
+                "SVGNumberList": "https://developer.mozilla.org/en/docs/Web/API/SVGNumberList",
+                "SVGPaint": "https://developer.mozilla.org/en/docs/Web/API/SVGPaint",
+                "SVGPathElement": "https://developer.mozilla.org/en/docs/Web/API/SVGPathElement",
+                "SVGPathSeg": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSeg",
+                "SVGPathSegArcAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegArcAbs",
+                "SVGPathSegArcRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegArcRel",
+                "SVGPathSegClosePath": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegClosePath",
+                "SVGPathSegCurvetoCubicAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoCubicAbs",
+                "SVGPathSegCurvetoCubicRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoCubicRel",
+                "SVGPathSegCurvetoCubicSmoothAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoCubicSmoothAbs",
+                "SVGPathSegCurvetoCubicSmoothRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoCubicSmoothRel",
+                "SVGPathSegCurvetoQuadraticAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoQuadraticAbs",
+                "SVGPathSegCurvetoQuadraticRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoQuadraticRel",
+                "SVGPathSegCurvetoQuadraticSmoothAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoQuadraticSmoothAbs",
+                "SVGPathSegCurvetoQuadraticSmoothRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoQuadraticSmoothRel",
+                "SVGPathSegLinetoAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegLinetoAbs",
+                "SVGPathSegLinetoHorizontalAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegLinetoHorizontalAbs",
+                "SVGPathSegLinetoHorizontalRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegLinetoHorizontalRel",
+                "SVGPathSegLinetoRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegLinetoRel",
+                "SVGPathSegLinetoVerticalAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegLinetoVerticalAbs",
+                "SVGPathSegLinetoVerticalRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegLinetoVerticalRel",
+                "SVGPathSegList": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegList",
+                "SVGPathSegMovetoAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegMovetoAbs",
+                "SVGPathSegMovetoRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegMovetoRel",
+                "SVGPatternElement": "https://developer.mozilla.org/en/docs/Web/API/SVGPatternElement",
+                "SVGPoint": "https://developer.mozilla.org/en/docs/Web/API/SVGPoint",
+                "SVGPointList": "https://developer.mozilla.org/en/docs/Web/API/SVGPointList",
+                "SVGPolygonElement": "https://developer.mozilla.org/en/docs/Web/API/SVGPolygonElement",
+                "SVGPolylineElement": "https://developer.mozilla.org/en/docs/Web/API/SVGPolylineElement",
+                "SVGPreserveAspectRatio": "https://developer.mozilla.org/en/docs/Web/API/SVGPreserveAspectRatio",
+                "SVGRadialGradientElement": "https://developer.mozilla.org/en/docs/Web/API/SVGRadialGradientElement",
+                "SVGRect": "https://developer.mozilla.org/en/docs/Web/API/SVGRect",
+                "SVGRectElement": "https://developer.mozilla.org/en/docs/Web/API/SVGRectElement",
+                "SVGRenderingIntent": "https://developer.mozilla.org/en/docs/Web/API/SVGRenderingIntent",
+                "SVGSVGElement": "https://developer.mozilla.org/en/docs/Web/API/SVGSVGElement",
+                "SVGScriptElement": "https://developer.mozilla.org/en/docs/Web/API/SVGScriptElement",
+                "SVGSetElement": "https://developer.mozilla.org/en/docs/Web/API/SVGSetElement",
+                "SVGStopElement": "https://developer.mozilla.org/en/docs/Web/API/SVGStopElement",
+                "SVGStringList": "https://developer.mozilla.org/en/docs/Web/API/SVGStringList",
+                "SVGStylable": "https://developer.mozilla.org/en/docs/Web/API/SVGStylable",
+                "SVGStyleElement": "https://developer.mozilla.org/en/docs/Web/API/SVGStyleElement",
+                "SVGSwitchElement": "https://developer.mozilla.org/en/docs/Web/API/SVGSwitchElement",
+                "SVGSymbolElement": "https://developer.mozilla.org/en/docs/Web/API/SVGSymbolElement",
+                "SVGTRefElement": "https://developer.mozilla.org/en/docs/Web/API/SVGTRefElement",
+                "SVGTSpanElement": "https://developer.mozilla.org/en/docs/Web/API/SVGTSpanElement",
+                "SVGTests": "https://developer.mozilla.org/en/docs/Web/API/SVGTests",
+                "SVGTextContentElement": "https://developer.mozilla.org/en/docs/Web/API/SVGTextContentElement",
+                "SVGTextElement": "https://developer.mozilla.org/en/docs/Web/API/SVGTextElement",
+                "SVGTextPathElement": "https://developer.mozilla.org/en/docs/Web/API/SVGTextPathElement",
+                "SVGTextPositioningElement": "https://developer.mozilla.org/en/docs/Web/API/SVGTextPositioningElement",
+                "SVGTitleElement": "https://developer.mozilla.org/en/docs/Web/API/SVGTitleElement",
+                "SVGTransform": "https://developer.mozilla.org/en/docs/Web/API/SVGTransform",
+                "SVGTransformList": "https://developer.mozilla.org/en/docs/Web/API/SVGTransformList",
+                "SVGTransformable": "https://developer.mozilla.org/en/docs/Web/API/SVGTransformable",
+                "SVGURIReference": "https://developer.mozilla.org/en/docs/Web/API/SVGURIReference",
+                "SVGUnitTypes": "https://developer.mozilla.org/en/docs/Web/API/SVGUnitTypes",
+                "SVGUseElement": "https://developer.mozilla.org/en/docs/Web/API/SVGUseElement",
+                "SVGVKernElement": "https://developer.mozilla.org/en/docs/Web/API/SVGVKernElement",
+                "SVGViewElement": "https://developer.mozilla.org/en/docs/Web/API/SVGViewElement",
+                "SVGViewSpec": "https://developer.mozilla.org/en/docs/Web/API/SVGViewSpec",
+                "SVGZoomAndPan": "https://developer.mozilla.org/en/docs/Web/API/SVGZoomAndPan",
+                "Text": "https://developer.mozilla.org/en/docs/Web/API/Text",
+                "TextMetrics": "https://developer.mozilla.org/en/docs/Web/API/TextMetrics",
+                "TimeEvent": "https://developer.mozilla.org/en/docs/Web/API/TimeEvent",
+                "TreeWalker": "https://developer.mozilla.org/en/docs/Web/API/TreeWalker",
+                "TypeInfo": "https://developer.mozilla.org/en/docs/Web/API/TypeInfo",
+                "URL": "https://developer.mozilla.org/en/docs/Web/API/URL",
+                "UserDataHandler": "https://developer.mozilla.org/en/docs/Web/API/UserDataHandler",
+                "Window": "https://developer.mozilla.org/en/docs/Web/API/Window",
+                "Worker": "https://developer.mozilla.org/en/docs/Web/API/Worker",
+                "XMLDocument": "https://developer.mozilla.org/en/docs/Web/API/XMLDocument"
+              }
+            ]
+          },
           "name": "CoffeeScript"
         },
         "sourcePath": "/Users/sjorek/Documents/Projects/Mesch/Workspace (Aptana)/goatee-script/Cakefile",
@@ -128,6 +661,539 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
           "singleLineComment": ["#"],
           "ignorePrefix": "!",
           "foldPrefix": "~",
+          "doctags": {
+            "description": {
+              "section": "description",
+              "markdown": "{value}"
+            },
+            "abstract": {
+              "section": "access"
+            },
+            "constant": {
+              "section": "access"
+            },
+            "deprecated": {
+              "section": "access"
+            },
+            "internal": {
+              "section": "access"
+            },
+            "private": {
+              "section": "access"
+            },
+            "protected": {
+              "section": "access"
+            },
+            "public": {
+              "valuePrefix": "as",
+              "section": "access"
+            },
+            "static": {
+              "section": "access"
+            },
+            "constructor": {
+              "section": "special"
+            },
+            "destructor": {
+              "section": "special"
+            },
+            "class": {
+              "section": "type",
+              "markdown": "class *{type}*"
+            },
+            "event": {
+              "section": "type"
+            },
+            "method": {
+              "section": "type",
+              "markdown": "method *{type}*"
+            },
+            "mixin": {
+              "section": "type",
+              "markdown": "mixin *{type}*"
+            },
+            "module": {
+              "section": "type",
+              "markdown": "module *{type}*"
+            },
+            "package": {
+              "section": "type",
+              "markdown": "package *{type}*"
+            },
+            "property": {
+              "section": "type",
+              "markdown": "property *{type}*"
+            },
+            "accessor": {
+              "section": "flag",
+              "markdown": "is an accessor"
+            },
+            "async": {
+              "section": "flag",
+              "markdown": "is asynchronous"
+            },
+            "asynchronous": "async",
+            "getter": {
+              "section": "flag",
+              "markdown": "is a getter"
+            },
+            "recursive": {
+              "section": "flag",
+              "markdown": "is recursive"
+            },
+            "refactor": {
+              "section": "flag",
+              "markdown": "needs to be refactored"
+            },
+            "setter": {
+              "section": "flag",
+              "markdown": "is a setter"
+            },
+            "alias": {
+              "valuePrefix": "as",
+              "section": "metadata",
+              "markdown": "is aliased as *{type}*"
+            },
+            "augments": {
+              "section": "metadata",
+              "markdown": "extends *{type}*"
+            },
+            "extends": {
+              "section": "metadata",
+              "markdown": "extends *{type}*"
+            },
+            "fires": {
+              "section": "metadata"
+            },
+            "memberof": {
+              "section": "metadata",
+              "markdown": "is a member of *{type}*"
+            },
+            "mixes": {
+              "section": "metadata",
+              "markdown": "mixes *{type}* in"
+            },
+            "namespace": {
+              "section": "metadata",
+              "markdown": "is in namespace *{value}*"
+            },
+            "publishes": {
+              "section": "metadata"
+            },
+            "requests": {
+              "section": "metadata",
+              "markdown": "makes an ajax request to <{value}>"
+            },
+            "since": {
+              "section": "metadata",
+              "markdown": "is available since version {value}"
+            },
+            "subscribes": {
+              "valuePrefix": "to",
+              "section": "metadata",
+              "markdown": "subscribes to {type}"
+            },
+            "type": {
+              "section": "metadata"
+            },
+            "version": {
+              "section": "metadata",
+              "markdown": "has version {value}"
+            },
+            "author": {
+              "section": "authors"
+            },
+            "see": {
+              "section": "references"
+            },
+            "todo": {
+              "section": "todo",
+              "markdown": "TODO: {value}"
+            },
+            "example": {
+              "section": "example",
+              "markdown": "{value}"
+            },
+            "examples": "example",
+            "usage": "example",
+            "howto": {
+              "section": "howto",
+              "markdown": "{value}"
+            },
+            "note": {
+              "section": "discard"
+            },
+            "notes": "note",
+            "param": {
+              "section": "params"
+            },
+            "params": "param",
+            "parameters": "param",
+            "return": {
+              "section": "returns"
+            },
+            "returns": "return",
+            "throw": {
+              "section": "throws"
+            },
+            "throws": "throw",
+            "defaultNoValue": {
+              "section": "flag"
+            },
+            "defaultHasValue": {
+              "section": "metadata"
+            }
+          },
+          "namespace": {
+            "separator": ".",
+            "types": [
+              {
+                "goatee.Script.": ["http://sjorek.github.io/goatee-script/", "goatee."],
+                "goatee.Rules.": ["http://sjorek.github.io/goatee-rules/", "goatee."],
+                "goatee.": ["http://sjorek.github.io/goatee-js/", "goatee."]
+              }, {
+                "Array": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Array",
+                "ArrayBuffer": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/ArrayBuffer",
+                "Boolean": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Boolean",
+                "Collator": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Collator",
+                "DataView": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/DataView",
+                "Date": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Date",
+                "DateTimeFormat": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/DateTimeFormat",
+                "Error": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Error",
+                "EvalError": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/EvalError",
+                "Float32Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Float32Array",
+                "Float64Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Float64Array",
+                "Function": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Function",
+                "Infinity": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Infinity",
+                "Int8Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Int8Array",
+                "Int16Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Int16Array",
+                "Int32Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Int32Array",
+                "InternalError": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/InternalError",
+                "Intl": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Intl",
+                "Intl.Collator": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Collator",
+                "Intl.DateTimeFormat": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/DateTimeFormat",
+                "Intl.NumberFormat": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/NumberFormat",
+                "Iterator": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Iterator",
+                "JSON": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/JSON",
+                "Math": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Math",
+                "NaN": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/NaN",
+                "Number": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Number",
+                "NumberFormat": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/NumberFormat",
+                "Object": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Object",
+                "ParallelArray": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/ParallelArray",
+                "Proxy": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Proxy",
+                "RangeError": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/RangeError",
+                "ReferenceError": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/ReferenceError",
+                "RegExp": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/RegExp",
+                "StopIteration": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/StopIteration",
+                "String": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/String",
+                "SyntaxError": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/SyntaxError",
+                "TypeError": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/TypeError",
+                "URIError": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/URIError",
+                "Uint8Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Uint8Array",
+                "Uint8ClampedArray": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Uint8ClampedArray",
+                "Uint16Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Uint16Array",
+                "Uint32Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Uint32Array",
+                "null": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/null",
+                "undefined": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/undefined"
+              }, {
+                "Attr": "https://developer.mozilla.org/en/docs/Web/API/Attr",
+                "CDATASection": "https://developer.mozilla.org/en/docs/Web/API/CDATASection",
+                "CanvasGradient": "https://developer.mozilla.org/en/docs/Web/API/CanvasGradient",
+                "CanvasPattern": "https://developer.mozilla.org/en/docs/Web/API/CanvasPattern",
+                "CanvasPixelArray": "https://developer.mozilla.org/en/docs/Web/API/CanvasPixelArray",
+                "CanvasRenderingContext2D": "https://developer.mozilla.org/en/docs/Web/API/CanvasRenderingContext2D",
+                "CharacterData": "https://developer.mozilla.org/en/docs/Web/API/CharacterData",
+                "ChildNode": "https://developer.mozilla.org/en/docs/Web/API/ChildNode",
+                "Comment": "https://developer.mozilla.org/en/docs/Web/API/Comment",
+                "CustomEvent": "https://developer.mozilla.org/en/docs/Web/API/CustomEvent",
+                "DOMConfiguration": "https://developer.mozilla.org/en/docs/Web/API/DOMConfiguration",
+                "DOMError": "https://developer.mozilla.org/en/docs/Web/API/DOMError",
+                "DOMErrorHandler": "https://developer.mozilla.org/en/docs/Web/API/DOMErrorHandler",
+                "DOMException": "https://developer.mozilla.org/en/docs/Web/API/DOMException",
+                "DOMImplementation": "https://developer.mozilla.org/en/docs/Web/API/DOMImplementation",
+                "DOMImplementationList": "https://developer.mozilla.org/en/docs/Web/API/DOMImplementationList",
+                "DOMImplementationRegistry": "https://developer.mozilla.org/en/docs/Web/API/DOMImplementationRegistry",
+                "DOMImplementationSource": "https://developer.mozilla.org/en/docs/Web/API/DOMImplementationSource",
+                "DOMLocator": "https://developer.mozilla.org/en/docs/Web/API/DOMLocator",
+                "DOMObject": "https://developer.mozilla.org/en/docs/Web/API/DOMObject",
+                "DOMSettableTokenList": "https://developer.mozilla.org/en/docs/Web/API/DOMSettableTokenList",
+                "DOMString": "https://developer.mozilla.org/en/docs/Web/API/DOMString",
+                "DOMStringList": "https://developer.mozilla.org/en/docs/Web/API/DOMStringList",
+                "DOMStringMap": "https://developer.mozilla.org/en/docs/Web/API/DOMStringMap",
+                "DOMTimeStamp": "https://developer.mozilla.org/en/docs/Web/API/DOMTimeStamp",
+                "DOMTokenList": "https://developer.mozilla.org/en/docs/Web/API/DOMTokenList",
+                "DOMUserData": "https://developer.mozilla.org/en/docs/Web/API/DOMUserData",
+                "Document": "https://developer.mozilla.org/en/docs/Web/API/Document",
+                "DocumentFragment": "https://developer.mozilla.org/en/docs/Web/API/DocumentFragment",
+                "DocumentType": "https://developer.mozilla.org/en/docs/Web/API/DocumentType",
+                "Element": "https://developer.mozilla.org/en/docs/Web/API/Element",
+                "ElementTimeControl": "https://developer.mozilla.org/en/docs/Web/API/ElementTimeControl",
+                "Entity": "https://developer.mozilla.org/en/docs/Web/API/Entity",
+                "EntityReference": "https://developer.mozilla.org/en/docs/Web/API/EntityReference",
+                "Event": "https://developer.mozilla.org/en/docs/Web/API/Event",
+                "EventTarget": "https://developer.mozilla.org/en/docs/Web/API/EventTarget",
+                "HTMLAllCollection": "https://developer.mozilla.org/en/docs/Web/API/HTMLAllCollection",
+                "HTMLAnchorElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLAnchorElement",
+                "HTMLAppletElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLAppletElement",
+                "HTMLAreaElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLAreaElement",
+                "HTMLAudioElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLAudioElement",
+                "HTMLBRElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLBRElement",
+                "HTMLBaseElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLBaseElement",
+                "HTMLBaseFontElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLBaseFontElement",
+                "HTMLBodyElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLBodyElement",
+                "HTMLButtonElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLButtonElement",
+                "HTMLCanvasElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLCanvasElement",
+                "HTMLCollection": "https://developer.mozilla.org/en/docs/Web/API/HTMLCollection",
+                "HTMLDListElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLDListElement",
+                "HTMLDataElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLDataElement",
+                "HTMLDataListElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLDataListElement",
+                "HTMLDirectoryElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLDirectoryElement",
+                "HTMLDivElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLDivElement",
+                "HTMLElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLElement",
+                "HTMLEmbedElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLEmbedElement",
+                "HTMLFieldSetElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLFieldSetElement",
+                "HTMLFontElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLFontElement",
+                "HTMLFormControlsCollection": "https://developer.mozilla.org/en/docs/Web/API/HTMLFormControlsCollection",
+                "HTMLFormElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLFormElement",
+                "HTMLFrameElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLFrameElement",
+                "HTMLFrameSetElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLFrameSetElement",
+                "HTMLHRElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLHRElement",
+                "HTMLHeadElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLHeadElement",
+                "HTMLHeadingElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLHeadingElement",
+                "HTMLHtmlElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLHtmlElement",
+                "HTMLIFrameElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLIFrameElement",
+                "HTMLImageElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLImageElement",
+                "HTMLInputElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLInputElement",
+                "HTMLIsIndexElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLIsIndexElement",
+                "HTMLKeygenElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLKeygenElement",
+                "HTMLLIElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLLIElement",
+                "HTMLLabelElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLLabelElement",
+                "HTMLLegendElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLLegendElement",
+                "HTMLLinkElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLLinkElement",
+                "HTMLMapElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLMapElement",
+                "HTMLMediaElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLMediaElement",
+                "HTMLMenuElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLMenuElement",
+                "HTMLMetaElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLMetaElement",
+                "HTMLMeterElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLMeterElement",
+                "HTMLModElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLModElement",
+                "HTMLOListElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLOListElement",
+                "HTMLObjectElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLObjectElement",
+                "HTMLOptGroupElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLOptGroupElement",
+                "HTMLOptionElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLOptionElement",
+                "HTMLOptionsCollection": "https://developer.mozilla.org/en/docs/Web/API/HTMLOptionsCollection",
+                "HTMLOutputElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLOutputElement",
+                "HTMLParagraphElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLParagraphElement",
+                "HTMLParamElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLParamElement",
+                "HTMLPreElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLPreElement",
+                "HTMLProgressElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLProgressElement",
+                "HTMLPropertiesCollection": "https://developer.mozilla.org/en/docs/Web/API/HTMLPropertiesCollection",
+                "HTMLQuoteElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLQuoteElement",
+                "HTMLScriptElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLScriptElement",
+                "HTMLSelectElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLSelectElement",
+                "HTMLSourceElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLSourceElement",
+                "HTMLSpanElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLSpanElement",
+                "HTMLStyleElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLStyleElement",
+                "HTMLTableCaptionElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableCaptionElement",
+                "HTMLTableCellElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableCellElement",
+                "HTMLTableColElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableColElement",
+                "HTMLTableDataCellElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableDataCellElement",
+                "HTMLTableElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableElement",
+                "HTMLTableHeaderCellElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableHeaderCellElement",
+                "HTMLTableRowElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableRowElement",
+                "HTMLTableSectionElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableSectionElement",
+                "HTMLTextAreaElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTextAreaElement",
+                "HTMLTimeElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTimeElement",
+                "HTMLTitleElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTitleElement",
+                "HTMLTrackElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTrackElement",
+                "HTMLUListElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLUListElement",
+                "HTMLUnknownElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLUnknownElement",
+                "HTMLVideoElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLVideoElement",
+                "ImageData": "https://developer.mozilla.org/en/docs/Web/API/ImageData",
+                "MediaError": "https://developer.mozilla.org/en/docs/Web/API/MediaError",
+                "MutationObserver": "https://developer.mozilla.org/en/docs/Web/API/MutationObserver",
+                "MutationRecord": "https://developer.mozilla.org/en/docs/Web/API/MutationRecord",
+                "NameList": "https://developer.mozilla.org/en/docs/Web/API/NameList",
+                "NamedNodeMap": "https://developer.mozilla.org/en/docs/Web/API/NamedNodeMap",
+                "Node": "https://developer.mozilla.org/en/docs/Web/API/Node",
+                "NodeFilter": "https://developer.mozilla.org/en/docs/Web/API/NodeFilter",
+                "NodeIterator": "https://developer.mozilla.org/en/docs/Web/API/NodeIterator",
+                "NodeList": "https://developer.mozilla.org/en/docs/Web/API/NodeList",
+                "Notation": "https://developer.mozilla.org/en/docs/Web/API/Notation",
+                "NotifyAudioAvailableEvent": "https://developer.mozilla.org/en/docs/Web/API/NotifyAudioAvailableEvent",
+                "ParentNode": "https://developer.mozilla.org/en/docs/Web/API/ParentNode",
+                "ProcessingInstruction": "https://developer.mozilla.org/en/docs/Web/API/ProcessingInstruction",
+                "Promise": "https://developer.mozilla.org/en/docs/Web/API/Promise",
+                "PromiseResolver": "https://developer.mozilla.org/en/docs/Web/API/PromiseResolver",
+                "RadioNodeList": "https://developer.mozilla.org/en/docs/Web/API/RadioNodeList",
+                "Range": "https://developer.mozilla.org/en/docs/Web/API/Range",
+                "SVGAElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAElement",
+                "SVGAltGlyphDefElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAltGlyphDefElement",
+                "SVGAltGlyphElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAltGlyphElement",
+                "SVGAltGlyphItemElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAltGlyphItemElement",
+                "SVGAngle": "https://developer.mozilla.org/en/docs/Web/API/SVGAngle",
+                "SVGAnimateColorElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimateColorElement",
+                "SVGAnimateElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimateElement",
+                "SVGAnimateMotionElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimateMotionElement",
+                "SVGAnimateTransformElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimateTransformElement",
+                "SVGAnimatedAngle": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedAngle",
+                "SVGAnimatedBoolean": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedBoolean",
+                "SVGAnimatedEnumeration": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedEnumeration",
+                "SVGAnimatedInteger": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedInteger",
+                "SVGAnimatedLength": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedLength",
+                "SVGAnimatedLengthList": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedLengthList",
+                "SVGAnimatedNumber": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedNumber",
+                "SVGAnimatedNumberList": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedNumberList",
+                "SVGAnimatedPathData": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedPathData",
+                "SVGAnimatedPoints": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedPoints",
+                "SVGAnimatedPreserveAspectRatio": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedPreserveAspectRatio",
+                "SVGAnimatedRect": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedRect",
+                "SVGAnimatedString": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedString",
+                "SVGAnimatedTransformList": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedTransformList",
+                "SVGAnimationElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimationElement",
+                "SVGCSSRule": "https://developer.mozilla.org/en/docs/Web/API/SVGCSSRule",
+                "SVGCircleElement": "https://developer.mozilla.org/en/docs/Web/API/SVGCircleElement",
+                "SVGClipPathElement": "https://developer.mozilla.org/en/docs/Web/API/SVGClipPathElement",
+                "SVGColor": "https://developer.mozilla.org/en/docs/Web/API/SVGColor",
+                "SVGColorProfileElement": "https://developer.mozilla.org/en/docs/Web/API/SVGColorProfileElement",
+                "SVGColorProfileRule": "https://developer.mozilla.org/en/docs/Web/API/SVGColorProfileRule",
+                "SVGComponentTransferFunctionElement": "https://developer.mozilla.org/en/docs/Web/API/SVGComponentTransferFunctionElement",
+                "SVGCursorElement": "https://developer.mozilla.org/en/docs/Web/API/SVGCursorElement",
+                "SVGDefsElement": "https://developer.mozilla.org/en/docs/Web/API/SVGDefsElement",
+                "SVGDescElement": "https://developer.mozilla.org/en/docs/Web/API/SVGDescElement",
+                "SVGElement": "https://developer.mozilla.org/en/docs/Web/API/SVGElement",
+                "SVGElementInstance": "https://developer.mozilla.org/en/docs/Web/API/SVGElementInstance",
+                "SVGElementInstanceList": "https://developer.mozilla.org/en/docs/Web/API/SVGElementInstanceList",
+                "SVGEllipseElement": "https://developer.mozilla.org/en/docs/Web/API/SVGEllipseElement",
+                "SVGExternalResourcesRequired": "https://developer.mozilla.org/en/docs/Web/API/SVGExternalResourcesRequired",
+                "SVGFEBlendElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEBlendElement",
+                "SVGFEColorMatrixElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEColorMatrixElement",
+                "SVGFEComponentTransferElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEComponentTransferElement",
+                "SVGFECompositeElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFECompositeElement",
+                "SVGFEConvolveMatrixElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEConvolveMatrixElement",
+                "SVGFEDiffuseLightingElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEDiffuseLightingElement",
+                "SVGFEDisplacementMapElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEDisplacementMapElement",
+                "SVGFEDistantLightElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEDistantLightElement",
+                "SVGFEFloodElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEFloodElement",
+                "SVGFEFuncAElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEFuncAElement",
+                "SVGFEFuncBElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEFuncBElement",
+                "SVGFEFuncGElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEFuncGElement",
+                "SVGFEFuncRElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEFuncRElement",
+                "SVGFEGaussianBlurElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEGaussianBlurElement",
+                "SVGFEImageElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEImageElement",
+                "SVGFEMergeElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEMergeElement",
+                "SVGFEMergeNodeElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEMergeNodeElement",
+                "SVGFEMorphologyElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEMorphologyElement",
+                "SVGFEOffsetElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEOffsetElement",
+                "SVGFEPointLightElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEPointLightElement",
+                "SVGFESpecularLightingElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFESpecularLightingElement",
+                "SVGFESpotLightElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFESpotLightElement",
+                "SVGFETileElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFETileElement",
+                "SVGFETurbulenceElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFETurbulenceElement",
+                "SVGFilterElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFilterElement",
+                "SVGFilterPrimitiveStandardAttributes": "https://developer.mozilla.org/en/docs/Web/API/SVGFilterPrimitiveStandardAttributes",
+                "SVGFitToViewBox": "https://developer.mozilla.org/en/docs/Web/API/SVGFitToViewBox",
+                "SVGFontElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFontElement",
+                "SVGFontFaceElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFontFaceElement",
+                "SVGFontFaceFormatElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFontFaceFormatElement",
+                "SVGFontFaceNameElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFontFaceNameElement",
+                "SVGFontFaceSrcElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFontFaceSrcElement",
+                "SVGFontFaceUriElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFontFaceUriElement",
+                "SVGForeignObjectElement": "https://developer.mozilla.org/en/docs/Web/API/SVGForeignObjectElement",
+                "SVGGElement": "https://developer.mozilla.org/en/docs/Web/API/SVGGElement",
+                "SVGGlyphElement": "https://developer.mozilla.org/en/docs/Web/API/SVGGlyphElement",
+                "SVGGlyphRefElement": "https://developer.mozilla.org/en/docs/Web/API/SVGGlyphRefElement",
+                "SVGGradientElement": "https://developer.mozilla.org/en/docs/Web/API/SVGGradientElement",
+                "SVGHKernElement": "https://developer.mozilla.org/en/docs/Web/API/SVGHKernElement",
+                "SVGICCColor": "https://developer.mozilla.org/en/docs/Web/API/SVGICCColor",
+                "SVGImageElement": "https://developer.mozilla.org/en/docs/Web/API/SVGImageElement",
+                "SVGLangSpace": "https://developer.mozilla.org/en/docs/Web/API/SVGLangSpace",
+                "SVGLength": "https://developer.mozilla.org/en/docs/Web/API/SVGLength",
+                "SVGLengthList": "https://developer.mozilla.org/en/docs/Web/API/SVGLengthList",
+                "SVGLineElement": "https://developer.mozilla.org/en/docs/Web/API/SVGLineElement",
+                "SVGLinearGradientElement": "https://developer.mozilla.org/en/docs/Web/API/SVGLinearGradientElement",
+                "SVGLocatable": "https://developer.mozilla.org/en/docs/Web/API/SVGLocatable",
+                "SVGMPathElement": "https://developer.mozilla.org/en/docs/Web/API/SVGMPathElement",
+                "SVGMarkerElement": "https://developer.mozilla.org/en/docs/Web/API/SVGMarkerElement",
+                "SVGMaskElement": "https://developer.mozilla.org/en/docs/Web/API/SVGMaskElement",
+                "SVGMatrix": "https://developer.mozilla.org/en/docs/Web/API/SVGMatrix",
+                "SVGMetadataElement": "https://developer.mozilla.org/en/docs/Web/API/SVGMetadataElement",
+                "SVGMissingGlyphElement": "https://developer.mozilla.org/en/docs/Web/API/SVGMissingGlyphElement",
+                "SVGNumber": "https://developer.mozilla.org/en/docs/Web/API/SVGNumber",
+                "SVGNumberList": "https://developer.mozilla.org/en/docs/Web/API/SVGNumberList",
+                "SVGPaint": "https://developer.mozilla.org/en/docs/Web/API/SVGPaint",
+                "SVGPathElement": "https://developer.mozilla.org/en/docs/Web/API/SVGPathElement",
+                "SVGPathSeg": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSeg",
+                "SVGPathSegArcAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegArcAbs",
+                "SVGPathSegArcRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegArcRel",
+                "SVGPathSegClosePath": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegClosePath",
+                "SVGPathSegCurvetoCubicAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoCubicAbs",
+                "SVGPathSegCurvetoCubicRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoCubicRel",
+                "SVGPathSegCurvetoCubicSmoothAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoCubicSmoothAbs",
+                "SVGPathSegCurvetoCubicSmoothRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoCubicSmoothRel",
+                "SVGPathSegCurvetoQuadraticAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoQuadraticAbs",
+                "SVGPathSegCurvetoQuadraticRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoQuadraticRel",
+                "SVGPathSegCurvetoQuadraticSmoothAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoQuadraticSmoothAbs",
+                "SVGPathSegCurvetoQuadraticSmoothRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoQuadraticSmoothRel",
+                "SVGPathSegLinetoAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegLinetoAbs",
+                "SVGPathSegLinetoHorizontalAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegLinetoHorizontalAbs",
+                "SVGPathSegLinetoHorizontalRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegLinetoHorizontalRel",
+                "SVGPathSegLinetoRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegLinetoRel",
+                "SVGPathSegLinetoVerticalAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegLinetoVerticalAbs",
+                "SVGPathSegLinetoVerticalRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegLinetoVerticalRel",
+                "SVGPathSegList": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegList",
+                "SVGPathSegMovetoAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegMovetoAbs",
+                "SVGPathSegMovetoRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegMovetoRel",
+                "SVGPatternElement": "https://developer.mozilla.org/en/docs/Web/API/SVGPatternElement",
+                "SVGPoint": "https://developer.mozilla.org/en/docs/Web/API/SVGPoint",
+                "SVGPointList": "https://developer.mozilla.org/en/docs/Web/API/SVGPointList",
+                "SVGPolygonElement": "https://developer.mozilla.org/en/docs/Web/API/SVGPolygonElement",
+                "SVGPolylineElement": "https://developer.mozilla.org/en/docs/Web/API/SVGPolylineElement",
+                "SVGPreserveAspectRatio": "https://developer.mozilla.org/en/docs/Web/API/SVGPreserveAspectRatio",
+                "SVGRadialGradientElement": "https://developer.mozilla.org/en/docs/Web/API/SVGRadialGradientElement",
+                "SVGRect": "https://developer.mozilla.org/en/docs/Web/API/SVGRect",
+                "SVGRectElement": "https://developer.mozilla.org/en/docs/Web/API/SVGRectElement",
+                "SVGRenderingIntent": "https://developer.mozilla.org/en/docs/Web/API/SVGRenderingIntent",
+                "SVGSVGElement": "https://developer.mozilla.org/en/docs/Web/API/SVGSVGElement",
+                "SVGScriptElement": "https://developer.mozilla.org/en/docs/Web/API/SVGScriptElement",
+                "SVGSetElement": "https://developer.mozilla.org/en/docs/Web/API/SVGSetElement",
+                "SVGStopElement": "https://developer.mozilla.org/en/docs/Web/API/SVGStopElement",
+                "SVGStringList": "https://developer.mozilla.org/en/docs/Web/API/SVGStringList",
+                "SVGStylable": "https://developer.mozilla.org/en/docs/Web/API/SVGStylable",
+                "SVGStyleElement": "https://developer.mozilla.org/en/docs/Web/API/SVGStyleElement",
+                "SVGSwitchElement": "https://developer.mozilla.org/en/docs/Web/API/SVGSwitchElement",
+                "SVGSymbolElement": "https://developer.mozilla.org/en/docs/Web/API/SVGSymbolElement",
+                "SVGTRefElement": "https://developer.mozilla.org/en/docs/Web/API/SVGTRefElement",
+                "SVGTSpanElement": "https://developer.mozilla.org/en/docs/Web/API/SVGTSpanElement",
+                "SVGTests": "https://developer.mozilla.org/en/docs/Web/API/SVGTests",
+                "SVGTextContentElement": "https://developer.mozilla.org/en/docs/Web/API/SVGTextContentElement",
+                "SVGTextElement": "https://developer.mozilla.org/en/docs/Web/API/SVGTextElement",
+                "SVGTextPathElement": "https://developer.mozilla.org/en/docs/Web/API/SVGTextPathElement",
+                "SVGTextPositioningElement": "https://developer.mozilla.org/en/docs/Web/API/SVGTextPositioningElement",
+                "SVGTitleElement": "https://developer.mozilla.org/en/docs/Web/API/SVGTitleElement",
+                "SVGTransform": "https://developer.mozilla.org/en/docs/Web/API/SVGTransform",
+                "SVGTransformList": "https://developer.mozilla.org/en/docs/Web/API/SVGTransformList",
+                "SVGTransformable": "https://developer.mozilla.org/en/docs/Web/API/SVGTransformable",
+                "SVGURIReference": "https://developer.mozilla.org/en/docs/Web/API/SVGURIReference",
+                "SVGUnitTypes": "https://developer.mozilla.org/en/docs/Web/API/SVGUnitTypes",
+                "SVGUseElement": "https://developer.mozilla.org/en/docs/Web/API/SVGUseElement",
+                "SVGVKernElement": "https://developer.mozilla.org/en/docs/Web/API/SVGVKernElement",
+                "SVGViewElement": "https://developer.mozilla.org/en/docs/Web/API/SVGViewElement",
+                "SVGViewSpec": "https://developer.mozilla.org/en/docs/Web/API/SVGViewSpec",
+                "SVGZoomAndPan": "https://developer.mozilla.org/en/docs/Web/API/SVGZoomAndPan",
+                "Text": "https://developer.mozilla.org/en/docs/Web/API/Text",
+                "TextMetrics": "https://developer.mozilla.org/en/docs/Web/API/TextMetrics",
+                "TimeEvent": "https://developer.mozilla.org/en/docs/Web/API/TimeEvent",
+                "TreeWalker": "https://developer.mozilla.org/en/docs/Web/API/TreeWalker",
+                "TypeInfo": "https://developer.mozilla.org/en/docs/Web/API/TypeInfo",
+                "URL": "https://developer.mozilla.org/en/docs/Web/API/URL",
+                "UserDataHandler": "https://developer.mozilla.org/en/docs/Web/API/UserDataHandler",
+                "Window": "https://developer.mozilla.org/en/docs/Web/API/Window",
+                "Worker": "https://developer.mozilla.org/en/docs/Web/API/Worker",
+                "XMLDocument": "https://developer.mozilla.org/en/docs/Web/API/XMLDocument"
+              }
+            ]
+          },
           "name": "CoffeeScript"
         },
         "sourcePath": "/Users/sjorek/Documents/Projects/Mesch/Workspace (Aptana)/goatee-script/src/Command.coffee",
@@ -148,6 +1214,539 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
           "singleLineComment": ["#"],
           "ignorePrefix": "!",
           "foldPrefix": "~",
+          "doctags": {
+            "description": {
+              "section": "description",
+              "markdown": "{value}"
+            },
+            "abstract": {
+              "section": "access"
+            },
+            "constant": {
+              "section": "access"
+            },
+            "deprecated": {
+              "section": "access"
+            },
+            "internal": {
+              "section": "access"
+            },
+            "private": {
+              "section": "access"
+            },
+            "protected": {
+              "section": "access"
+            },
+            "public": {
+              "valuePrefix": "as",
+              "section": "access"
+            },
+            "static": {
+              "section": "access"
+            },
+            "constructor": {
+              "section": "special"
+            },
+            "destructor": {
+              "section": "special"
+            },
+            "class": {
+              "section": "type",
+              "markdown": "class *{type}*"
+            },
+            "event": {
+              "section": "type"
+            },
+            "method": {
+              "section": "type",
+              "markdown": "method *{type}*"
+            },
+            "mixin": {
+              "section": "type",
+              "markdown": "mixin *{type}*"
+            },
+            "module": {
+              "section": "type",
+              "markdown": "module *{type}*"
+            },
+            "package": {
+              "section": "type",
+              "markdown": "package *{type}*"
+            },
+            "property": {
+              "section": "type",
+              "markdown": "property *{type}*"
+            },
+            "accessor": {
+              "section": "flag",
+              "markdown": "is an accessor"
+            },
+            "async": {
+              "section": "flag",
+              "markdown": "is asynchronous"
+            },
+            "asynchronous": "async",
+            "getter": {
+              "section": "flag",
+              "markdown": "is a getter"
+            },
+            "recursive": {
+              "section": "flag",
+              "markdown": "is recursive"
+            },
+            "refactor": {
+              "section": "flag",
+              "markdown": "needs to be refactored"
+            },
+            "setter": {
+              "section": "flag",
+              "markdown": "is a setter"
+            },
+            "alias": {
+              "valuePrefix": "as",
+              "section": "metadata",
+              "markdown": "is aliased as *{type}*"
+            },
+            "augments": {
+              "section": "metadata",
+              "markdown": "extends *{type}*"
+            },
+            "extends": {
+              "section": "metadata",
+              "markdown": "extends *{type}*"
+            },
+            "fires": {
+              "section": "metadata"
+            },
+            "memberof": {
+              "section": "metadata",
+              "markdown": "is a member of *{type}*"
+            },
+            "mixes": {
+              "section": "metadata",
+              "markdown": "mixes *{type}* in"
+            },
+            "namespace": {
+              "section": "metadata",
+              "markdown": "is in namespace *{value}*"
+            },
+            "publishes": {
+              "section": "metadata"
+            },
+            "requests": {
+              "section": "metadata",
+              "markdown": "makes an ajax request to <{value}>"
+            },
+            "since": {
+              "section": "metadata",
+              "markdown": "is available since version {value}"
+            },
+            "subscribes": {
+              "valuePrefix": "to",
+              "section": "metadata",
+              "markdown": "subscribes to {type}"
+            },
+            "type": {
+              "section": "metadata"
+            },
+            "version": {
+              "section": "metadata",
+              "markdown": "has version {value}"
+            },
+            "author": {
+              "section": "authors"
+            },
+            "see": {
+              "section": "references"
+            },
+            "todo": {
+              "section": "todo",
+              "markdown": "TODO: {value}"
+            },
+            "example": {
+              "section": "example",
+              "markdown": "{value}"
+            },
+            "examples": "example",
+            "usage": "example",
+            "howto": {
+              "section": "howto",
+              "markdown": "{value}"
+            },
+            "note": {
+              "section": "discard"
+            },
+            "notes": "note",
+            "param": {
+              "section": "params"
+            },
+            "params": "param",
+            "parameters": "param",
+            "return": {
+              "section": "returns"
+            },
+            "returns": "return",
+            "throw": {
+              "section": "throws"
+            },
+            "throws": "throw",
+            "defaultNoValue": {
+              "section": "flag"
+            },
+            "defaultHasValue": {
+              "section": "metadata"
+            }
+          },
+          "namespace": {
+            "separator": ".",
+            "types": [
+              {
+                "goatee.Script.": ["http://sjorek.github.io/goatee-script/", "goatee."],
+                "goatee.Rules.": ["http://sjorek.github.io/goatee-rules/", "goatee."],
+                "goatee.": ["http://sjorek.github.io/goatee-js/", "goatee."]
+              }, {
+                "Array": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Array",
+                "ArrayBuffer": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/ArrayBuffer",
+                "Boolean": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Boolean",
+                "Collator": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Collator",
+                "DataView": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/DataView",
+                "Date": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Date",
+                "DateTimeFormat": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/DateTimeFormat",
+                "Error": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Error",
+                "EvalError": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/EvalError",
+                "Float32Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Float32Array",
+                "Float64Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Float64Array",
+                "Function": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Function",
+                "Infinity": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Infinity",
+                "Int8Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Int8Array",
+                "Int16Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Int16Array",
+                "Int32Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Int32Array",
+                "InternalError": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/InternalError",
+                "Intl": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Intl",
+                "Intl.Collator": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Collator",
+                "Intl.DateTimeFormat": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/DateTimeFormat",
+                "Intl.NumberFormat": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/NumberFormat",
+                "Iterator": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Iterator",
+                "JSON": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/JSON",
+                "Math": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Math",
+                "NaN": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/NaN",
+                "Number": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Number",
+                "NumberFormat": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/NumberFormat",
+                "Object": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Object",
+                "ParallelArray": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/ParallelArray",
+                "Proxy": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Proxy",
+                "RangeError": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/RangeError",
+                "ReferenceError": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/ReferenceError",
+                "RegExp": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/RegExp",
+                "StopIteration": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/StopIteration",
+                "String": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/String",
+                "SyntaxError": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/SyntaxError",
+                "TypeError": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/TypeError",
+                "URIError": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/URIError",
+                "Uint8Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Uint8Array",
+                "Uint8ClampedArray": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Uint8ClampedArray",
+                "Uint16Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Uint16Array",
+                "Uint32Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Uint32Array",
+                "null": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/null",
+                "undefined": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/undefined"
+              }, {
+                "Attr": "https://developer.mozilla.org/en/docs/Web/API/Attr",
+                "CDATASection": "https://developer.mozilla.org/en/docs/Web/API/CDATASection",
+                "CanvasGradient": "https://developer.mozilla.org/en/docs/Web/API/CanvasGradient",
+                "CanvasPattern": "https://developer.mozilla.org/en/docs/Web/API/CanvasPattern",
+                "CanvasPixelArray": "https://developer.mozilla.org/en/docs/Web/API/CanvasPixelArray",
+                "CanvasRenderingContext2D": "https://developer.mozilla.org/en/docs/Web/API/CanvasRenderingContext2D",
+                "CharacterData": "https://developer.mozilla.org/en/docs/Web/API/CharacterData",
+                "ChildNode": "https://developer.mozilla.org/en/docs/Web/API/ChildNode",
+                "Comment": "https://developer.mozilla.org/en/docs/Web/API/Comment",
+                "CustomEvent": "https://developer.mozilla.org/en/docs/Web/API/CustomEvent",
+                "DOMConfiguration": "https://developer.mozilla.org/en/docs/Web/API/DOMConfiguration",
+                "DOMError": "https://developer.mozilla.org/en/docs/Web/API/DOMError",
+                "DOMErrorHandler": "https://developer.mozilla.org/en/docs/Web/API/DOMErrorHandler",
+                "DOMException": "https://developer.mozilla.org/en/docs/Web/API/DOMException",
+                "DOMImplementation": "https://developer.mozilla.org/en/docs/Web/API/DOMImplementation",
+                "DOMImplementationList": "https://developer.mozilla.org/en/docs/Web/API/DOMImplementationList",
+                "DOMImplementationRegistry": "https://developer.mozilla.org/en/docs/Web/API/DOMImplementationRegistry",
+                "DOMImplementationSource": "https://developer.mozilla.org/en/docs/Web/API/DOMImplementationSource",
+                "DOMLocator": "https://developer.mozilla.org/en/docs/Web/API/DOMLocator",
+                "DOMObject": "https://developer.mozilla.org/en/docs/Web/API/DOMObject",
+                "DOMSettableTokenList": "https://developer.mozilla.org/en/docs/Web/API/DOMSettableTokenList",
+                "DOMString": "https://developer.mozilla.org/en/docs/Web/API/DOMString",
+                "DOMStringList": "https://developer.mozilla.org/en/docs/Web/API/DOMStringList",
+                "DOMStringMap": "https://developer.mozilla.org/en/docs/Web/API/DOMStringMap",
+                "DOMTimeStamp": "https://developer.mozilla.org/en/docs/Web/API/DOMTimeStamp",
+                "DOMTokenList": "https://developer.mozilla.org/en/docs/Web/API/DOMTokenList",
+                "DOMUserData": "https://developer.mozilla.org/en/docs/Web/API/DOMUserData",
+                "Document": "https://developer.mozilla.org/en/docs/Web/API/Document",
+                "DocumentFragment": "https://developer.mozilla.org/en/docs/Web/API/DocumentFragment",
+                "DocumentType": "https://developer.mozilla.org/en/docs/Web/API/DocumentType",
+                "Element": "https://developer.mozilla.org/en/docs/Web/API/Element",
+                "ElementTimeControl": "https://developer.mozilla.org/en/docs/Web/API/ElementTimeControl",
+                "Entity": "https://developer.mozilla.org/en/docs/Web/API/Entity",
+                "EntityReference": "https://developer.mozilla.org/en/docs/Web/API/EntityReference",
+                "Event": "https://developer.mozilla.org/en/docs/Web/API/Event",
+                "EventTarget": "https://developer.mozilla.org/en/docs/Web/API/EventTarget",
+                "HTMLAllCollection": "https://developer.mozilla.org/en/docs/Web/API/HTMLAllCollection",
+                "HTMLAnchorElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLAnchorElement",
+                "HTMLAppletElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLAppletElement",
+                "HTMLAreaElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLAreaElement",
+                "HTMLAudioElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLAudioElement",
+                "HTMLBRElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLBRElement",
+                "HTMLBaseElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLBaseElement",
+                "HTMLBaseFontElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLBaseFontElement",
+                "HTMLBodyElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLBodyElement",
+                "HTMLButtonElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLButtonElement",
+                "HTMLCanvasElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLCanvasElement",
+                "HTMLCollection": "https://developer.mozilla.org/en/docs/Web/API/HTMLCollection",
+                "HTMLDListElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLDListElement",
+                "HTMLDataElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLDataElement",
+                "HTMLDataListElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLDataListElement",
+                "HTMLDirectoryElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLDirectoryElement",
+                "HTMLDivElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLDivElement",
+                "HTMLElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLElement",
+                "HTMLEmbedElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLEmbedElement",
+                "HTMLFieldSetElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLFieldSetElement",
+                "HTMLFontElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLFontElement",
+                "HTMLFormControlsCollection": "https://developer.mozilla.org/en/docs/Web/API/HTMLFormControlsCollection",
+                "HTMLFormElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLFormElement",
+                "HTMLFrameElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLFrameElement",
+                "HTMLFrameSetElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLFrameSetElement",
+                "HTMLHRElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLHRElement",
+                "HTMLHeadElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLHeadElement",
+                "HTMLHeadingElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLHeadingElement",
+                "HTMLHtmlElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLHtmlElement",
+                "HTMLIFrameElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLIFrameElement",
+                "HTMLImageElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLImageElement",
+                "HTMLInputElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLInputElement",
+                "HTMLIsIndexElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLIsIndexElement",
+                "HTMLKeygenElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLKeygenElement",
+                "HTMLLIElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLLIElement",
+                "HTMLLabelElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLLabelElement",
+                "HTMLLegendElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLLegendElement",
+                "HTMLLinkElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLLinkElement",
+                "HTMLMapElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLMapElement",
+                "HTMLMediaElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLMediaElement",
+                "HTMLMenuElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLMenuElement",
+                "HTMLMetaElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLMetaElement",
+                "HTMLMeterElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLMeterElement",
+                "HTMLModElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLModElement",
+                "HTMLOListElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLOListElement",
+                "HTMLObjectElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLObjectElement",
+                "HTMLOptGroupElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLOptGroupElement",
+                "HTMLOptionElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLOptionElement",
+                "HTMLOptionsCollection": "https://developer.mozilla.org/en/docs/Web/API/HTMLOptionsCollection",
+                "HTMLOutputElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLOutputElement",
+                "HTMLParagraphElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLParagraphElement",
+                "HTMLParamElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLParamElement",
+                "HTMLPreElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLPreElement",
+                "HTMLProgressElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLProgressElement",
+                "HTMLPropertiesCollection": "https://developer.mozilla.org/en/docs/Web/API/HTMLPropertiesCollection",
+                "HTMLQuoteElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLQuoteElement",
+                "HTMLScriptElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLScriptElement",
+                "HTMLSelectElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLSelectElement",
+                "HTMLSourceElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLSourceElement",
+                "HTMLSpanElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLSpanElement",
+                "HTMLStyleElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLStyleElement",
+                "HTMLTableCaptionElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableCaptionElement",
+                "HTMLTableCellElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableCellElement",
+                "HTMLTableColElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableColElement",
+                "HTMLTableDataCellElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableDataCellElement",
+                "HTMLTableElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableElement",
+                "HTMLTableHeaderCellElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableHeaderCellElement",
+                "HTMLTableRowElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableRowElement",
+                "HTMLTableSectionElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableSectionElement",
+                "HTMLTextAreaElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTextAreaElement",
+                "HTMLTimeElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTimeElement",
+                "HTMLTitleElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTitleElement",
+                "HTMLTrackElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTrackElement",
+                "HTMLUListElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLUListElement",
+                "HTMLUnknownElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLUnknownElement",
+                "HTMLVideoElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLVideoElement",
+                "ImageData": "https://developer.mozilla.org/en/docs/Web/API/ImageData",
+                "MediaError": "https://developer.mozilla.org/en/docs/Web/API/MediaError",
+                "MutationObserver": "https://developer.mozilla.org/en/docs/Web/API/MutationObserver",
+                "MutationRecord": "https://developer.mozilla.org/en/docs/Web/API/MutationRecord",
+                "NameList": "https://developer.mozilla.org/en/docs/Web/API/NameList",
+                "NamedNodeMap": "https://developer.mozilla.org/en/docs/Web/API/NamedNodeMap",
+                "Node": "https://developer.mozilla.org/en/docs/Web/API/Node",
+                "NodeFilter": "https://developer.mozilla.org/en/docs/Web/API/NodeFilter",
+                "NodeIterator": "https://developer.mozilla.org/en/docs/Web/API/NodeIterator",
+                "NodeList": "https://developer.mozilla.org/en/docs/Web/API/NodeList",
+                "Notation": "https://developer.mozilla.org/en/docs/Web/API/Notation",
+                "NotifyAudioAvailableEvent": "https://developer.mozilla.org/en/docs/Web/API/NotifyAudioAvailableEvent",
+                "ParentNode": "https://developer.mozilla.org/en/docs/Web/API/ParentNode",
+                "ProcessingInstruction": "https://developer.mozilla.org/en/docs/Web/API/ProcessingInstruction",
+                "Promise": "https://developer.mozilla.org/en/docs/Web/API/Promise",
+                "PromiseResolver": "https://developer.mozilla.org/en/docs/Web/API/PromiseResolver",
+                "RadioNodeList": "https://developer.mozilla.org/en/docs/Web/API/RadioNodeList",
+                "Range": "https://developer.mozilla.org/en/docs/Web/API/Range",
+                "SVGAElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAElement",
+                "SVGAltGlyphDefElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAltGlyphDefElement",
+                "SVGAltGlyphElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAltGlyphElement",
+                "SVGAltGlyphItemElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAltGlyphItemElement",
+                "SVGAngle": "https://developer.mozilla.org/en/docs/Web/API/SVGAngle",
+                "SVGAnimateColorElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimateColorElement",
+                "SVGAnimateElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimateElement",
+                "SVGAnimateMotionElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimateMotionElement",
+                "SVGAnimateTransformElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimateTransformElement",
+                "SVGAnimatedAngle": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedAngle",
+                "SVGAnimatedBoolean": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedBoolean",
+                "SVGAnimatedEnumeration": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedEnumeration",
+                "SVGAnimatedInteger": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedInteger",
+                "SVGAnimatedLength": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedLength",
+                "SVGAnimatedLengthList": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedLengthList",
+                "SVGAnimatedNumber": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedNumber",
+                "SVGAnimatedNumberList": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedNumberList",
+                "SVGAnimatedPathData": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedPathData",
+                "SVGAnimatedPoints": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedPoints",
+                "SVGAnimatedPreserveAspectRatio": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedPreserveAspectRatio",
+                "SVGAnimatedRect": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedRect",
+                "SVGAnimatedString": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedString",
+                "SVGAnimatedTransformList": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedTransformList",
+                "SVGAnimationElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimationElement",
+                "SVGCSSRule": "https://developer.mozilla.org/en/docs/Web/API/SVGCSSRule",
+                "SVGCircleElement": "https://developer.mozilla.org/en/docs/Web/API/SVGCircleElement",
+                "SVGClipPathElement": "https://developer.mozilla.org/en/docs/Web/API/SVGClipPathElement",
+                "SVGColor": "https://developer.mozilla.org/en/docs/Web/API/SVGColor",
+                "SVGColorProfileElement": "https://developer.mozilla.org/en/docs/Web/API/SVGColorProfileElement",
+                "SVGColorProfileRule": "https://developer.mozilla.org/en/docs/Web/API/SVGColorProfileRule",
+                "SVGComponentTransferFunctionElement": "https://developer.mozilla.org/en/docs/Web/API/SVGComponentTransferFunctionElement",
+                "SVGCursorElement": "https://developer.mozilla.org/en/docs/Web/API/SVGCursorElement",
+                "SVGDefsElement": "https://developer.mozilla.org/en/docs/Web/API/SVGDefsElement",
+                "SVGDescElement": "https://developer.mozilla.org/en/docs/Web/API/SVGDescElement",
+                "SVGElement": "https://developer.mozilla.org/en/docs/Web/API/SVGElement",
+                "SVGElementInstance": "https://developer.mozilla.org/en/docs/Web/API/SVGElementInstance",
+                "SVGElementInstanceList": "https://developer.mozilla.org/en/docs/Web/API/SVGElementInstanceList",
+                "SVGEllipseElement": "https://developer.mozilla.org/en/docs/Web/API/SVGEllipseElement",
+                "SVGExternalResourcesRequired": "https://developer.mozilla.org/en/docs/Web/API/SVGExternalResourcesRequired",
+                "SVGFEBlendElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEBlendElement",
+                "SVGFEColorMatrixElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEColorMatrixElement",
+                "SVGFEComponentTransferElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEComponentTransferElement",
+                "SVGFECompositeElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFECompositeElement",
+                "SVGFEConvolveMatrixElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEConvolveMatrixElement",
+                "SVGFEDiffuseLightingElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEDiffuseLightingElement",
+                "SVGFEDisplacementMapElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEDisplacementMapElement",
+                "SVGFEDistantLightElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEDistantLightElement",
+                "SVGFEFloodElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEFloodElement",
+                "SVGFEFuncAElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEFuncAElement",
+                "SVGFEFuncBElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEFuncBElement",
+                "SVGFEFuncGElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEFuncGElement",
+                "SVGFEFuncRElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEFuncRElement",
+                "SVGFEGaussianBlurElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEGaussianBlurElement",
+                "SVGFEImageElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEImageElement",
+                "SVGFEMergeElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEMergeElement",
+                "SVGFEMergeNodeElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEMergeNodeElement",
+                "SVGFEMorphologyElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEMorphologyElement",
+                "SVGFEOffsetElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEOffsetElement",
+                "SVGFEPointLightElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEPointLightElement",
+                "SVGFESpecularLightingElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFESpecularLightingElement",
+                "SVGFESpotLightElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFESpotLightElement",
+                "SVGFETileElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFETileElement",
+                "SVGFETurbulenceElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFETurbulenceElement",
+                "SVGFilterElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFilterElement",
+                "SVGFilterPrimitiveStandardAttributes": "https://developer.mozilla.org/en/docs/Web/API/SVGFilterPrimitiveStandardAttributes",
+                "SVGFitToViewBox": "https://developer.mozilla.org/en/docs/Web/API/SVGFitToViewBox",
+                "SVGFontElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFontElement",
+                "SVGFontFaceElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFontFaceElement",
+                "SVGFontFaceFormatElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFontFaceFormatElement",
+                "SVGFontFaceNameElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFontFaceNameElement",
+                "SVGFontFaceSrcElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFontFaceSrcElement",
+                "SVGFontFaceUriElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFontFaceUriElement",
+                "SVGForeignObjectElement": "https://developer.mozilla.org/en/docs/Web/API/SVGForeignObjectElement",
+                "SVGGElement": "https://developer.mozilla.org/en/docs/Web/API/SVGGElement",
+                "SVGGlyphElement": "https://developer.mozilla.org/en/docs/Web/API/SVGGlyphElement",
+                "SVGGlyphRefElement": "https://developer.mozilla.org/en/docs/Web/API/SVGGlyphRefElement",
+                "SVGGradientElement": "https://developer.mozilla.org/en/docs/Web/API/SVGGradientElement",
+                "SVGHKernElement": "https://developer.mozilla.org/en/docs/Web/API/SVGHKernElement",
+                "SVGICCColor": "https://developer.mozilla.org/en/docs/Web/API/SVGICCColor",
+                "SVGImageElement": "https://developer.mozilla.org/en/docs/Web/API/SVGImageElement",
+                "SVGLangSpace": "https://developer.mozilla.org/en/docs/Web/API/SVGLangSpace",
+                "SVGLength": "https://developer.mozilla.org/en/docs/Web/API/SVGLength",
+                "SVGLengthList": "https://developer.mozilla.org/en/docs/Web/API/SVGLengthList",
+                "SVGLineElement": "https://developer.mozilla.org/en/docs/Web/API/SVGLineElement",
+                "SVGLinearGradientElement": "https://developer.mozilla.org/en/docs/Web/API/SVGLinearGradientElement",
+                "SVGLocatable": "https://developer.mozilla.org/en/docs/Web/API/SVGLocatable",
+                "SVGMPathElement": "https://developer.mozilla.org/en/docs/Web/API/SVGMPathElement",
+                "SVGMarkerElement": "https://developer.mozilla.org/en/docs/Web/API/SVGMarkerElement",
+                "SVGMaskElement": "https://developer.mozilla.org/en/docs/Web/API/SVGMaskElement",
+                "SVGMatrix": "https://developer.mozilla.org/en/docs/Web/API/SVGMatrix",
+                "SVGMetadataElement": "https://developer.mozilla.org/en/docs/Web/API/SVGMetadataElement",
+                "SVGMissingGlyphElement": "https://developer.mozilla.org/en/docs/Web/API/SVGMissingGlyphElement",
+                "SVGNumber": "https://developer.mozilla.org/en/docs/Web/API/SVGNumber",
+                "SVGNumberList": "https://developer.mozilla.org/en/docs/Web/API/SVGNumberList",
+                "SVGPaint": "https://developer.mozilla.org/en/docs/Web/API/SVGPaint",
+                "SVGPathElement": "https://developer.mozilla.org/en/docs/Web/API/SVGPathElement",
+                "SVGPathSeg": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSeg",
+                "SVGPathSegArcAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegArcAbs",
+                "SVGPathSegArcRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegArcRel",
+                "SVGPathSegClosePath": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegClosePath",
+                "SVGPathSegCurvetoCubicAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoCubicAbs",
+                "SVGPathSegCurvetoCubicRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoCubicRel",
+                "SVGPathSegCurvetoCubicSmoothAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoCubicSmoothAbs",
+                "SVGPathSegCurvetoCubicSmoothRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoCubicSmoothRel",
+                "SVGPathSegCurvetoQuadraticAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoQuadraticAbs",
+                "SVGPathSegCurvetoQuadraticRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoQuadraticRel",
+                "SVGPathSegCurvetoQuadraticSmoothAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoQuadraticSmoothAbs",
+                "SVGPathSegCurvetoQuadraticSmoothRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoQuadraticSmoothRel",
+                "SVGPathSegLinetoAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegLinetoAbs",
+                "SVGPathSegLinetoHorizontalAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegLinetoHorizontalAbs",
+                "SVGPathSegLinetoHorizontalRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegLinetoHorizontalRel",
+                "SVGPathSegLinetoRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegLinetoRel",
+                "SVGPathSegLinetoVerticalAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegLinetoVerticalAbs",
+                "SVGPathSegLinetoVerticalRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegLinetoVerticalRel",
+                "SVGPathSegList": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegList",
+                "SVGPathSegMovetoAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegMovetoAbs",
+                "SVGPathSegMovetoRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegMovetoRel",
+                "SVGPatternElement": "https://developer.mozilla.org/en/docs/Web/API/SVGPatternElement",
+                "SVGPoint": "https://developer.mozilla.org/en/docs/Web/API/SVGPoint",
+                "SVGPointList": "https://developer.mozilla.org/en/docs/Web/API/SVGPointList",
+                "SVGPolygonElement": "https://developer.mozilla.org/en/docs/Web/API/SVGPolygonElement",
+                "SVGPolylineElement": "https://developer.mozilla.org/en/docs/Web/API/SVGPolylineElement",
+                "SVGPreserveAspectRatio": "https://developer.mozilla.org/en/docs/Web/API/SVGPreserveAspectRatio",
+                "SVGRadialGradientElement": "https://developer.mozilla.org/en/docs/Web/API/SVGRadialGradientElement",
+                "SVGRect": "https://developer.mozilla.org/en/docs/Web/API/SVGRect",
+                "SVGRectElement": "https://developer.mozilla.org/en/docs/Web/API/SVGRectElement",
+                "SVGRenderingIntent": "https://developer.mozilla.org/en/docs/Web/API/SVGRenderingIntent",
+                "SVGSVGElement": "https://developer.mozilla.org/en/docs/Web/API/SVGSVGElement",
+                "SVGScriptElement": "https://developer.mozilla.org/en/docs/Web/API/SVGScriptElement",
+                "SVGSetElement": "https://developer.mozilla.org/en/docs/Web/API/SVGSetElement",
+                "SVGStopElement": "https://developer.mozilla.org/en/docs/Web/API/SVGStopElement",
+                "SVGStringList": "https://developer.mozilla.org/en/docs/Web/API/SVGStringList",
+                "SVGStylable": "https://developer.mozilla.org/en/docs/Web/API/SVGStylable",
+                "SVGStyleElement": "https://developer.mozilla.org/en/docs/Web/API/SVGStyleElement",
+                "SVGSwitchElement": "https://developer.mozilla.org/en/docs/Web/API/SVGSwitchElement",
+                "SVGSymbolElement": "https://developer.mozilla.org/en/docs/Web/API/SVGSymbolElement",
+                "SVGTRefElement": "https://developer.mozilla.org/en/docs/Web/API/SVGTRefElement",
+                "SVGTSpanElement": "https://developer.mozilla.org/en/docs/Web/API/SVGTSpanElement",
+                "SVGTests": "https://developer.mozilla.org/en/docs/Web/API/SVGTests",
+                "SVGTextContentElement": "https://developer.mozilla.org/en/docs/Web/API/SVGTextContentElement",
+                "SVGTextElement": "https://developer.mozilla.org/en/docs/Web/API/SVGTextElement",
+                "SVGTextPathElement": "https://developer.mozilla.org/en/docs/Web/API/SVGTextPathElement",
+                "SVGTextPositioningElement": "https://developer.mozilla.org/en/docs/Web/API/SVGTextPositioningElement",
+                "SVGTitleElement": "https://developer.mozilla.org/en/docs/Web/API/SVGTitleElement",
+                "SVGTransform": "https://developer.mozilla.org/en/docs/Web/API/SVGTransform",
+                "SVGTransformList": "https://developer.mozilla.org/en/docs/Web/API/SVGTransformList",
+                "SVGTransformable": "https://developer.mozilla.org/en/docs/Web/API/SVGTransformable",
+                "SVGURIReference": "https://developer.mozilla.org/en/docs/Web/API/SVGURIReference",
+                "SVGUnitTypes": "https://developer.mozilla.org/en/docs/Web/API/SVGUnitTypes",
+                "SVGUseElement": "https://developer.mozilla.org/en/docs/Web/API/SVGUseElement",
+                "SVGVKernElement": "https://developer.mozilla.org/en/docs/Web/API/SVGVKernElement",
+                "SVGViewElement": "https://developer.mozilla.org/en/docs/Web/API/SVGViewElement",
+                "SVGViewSpec": "https://developer.mozilla.org/en/docs/Web/API/SVGViewSpec",
+                "SVGZoomAndPan": "https://developer.mozilla.org/en/docs/Web/API/SVGZoomAndPan",
+                "Text": "https://developer.mozilla.org/en/docs/Web/API/Text",
+                "TextMetrics": "https://developer.mozilla.org/en/docs/Web/API/TextMetrics",
+                "TimeEvent": "https://developer.mozilla.org/en/docs/Web/API/TimeEvent",
+                "TreeWalker": "https://developer.mozilla.org/en/docs/Web/API/TreeWalker",
+                "TypeInfo": "https://developer.mozilla.org/en/docs/Web/API/TypeInfo",
+                "URL": "https://developer.mozilla.org/en/docs/Web/API/URL",
+                "UserDataHandler": "https://developer.mozilla.org/en/docs/Web/API/UserDataHandler",
+                "Window": "https://developer.mozilla.org/en/docs/Web/API/Window",
+                "Worker": "https://developer.mozilla.org/en/docs/Web/API/Worker",
+                "XMLDocument": "https://developer.mozilla.org/en/docs/Web/API/XMLDocument"
+              }
+            ]
+          },
           "name": "CoffeeScript"
         },
         "sourcePath": "/Users/sjorek/Documents/Projects/Mesch/Workspace (Aptana)/goatee-script/src/Compiler.coffee",
@@ -168,6 +1767,539 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
           "singleLineComment": ["#"],
           "ignorePrefix": "!",
           "foldPrefix": "~",
+          "doctags": {
+            "description": {
+              "section": "description",
+              "markdown": "{value}"
+            },
+            "abstract": {
+              "section": "access"
+            },
+            "constant": {
+              "section": "access"
+            },
+            "deprecated": {
+              "section": "access"
+            },
+            "internal": {
+              "section": "access"
+            },
+            "private": {
+              "section": "access"
+            },
+            "protected": {
+              "section": "access"
+            },
+            "public": {
+              "valuePrefix": "as",
+              "section": "access"
+            },
+            "static": {
+              "section": "access"
+            },
+            "constructor": {
+              "section": "special"
+            },
+            "destructor": {
+              "section": "special"
+            },
+            "class": {
+              "section": "type",
+              "markdown": "class *{type}*"
+            },
+            "event": {
+              "section": "type"
+            },
+            "method": {
+              "section": "type",
+              "markdown": "method *{type}*"
+            },
+            "mixin": {
+              "section": "type",
+              "markdown": "mixin *{type}*"
+            },
+            "module": {
+              "section": "type",
+              "markdown": "module *{type}*"
+            },
+            "package": {
+              "section": "type",
+              "markdown": "package *{type}*"
+            },
+            "property": {
+              "section": "type",
+              "markdown": "property *{type}*"
+            },
+            "accessor": {
+              "section": "flag",
+              "markdown": "is an accessor"
+            },
+            "async": {
+              "section": "flag",
+              "markdown": "is asynchronous"
+            },
+            "asynchronous": "async",
+            "getter": {
+              "section": "flag",
+              "markdown": "is a getter"
+            },
+            "recursive": {
+              "section": "flag",
+              "markdown": "is recursive"
+            },
+            "refactor": {
+              "section": "flag",
+              "markdown": "needs to be refactored"
+            },
+            "setter": {
+              "section": "flag",
+              "markdown": "is a setter"
+            },
+            "alias": {
+              "valuePrefix": "as",
+              "section": "metadata",
+              "markdown": "is aliased as *{type}*"
+            },
+            "augments": {
+              "section": "metadata",
+              "markdown": "extends *{type}*"
+            },
+            "extends": {
+              "section": "metadata",
+              "markdown": "extends *{type}*"
+            },
+            "fires": {
+              "section": "metadata"
+            },
+            "memberof": {
+              "section": "metadata",
+              "markdown": "is a member of *{type}*"
+            },
+            "mixes": {
+              "section": "metadata",
+              "markdown": "mixes *{type}* in"
+            },
+            "namespace": {
+              "section": "metadata",
+              "markdown": "is in namespace *{value}*"
+            },
+            "publishes": {
+              "section": "metadata"
+            },
+            "requests": {
+              "section": "metadata",
+              "markdown": "makes an ajax request to <{value}>"
+            },
+            "since": {
+              "section": "metadata",
+              "markdown": "is available since version {value}"
+            },
+            "subscribes": {
+              "valuePrefix": "to",
+              "section": "metadata",
+              "markdown": "subscribes to {type}"
+            },
+            "type": {
+              "section": "metadata"
+            },
+            "version": {
+              "section": "metadata",
+              "markdown": "has version {value}"
+            },
+            "author": {
+              "section": "authors"
+            },
+            "see": {
+              "section": "references"
+            },
+            "todo": {
+              "section": "todo",
+              "markdown": "TODO: {value}"
+            },
+            "example": {
+              "section": "example",
+              "markdown": "{value}"
+            },
+            "examples": "example",
+            "usage": "example",
+            "howto": {
+              "section": "howto",
+              "markdown": "{value}"
+            },
+            "note": {
+              "section": "discard"
+            },
+            "notes": "note",
+            "param": {
+              "section": "params"
+            },
+            "params": "param",
+            "parameters": "param",
+            "return": {
+              "section": "returns"
+            },
+            "returns": "return",
+            "throw": {
+              "section": "throws"
+            },
+            "throws": "throw",
+            "defaultNoValue": {
+              "section": "flag"
+            },
+            "defaultHasValue": {
+              "section": "metadata"
+            }
+          },
+          "namespace": {
+            "separator": ".",
+            "types": [
+              {
+                "goatee.Script.": ["http://sjorek.github.io/goatee-script/", "goatee."],
+                "goatee.Rules.": ["http://sjorek.github.io/goatee-rules/", "goatee."],
+                "goatee.": ["http://sjorek.github.io/goatee-js/", "goatee."]
+              }, {
+                "Array": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Array",
+                "ArrayBuffer": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/ArrayBuffer",
+                "Boolean": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Boolean",
+                "Collator": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Collator",
+                "DataView": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/DataView",
+                "Date": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Date",
+                "DateTimeFormat": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/DateTimeFormat",
+                "Error": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Error",
+                "EvalError": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/EvalError",
+                "Float32Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Float32Array",
+                "Float64Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Float64Array",
+                "Function": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Function",
+                "Infinity": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Infinity",
+                "Int8Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Int8Array",
+                "Int16Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Int16Array",
+                "Int32Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Int32Array",
+                "InternalError": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/InternalError",
+                "Intl": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Intl",
+                "Intl.Collator": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Collator",
+                "Intl.DateTimeFormat": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/DateTimeFormat",
+                "Intl.NumberFormat": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/NumberFormat",
+                "Iterator": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Iterator",
+                "JSON": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/JSON",
+                "Math": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Math",
+                "NaN": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/NaN",
+                "Number": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Number",
+                "NumberFormat": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/NumberFormat",
+                "Object": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Object",
+                "ParallelArray": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/ParallelArray",
+                "Proxy": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Proxy",
+                "RangeError": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/RangeError",
+                "ReferenceError": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/ReferenceError",
+                "RegExp": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/RegExp",
+                "StopIteration": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/StopIteration",
+                "String": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/String",
+                "SyntaxError": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/SyntaxError",
+                "TypeError": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/TypeError",
+                "URIError": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/URIError",
+                "Uint8Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Uint8Array",
+                "Uint8ClampedArray": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Uint8ClampedArray",
+                "Uint16Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Uint16Array",
+                "Uint32Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Uint32Array",
+                "null": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/null",
+                "undefined": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/undefined"
+              }, {
+                "Attr": "https://developer.mozilla.org/en/docs/Web/API/Attr",
+                "CDATASection": "https://developer.mozilla.org/en/docs/Web/API/CDATASection",
+                "CanvasGradient": "https://developer.mozilla.org/en/docs/Web/API/CanvasGradient",
+                "CanvasPattern": "https://developer.mozilla.org/en/docs/Web/API/CanvasPattern",
+                "CanvasPixelArray": "https://developer.mozilla.org/en/docs/Web/API/CanvasPixelArray",
+                "CanvasRenderingContext2D": "https://developer.mozilla.org/en/docs/Web/API/CanvasRenderingContext2D",
+                "CharacterData": "https://developer.mozilla.org/en/docs/Web/API/CharacterData",
+                "ChildNode": "https://developer.mozilla.org/en/docs/Web/API/ChildNode",
+                "Comment": "https://developer.mozilla.org/en/docs/Web/API/Comment",
+                "CustomEvent": "https://developer.mozilla.org/en/docs/Web/API/CustomEvent",
+                "DOMConfiguration": "https://developer.mozilla.org/en/docs/Web/API/DOMConfiguration",
+                "DOMError": "https://developer.mozilla.org/en/docs/Web/API/DOMError",
+                "DOMErrorHandler": "https://developer.mozilla.org/en/docs/Web/API/DOMErrorHandler",
+                "DOMException": "https://developer.mozilla.org/en/docs/Web/API/DOMException",
+                "DOMImplementation": "https://developer.mozilla.org/en/docs/Web/API/DOMImplementation",
+                "DOMImplementationList": "https://developer.mozilla.org/en/docs/Web/API/DOMImplementationList",
+                "DOMImplementationRegistry": "https://developer.mozilla.org/en/docs/Web/API/DOMImplementationRegistry",
+                "DOMImplementationSource": "https://developer.mozilla.org/en/docs/Web/API/DOMImplementationSource",
+                "DOMLocator": "https://developer.mozilla.org/en/docs/Web/API/DOMLocator",
+                "DOMObject": "https://developer.mozilla.org/en/docs/Web/API/DOMObject",
+                "DOMSettableTokenList": "https://developer.mozilla.org/en/docs/Web/API/DOMSettableTokenList",
+                "DOMString": "https://developer.mozilla.org/en/docs/Web/API/DOMString",
+                "DOMStringList": "https://developer.mozilla.org/en/docs/Web/API/DOMStringList",
+                "DOMStringMap": "https://developer.mozilla.org/en/docs/Web/API/DOMStringMap",
+                "DOMTimeStamp": "https://developer.mozilla.org/en/docs/Web/API/DOMTimeStamp",
+                "DOMTokenList": "https://developer.mozilla.org/en/docs/Web/API/DOMTokenList",
+                "DOMUserData": "https://developer.mozilla.org/en/docs/Web/API/DOMUserData",
+                "Document": "https://developer.mozilla.org/en/docs/Web/API/Document",
+                "DocumentFragment": "https://developer.mozilla.org/en/docs/Web/API/DocumentFragment",
+                "DocumentType": "https://developer.mozilla.org/en/docs/Web/API/DocumentType",
+                "Element": "https://developer.mozilla.org/en/docs/Web/API/Element",
+                "ElementTimeControl": "https://developer.mozilla.org/en/docs/Web/API/ElementTimeControl",
+                "Entity": "https://developer.mozilla.org/en/docs/Web/API/Entity",
+                "EntityReference": "https://developer.mozilla.org/en/docs/Web/API/EntityReference",
+                "Event": "https://developer.mozilla.org/en/docs/Web/API/Event",
+                "EventTarget": "https://developer.mozilla.org/en/docs/Web/API/EventTarget",
+                "HTMLAllCollection": "https://developer.mozilla.org/en/docs/Web/API/HTMLAllCollection",
+                "HTMLAnchorElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLAnchorElement",
+                "HTMLAppletElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLAppletElement",
+                "HTMLAreaElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLAreaElement",
+                "HTMLAudioElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLAudioElement",
+                "HTMLBRElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLBRElement",
+                "HTMLBaseElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLBaseElement",
+                "HTMLBaseFontElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLBaseFontElement",
+                "HTMLBodyElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLBodyElement",
+                "HTMLButtonElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLButtonElement",
+                "HTMLCanvasElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLCanvasElement",
+                "HTMLCollection": "https://developer.mozilla.org/en/docs/Web/API/HTMLCollection",
+                "HTMLDListElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLDListElement",
+                "HTMLDataElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLDataElement",
+                "HTMLDataListElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLDataListElement",
+                "HTMLDirectoryElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLDirectoryElement",
+                "HTMLDivElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLDivElement",
+                "HTMLElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLElement",
+                "HTMLEmbedElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLEmbedElement",
+                "HTMLFieldSetElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLFieldSetElement",
+                "HTMLFontElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLFontElement",
+                "HTMLFormControlsCollection": "https://developer.mozilla.org/en/docs/Web/API/HTMLFormControlsCollection",
+                "HTMLFormElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLFormElement",
+                "HTMLFrameElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLFrameElement",
+                "HTMLFrameSetElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLFrameSetElement",
+                "HTMLHRElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLHRElement",
+                "HTMLHeadElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLHeadElement",
+                "HTMLHeadingElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLHeadingElement",
+                "HTMLHtmlElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLHtmlElement",
+                "HTMLIFrameElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLIFrameElement",
+                "HTMLImageElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLImageElement",
+                "HTMLInputElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLInputElement",
+                "HTMLIsIndexElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLIsIndexElement",
+                "HTMLKeygenElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLKeygenElement",
+                "HTMLLIElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLLIElement",
+                "HTMLLabelElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLLabelElement",
+                "HTMLLegendElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLLegendElement",
+                "HTMLLinkElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLLinkElement",
+                "HTMLMapElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLMapElement",
+                "HTMLMediaElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLMediaElement",
+                "HTMLMenuElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLMenuElement",
+                "HTMLMetaElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLMetaElement",
+                "HTMLMeterElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLMeterElement",
+                "HTMLModElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLModElement",
+                "HTMLOListElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLOListElement",
+                "HTMLObjectElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLObjectElement",
+                "HTMLOptGroupElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLOptGroupElement",
+                "HTMLOptionElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLOptionElement",
+                "HTMLOptionsCollection": "https://developer.mozilla.org/en/docs/Web/API/HTMLOptionsCollection",
+                "HTMLOutputElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLOutputElement",
+                "HTMLParagraphElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLParagraphElement",
+                "HTMLParamElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLParamElement",
+                "HTMLPreElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLPreElement",
+                "HTMLProgressElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLProgressElement",
+                "HTMLPropertiesCollection": "https://developer.mozilla.org/en/docs/Web/API/HTMLPropertiesCollection",
+                "HTMLQuoteElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLQuoteElement",
+                "HTMLScriptElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLScriptElement",
+                "HTMLSelectElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLSelectElement",
+                "HTMLSourceElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLSourceElement",
+                "HTMLSpanElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLSpanElement",
+                "HTMLStyleElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLStyleElement",
+                "HTMLTableCaptionElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableCaptionElement",
+                "HTMLTableCellElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableCellElement",
+                "HTMLTableColElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableColElement",
+                "HTMLTableDataCellElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableDataCellElement",
+                "HTMLTableElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableElement",
+                "HTMLTableHeaderCellElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableHeaderCellElement",
+                "HTMLTableRowElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableRowElement",
+                "HTMLTableSectionElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableSectionElement",
+                "HTMLTextAreaElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTextAreaElement",
+                "HTMLTimeElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTimeElement",
+                "HTMLTitleElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTitleElement",
+                "HTMLTrackElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTrackElement",
+                "HTMLUListElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLUListElement",
+                "HTMLUnknownElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLUnknownElement",
+                "HTMLVideoElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLVideoElement",
+                "ImageData": "https://developer.mozilla.org/en/docs/Web/API/ImageData",
+                "MediaError": "https://developer.mozilla.org/en/docs/Web/API/MediaError",
+                "MutationObserver": "https://developer.mozilla.org/en/docs/Web/API/MutationObserver",
+                "MutationRecord": "https://developer.mozilla.org/en/docs/Web/API/MutationRecord",
+                "NameList": "https://developer.mozilla.org/en/docs/Web/API/NameList",
+                "NamedNodeMap": "https://developer.mozilla.org/en/docs/Web/API/NamedNodeMap",
+                "Node": "https://developer.mozilla.org/en/docs/Web/API/Node",
+                "NodeFilter": "https://developer.mozilla.org/en/docs/Web/API/NodeFilter",
+                "NodeIterator": "https://developer.mozilla.org/en/docs/Web/API/NodeIterator",
+                "NodeList": "https://developer.mozilla.org/en/docs/Web/API/NodeList",
+                "Notation": "https://developer.mozilla.org/en/docs/Web/API/Notation",
+                "NotifyAudioAvailableEvent": "https://developer.mozilla.org/en/docs/Web/API/NotifyAudioAvailableEvent",
+                "ParentNode": "https://developer.mozilla.org/en/docs/Web/API/ParentNode",
+                "ProcessingInstruction": "https://developer.mozilla.org/en/docs/Web/API/ProcessingInstruction",
+                "Promise": "https://developer.mozilla.org/en/docs/Web/API/Promise",
+                "PromiseResolver": "https://developer.mozilla.org/en/docs/Web/API/PromiseResolver",
+                "RadioNodeList": "https://developer.mozilla.org/en/docs/Web/API/RadioNodeList",
+                "Range": "https://developer.mozilla.org/en/docs/Web/API/Range",
+                "SVGAElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAElement",
+                "SVGAltGlyphDefElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAltGlyphDefElement",
+                "SVGAltGlyphElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAltGlyphElement",
+                "SVGAltGlyphItemElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAltGlyphItemElement",
+                "SVGAngle": "https://developer.mozilla.org/en/docs/Web/API/SVGAngle",
+                "SVGAnimateColorElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimateColorElement",
+                "SVGAnimateElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimateElement",
+                "SVGAnimateMotionElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimateMotionElement",
+                "SVGAnimateTransformElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimateTransformElement",
+                "SVGAnimatedAngle": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedAngle",
+                "SVGAnimatedBoolean": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedBoolean",
+                "SVGAnimatedEnumeration": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedEnumeration",
+                "SVGAnimatedInteger": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedInteger",
+                "SVGAnimatedLength": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedLength",
+                "SVGAnimatedLengthList": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedLengthList",
+                "SVGAnimatedNumber": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedNumber",
+                "SVGAnimatedNumberList": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedNumberList",
+                "SVGAnimatedPathData": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedPathData",
+                "SVGAnimatedPoints": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedPoints",
+                "SVGAnimatedPreserveAspectRatio": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedPreserveAspectRatio",
+                "SVGAnimatedRect": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedRect",
+                "SVGAnimatedString": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedString",
+                "SVGAnimatedTransformList": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedTransformList",
+                "SVGAnimationElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimationElement",
+                "SVGCSSRule": "https://developer.mozilla.org/en/docs/Web/API/SVGCSSRule",
+                "SVGCircleElement": "https://developer.mozilla.org/en/docs/Web/API/SVGCircleElement",
+                "SVGClipPathElement": "https://developer.mozilla.org/en/docs/Web/API/SVGClipPathElement",
+                "SVGColor": "https://developer.mozilla.org/en/docs/Web/API/SVGColor",
+                "SVGColorProfileElement": "https://developer.mozilla.org/en/docs/Web/API/SVGColorProfileElement",
+                "SVGColorProfileRule": "https://developer.mozilla.org/en/docs/Web/API/SVGColorProfileRule",
+                "SVGComponentTransferFunctionElement": "https://developer.mozilla.org/en/docs/Web/API/SVGComponentTransferFunctionElement",
+                "SVGCursorElement": "https://developer.mozilla.org/en/docs/Web/API/SVGCursorElement",
+                "SVGDefsElement": "https://developer.mozilla.org/en/docs/Web/API/SVGDefsElement",
+                "SVGDescElement": "https://developer.mozilla.org/en/docs/Web/API/SVGDescElement",
+                "SVGElement": "https://developer.mozilla.org/en/docs/Web/API/SVGElement",
+                "SVGElementInstance": "https://developer.mozilla.org/en/docs/Web/API/SVGElementInstance",
+                "SVGElementInstanceList": "https://developer.mozilla.org/en/docs/Web/API/SVGElementInstanceList",
+                "SVGEllipseElement": "https://developer.mozilla.org/en/docs/Web/API/SVGEllipseElement",
+                "SVGExternalResourcesRequired": "https://developer.mozilla.org/en/docs/Web/API/SVGExternalResourcesRequired",
+                "SVGFEBlendElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEBlendElement",
+                "SVGFEColorMatrixElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEColorMatrixElement",
+                "SVGFEComponentTransferElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEComponentTransferElement",
+                "SVGFECompositeElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFECompositeElement",
+                "SVGFEConvolveMatrixElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEConvolveMatrixElement",
+                "SVGFEDiffuseLightingElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEDiffuseLightingElement",
+                "SVGFEDisplacementMapElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEDisplacementMapElement",
+                "SVGFEDistantLightElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEDistantLightElement",
+                "SVGFEFloodElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEFloodElement",
+                "SVGFEFuncAElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEFuncAElement",
+                "SVGFEFuncBElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEFuncBElement",
+                "SVGFEFuncGElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEFuncGElement",
+                "SVGFEFuncRElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEFuncRElement",
+                "SVGFEGaussianBlurElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEGaussianBlurElement",
+                "SVGFEImageElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEImageElement",
+                "SVGFEMergeElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEMergeElement",
+                "SVGFEMergeNodeElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEMergeNodeElement",
+                "SVGFEMorphologyElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEMorphologyElement",
+                "SVGFEOffsetElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEOffsetElement",
+                "SVGFEPointLightElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEPointLightElement",
+                "SVGFESpecularLightingElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFESpecularLightingElement",
+                "SVGFESpotLightElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFESpotLightElement",
+                "SVGFETileElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFETileElement",
+                "SVGFETurbulenceElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFETurbulenceElement",
+                "SVGFilterElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFilterElement",
+                "SVGFilterPrimitiveStandardAttributes": "https://developer.mozilla.org/en/docs/Web/API/SVGFilterPrimitiveStandardAttributes",
+                "SVGFitToViewBox": "https://developer.mozilla.org/en/docs/Web/API/SVGFitToViewBox",
+                "SVGFontElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFontElement",
+                "SVGFontFaceElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFontFaceElement",
+                "SVGFontFaceFormatElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFontFaceFormatElement",
+                "SVGFontFaceNameElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFontFaceNameElement",
+                "SVGFontFaceSrcElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFontFaceSrcElement",
+                "SVGFontFaceUriElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFontFaceUriElement",
+                "SVGForeignObjectElement": "https://developer.mozilla.org/en/docs/Web/API/SVGForeignObjectElement",
+                "SVGGElement": "https://developer.mozilla.org/en/docs/Web/API/SVGGElement",
+                "SVGGlyphElement": "https://developer.mozilla.org/en/docs/Web/API/SVGGlyphElement",
+                "SVGGlyphRefElement": "https://developer.mozilla.org/en/docs/Web/API/SVGGlyphRefElement",
+                "SVGGradientElement": "https://developer.mozilla.org/en/docs/Web/API/SVGGradientElement",
+                "SVGHKernElement": "https://developer.mozilla.org/en/docs/Web/API/SVGHKernElement",
+                "SVGICCColor": "https://developer.mozilla.org/en/docs/Web/API/SVGICCColor",
+                "SVGImageElement": "https://developer.mozilla.org/en/docs/Web/API/SVGImageElement",
+                "SVGLangSpace": "https://developer.mozilla.org/en/docs/Web/API/SVGLangSpace",
+                "SVGLength": "https://developer.mozilla.org/en/docs/Web/API/SVGLength",
+                "SVGLengthList": "https://developer.mozilla.org/en/docs/Web/API/SVGLengthList",
+                "SVGLineElement": "https://developer.mozilla.org/en/docs/Web/API/SVGLineElement",
+                "SVGLinearGradientElement": "https://developer.mozilla.org/en/docs/Web/API/SVGLinearGradientElement",
+                "SVGLocatable": "https://developer.mozilla.org/en/docs/Web/API/SVGLocatable",
+                "SVGMPathElement": "https://developer.mozilla.org/en/docs/Web/API/SVGMPathElement",
+                "SVGMarkerElement": "https://developer.mozilla.org/en/docs/Web/API/SVGMarkerElement",
+                "SVGMaskElement": "https://developer.mozilla.org/en/docs/Web/API/SVGMaskElement",
+                "SVGMatrix": "https://developer.mozilla.org/en/docs/Web/API/SVGMatrix",
+                "SVGMetadataElement": "https://developer.mozilla.org/en/docs/Web/API/SVGMetadataElement",
+                "SVGMissingGlyphElement": "https://developer.mozilla.org/en/docs/Web/API/SVGMissingGlyphElement",
+                "SVGNumber": "https://developer.mozilla.org/en/docs/Web/API/SVGNumber",
+                "SVGNumberList": "https://developer.mozilla.org/en/docs/Web/API/SVGNumberList",
+                "SVGPaint": "https://developer.mozilla.org/en/docs/Web/API/SVGPaint",
+                "SVGPathElement": "https://developer.mozilla.org/en/docs/Web/API/SVGPathElement",
+                "SVGPathSeg": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSeg",
+                "SVGPathSegArcAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegArcAbs",
+                "SVGPathSegArcRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegArcRel",
+                "SVGPathSegClosePath": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegClosePath",
+                "SVGPathSegCurvetoCubicAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoCubicAbs",
+                "SVGPathSegCurvetoCubicRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoCubicRel",
+                "SVGPathSegCurvetoCubicSmoothAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoCubicSmoothAbs",
+                "SVGPathSegCurvetoCubicSmoothRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoCubicSmoothRel",
+                "SVGPathSegCurvetoQuadraticAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoQuadraticAbs",
+                "SVGPathSegCurvetoQuadraticRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoQuadraticRel",
+                "SVGPathSegCurvetoQuadraticSmoothAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoQuadraticSmoothAbs",
+                "SVGPathSegCurvetoQuadraticSmoothRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoQuadraticSmoothRel",
+                "SVGPathSegLinetoAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegLinetoAbs",
+                "SVGPathSegLinetoHorizontalAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegLinetoHorizontalAbs",
+                "SVGPathSegLinetoHorizontalRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegLinetoHorizontalRel",
+                "SVGPathSegLinetoRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegLinetoRel",
+                "SVGPathSegLinetoVerticalAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegLinetoVerticalAbs",
+                "SVGPathSegLinetoVerticalRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegLinetoVerticalRel",
+                "SVGPathSegList": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegList",
+                "SVGPathSegMovetoAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegMovetoAbs",
+                "SVGPathSegMovetoRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegMovetoRel",
+                "SVGPatternElement": "https://developer.mozilla.org/en/docs/Web/API/SVGPatternElement",
+                "SVGPoint": "https://developer.mozilla.org/en/docs/Web/API/SVGPoint",
+                "SVGPointList": "https://developer.mozilla.org/en/docs/Web/API/SVGPointList",
+                "SVGPolygonElement": "https://developer.mozilla.org/en/docs/Web/API/SVGPolygonElement",
+                "SVGPolylineElement": "https://developer.mozilla.org/en/docs/Web/API/SVGPolylineElement",
+                "SVGPreserveAspectRatio": "https://developer.mozilla.org/en/docs/Web/API/SVGPreserveAspectRatio",
+                "SVGRadialGradientElement": "https://developer.mozilla.org/en/docs/Web/API/SVGRadialGradientElement",
+                "SVGRect": "https://developer.mozilla.org/en/docs/Web/API/SVGRect",
+                "SVGRectElement": "https://developer.mozilla.org/en/docs/Web/API/SVGRectElement",
+                "SVGRenderingIntent": "https://developer.mozilla.org/en/docs/Web/API/SVGRenderingIntent",
+                "SVGSVGElement": "https://developer.mozilla.org/en/docs/Web/API/SVGSVGElement",
+                "SVGScriptElement": "https://developer.mozilla.org/en/docs/Web/API/SVGScriptElement",
+                "SVGSetElement": "https://developer.mozilla.org/en/docs/Web/API/SVGSetElement",
+                "SVGStopElement": "https://developer.mozilla.org/en/docs/Web/API/SVGStopElement",
+                "SVGStringList": "https://developer.mozilla.org/en/docs/Web/API/SVGStringList",
+                "SVGStylable": "https://developer.mozilla.org/en/docs/Web/API/SVGStylable",
+                "SVGStyleElement": "https://developer.mozilla.org/en/docs/Web/API/SVGStyleElement",
+                "SVGSwitchElement": "https://developer.mozilla.org/en/docs/Web/API/SVGSwitchElement",
+                "SVGSymbolElement": "https://developer.mozilla.org/en/docs/Web/API/SVGSymbolElement",
+                "SVGTRefElement": "https://developer.mozilla.org/en/docs/Web/API/SVGTRefElement",
+                "SVGTSpanElement": "https://developer.mozilla.org/en/docs/Web/API/SVGTSpanElement",
+                "SVGTests": "https://developer.mozilla.org/en/docs/Web/API/SVGTests",
+                "SVGTextContentElement": "https://developer.mozilla.org/en/docs/Web/API/SVGTextContentElement",
+                "SVGTextElement": "https://developer.mozilla.org/en/docs/Web/API/SVGTextElement",
+                "SVGTextPathElement": "https://developer.mozilla.org/en/docs/Web/API/SVGTextPathElement",
+                "SVGTextPositioningElement": "https://developer.mozilla.org/en/docs/Web/API/SVGTextPositioningElement",
+                "SVGTitleElement": "https://developer.mozilla.org/en/docs/Web/API/SVGTitleElement",
+                "SVGTransform": "https://developer.mozilla.org/en/docs/Web/API/SVGTransform",
+                "SVGTransformList": "https://developer.mozilla.org/en/docs/Web/API/SVGTransformList",
+                "SVGTransformable": "https://developer.mozilla.org/en/docs/Web/API/SVGTransformable",
+                "SVGURIReference": "https://developer.mozilla.org/en/docs/Web/API/SVGURIReference",
+                "SVGUnitTypes": "https://developer.mozilla.org/en/docs/Web/API/SVGUnitTypes",
+                "SVGUseElement": "https://developer.mozilla.org/en/docs/Web/API/SVGUseElement",
+                "SVGVKernElement": "https://developer.mozilla.org/en/docs/Web/API/SVGVKernElement",
+                "SVGViewElement": "https://developer.mozilla.org/en/docs/Web/API/SVGViewElement",
+                "SVGViewSpec": "https://developer.mozilla.org/en/docs/Web/API/SVGViewSpec",
+                "SVGZoomAndPan": "https://developer.mozilla.org/en/docs/Web/API/SVGZoomAndPan",
+                "Text": "https://developer.mozilla.org/en/docs/Web/API/Text",
+                "TextMetrics": "https://developer.mozilla.org/en/docs/Web/API/TextMetrics",
+                "TimeEvent": "https://developer.mozilla.org/en/docs/Web/API/TimeEvent",
+                "TreeWalker": "https://developer.mozilla.org/en/docs/Web/API/TreeWalker",
+                "TypeInfo": "https://developer.mozilla.org/en/docs/Web/API/TypeInfo",
+                "URL": "https://developer.mozilla.org/en/docs/Web/API/URL",
+                "UserDataHandler": "https://developer.mozilla.org/en/docs/Web/API/UserDataHandler",
+                "Window": "https://developer.mozilla.org/en/docs/Web/API/Window",
+                "Worker": "https://developer.mozilla.org/en/docs/Web/API/Worker",
+                "XMLDocument": "https://developer.mozilla.org/en/docs/Web/API/XMLDocument"
+              }
+            ]
+          },
           "name": "CoffeeScript"
         },
         "sourcePath": "/Users/sjorek/Documents/Projects/Mesch/Workspace (Aptana)/goatee-script/src/Expression.coffee",
@@ -188,6 +2320,539 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
           "singleLineComment": ["#"],
           "ignorePrefix": "!",
           "foldPrefix": "~",
+          "doctags": {
+            "description": {
+              "section": "description",
+              "markdown": "{value}"
+            },
+            "abstract": {
+              "section": "access"
+            },
+            "constant": {
+              "section": "access"
+            },
+            "deprecated": {
+              "section": "access"
+            },
+            "internal": {
+              "section": "access"
+            },
+            "private": {
+              "section": "access"
+            },
+            "protected": {
+              "section": "access"
+            },
+            "public": {
+              "valuePrefix": "as",
+              "section": "access"
+            },
+            "static": {
+              "section": "access"
+            },
+            "constructor": {
+              "section": "special"
+            },
+            "destructor": {
+              "section": "special"
+            },
+            "class": {
+              "section": "type",
+              "markdown": "class *{type}*"
+            },
+            "event": {
+              "section": "type"
+            },
+            "method": {
+              "section": "type",
+              "markdown": "method *{type}*"
+            },
+            "mixin": {
+              "section": "type",
+              "markdown": "mixin *{type}*"
+            },
+            "module": {
+              "section": "type",
+              "markdown": "module *{type}*"
+            },
+            "package": {
+              "section": "type",
+              "markdown": "package *{type}*"
+            },
+            "property": {
+              "section": "type",
+              "markdown": "property *{type}*"
+            },
+            "accessor": {
+              "section": "flag",
+              "markdown": "is an accessor"
+            },
+            "async": {
+              "section": "flag",
+              "markdown": "is asynchronous"
+            },
+            "asynchronous": "async",
+            "getter": {
+              "section": "flag",
+              "markdown": "is a getter"
+            },
+            "recursive": {
+              "section": "flag",
+              "markdown": "is recursive"
+            },
+            "refactor": {
+              "section": "flag",
+              "markdown": "needs to be refactored"
+            },
+            "setter": {
+              "section": "flag",
+              "markdown": "is a setter"
+            },
+            "alias": {
+              "valuePrefix": "as",
+              "section": "metadata",
+              "markdown": "is aliased as *{type}*"
+            },
+            "augments": {
+              "section": "metadata",
+              "markdown": "extends *{type}*"
+            },
+            "extends": {
+              "section": "metadata",
+              "markdown": "extends *{type}*"
+            },
+            "fires": {
+              "section": "metadata"
+            },
+            "memberof": {
+              "section": "metadata",
+              "markdown": "is a member of *{type}*"
+            },
+            "mixes": {
+              "section": "metadata",
+              "markdown": "mixes *{type}* in"
+            },
+            "namespace": {
+              "section": "metadata",
+              "markdown": "is in namespace *{value}*"
+            },
+            "publishes": {
+              "section": "metadata"
+            },
+            "requests": {
+              "section": "metadata",
+              "markdown": "makes an ajax request to <{value}>"
+            },
+            "since": {
+              "section": "metadata",
+              "markdown": "is available since version {value}"
+            },
+            "subscribes": {
+              "valuePrefix": "to",
+              "section": "metadata",
+              "markdown": "subscribes to {type}"
+            },
+            "type": {
+              "section": "metadata"
+            },
+            "version": {
+              "section": "metadata",
+              "markdown": "has version {value}"
+            },
+            "author": {
+              "section": "authors"
+            },
+            "see": {
+              "section": "references"
+            },
+            "todo": {
+              "section": "todo",
+              "markdown": "TODO: {value}"
+            },
+            "example": {
+              "section": "example",
+              "markdown": "{value}"
+            },
+            "examples": "example",
+            "usage": "example",
+            "howto": {
+              "section": "howto",
+              "markdown": "{value}"
+            },
+            "note": {
+              "section": "discard"
+            },
+            "notes": "note",
+            "param": {
+              "section": "params"
+            },
+            "params": "param",
+            "parameters": "param",
+            "return": {
+              "section": "returns"
+            },
+            "returns": "return",
+            "throw": {
+              "section": "throws"
+            },
+            "throws": "throw",
+            "defaultNoValue": {
+              "section": "flag"
+            },
+            "defaultHasValue": {
+              "section": "metadata"
+            }
+          },
+          "namespace": {
+            "separator": ".",
+            "types": [
+              {
+                "goatee.Script.": ["http://sjorek.github.io/goatee-script/", "goatee."],
+                "goatee.Rules.": ["http://sjorek.github.io/goatee-rules/", "goatee."],
+                "goatee.": ["http://sjorek.github.io/goatee-js/", "goatee."]
+              }, {
+                "Array": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Array",
+                "ArrayBuffer": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/ArrayBuffer",
+                "Boolean": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Boolean",
+                "Collator": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Collator",
+                "DataView": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/DataView",
+                "Date": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Date",
+                "DateTimeFormat": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/DateTimeFormat",
+                "Error": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Error",
+                "EvalError": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/EvalError",
+                "Float32Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Float32Array",
+                "Float64Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Float64Array",
+                "Function": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Function",
+                "Infinity": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Infinity",
+                "Int8Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Int8Array",
+                "Int16Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Int16Array",
+                "Int32Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Int32Array",
+                "InternalError": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/InternalError",
+                "Intl": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Intl",
+                "Intl.Collator": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Collator",
+                "Intl.DateTimeFormat": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/DateTimeFormat",
+                "Intl.NumberFormat": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/NumberFormat",
+                "Iterator": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Iterator",
+                "JSON": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/JSON",
+                "Math": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Math",
+                "NaN": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/NaN",
+                "Number": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Number",
+                "NumberFormat": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/NumberFormat",
+                "Object": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Object",
+                "ParallelArray": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/ParallelArray",
+                "Proxy": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Proxy",
+                "RangeError": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/RangeError",
+                "ReferenceError": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/ReferenceError",
+                "RegExp": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/RegExp",
+                "StopIteration": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/StopIteration",
+                "String": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/String",
+                "SyntaxError": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/SyntaxError",
+                "TypeError": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/TypeError",
+                "URIError": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/URIError",
+                "Uint8Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Uint8Array",
+                "Uint8ClampedArray": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Uint8ClampedArray",
+                "Uint16Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Uint16Array",
+                "Uint32Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Uint32Array",
+                "null": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/null",
+                "undefined": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/undefined"
+              }, {
+                "Attr": "https://developer.mozilla.org/en/docs/Web/API/Attr",
+                "CDATASection": "https://developer.mozilla.org/en/docs/Web/API/CDATASection",
+                "CanvasGradient": "https://developer.mozilla.org/en/docs/Web/API/CanvasGradient",
+                "CanvasPattern": "https://developer.mozilla.org/en/docs/Web/API/CanvasPattern",
+                "CanvasPixelArray": "https://developer.mozilla.org/en/docs/Web/API/CanvasPixelArray",
+                "CanvasRenderingContext2D": "https://developer.mozilla.org/en/docs/Web/API/CanvasRenderingContext2D",
+                "CharacterData": "https://developer.mozilla.org/en/docs/Web/API/CharacterData",
+                "ChildNode": "https://developer.mozilla.org/en/docs/Web/API/ChildNode",
+                "Comment": "https://developer.mozilla.org/en/docs/Web/API/Comment",
+                "CustomEvent": "https://developer.mozilla.org/en/docs/Web/API/CustomEvent",
+                "DOMConfiguration": "https://developer.mozilla.org/en/docs/Web/API/DOMConfiguration",
+                "DOMError": "https://developer.mozilla.org/en/docs/Web/API/DOMError",
+                "DOMErrorHandler": "https://developer.mozilla.org/en/docs/Web/API/DOMErrorHandler",
+                "DOMException": "https://developer.mozilla.org/en/docs/Web/API/DOMException",
+                "DOMImplementation": "https://developer.mozilla.org/en/docs/Web/API/DOMImplementation",
+                "DOMImplementationList": "https://developer.mozilla.org/en/docs/Web/API/DOMImplementationList",
+                "DOMImplementationRegistry": "https://developer.mozilla.org/en/docs/Web/API/DOMImplementationRegistry",
+                "DOMImplementationSource": "https://developer.mozilla.org/en/docs/Web/API/DOMImplementationSource",
+                "DOMLocator": "https://developer.mozilla.org/en/docs/Web/API/DOMLocator",
+                "DOMObject": "https://developer.mozilla.org/en/docs/Web/API/DOMObject",
+                "DOMSettableTokenList": "https://developer.mozilla.org/en/docs/Web/API/DOMSettableTokenList",
+                "DOMString": "https://developer.mozilla.org/en/docs/Web/API/DOMString",
+                "DOMStringList": "https://developer.mozilla.org/en/docs/Web/API/DOMStringList",
+                "DOMStringMap": "https://developer.mozilla.org/en/docs/Web/API/DOMStringMap",
+                "DOMTimeStamp": "https://developer.mozilla.org/en/docs/Web/API/DOMTimeStamp",
+                "DOMTokenList": "https://developer.mozilla.org/en/docs/Web/API/DOMTokenList",
+                "DOMUserData": "https://developer.mozilla.org/en/docs/Web/API/DOMUserData",
+                "Document": "https://developer.mozilla.org/en/docs/Web/API/Document",
+                "DocumentFragment": "https://developer.mozilla.org/en/docs/Web/API/DocumentFragment",
+                "DocumentType": "https://developer.mozilla.org/en/docs/Web/API/DocumentType",
+                "Element": "https://developer.mozilla.org/en/docs/Web/API/Element",
+                "ElementTimeControl": "https://developer.mozilla.org/en/docs/Web/API/ElementTimeControl",
+                "Entity": "https://developer.mozilla.org/en/docs/Web/API/Entity",
+                "EntityReference": "https://developer.mozilla.org/en/docs/Web/API/EntityReference",
+                "Event": "https://developer.mozilla.org/en/docs/Web/API/Event",
+                "EventTarget": "https://developer.mozilla.org/en/docs/Web/API/EventTarget",
+                "HTMLAllCollection": "https://developer.mozilla.org/en/docs/Web/API/HTMLAllCollection",
+                "HTMLAnchorElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLAnchorElement",
+                "HTMLAppletElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLAppletElement",
+                "HTMLAreaElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLAreaElement",
+                "HTMLAudioElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLAudioElement",
+                "HTMLBRElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLBRElement",
+                "HTMLBaseElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLBaseElement",
+                "HTMLBaseFontElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLBaseFontElement",
+                "HTMLBodyElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLBodyElement",
+                "HTMLButtonElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLButtonElement",
+                "HTMLCanvasElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLCanvasElement",
+                "HTMLCollection": "https://developer.mozilla.org/en/docs/Web/API/HTMLCollection",
+                "HTMLDListElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLDListElement",
+                "HTMLDataElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLDataElement",
+                "HTMLDataListElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLDataListElement",
+                "HTMLDirectoryElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLDirectoryElement",
+                "HTMLDivElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLDivElement",
+                "HTMLElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLElement",
+                "HTMLEmbedElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLEmbedElement",
+                "HTMLFieldSetElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLFieldSetElement",
+                "HTMLFontElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLFontElement",
+                "HTMLFormControlsCollection": "https://developer.mozilla.org/en/docs/Web/API/HTMLFormControlsCollection",
+                "HTMLFormElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLFormElement",
+                "HTMLFrameElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLFrameElement",
+                "HTMLFrameSetElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLFrameSetElement",
+                "HTMLHRElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLHRElement",
+                "HTMLHeadElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLHeadElement",
+                "HTMLHeadingElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLHeadingElement",
+                "HTMLHtmlElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLHtmlElement",
+                "HTMLIFrameElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLIFrameElement",
+                "HTMLImageElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLImageElement",
+                "HTMLInputElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLInputElement",
+                "HTMLIsIndexElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLIsIndexElement",
+                "HTMLKeygenElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLKeygenElement",
+                "HTMLLIElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLLIElement",
+                "HTMLLabelElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLLabelElement",
+                "HTMLLegendElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLLegendElement",
+                "HTMLLinkElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLLinkElement",
+                "HTMLMapElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLMapElement",
+                "HTMLMediaElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLMediaElement",
+                "HTMLMenuElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLMenuElement",
+                "HTMLMetaElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLMetaElement",
+                "HTMLMeterElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLMeterElement",
+                "HTMLModElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLModElement",
+                "HTMLOListElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLOListElement",
+                "HTMLObjectElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLObjectElement",
+                "HTMLOptGroupElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLOptGroupElement",
+                "HTMLOptionElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLOptionElement",
+                "HTMLOptionsCollection": "https://developer.mozilla.org/en/docs/Web/API/HTMLOptionsCollection",
+                "HTMLOutputElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLOutputElement",
+                "HTMLParagraphElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLParagraphElement",
+                "HTMLParamElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLParamElement",
+                "HTMLPreElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLPreElement",
+                "HTMLProgressElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLProgressElement",
+                "HTMLPropertiesCollection": "https://developer.mozilla.org/en/docs/Web/API/HTMLPropertiesCollection",
+                "HTMLQuoteElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLQuoteElement",
+                "HTMLScriptElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLScriptElement",
+                "HTMLSelectElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLSelectElement",
+                "HTMLSourceElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLSourceElement",
+                "HTMLSpanElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLSpanElement",
+                "HTMLStyleElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLStyleElement",
+                "HTMLTableCaptionElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableCaptionElement",
+                "HTMLTableCellElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableCellElement",
+                "HTMLTableColElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableColElement",
+                "HTMLTableDataCellElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableDataCellElement",
+                "HTMLTableElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableElement",
+                "HTMLTableHeaderCellElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableHeaderCellElement",
+                "HTMLTableRowElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableRowElement",
+                "HTMLTableSectionElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableSectionElement",
+                "HTMLTextAreaElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTextAreaElement",
+                "HTMLTimeElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTimeElement",
+                "HTMLTitleElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTitleElement",
+                "HTMLTrackElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTrackElement",
+                "HTMLUListElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLUListElement",
+                "HTMLUnknownElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLUnknownElement",
+                "HTMLVideoElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLVideoElement",
+                "ImageData": "https://developer.mozilla.org/en/docs/Web/API/ImageData",
+                "MediaError": "https://developer.mozilla.org/en/docs/Web/API/MediaError",
+                "MutationObserver": "https://developer.mozilla.org/en/docs/Web/API/MutationObserver",
+                "MutationRecord": "https://developer.mozilla.org/en/docs/Web/API/MutationRecord",
+                "NameList": "https://developer.mozilla.org/en/docs/Web/API/NameList",
+                "NamedNodeMap": "https://developer.mozilla.org/en/docs/Web/API/NamedNodeMap",
+                "Node": "https://developer.mozilla.org/en/docs/Web/API/Node",
+                "NodeFilter": "https://developer.mozilla.org/en/docs/Web/API/NodeFilter",
+                "NodeIterator": "https://developer.mozilla.org/en/docs/Web/API/NodeIterator",
+                "NodeList": "https://developer.mozilla.org/en/docs/Web/API/NodeList",
+                "Notation": "https://developer.mozilla.org/en/docs/Web/API/Notation",
+                "NotifyAudioAvailableEvent": "https://developer.mozilla.org/en/docs/Web/API/NotifyAudioAvailableEvent",
+                "ParentNode": "https://developer.mozilla.org/en/docs/Web/API/ParentNode",
+                "ProcessingInstruction": "https://developer.mozilla.org/en/docs/Web/API/ProcessingInstruction",
+                "Promise": "https://developer.mozilla.org/en/docs/Web/API/Promise",
+                "PromiseResolver": "https://developer.mozilla.org/en/docs/Web/API/PromiseResolver",
+                "RadioNodeList": "https://developer.mozilla.org/en/docs/Web/API/RadioNodeList",
+                "Range": "https://developer.mozilla.org/en/docs/Web/API/Range",
+                "SVGAElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAElement",
+                "SVGAltGlyphDefElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAltGlyphDefElement",
+                "SVGAltGlyphElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAltGlyphElement",
+                "SVGAltGlyphItemElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAltGlyphItemElement",
+                "SVGAngle": "https://developer.mozilla.org/en/docs/Web/API/SVGAngle",
+                "SVGAnimateColorElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimateColorElement",
+                "SVGAnimateElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimateElement",
+                "SVGAnimateMotionElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimateMotionElement",
+                "SVGAnimateTransformElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimateTransformElement",
+                "SVGAnimatedAngle": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedAngle",
+                "SVGAnimatedBoolean": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedBoolean",
+                "SVGAnimatedEnumeration": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedEnumeration",
+                "SVGAnimatedInteger": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedInteger",
+                "SVGAnimatedLength": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedLength",
+                "SVGAnimatedLengthList": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedLengthList",
+                "SVGAnimatedNumber": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedNumber",
+                "SVGAnimatedNumberList": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedNumberList",
+                "SVGAnimatedPathData": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedPathData",
+                "SVGAnimatedPoints": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedPoints",
+                "SVGAnimatedPreserveAspectRatio": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedPreserveAspectRatio",
+                "SVGAnimatedRect": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedRect",
+                "SVGAnimatedString": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedString",
+                "SVGAnimatedTransformList": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedTransformList",
+                "SVGAnimationElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimationElement",
+                "SVGCSSRule": "https://developer.mozilla.org/en/docs/Web/API/SVGCSSRule",
+                "SVGCircleElement": "https://developer.mozilla.org/en/docs/Web/API/SVGCircleElement",
+                "SVGClipPathElement": "https://developer.mozilla.org/en/docs/Web/API/SVGClipPathElement",
+                "SVGColor": "https://developer.mozilla.org/en/docs/Web/API/SVGColor",
+                "SVGColorProfileElement": "https://developer.mozilla.org/en/docs/Web/API/SVGColorProfileElement",
+                "SVGColorProfileRule": "https://developer.mozilla.org/en/docs/Web/API/SVGColorProfileRule",
+                "SVGComponentTransferFunctionElement": "https://developer.mozilla.org/en/docs/Web/API/SVGComponentTransferFunctionElement",
+                "SVGCursorElement": "https://developer.mozilla.org/en/docs/Web/API/SVGCursorElement",
+                "SVGDefsElement": "https://developer.mozilla.org/en/docs/Web/API/SVGDefsElement",
+                "SVGDescElement": "https://developer.mozilla.org/en/docs/Web/API/SVGDescElement",
+                "SVGElement": "https://developer.mozilla.org/en/docs/Web/API/SVGElement",
+                "SVGElementInstance": "https://developer.mozilla.org/en/docs/Web/API/SVGElementInstance",
+                "SVGElementInstanceList": "https://developer.mozilla.org/en/docs/Web/API/SVGElementInstanceList",
+                "SVGEllipseElement": "https://developer.mozilla.org/en/docs/Web/API/SVGEllipseElement",
+                "SVGExternalResourcesRequired": "https://developer.mozilla.org/en/docs/Web/API/SVGExternalResourcesRequired",
+                "SVGFEBlendElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEBlendElement",
+                "SVGFEColorMatrixElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEColorMatrixElement",
+                "SVGFEComponentTransferElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEComponentTransferElement",
+                "SVGFECompositeElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFECompositeElement",
+                "SVGFEConvolveMatrixElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEConvolveMatrixElement",
+                "SVGFEDiffuseLightingElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEDiffuseLightingElement",
+                "SVGFEDisplacementMapElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEDisplacementMapElement",
+                "SVGFEDistantLightElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEDistantLightElement",
+                "SVGFEFloodElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEFloodElement",
+                "SVGFEFuncAElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEFuncAElement",
+                "SVGFEFuncBElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEFuncBElement",
+                "SVGFEFuncGElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEFuncGElement",
+                "SVGFEFuncRElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEFuncRElement",
+                "SVGFEGaussianBlurElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEGaussianBlurElement",
+                "SVGFEImageElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEImageElement",
+                "SVGFEMergeElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEMergeElement",
+                "SVGFEMergeNodeElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEMergeNodeElement",
+                "SVGFEMorphologyElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEMorphologyElement",
+                "SVGFEOffsetElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEOffsetElement",
+                "SVGFEPointLightElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEPointLightElement",
+                "SVGFESpecularLightingElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFESpecularLightingElement",
+                "SVGFESpotLightElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFESpotLightElement",
+                "SVGFETileElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFETileElement",
+                "SVGFETurbulenceElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFETurbulenceElement",
+                "SVGFilterElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFilterElement",
+                "SVGFilterPrimitiveStandardAttributes": "https://developer.mozilla.org/en/docs/Web/API/SVGFilterPrimitiveStandardAttributes",
+                "SVGFitToViewBox": "https://developer.mozilla.org/en/docs/Web/API/SVGFitToViewBox",
+                "SVGFontElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFontElement",
+                "SVGFontFaceElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFontFaceElement",
+                "SVGFontFaceFormatElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFontFaceFormatElement",
+                "SVGFontFaceNameElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFontFaceNameElement",
+                "SVGFontFaceSrcElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFontFaceSrcElement",
+                "SVGFontFaceUriElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFontFaceUriElement",
+                "SVGForeignObjectElement": "https://developer.mozilla.org/en/docs/Web/API/SVGForeignObjectElement",
+                "SVGGElement": "https://developer.mozilla.org/en/docs/Web/API/SVGGElement",
+                "SVGGlyphElement": "https://developer.mozilla.org/en/docs/Web/API/SVGGlyphElement",
+                "SVGGlyphRefElement": "https://developer.mozilla.org/en/docs/Web/API/SVGGlyphRefElement",
+                "SVGGradientElement": "https://developer.mozilla.org/en/docs/Web/API/SVGGradientElement",
+                "SVGHKernElement": "https://developer.mozilla.org/en/docs/Web/API/SVGHKernElement",
+                "SVGICCColor": "https://developer.mozilla.org/en/docs/Web/API/SVGICCColor",
+                "SVGImageElement": "https://developer.mozilla.org/en/docs/Web/API/SVGImageElement",
+                "SVGLangSpace": "https://developer.mozilla.org/en/docs/Web/API/SVGLangSpace",
+                "SVGLength": "https://developer.mozilla.org/en/docs/Web/API/SVGLength",
+                "SVGLengthList": "https://developer.mozilla.org/en/docs/Web/API/SVGLengthList",
+                "SVGLineElement": "https://developer.mozilla.org/en/docs/Web/API/SVGLineElement",
+                "SVGLinearGradientElement": "https://developer.mozilla.org/en/docs/Web/API/SVGLinearGradientElement",
+                "SVGLocatable": "https://developer.mozilla.org/en/docs/Web/API/SVGLocatable",
+                "SVGMPathElement": "https://developer.mozilla.org/en/docs/Web/API/SVGMPathElement",
+                "SVGMarkerElement": "https://developer.mozilla.org/en/docs/Web/API/SVGMarkerElement",
+                "SVGMaskElement": "https://developer.mozilla.org/en/docs/Web/API/SVGMaskElement",
+                "SVGMatrix": "https://developer.mozilla.org/en/docs/Web/API/SVGMatrix",
+                "SVGMetadataElement": "https://developer.mozilla.org/en/docs/Web/API/SVGMetadataElement",
+                "SVGMissingGlyphElement": "https://developer.mozilla.org/en/docs/Web/API/SVGMissingGlyphElement",
+                "SVGNumber": "https://developer.mozilla.org/en/docs/Web/API/SVGNumber",
+                "SVGNumberList": "https://developer.mozilla.org/en/docs/Web/API/SVGNumberList",
+                "SVGPaint": "https://developer.mozilla.org/en/docs/Web/API/SVGPaint",
+                "SVGPathElement": "https://developer.mozilla.org/en/docs/Web/API/SVGPathElement",
+                "SVGPathSeg": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSeg",
+                "SVGPathSegArcAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegArcAbs",
+                "SVGPathSegArcRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegArcRel",
+                "SVGPathSegClosePath": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegClosePath",
+                "SVGPathSegCurvetoCubicAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoCubicAbs",
+                "SVGPathSegCurvetoCubicRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoCubicRel",
+                "SVGPathSegCurvetoCubicSmoothAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoCubicSmoothAbs",
+                "SVGPathSegCurvetoCubicSmoothRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoCubicSmoothRel",
+                "SVGPathSegCurvetoQuadraticAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoQuadraticAbs",
+                "SVGPathSegCurvetoQuadraticRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoQuadraticRel",
+                "SVGPathSegCurvetoQuadraticSmoothAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoQuadraticSmoothAbs",
+                "SVGPathSegCurvetoQuadraticSmoothRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoQuadraticSmoothRel",
+                "SVGPathSegLinetoAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegLinetoAbs",
+                "SVGPathSegLinetoHorizontalAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegLinetoHorizontalAbs",
+                "SVGPathSegLinetoHorizontalRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegLinetoHorizontalRel",
+                "SVGPathSegLinetoRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegLinetoRel",
+                "SVGPathSegLinetoVerticalAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegLinetoVerticalAbs",
+                "SVGPathSegLinetoVerticalRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegLinetoVerticalRel",
+                "SVGPathSegList": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegList",
+                "SVGPathSegMovetoAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegMovetoAbs",
+                "SVGPathSegMovetoRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegMovetoRel",
+                "SVGPatternElement": "https://developer.mozilla.org/en/docs/Web/API/SVGPatternElement",
+                "SVGPoint": "https://developer.mozilla.org/en/docs/Web/API/SVGPoint",
+                "SVGPointList": "https://developer.mozilla.org/en/docs/Web/API/SVGPointList",
+                "SVGPolygonElement": "https://developer.mozilla.org/en/docs/Web/API/SVGPolygonElement",
+                "SVGPolylineElement": "https://developer.mozilla.org/en/docs/Web/API/SVGPolylineElement",
+                "SVGPreserveAspectRatio": "https://developer.mozilla.org/en/docs/Web/API/SVGPreserveAspectRatio",
+                "SVGRadialGradientElement": "https://developer.mozilla.org/en/docs/Web/API/SVGRadialGradientElement",
+                "SVGRect": "https://developer.mozilla.org/en/docs/Web/API/SVGRect",
+                "SVGRectElement": "https://developer.mozilla.org/en/docs/Web/API/SVGRectElement",
+                "SVGRenderingIntent": "https://developer.mozilla.org/en/docs/Web/API/SVGRenderingIntent",
+                "SVGSVGElement": "https://developer.mozilla.org/en/docs/Web/API/SVGSVGElement",
+                "SVGScriptElement": "https://developer.mozilla.org/en/docs/Web/API/SVGScriptElement",
+                "SVGSetElement": "https://developer.mozilla.org/en/docs/Web/API/SVGSetElement",
+                "SVGStopElement": "https://developer.mozilla.org/en/docs/Web/API/SVGStopElement",
+                "SVGStringList": "https://developer.mozilla.org/en/docs/Web/API/SVGStringList",
+                "SVGStylable": "https://developer.mozilla.org/en/docs/Web/API/SVGStylable",
+                "SVGStyleElement": "https://developer.mozilla.org/en/docs/Web/API/SVGStyleElement",
+                "SVGSwitchElement": "https://developer.mozilla.org/en/docs/Web/API/SVGSwitchElement",
+                "SVGSymbolElement": "https://developer.mozilla.org/en/docs/Web/API/SVGSymbolElement",
+                "SVGTRefElement": "https://developer.mozilla.org/en/docs/Web/API/SVGTRefElement",
+                "SVGTSpanElement": "https://developer.mozilla.org/en/docs/Web/API/SVGTSpanElement",
+                "SVGTests": "https://developer.mozilla.org/en/docs/Web/API/SVGTests",
+                "SVGTextContentElement": "https://developer.mozilla.org/en/docs/Web/API/SVGTextContentElement",
+                "SVGTextElement": "https://developer.mozilla.org/en/docs/Web/API/SVGTextElement",
+                "SVGTextPathElement": "https://developer.mozilla.org/en/docs/Web/API/SVGTextPathElement",
+                "SVGTextPositioningElement": "https://developer.mozilla.org/en/docs/Web/API/SVGTextPositioningElement",
+                "SVGTitleElement": "https://developer.mozilla.org/en/docs/Web/API/SVGTitleElement",
+                "SVGTransform": "https://developer.mozilla.org/en/docs/Web/API/SVGTransform",
+                "SVGTransformList": "https://developer.mozilla.org/en/docs/Web/API/SVGTransformList",
+                "SVGTransformable": "https://developer.mozilla.org/en/docs/Web/API/SVGTransformable",
+                "SVGURIReference": "https://developer.mozilla.org/en/docs/Web/API/SVGURIReference",
+                "SVGUnitTypes": "https://developer.mozilla.org/en/docs/Web/API/SVGUnitTypes",
+                "SVGUseElement": "https://developer.mozilla.org/en/docs/Web/API/SVGUseElement",
+                "SVGVKernElement": "https://developer.mozilla.org/en/docs/Web/API/SVGVKernElement",
+                "SVGViewElement": "https://developer.mozilla.org/en/docs/Web/API/SVGViewElement",
+                "SVGViewSpec": "https://developer.mozilla.org/en/docs/Web/API/SVGViewSpec",
+                "SVGZoomAndPan": "https://developer.mozilla.org/en/docs/Web/API/SVGZoomAndPan",
+                "Text": "https://developer.mozilla.org/en/docs/Web/API/Text",
+                "TextMetrics": "https://developer.mozilla.org/en/docs/Web/API/TextMetrics",
+                "TimeEvent": "https://developer.mozilla.org/en/docs/Web/API/TimeEvent",
+                "TreeWalker": "https://developer.mozilla.org/en/docs/Web/API/TreeWalker",
+                "TypeInfo": "https://developer.mozilla.org/en/docs/Web/API/TypeInfo",
+                "URL": "https://developer.mozilla.org/en/docs/Web/API/URL",
+                "UserDataHandler": "https://developer.mozilla.org/en/docs/Web/API/UserDataHandler",
+                "Window": "https://developer.mozilla.org/en/docs/Web/API/Window",
+                "Worker": "https://developer.mozilla.org/en/docs/Web/API/Worker",
+                "XMLDocument": "https://developer.mozilla.org/en/docs/Web/API/XMLDocument"
+              }
+            ]
+          },
           "name": "CoffeeScript"
         },
         "sourcePath": "/Users/sjorek/Documents/Projects/Mesch/Workspace (Aptana)/goatee-script/src/GoateeScript.coffee",
@@ -208,6 +2873,539 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
           "singleLineComment": ["#"],
           "ignorePrefix": "!",
           "foldPrefix": "~",
+          "doctags": {
+            "description": {
+              "section": "description",
+              "markdown": "{value}"
+            },
+            "abstract": {
+              "section": "access"
+            },
+            "constant": {
+              "section": "access"
+            },
+            "deprecated": {
+              "section": "access"
+            },
+            "internal": {
+              "section": "access"
+            },
+            "private": {
+              "section": "access"
+            },
+            "protected": {
+              "section": "access"
+            },
+            "public": {
+              "valuePrefix": "as",
+              "section": "access"
+            },
+            "static": {
+              "section": "access"
+            },
+            "constructor": {
+              "section": "special"
+            },
+            "destructor": {
+              "section": "special"
+            },
+            "class": {
+              "section": "type",
+              "markdown": "class *{type}*"
+            },
+            "event": {
+              "section": "type"
+            },
+            "method": {
+              "section": "type",
+              "markdown": "method *{type}*"
+            },
+            "mixin": {
+              "section": "type",
+              "markdown": "mixin *{type}*"
+            },
+            "module": {
+              "section": "type",
+              "markdown": "module *{type}*"
+            },
+            "package": {
+              "section": "type",
+              "markdown": "package *{type}*"
+            },
+            "property": {
+              "section": "type",
+              "markdown": "property *{type}*"
+            },
+            "accessor": {
+              "section": "flag",
+              "markdown": "is an accessor"
+            },
+            "async": {
+              "section": "flag",
+              "markdown": "is asynchronous"
+            },
+            "asynchronous": "async",
+            "getter": {
+              "section": "flag",
+              "markdown": "is a getter"
+            },
+            "recursive": {
+              "section": "flag",
+              "markdown": "is recursive"
+            },
+            "refactor": {
+              "section": "flag",
+              "markdown": "needs to be refactored"
+            },
+            "setter": {
+              "section": "flag",
+              "markdown": "is a setter"
+            },
+            "alias": {
+              "valuePrefix": "as",
+              "section": "metadata",
+              "markdown": "is aliased as *{type}*"
+            },
+            "augments": {
+              "section": "metadata",
+              "markdown": "extends *{type}*"
+            },
+            "extends": {
+              "section": "metadata",
+              "markdown": "extends *{type}*"
+            },
+            "fires": {
+              "section": "metadata"
+            },
+            "memberof": {
+              "section": "metadata",
+              "markdown": "is a member of *{type}*"
+            },
+            "mixes": {
+              "section": "metadata",
+              "markdown": "mixes *{type}* in"
+            },
+            "namespace": {
+              "section": "metadata",
+              "markdown": "is in namespace *{value}*"
+            },
+            "publishes": {
+              "section": "metadata"
+            },
+            "requests": {
+              "section": "metadata",
+              "markdown": "makes an ajax request to <{value}>"
+            },
+            "since": {
+              "section": "metadata",
+              "markdown": "is available since version {value}"
+            },
+            "subscribes": {
+              "valuePrefix": "to",
+              "section": "metadata",
+              "markdown": "subscribes to {type}"
+            },
+            "type": {
+              "section": "metadata"
+            },
+            "version": {
+              "section": "metadata",
+              "markdown": "has version {value}"
+            },
+            "author": {
+              "section": "authors"
+            },
+            "see": {
+              "section": "references"
+            },
+            "todo": {
+              "section": "todo",
+              "markdown": "TODO: {value}"
+            },
+            "example": {
+              "section": "example",
+              "markdown": "{value}"
+            },
+            "examples": "example",
+            "usage": "example",
+            "howto": {
+              "section": "howto",
+              "markdown": "{value}"
+            },
+            "note": {
+              "section": "discard"
+            },
+            "notes": "note",
+            "param": {
+              "section": "params"
+            },
+            "params": "param",
+            "parameters": "param",
+            "return": {
+              "section": "returns"
+            },
+            "returns": "return",
+            "throw": {
+              "section": "throws"
+            },
+            "throws": "throw",
+            "defaultNoValue": {
+              "section": "flag"
+            },
+            "defaultHasValue": {
+              "section": "metadata"
+            }
+          },
+          "namespace": {
+            "separator": ".",
+            "types": [
+              {
+                "goatee.Script.": ["http://sjorek.github.io/goatee-script/", "goatee."],
+                "goatee.Rules.": ["http://sjorek.github.io/goatee-rules/", "goatee."],
+                "goatee.": ["http://sjorek.github.io/goatee-js/", "goatee."]
+              }, {
+                "Array": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Array",
+                "ArrayBuffer": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/ArrayBuffer",
+                "Boolean": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Boolean",
+                "Collator": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Collator",
+                "DataView": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/DataView",
+                "Date": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Date",
+                "DateTimeFormat": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/DateTimeFormat",
+                "Error": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Error",
+                "EvalError": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/EvalError",
+                "Float32Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Float32Array",
+                "Float64Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Float64Array",
+                "Function": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Function",
+                "Infinity": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Infinity",
+                "Int8Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Int8Array",
+                "Int16Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Int16Array",
+                "Int32Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Int32Array",
+                "InternalError": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/InternalError",
+                "Intl": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Intl",
+                "Intl.Collator": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Collator",
+                "Intl.DateTimeFormat": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/DateTimeFormat",
+                "Intl.NumberFormat": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/NumberFormat",
+                "Iterator": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Iterator",
+                "JSON": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/JSON",
+                "Math": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Math",
+                "NaN": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/NaN",
+                "Number": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Number",
+                "NumberFormat": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/NumberFormat",
+                "Object": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Object",
+                "ParallelArray": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/ParallelArray",
+                "Proxy": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Proxy",
+                "RangeError": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/RangeError",
+                "ReferenceError": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/ReferenceError",
+                "RegExp": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/RegExp",
+                "StopIteration": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/StopIteration",
+                "String": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/String",
+                "SyntaxError": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/SyntaxError",
+                "TypeError": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/TypeError",
+                "URIError": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/URIError",
+                "Uint8Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Uint8Array",
+                "Uint8ClampedArray": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Uint8ClampedArray",
+                "Uint16Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Uint16Array",
+                "Uint32Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Uint32Array",
+                "null": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/null",
+                "undefined": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/undefined"
+              }, {
+                "Attr": "https://developer.mozilla.org/en/docs/Web/API/Attr",
+                "CDATASection": "https://developer.mozilla.org/en/docs/Web/API/CDATASection",
+                "CanvasGradient": "https://developer.mozilla.org/en/docs/Web/API/CanvasGradient",
+                "CanvasPattern": "https://developer.mozilla.org/en/docs/Web/API/CanvasPattern",
+                "CanvasPixelArray": "https://developer.mozilla.org/en/docs/Web/API/CanvasPixelArray",
+                "CanvasRenderingContext2D": "https://developer.mozilla.org/en/docs/Web/API/CanvasRenderingContext2D",
+                "CharacterData": "https://developer.mozilla.org/en/docs/Web/API/CharacterData",
+                "ChildNode": "https://developer.mozilla.org/en/docs/Web/API/ChildNode",
+                "Comment": "https://developer.mozilla.org/en/docs/Web/API/Comment",
+                "CustomEvent": "https://developer.mozilla.org/en/docs/Web/API/CustomEvent",
+                "DOMConfiguration": "https://developer.mozilla.org/en/docs/Web/API/DOMConfiguration",
+                "DOMError": "https://developer.mozilla.org/en/docs/Web/API/DOMError",
+                "DOMErrorHandler": "https://developer.mozilla.org/en/docs/Web/API/DOMErrorHandler",
+                "DOMException": "https://developer.mozilla.org/en/docs/Web/API/DOMException",
+                "DOMImplementation": "https://developer.mozilla.org/en/docs/Web/API/DOMImplementation",
+                "DOMImplementationList": "https://developer.mozilla.org/en/docs/Web/API/DOMImplementationList",
+                "DOMImplementationRegistry": "https://developer.mozilla.org/en/docs/Web/API/DOMImplementationRegistry",
+                "DOMImplementationSource": "https://developer.mozilla.org/en/docs/Web/API/DOMImplementationSource",
+                "DOMLocator": "https://developer.mozilla.org/en/docs/Web/API/DOMLocator",
+                "DOMObject": "https://developer.mozilla.org/en/docs/Web/API/DOMObject",
+                "DOMSettableTokenList": "https://developer.mozilla.org/en/docs/Web/API/DOMSettableTokenList",
+                "DOMString": "https://developer.mozilla.org/en/docs/Web/API/DOMString",
+                "DOMStringList": "https://developer.mozilla.org/en/docs/Web/API/DOMStringList",
+                "DOMStringMap": "https://developer.mozilla.org/en/docs/Web/API/DOMStringMap",
+                "DOMTimeStamp": "https://developer.mozilla.org/en/docs/Web/API/DOMTimeStamp",
+                "DOMTokenList": "https://developer.mozilla.org/en/docs/Web/API/DOMTokenList",
+                "DOMUserData": "https://developer.mozilla.org/en/docs/Web/API/DOMUserData",
+                "Document": "https://developer.mozilla.org/en/docs/Web/API/Document",
+                "DocumentFragment": "https://developer.mozilla.org/en/docs/Web/API/DocumentFragment",
+                "DocumentType": "https://developer.mozilla.org/en/docs/Web/API/DocumentType",
+                "Element": "https://developer.mozilla.org/en/docs/Web/API/Element",
+                "ElementTimeControl": "https://developer.mozilla.org/en/docs/Web/API/ElementTimeControl",
+                "Entity": "https://developer.mozilla.org/en/docs/Web/API/Entity",
+                "EntityReference": "https://developer.mozilla.org/en/docs/Web/API/EntityReference",
+                "Event": "https://developer.mozilla.org/en/docs/Web/API/Event",
+                "EventTarget": "https://developer.mozilla.org/en/docs/Web/API/EventTarget",
+                "HTMLAllCollection": "https://developer.mozilla.org/en/docs/Web/API/HTMLAllCollection",
+                "HTMLAnchorElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLAnchorElement",
+                "HTMLAppletElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLAppletElement",
+                "HTMLAreaElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLAreaElement",
+                "HTMLAudioElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLAudioElement",
+                "HTMLBRElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLBRElement",
+                "HTMLBaseElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLBaseElement",
+                "HTMLBaseFontElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLBaseFontElement",
+                "HTMLBodyElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLBodyElement",
+                "HTMLButtonElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLButtonElement",
+                "HTMLCanvasElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLCanvasElement",
+                "HTMLCollection": "https://developer.mozilla.org/en/docs/Web/API/HTMLCollection",
+                "HTMLDListElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLDListElement",
+                "HTMLDataElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLDataElement",
+                "HTMLDataListElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLDataListElement",
+                "HTMLDirectoryElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLDirectoryElement",
+                "HTMLDivElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLDivElement",
+                "HTMLElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLElement",
+                "HTMLEmbedElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLEmbedElement",
+                "HTMLFieldSetElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLFieldSetElement",
+                "HTMLFontElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLFontElement",
+                "HTMLFormControlsCollection": "https://developer.mozilla.org/en/docs/Web/API/HTMLFormControlsCollection",
+                "HTMLFormElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLFormElement",
+                "HTMLFrameElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLFrameElement",
+                "HTMLFrameSetElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLFrameSetElement",
+                "HTMLHRElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLHRElement",
+                "HTMLHeadElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLHeadElement",
+                "HTMLHeadingElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLHeadingElement",
+                "HTMLHtmlElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLHtmlElement",
+                "HTMLIFrameElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLIFrameElement",
+                "HTMLImageElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLImageElement",
+                "HTMLInputElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLInputElement",
+                "HTMLIsIndexElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLIsIndexElement",
+                "HTMLKeygenElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLKeygenElement",
+                "HTMLLIElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLLIElement",
+                "HTMLLabelElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLLabelElement",
+                "HTMLLegendElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLLegendElement",
+                "HTMLLinkElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLLinkElement",
+                "HTMLMapElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLMapElement",
+                "HTMLMediaElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLMediaElement",
+                "HTMLMenuElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLMenuElement",
+                "HTMLMetaElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLMetaElement",
+                "HTMLMeterElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLMeterElement",
+                "HTMLModElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLModElement",
+                "HTMLOListElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLOListElement",
+                "HTMLObjectElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLObjectElement",
+                "HTMLOptGroupElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLOptGroupElement",
+                "HTMLOptionElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLOptionElement",
+                "HTMLOptionsCollection": "https://developer.mozilla.org/en/docs/Web/API/HTMLOptionsCollection",
+                "HTMLOutputElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLOutputElement",
+                "HTMLParagraphElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLParagraphElement",
+                "HTMLParamElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLParamElement",
+                "HTMLPreElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLPreElement",
+                "HTMLProgressElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLProgressElement",
+                "HTMLPropertiesCollection": "https://developer.mozilla.org/en/docs/Web/API/HTMLPropertiesCollection",
+                "HTMLQuoteElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLQuoteElement",
+                "HTMLScriptElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLScriptElement",
+                "HTMLSelectElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLSelectElement",
+                "HTMLSourceElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLSourceElement",
+                "HTMLSpanElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLSpanElement",
+                "HTMLStyleElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLStyleElement",
+                "HTMLTableCaptionElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableCaptionElement",
+                "HTMLTableCellElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableCellElement",
+                "HTMLTableColElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableColElement",
+                "HTMLTableDataCellElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableDataCellElement",
+                "HTMLTableElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableElement",
+                "HTMLTableHeaderCellElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableHeaderCellElement",
+                "HTMLTableRowElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableRowElement",
+                "HTMLTableSectionElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableSectionElement",
+                "HTMLTextAreaElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTextAreaElement",
+                "HTMLTimeElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTimeElement",
+                "HTMLTitleElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTitleElement",
+                "HTMLTrackElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTrackElement",
+                "HTMLUListElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLUListElement",
+                "HTMLUnknownElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLUnknownElement",
+                "HTMLVideoElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLVideoElement",
+                "ImageData": "https://developer.mozilla.org/en/docs/Web/API/ImageData",
+                "MediaError": "https://developer.mozilla.org/en/docs/Web/API/MediaError",
+                "MutationObserver": "https://developer.mozilla.org/en/docs/Web/API/MutationObserver",
+                "MutationRecord": "https://developer.mozilla.org/en/docs/Web/API/MutationRecord",
+                "NameList": "https://developer.mozilla.org/en/docs/Web/API/NameList",
+                "NamedNodeMap": "https://developer.mozilla.org/en/docs/Web/API/NamedNodeMap",
+                "Node": "https://developer.mozilla.org/en/docs/Web/API/Node",
+                "NodeFilter": "https://developer.mozilla.org/en/docs/Web/API/NodeFilter",
+                "NodeIterator": "https://developer.mozilla.org/en/docs/Web/API/NodeIterator",
+                "NodeList": "https://developer.mozilla.org/en/docs/Web/API/NodeList",
+                "Notation": "https://developer.mozilla.org/en/docs/Web/API/Notation",
+                "NotifyAudioAvailableEvent": "https://developer.mozilla.org/en/docs/Web/API/NotifyAudioAvailableEvent",
+                "ParentNode": "https://developer.mozilla.org/en/docs/Web/API/ParentNode",
+                "ProcessingInstruction": "https://developer.mozilla.org/en/docs/Web/API/ProcessingInstruction",
+                "Promise": "https://developer.mozilla.org/en/docs/Web/API/Promise",
+                "PromiseResolver": "https://developer.mozilla.org/en/docs/Web/API/PromiseResolver",
+                "RadioNodeList": "https://developer.mozilla.org/en/docs/Web/API/RadioNodeList",
+                "Range": "https://developer.mozilla.org/en/docs/Web/API/Range",
+                "SVGAElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAElement",
+                "SVGAltGlyphDefElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAltGlyphDefElement",
+                "SVGAltGlyphElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAltGlyphElement",
+                "SVGAltGlyphItemElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAltGlyphItemElement",
+                "SVGAngle": "https://developer.mozilla.org/en/docs/Web/API/SVGAngle",
+                "SVGAnimateColorElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimateColorElement",
+                "SVGAnimateElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimateElement",
+                "SVGAnimateMotionElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimateMotionElement",
+                "SVGAnimateTransformElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimateTransformElement",
+                "SVGAnimatedAngle": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedAngle",
+                "SVGAnimatedBoolean": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedBoolean",
+                "SVGAnimatedEnumeration": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedEnumeration",
+                "SVGAnimatedInteger": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedInteger",
+                "SVGAnimatedLength": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedLength",
+                "SVGAnimatedLengthList": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedLengthList",
+                "SVGAnimatedNumber": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedNumber",
+                "SVGAnimatedNumberList": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedNumberList",
+                "SVGAnimatedPathData": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedPathData",
+                "SVGAnimatedPoints": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedPoints",
+                "SVGAnimatedPreserveAspectRatio": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedPreserveAspectRatio",
+                "SVGAnimatedRect": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedRect",
+                "SVGAnimatedString": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedString",
+                "SVGAnimatedTransformList": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedTransformList",
+                "SVGAnimationElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimationElement",
+                "SVGCSSRule": "https://developer.mozilla.org/en/docs/Web/API/SVGCSSRule",
+                "SVGCircleElement": "https://developer.mozilla.org/en/docs/Web/API/SVGCircleElement",
+                "SVGClipPathElement": "https://developer.mozilla.org/en/docs/Web/API/SVGClipPathElement",
+                "SVGColor": "https://developer.mozilla.org/en/docs/Web/API/SVGColor",
+                "SVGColorProfileElement": "https://developer.mozilla.org/en/docs/Web/API/SVGColorProfileElement",
+                "SVGColorProfileRule": "https://developer.mozilla.org/en/docs/Web/API/SVGColorProfileRule",
+                "SVGComponentTransferFunctionElement": "https://developer.mozilla.org/en/docs/Web/API/SVGComponentTransferFunctionElement",
+                "SVGCursorElement": "https://developer.mozilla.org/en/docs/Web/API/SVGCursorElement",
+                "SVGDefsElement": "https://developer.mozilla.org/en/docs/Web/API/SVGDefsElement",
+                "SVGDescElement": "https://developer.mozilla.org/en/docs/Web/API/SVGDescElement",
+                "SVGElement": "https://developer.mozilla.org/en/docs/Web/API/SVGElement",
+                "SVGElementInstance": "https://developer.mozilla.org/en/docs/Web/API/SVGElementInstance",
+                "SVGElementInstanceList": "https://developer.mozilla.org/en/docs/Web/API/SVGElementInstanceList",
+                "SVGEllipseElement": "https://developer.mozilla.org/en/docs/Web/API/SVGEllipseElement",
+                "SVGExternalResourcesRequired": "https://developer.mozilla.org/en/docs/Web/API/SVGExternalResourcesRequired",
+                "SVGFEBlendElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEBlendElement",
+                "SVGFEColorMatrixElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEColorMatrixElement",
+                "SVGFEComponentTransferElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEComponentTransferElement",
+                "SVGFECompositeElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFECompositeElement",
+                "SVGFEConvolveMatrixElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEConvolveMatrixElement",
+                "SVGFEDiffuseLightingElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEDiffuseLightingElement",
+                "SVGFEDisplacementMapElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEDisplacementMapElement",
+                "SVGFEDistantLightElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEDistantLightElement",
+                "SVGFEFloodElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEFloodElement",
+                "SVGFEFuncAElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEFuncAElement",
+                "SVGFEFuncBElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEFuncBElement",
+                "SVGFEFuncGElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEFuncGElement",
+                "SVGFEFuncRElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEFuncRElement",
+                "SVGFEGaussianBlurElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEGaussianBlurElement",
+                "SVGFEImageElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEImageElement",
+                "SVGFEMergeElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEMergeElement",
+                "SVGFEMergeNodeElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEMergeNodeElement",
+                "SVGFEMorphologyElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEMorphologyElement",
+                "SVGFEOffsetElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEOffsetElement",
+                "SVGFEPointLightElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEPointLightElement",
+                "SVGFESpecularLightingElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFESpecularLightingElement",
+                "SVGFESpotLightElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFESpotLightElement",
+                "SVGFETileElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFETileElement",
+                "SVGFETurbulenceElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFETurbulenceElement",
+                "SVGFilterElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFilterElement",
+                "SVGFilterPrimitiveStandardAttributes": "https://developer.mozilla.org/en/docs/Web/API/SVGFilterPrimitiveStandardAttributes",
+                "SVGFitToViewBox": "https://developer.mozilla.org/en/docs/Web/API/SVGFitToViewBox",
+                "SVGFontElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFontElement",
+                "SVGFontFaceElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFontFaceElement",
+                "SVGFontFaceFormatElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFontFaceFormatElement",
+                "SVGFontFaceNameElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFontFaceNameElement",
+                "SVGFontFaceSrcElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFontFaceSrcElement",
+                "SVGFontFaceUriElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFontFaceUriElement",
+                "SVGForeignObjectElement": "https://developer.mozilla.org/en/docs/Web/API/SVGForeignObjectElement",
+                "SVGGElement": "https://developer.mozilla.org/en/docs/Web/API/SVGGElement",
+                "SVGGlyphElement": "https://developer.mozilla.org/en/docs/Web/API/SVGGlyphElement",
+                "SVGGlyphRefElement": "https://developer.mozilla.org/en/docs/Web/API/SVGGlyphRefElement",
+                "SVGGradientElement": "https://developer.mozilla.org/en/docs/Web/API/SVGGradientElement",
+                "SVGHKernElement": "https://developer.mozilla.org/en/docs/Web/API/SVGHKernElement",
+                "SVGICCColor": "https://developer.mozilla.org/en/docs/Web/API/SVGICCColor",
+                "SVGImageElement": "https://developer.mozilla.org/en/docs/Web/API/SVGImageElement",
+                "SVGLangSpace": "https://developer.mozilla.org/en/docs/Web/API/SVGLangSpace",
+                "SVGLength": "https://developer.mozilla.org/en/docs/Web/API/SVGLength",
+                "SVGLengthList": "https://developer.mozilla.org/en/docs/Web/API/SVGLengthList",
+                "SVGLineElement": "https://developer.mozilla.org/en/docs/Web/API/SVGLineElement",
+                "SVGLinearGradientElement": "https://developer.mozilla.org/en/docs/Web/API/SVGLinearGradientElement",
+                "SVGLocatable": "https://developer.mozilla.org/en/docs/Web/API/SVGLocatable",
+                "SVGMPathElement": "https://developer.mozilla.org/en/docs/Web/API/SVGMPathElement",
+                "SVGMarkerElement": "https://developer.mozilla.org/en/docs/Web/API/SVGMarkerElement",
+                "SVGMaskElement": "https://developer.mozilla.org/en/docs/Web/API/SVGMaskElement",
+                "SVGMatrix": "https://developer.mozilla.org/en/docs/Web/API/SVGMatrix",
+                "SVGMetadataElement": "https://developer.mozilla.org/en/docs/Web/API/SVGMetadataElement",
+                "SVGMissingGlyphElement": "https://developer.mozilla.org/en/docs/Web/API/SVGMissingGlyphElement",
+                "SVGNumber": "https://developer.mozilla.org/en/docs/Web/API/SVGNumber",
+                "SVGNumberList": "https://developer.mozilla.org/en/docs/Web/API/SVGNumberList",
+                "SVGPaint": "https://developer.mozilla.org/en/docs/Web/API/SVGPaint",
+                "SVGPathElement": "https://developer.mozilla.org/en/docs/Web/API/SVGPathElement",
+                "SVGPathSeg": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSeg",
+                "SVGPathSegArcAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegArcAbs",
+                "SVGPathSegArcRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegArcRel",
+                "SVGPathSegClosePath": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegClosePath",
+                "SVGPathSegCurvetoCubicAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoCubicAbs",
+                "SVGPathSegCurvetoCubicRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoCubicRel",
+                "SVGPathSegCurvetoCubicSmoothAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoCubicSmoothAbs",
+                "SVGPathSegCurvetoCubicSmoothRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoCubicSmoothRel",
+                "SVGPathSegCurvetoQuadraticAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoQuadraticAbs",
+                "SVGPathSegCurvetoQuadraticRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoQuadraticRel",
+                "SVGPathSegCurvetoQuadraticSmoothAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoQuadraticSmoothAbs",
+                "SVGPathSegCurvetoQuadraticSmoothRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoQuadraticSmoothRel",
+                "SVGPathSegLinetoAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegLinetoAbs",
+                "SVGPathSegLinetoHorizontalAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegLinetoHorizontalAbs",
+                "SVGPathSegLinetoHorizontalRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegLinetoHorizontalRel",
+                "SVGPathSegLinetoRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegLinetoRel",
+                "SVGPathSegLinetoVerticalAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegLinetoVerticalAbs",
+                "SVGPathSegLinetoVerticalRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegLinetoVerticalRel",
+                "SVGPathSegList": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegList",
+                "SVGPathSegMovetoAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegMovetoAbs",
+                "SVGPathSegMovetoRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegMovetoRel",
+                "SVGPatternElement": "https://developer.mozilla.org/en/docs/Web/API/SVGPatternElement",
+                "SVGPoint": "https://developer.mozilla.org/en/docs/Web/API/SVGPoint",
+                "SVGPointList": "https://developer.mozilla.org/en/docs/Web/API/SVGPointList",
+                "SVGPolygonElement": "https://developer.mozilla.org/en/docs/Web/API/SVGPolygonElement",
+                "SVGPolylineElement": "https://developer.mozilla.org/en/docs/Web/API/SVGPolylineElement",
+                "SVGPreserveAspectRatio": "https://developer.mozilla.org/en/docs/Web/API/SVGPreserveAspectRatio",
+                "SVGRadialGradientElement": "https://developer.mozilla.org/en/docs/Web/API/SVGRadialGradientElement",
+                "SVGRect": "https://developer.mozilla.org/en/docs/Web/API/SVGRect",
+                "SVGRectElement": "https://developer.mozilla.org/en/docs/Web/API/SVGRectElement",
+                "SVGRenderingIntent": "https://developer.mozilla.org/en/docs/Web/API/SVGRenderingIntent",
+                "SVGSVGElement": "https://developer.mozilla.org/en/docs/Web/API/SVGSVGElement",
+                "SVGScriptElement": "https://developer.mozilla.org/en/docs/Web/API/SVGScriptElement",
+                "SVGSetElement": "https://developer.mozilla.org/en/docs/Web/API/SVGSetElement",
+                "SVGStopElement": "https://developer.mozilla.org/en/docs/Web/API/SVGStopElement",
+                "SVGStringList": "https://developer.mozilla.org/en/docs/Web/API/SVGStringList",
+                "SVGStylable": "https://developer.mozilla.org/en/docs/Web/API/SVGStylable",
+                "SVGStyleElement": "https://developer.mozilla.org/en/docs/Web/API/SVGStyleElement",
+                "SVGSwitchElement": "https://developer.mozilla.org/en/docs/Web/API/SVGSwitchElement",
+                "SVGSymbolElement": "https://developer.mozilla.org/en/docs/Web/API/SVGSymbolElement",
+                "SVGTRefElement": "https://developer.mozilla.org/en/docs/Web/API/SVGTRefElement",
+                "SVGTSpanElement": "https://developer.mozilla.org/en/docs/Web/API/SVGTSpanElement",
+                "SVGTests": "https://developer.mozilla.org/en/docs/Web/API/SVGTests",
+                "SVGTextContentElement": "https://developer.mozilla.org/en/docs/Web/API/SVGTextContentElement",
+                "SVGTextElement": "https://developer.mozilla.org/en/docs/Web/API/SVGTextElement",
+                "SVGTextPathElement": "https://developer.mozilla.org/en/docs/Web/API/SVGTextPathElement",
+                "SVGTextPositioningElement": "https://developer.mozilla.org/en/docs/Web/API/SVGTextPositioningElement",
+                "SVGTitleElement": "https://developer.mozilla.org/en/docs/Web/API/SVGTitleElement",
+                "SVGTransform": "https://developer.mozilla.org/en/docs/Web/API/SVGTransform",
+                "SVGTransformList": "https://developer.mozilla.org/en/docs/Web/API/SVGTransformList",
+                "SVGTransformable": "https://developer.mozilla.org/en/docs/Web/API/SVGTransformable",
+                "SVGURIReference": "https://developer.mozilla.org/en/docs/Web/API/SVGURIReference",
+                "SVGUnitTypes": "https://developer.mozilla.org/en/docs/Web/API/SVGUnitTypes",
+                "SVGUseElement": "https://developer.mozilla.org/en/docs/Web/API/SVGUseElement",
+                "SVGVKernElement": "https://developer.mozilla.org/en/docs/Web/API/SVGVKernElement",
+                "SVGViewElement": "https://developer.mozilla.org/en/docs/Web/API/SVGViewElement",
+                "SVGViewSpec": "https://developer.mozilla.org/en/docs/Web/API/SVGViewSpec",
+                "SVGZoomAndPan": "https://developer.mozilla.org/en/docs/Web/API/SVGZoomAndPan",
+                "Text": "https://developer.mozilla.org/en/docs/Web/API/Text",
+                "TextMetrics": "https://developer.mozilla.org/en/docs/Web/API/TextMetrics",
+                "TimeEvent": "https://developer.mozilla.org/en/docs/Web/API/TimeEvent",
+                "TreeWalker": "https://developer.mozilla.org/en/docs/Web/API/TreeWalker",
+                "TypeInfo": "https://developer.mozilla.org/en/docs/Web/API/TypeInfo",
+                "URL": "https://developer.mozilla.org/en/docs/Web/API/URL",
+                "UserDataHandler": "https://developer.mozilla.org/en/docs/Web/API/UserDataHandler",
+                "Window": "https://developer.mozilla.org/en/docs/Web/API/Window",
+                "Worker": "https://developer.mozilla.org/en/docs/Web/API/Worker",
+                "XMLDocument": "https://developer.mozilla.org/en/docs/Web/API/XMLDocument"
+              }
+            ]
+          },
           "name": "CoffeeScript"
         },
         "sourcePath": "/Users/sjorek/Documents/Projects/Mesch/Workspace (Aptana)/goatee-script/src/Grammar.coffee",
@@ -238,6 +3436,539 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
           "singleLineComment": ["#"],
           "ignorePrefix": "!",
           "foldPrefix": "~",
+          "doctags": {
+            "description": {
+              "section": "description",
+              "markdown": "{value}"
+            },
+            "abstract": {
+              "section": "access"
+            },
+            "constant": {
+              "section": "access"
+            },
+            "deprecated": {
+              "section": "access"
+            },
+            "internal": {
+              "section": "access"
+            },
+            "private": {
+              "section": "access"
+            },
+            "protected": {
+              "section": "access"
+            },
+            "public": {
+              "valuePrefix": "as",
+              "section": "access"
+            },
+            "static": {
+              "section": "access"
+            },
+            "constructor": {
+              "section": "special"
+            },
+            "destructor": {
+              "section": "special"
+            },
+            "class": {
+              "section": "type",
+              "markdown": "class *{type}*"
+            },
+            "event": {
+              "section": "type"
+            },
+            "method": {
+              "section": "type",
+              "markdown": "method *{type}*"
+            },
+            "mixin": {
+              "section": "type",
+              "markdown": "mixin *{type}*"
+            },
+            "module": {
+              "section": "type",
+              "markdown": "module *{type}*"
+            },
+            "package": {
+              "section": "type",
+              "markdown": "package *{type}*"
+            },
+            "property": {
+              "section": "type",
+              "markdown": "property *{type}*"
+            },
+            "accessor": {
+              "section": "flag",
+              "markdown": "is an accessor"
+            },
+            "async": {
+              "section": "flag",
+              "markdown": "is asynchronous"
+            },
+            "asynchronous": "async",
+            "getter": {
+              "section": "flag",
+              "markdown": "is a getter"
+            },
+            "recursive": {
+              "section": "flag",
+              "markdown": "is recursive"
+            },
+            "refactor": {
+              "section": "flag",
+              "markdown": "needs to be refactored"
+            },
+            "setter": {
+              "section": "flag",
+              "markdown": "is a setter"
+            },
+            "alias": {
+              "valuePrefix": "as",
+              "section": "metadata",
+              "markdown": "is aliased as *{type}*"
+            },
+            "augments": {
+              "section": "metadata",
+              "markdown": "extends *{type}*"
+            },
+            "extends": {
+              "section": "metadata",
+              "markdown": "extends *{type}*"
+            },
+            "fires": {
+              "section": "metadata"
+            },
+            "memberof": {
+              "section": "metadata",
+              "markdown": "is a member of *{type}*"
+            },
+            "mixes": {
+              "section": "metadata",
+              "markdown": "mixes *{type}* in"
+            },
+            "namespace": {
+              "section": "metadata",
+              "markdown": "is in namespace *{value}*"
+            },
+            "publishes": {
+              "section": "metadata"
+            },
+            "requests": {
+              "section": "metadata",
+              "markdown": "makes an ajax request to <{value}>"
+            },
+            "since": {
+              "section": "metadata",
+              "markdown": "is available since version {value}"
+            },
+            "subscribes": {
+              "valuePrefix": "to",
+              "section": "metadata",
+              "markdown": "subscribes to {type}"
+            },
+            "type": {
+              "section": "metadata"
+            },
+            "version": {
+              "section": "metadata",
+              "markdown": "has version {value}"
+            },
+            "author": {
+              "section": "authors"
+            },
+            "see": {
+              "section": "references"
+            },
+            "todo": {
+              "section": "todo",
+              "markdown": "TODO: {value}"
+            },
+            "example": {
+              "section": "example",
+              "markdown": "{value}"
+            },
+            "examples": "example",
+            "usage": "example",
+            "howto": {
+              "section": "howto",
+              "markdown": "{value}"
+            },
+            "note": {
+              "section": "discard"
+            },
+            "notes": "note",
+            "param": {
+              "section": "params"
+            },
+            "params": "param",
+            "parameters": "param",
+            "return": {
+              "section": "returns"
+            },
+            "returns": "return",
+            "throw": {
+              "section": "throws"
+            },
+            "throws": "throw",
+            "defaultNoValue": {
+              "section": "flag"
+            },
+            "defaultHasValue": {
+              "section": "metadata"
+            }
+          },
+          "namespace": {
+            "separator": ".",
+            "types": [
+              {
+                "goatee.Script.": ["http://sjorek.github.io/goatee-script/", "goatee."],
+                "goatee.Rules.": ["http://sjorek.github.io/goatee-rules/", "goatee."],
+                "goatee.": ["http://sjorek.github.io/goatee-js/", "goatee."]
+              }, {
+                "Array": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Array",
+                "ArrayBuffer": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/ArrayBuffer",
+                "Boolean": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Boolean",
+                "Collator": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Collator",
+                "DataView": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/DataView",
+                "Date": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Date",
+                "DateTimeFormat": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/DateTimeFormat",
+                "Error": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Error",
+                "EvalError": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/EvalError",
+                "Float32Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Float32Array",
+                "Float64Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Float64Array",
+                "Function": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Function",
+                "Infinity": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Infinity",
+                "Int8Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Int8Array",
+                "Int16Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Int16Array",
+                "Int32Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Int32Array",
+                "InternalError": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/InternalError",
+                "Intl": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Intl",
+                "Intl.Collator": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Collator",
+                "Intl.DateTimeFormat": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/DateTimeFormat",
+                "Intl.NumberFormat": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/NumberFormat",
+                "Iterator": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Iterator",
+                "JSON": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/JSON",
+                "Math": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Math",
+                "NaN": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/NaN",
+                "Number": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Number",
+                "NumberFormat": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/NumberFormat",
+                "Object": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Object",
+                "ParallelArray": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/ParallelArray",
+                "Proxy": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Proxy",
+                "RangeError": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/RangeError",
+                "ReferenceError": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/ReferenceError",
+                "RegExp": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/RegExp",
+                "StopIteration": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/StopIteration",
+                "String": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/String",
+                "SyntaxError": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/SyntaxError",
+                "TypeError": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/TypeError",
+                "URIError": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/URIError",
+                "Uint8Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Uint8Array",
+                "Uint8ClampedArray": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Uint8ClampedArray",
+                "Uint16Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Uint16Array",
+                "Uint32Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Uint32Array",
+                "null": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/null",
+                "undefined": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/undefined"
+              }, {
+                "Attr": "https://developer.mozilla.org/en/docs/Web/API/Attr",
+                "CDATASection": "https://developer.mozilla.org/en/docs/Web/API/CDATASection",
+                "CanvasGradient": "https://developer.mozilla.org/en/docs/Web/API/CanvasGradient",
+                "CanvasPattern": "https://developer.mozilla.org/en/docs/Web/API/CanvasPattern",
+                "CanvasPixelArray": "https://developer.mozilla.org/en/docs/Web/API/CanvasPixelArray",
+                "CanvasRenderingContext2D": "https://developer.mozilla.org/en/docs/Web/API/CanvasRenderingContext2D",
+                "CharacterData": "https://developer.mozilla.org/en/docs/Web/API/CharacterData",
+                "ChildNode": "https://developer.mozilla.org/en/docs/Web/API/ChildNode",
+                "Comment": "https://developer.mozilla.org/en/docs/Web/API/Comment",
+                "CustomEvent": "https://developer.mozilla.org/en/docs/Web/API/CustomEvent",
+                "DOMConfiguration": "https://developer.mozilla.org/en/docs/Web/API/DOMConfiguration",
+                "DOMError": "https://developer.mozilla.org/en/docs/Web/API/DOMError",
+                "DOMErrorHandler": "https://developer.mozilla.org/en/docs/Web/API/DOMErrorHandler",
+                "DOMException": "https://developer.mozilla.org/en/docs/Web/API/DOMException",
+                "DOMImplementation": "https://developer.mozilla.org/en/docs/Web/API/DOMImplementation",
+                "DOMImplementationList": "https://developer.mozilla.org/en/docs/Web/API/DOMImplementationList",
+                "DOMImplementationRegistry": "https://developer.mozilla.org/en/docs/Web/API/DOMImplementationRegistry",
+                "DOMImplementationSource": "https://developer.mozilla.org/en/docs/Web/API/DOMImplementationSource",
+                "DOMLocator": "https://developer.mozilla.org/en/docs/Web/API/DOMLocator",
+                "DOMObject": "https://developer.mozilla.org/en/docs/Web/API/DOMObject",
+                "DOMSettableTokenList": "https://developer.mozilla.org/en/docs/Web/API/DOMSettableTokenList",
+                "DOMString": "https://developer.mozilla.org/en/docs/Web/API/DOMString",
+                "DOMStringList": "https://developer.mozilla.org/en/docs/Web/API/DOMStringList",
+                "DOMStringMap": "https://developer.mozilla.org/en/docs/Web/API/DOMStringMap",
+                "DOMTimeStamp": "https://developer.mozilla.org/en/docs/Web/API/DOMTimeStamp",
+                "DOMTokenList": "https://developer.mozilla.org/en/docs/Web/API/DOMTokenList",
+                "DOMUserData": "https://developer.mozilla.org/en/docs/Web/API/DOMUserData",
+                "Document": "https://developer.mozilla.org/en/docs/Web/API/Document",
+                "DocumentFragment": "https://developer.mozilla.org/en/docs/Web/API/DocumentFragment",
+                "DocumentType": "https://developer.mozilla.org/en/docs/Web/API/DocumentType",
+                "Element": "https://developer.mozilla.org/en/docs/Web/API/Element",
+                "ElementTimeControl": "https://developer.mozilla.org/en/docs/Web/API/ElementTimeControl",
+                "Entity": "https://developer.mozilla.org/en/docs/Web/API/Entity",
+                "EntityReference": "https://developer.mozilla.org/en/docs/Web/API/EntityReference",
+                "Event": "https://developer.mozilla.org/en/docs/Web/API/Event",
+                "EventTarget": "https://developer.mozilla.org/en/docs/Web/API/EventTarget",
+                "HTMLAllCollection": "https://developer.mozilla.org/en/docs/Web/API/HTMLAllCollection",
+                "HTMLAnchorElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLAnchorElement",
+                "HTMLAppletElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLAppletElement",
+                "HTMLAreaElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLAreaElement",
+                "HTMLAudioElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLAudioElement",
+                "HTMLBRElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLBRElement",
+                "HTMLBaseElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLBaseElement",
+                "HTMLBaseFontElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLBaseFontElement",
+                "HTMLBodyElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLBodyElement",
+                "HTMLButtonElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLButtonElement",
+                "HTMLCanvasElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLCanvasElement",
+                "HTMLCollection": "https://developer.mozilla.org/en/docs/Web/API/HTMLCollection",
+                "HTMLDListElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLDListElement",
+                "HTMLDataElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLDataElement",
+                "HTMLDataListElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLDataListElement",
+                "HTMLDirectoryElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLDirectoryElement",
+                "HTMLDivElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLDivElement",
+                "HTMLElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLElement",
+                "HTMLEmbedElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLEmbedElement",
+                "HTMLFieldSetElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLFieldSetElement",
+                "HTMLFontElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLFontElement",
+                "HTMLFormControlsCollection": "https://developer.mozilla.org/en/docs/Web/API/HTMLFormControlsCollection",
+                "HTMLFormElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLFormElement",
+                "HTMLFrameElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLFrameElement",
+                "HTMLFrameSetElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLFrameSetElement",
+                "HTMLHRElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLHRElement",
+                "HTMLHeadElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLHeadElement",
+                "HTMLHeadingElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLHeadingElement",
+                "HTMLHtmlElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLHtmlElement",
+                "HTMLIFrameElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLIFrameElement",
+                "HTMLImageElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLImageElement",
+                "HTMLInputElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLInputElement",
+                "HTMLIsIndexElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLIsIndexElement",
+                "HTMLKeygenElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLKeygenElement",
+                "HTMLLIElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLLIElement",
+                "HTMLLabelElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLLabelElement",
+                "HTMLLegendElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLLegendElement",
+                "HTMLLinkElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLLinkElement",
+                "HTMLMapElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLMapElement",
+                "HTMLMediaElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLMediaElement",
+                "HTMLMenuElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLMenuElement",
+                "HTMLMetaElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLMetaElement",
+                "HTMLMeterElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLMeterElement",
+                "HTMLModElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLModElement",
+                "HTMLOListElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLOListElement",
+                "HTMLObjectElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLObjectElement",
+                "HTMLOptGroupElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLOptGroupElement",
+                "HTMLOptionElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLOptionElement",
+                "HTMLOptionsCollection": "https://developer.mozilla.org/en/docs/Web/API/HTMLOptionsCollection",
+                "HTMLOutputElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLOutputElement",
+                "HTMLParagraphElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLParagraphElement",
+                "HTMLParamElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLParamElement",
+                "HTMLPreElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLPreElement",
+                "HTMLProgressElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLProgressElement",
+                "HTMLPropertiesCollection": "https://developer.mozilla.org/en/docs/Web/API/HTMLPropertiesCollection",
+                "HTMLQuoteElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLQuoteElement",
+                "HTMLScriptElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLScriptElement",
+                "HTMLSelectElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLSelectElement",
+                "HTMLSourceElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLSourceElement",
+                "HTMLSpanElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLSpanElement",
+                "HTMLStyleElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLStyleElement",
+                "HTMLTableCaptionElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableCaptionElement",
+                "HTMLTableCellElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableCellElement",
+                "HTMLTableColElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableColElement",
+                "HTMLTableDataCellElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableDataCellElement",
+                "HTMLTableElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableElement",
+                "HTMLTableHeaderCellElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableHeaderCellElement",
+                "HTMLTableRowElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableRowElement",
+                "HTMLTableSectionElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableSectionElement",
+                "HTMLTextAreaElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTextAreaElement",
+                "HTMLTimeElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTimeElement",
+                "HTMLTitleElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTitleElement",
+                "HTMLTrackElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTrackElement",
+                "HTMLUListElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLUListElement",
+                "HTMLUnknownElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLUnknownElement",
+                "HTMLVideoElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLVideoElement",
+                "ImageData": "https://developer.mozilla.org/en/docs/Web/API/ImageData",
+                "MediaError": "https://developer.mozilla.org/en/docs/Web/API/MediaError",
+                "MutationObserver": "https://developer.mozilla.org/en/docs/Web/API/MutationObserver",
+                "MutationRecord": "https://developer.mozilla.org/en/docs/Web/API/MutationRecord",
+                "NameList": "https://developer.mozilla.org/en/docs/Web/API/NameList",
+                "NamedNodeMap": "https://developer.mozilla.org/en/docs/Web/API/NamedNodeMap",
+                "Node": "https://developer.mozilla.org/en/docs/Web/API/Node",
+                "NodeFilter": "https://developer.mozilla.org/en/docs/Web/API/NodeFilter",
+                "NodeIterator": "https://developer.mozilla.org/en/docs/Web/API/NodeIterator",
+                "NodeList": "https://developer.mozilla.org/en/docs/Web/API/NodeList",
+                "Notation": "https://developer.mozilla.org/en/docs/Web/API/Notation",
+                "NotifyAudioAvailableEvent": "https://developer.mozilla.org/en/docs/Web/API/NotifyAudioAvailableEvent",
+                "ParentNode": "https://developer.mozilla.org/en/docs/Web/API/ParentNode",
+                "ProcessingInstruction": "https://developer.mozilla.org/en/docs/Web/API/ProcessingInstruction",
+                "Promise": "https://developer.mozilla.org/en/docs/Web/API/Promise",
+                "PromiseResolver": "https://developer.mozilla.org/en/docs/Web/API/PromiseResolver",
+                "RadioNodeList": "https://developer.mozilla.org/en/docs/Web/API/RadioNodeList",
+                "Range": "https://developer.mozilla.org/en/docs/Web/API/Range",
+                "SVGAElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAElement",
+                "SVGAltGlyphDefElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAltGlyphDefElement",
+                "SVGAltGlyphElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAltGlyphElement",
+                "SVGAltGlyphItemElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAltGlyphItemElement",
+                "SVGAngle": "https://developer.mozilla.org/en/docs/Web/API/SVGAngle",
+                "SVGAnimateColorElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimateColorElement",
+                "SVGAnimateElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimateElement",
+                "SVGAnimateMotionElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimateMotionElement",
+                "SVGAnimateTransformElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimateTransformElement",
+                "SVGAnimatedAngle": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedAngle",
+                "SVGAnimatedBoolean": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedBoolean",
+                "SVGAnimatedEnumeration": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedEnumeration",
+                "SVGAnimatedInteger": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedInteger",
+                "SVGAnimatedLength": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedLength",
+                "SVGAnimatedLengthList": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedLengthList",
+                "SVGAnimatedNumber": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedNumber",
+                "SVGAnimatedNumberList": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedNumberList",
+                "SVGAnimatedPathData": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedPathData",
+                "SVGAnimatedPoints": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedPoints",
+                "SVGAnimatedPreserveAspectRatio": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedPreserveAspectRatio",
+                "SVGAnimatedRect": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedRect",
+                "SVGAnimatedString": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedString",
+                "SVGAnimatedTransformList": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedTransformList",
+                "SVGAnimationElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimationElement",
+                "SVGCSSRule": "https://developer.mozilla.org/en/docs/Web/API/SVGCSSRule",
+                "SVGCircleElement": "https://developer.mozilla.org/en/docs/Web/API/SVGCircleElement",
+                "SVGClipPathElement": "https://developer.mozilla.org/en/docs/Web/API/SVGClipPathElement",
+                "SVGColor": "https://developer.mozilla.org/en/docs/Web/API/SVGColor",
+                "SVGColorProfileElement": "https://developer.mozilla.org/en/docs/Web/API/SVGColorProfileElement",
+                "SVGColorProfileRule": "https://developer.mozilla.org/en/docs/Web/API/SVGColorProfileRule",
+                "SVGComponentTransferFunctionElement": "https://developer.mozilla.org/en/docs/Web/API/SVGComponentTransferFunctionElement",
+                "SVGCursorElement": "https://developer.mozilla.org/en/docs/Web/API/SVGCursorElement",
+                "SVGDefsElement": "https://developer.mozilla.org/en/docs/Web/API/SVGDefsElement",
+                "SVGDescElement": "https://developer.mozilla.org/en/docs/Web/API/SVGDescElement",
+                "SVGElement": "https://developer.mozilla.org/en/docs/Web/API/SVGElement",
+                "SVGElementInstance": "https://developer.mozilla.org/en/docs/Web/API/SVGElementInstance",
+                "SVGElementInstanceList": "https://developer.mozilla.org/en/docs/Web/API/SVGElementInstanceList",
+                "SVGEllipseElement": "https://developer.mozilla.org/en/docs/Web/API/SVGEllipseElement",
+                "SVGExternalResourcesRequired": "https://developer.mozilla.org/en/docs/Web/API/SVGExternalResourcesRequired",
+                "SVGFEBlendElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEBlendElement",
+                "SVGFEColorMatrixElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEColorMatrixElement",
+                "SVGFEComponentTransferElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEComponentTransferElement",
+                "SVGFECompositeElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFECompositeElement",
+                "SVGFEConvolveMatrixElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEConvolveMatrixElement",
+                "SVGFEDiffuseLightingElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEDiffuseLightingElement",
+                "SVGFEDisplacementMapElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEDisplacementMapElement",
+                "SVGFEDistantLightElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEDistantLightElement",
+                "SVGFEFloodElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEFloodElement",
+                "SVGFEFuncAElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEFuncAElement",
+                "SVGFEFuncBElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEFuncBElement",
+                "SVGFEFuncGElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEFuncGElement",
+                "SVGFEFuncRElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEFuncRElement",
+                "SVGFEGaussianBlurElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEGaussianBlurElement",
+                "SVGFEImageElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEImageElement",
+                "SVGFEMergeElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEMergeElement",
+                "SVGFEMergeNodeElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEMergeNodeElement",
+                "SVGFEMorphologyElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEMorphologyElement",
+                "SVGFEOffsetElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEOffsetElement",
+                "SVGFEPointLightElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEPointLightElement",
+                "SVGFESpecularLightingElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFESpecularLightingElement",
+                "SVGFESpotLightElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFESpotLightElement",
+                "SVGFETileElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFETileElement",
+                "SVGFETurbulenceElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFETurbulenceElement",
+                "SVGFilterElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFilterElement",
+                "SVGFilterPrimitiveStandardAttributes": "https://developer.mozilla.org/en/docs/Web/API/SVGFilterPrimitiveStandardAttributes",
+                "SVGFitToViewBox": "https://developer.mozilla.org/en/docs/Web/API/SVGFitToViewBox",
+                "SVGFontElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFontElement",
+                "SVGFontFaceElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFontFaceElement",
+                "SVGFontFaceFormatElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFontFaceFormatElement",
+                "SVGFontFaceNameElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFontFaceNameElement",
+                "SVGFontFaceSrcElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFontFaceSrcElement",
+                "SVGFontFaceUriElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFontFaceUriElement",
+                "SVGForeignObjectElement": "https://developer.mozilla.org/en/docs/Web/API/SVGForeignObjectElement",
+                "SVGGElement": "https://developer.mozilla.org/en/docs/Web/API/SVGGElement",
+                "SVGGlyphElement": "https://developer.mozilla.org/en/docs/Web/API/SVGGlyphElement",
+                "SVGGlyphRefElement": "https://developer.mozilla.org/en/docs/Web/API/SVGGlyphRefElement",
+                "SVGGradientElement": "https://developer.mozilla.org/en/docs/Web/API/SVGGradientElement",
+                "SVGHKernElement": "https://developer.mozilla.org/en/docs/Web/API/SVGHKernElement",
+                "SVGICCColor": "https://developer.mozilla.org/en/docs/Web/API/SVGICCColor",
+                "SVGImageElement": "https://developer.mozilla.org/en/docs/Web/API/SVGImageElement",
+                "SVGLangSpace": "https://developer.mozilla.org/en/docs/Web/API/SVGLangSpace",
+                "SVGLength": "https://developer.mozilla.org/en/docs/Web/API/SVGLength",
+                "SVGLengthList": "https://developer.mozilla.org/en/docs/Web/API/SVGLengthList",
+                "SVGLineElement": "https://developer.mozilla.org/en/docs/Web/API/SVGLineElement",
+                "SVGLinearGradientElement": "https://developer.mozilla.org/en/docs/Web/API/SVGLinearGradientElement",
+                "SVGLocatable": "https://developer.mozilla.org/en/docs/Web/API/SVGLocatable",
+                "SVGMPathElement": "https://developer.mozilla.org/en/docs/Web/API/SVGMPathElement",
+                "SVGMarkerElement": "https://developer.mozilla.org/en/docs/Web/API/SVGMarkerElement",
+                "SVGMaskElement": "https://developer.mozilla.org/en/docs/Web/API/SVGMaskElement",
+                "SVGMatrix": "https://developer.mozilla.org/en/docs/Web/API/SVGMatrix",
+                "SVGMetadataElement": "https://developer.mozilla.org/en/docs/Web/API/SVGMetadataElement",
+                "SVGMissingGlyphElement": "https://developer.mozilla.org/en/docs/Web/API/SVGMissingGlyphElement",
+                "SVGNumber": "https://developer.mozilla.org/en/docs/Web/API/SVGNumber",
+                "SVGNumberList": "https://developer.mozilla.org/en/docs/Web/API/SVGNumberList",
+                "SVGPaint": "https://developer.mozilla.org/en/docs/Web/API/SVGPaint",
+                "SVGPathElement": "https://developer.mozilla.org/en/docs/Web/API/SVGPathElement",
+                "SVGPathSeg": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSeg",
+                "SVGPathSegArcAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegArcAbs",
+                "SVGPathSegArcRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegArcRel",
+                "SVGPathSegClosePath": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegClosePath",
+                "SVGPathSegCurvetoCubicAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoCubicAbs",
+                "SVGPathSegCurvetoCubicRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoCubicRel",
+                "SVGPathSegCurvetoCubicSmoothAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoCubicSmoothAbs",
+                "SVGPathSegCurvetoCubicSmoothRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoCubicSmoothRel",
+                "SVGPathSegCurvetoQuadraticAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoQuadraticAbs",
+                "SVGPathSegCurvetoQuadraticRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoQuadraticRel",
+                "SVGPathSegCurvetoQuadraticSmoothAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoQuadraticSmoothAbs",
+                "SVGPathSegCurvetoQuadraticSmoothRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoQuadraticSmoothRel",
+                "SVGPathSegLinetoAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegLinetoAbs",
+                "SVGPathSegLinetoHorizontalAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegLinetoHorizontalAbs",
+                "SVGPathSegLinetoHorizontalRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegLinetoHorizontalRel",
+                "SVGPathSegLinetoRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegLinetoRel",
+                "SVGPathSegLinetoVerticalAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegLinetoVerticalAbs",
+                "SVGPathSegLinetoVerticalRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegLinetoVerticalRel",
+                "SVGPathSegList": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegList",
+                "SVGPathSegMovetoAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegMovetoAbs",
+                "SVGPathSegMovetoRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegMovetoRel",
+                "SVGPatternElement": "https://developer.mozilla.org/en/docs/Web/API/SVGPatternElement",
+                "SVGPoint": "https://developer.mozilla.org/en/docs/Web/API/SVGPoint",
+                "SVGPointList": "https://developer.mozilla.org/en/docs/Web/API/SVGPointList",
+                "SVGPolygonElement": "https://developer.mozilla.org/en/docs/Web/API/SVGPolygonElement",
+                "SVGPolylineElement": "https://developer.mozilla.org/en/docs/Web/API/SVGPolylineElement",
+                "SVGPreserveAspectRatio": "https://developer.mozilla.org/en/docs/Web/API/SVGPreserveAspectRatio",
+                "SVGRadialGradientElement": "https://developer.mozilla.org/en/docs/Web/API/SVGRadialGradientElement",
+                "SVGRect": "https://developer.mozilla.org/en/docs/Web/API/SVGRect",
+                "SVGRectElement": "https://developer.mozilla.org/en/docs/Web/API/SVGRectElement",
+                "SVGRenderingIntent": "https://developer.mozilla.org/en/docs/Web/API/SVGRenderingIntent",
+                "SVGSVGElement": "https://developer.mozilla.org/en/docs/Web/API/SVGSVGElement",
+                "SVGScriptElement": "https://developer.mozilla.org/en/docs/Web/API/SVGScriptElement",
+                "SVGSetElement": "https://developer.mozilla.org/en/docs/Web/API/SVGSetElement",
+                "SVGStopElement": "https://developer.mozilla.org/en/docs/Web/API/SVGStopElement",
+                "SVGStringList": "https://developer.mozilla.org/en/docs/Web/API/SVGStringList",
+                "SVGStylable": "https://developer.mozilla.org/en/docs/Web/API/SVGStylable",
+                "SVGStyleElement": "https://developer.mozilla.org/en/docs/Web/API/SVGStyleElement",
+                "SVGSwitchElement": "https://developer.mozilla.org/en/docs/Web/API/SVGSwitchElement",
+                "SVGSymbolElement": "https://developer.mozilla.org/en/docs/Web/API/SVGSymbolElement",
+                "SVGTRefElement": "https://developer.mozilla.org/en/docs/Web/API/SVGTRefElement",
+                "SVGTSpanElement": "https://developer.mozilla.org/en/docs/Web/API/SVGTSpanElement",
+                "SVGTests": "https://developer.mozilla.org/en/docs/Web/API/SVGTests",
+                "SVGTextContentElement": "https://developer.mozilla.org/en/docs/Web/API/SVGTextContentElement",
+                "SVGTextElement": "https://developer.mozilla.org/en/docs/Web/API/SVGTextElement",
+                "SVGTextPathElement": "https://developer.mozilla.org/en/docs/Web/API/SVGTextPathElement",
+                "SVGTextPositioningElement": "https://developer.mozilla.org/en/docs/Web/API/SVGTextPositioningElement",
+                "SVGTitleElement": "https://developer.mozilla.org/en/docs/Web/API/SVGTitleElement",
+                "SVGTransform": "https://developer.mozilla.org/en/docs/Web/API/SVGTransform",
+                "SVGTransformList": "https://developer.mozilla.org/en/docs/Web/API/SVGTransformList",
+                "SVGTransformable": "https://developer.mozilla.org/en/docs/Web/API/SVGTransformable",
+                "SVGURIReference": "https://developer.mozilla.org/en/docs/Web/API/SVGURIReference",
+                "SVGUnitTypes": "https://developer.mozilla.org/en/docs/Web/API/SVGUnitTypes",
+                "SVGUseElement": "https://developer.mozilla.org/en/docs/Web/API/SVGUseElement",
+                "SVGVKernElement": "https://developer.mozilla.org/en/docs/Web/API/SVGVKernElement",
+                "SVGViewElement": "https://developer.mozilla.org/en/docs/Web/API/SVGViewElement",
+                "SVGViewSpec": "https://developer.mozilla.org/en/docs/Web/API/SVGViewSpec",
+                "SVGZoomAndPan": "https://developer.mozilla.org/en/docs/Web/API/SVGZoomAndPan",
+                "Text": "https://developer.mozilla.org/en/docs/Web/API/Text",
+                "TextMetrics": "https://developer.mozilla.org/en/docs/Web/API/TextMetrics",
+                "TimeEvent": "https://developer.mozilla.org/en/docs/Web/API/TimeEvent",
+                "TreeWalker": "https://developer.mozilla.org/en/docs/Web/API/TreeWalker",
+                "TypeInfo": "https://developer.mozilla.org/en/docs/Web/API/TypeInfo",
+                "URL": "https://developer.mozilla.org/en/docs/Web/API/URL",
+                "UserDataHandler": "https://developer.mozilla.org/en/docs/Web/API/UserDataHandler",
+                "Window": "https://developer.mozilla.org/en/docs/Web/API/Window",
+                "Worker": "https://developer.mozilla.org/en/docs/Web/API/Worker",
+                "XMLDocument": "https://developer.mozilla.org/en/docs/Web/API/XMLDocument"
+              }
+            ]
+          },
           "name": "CoffeeScript"
         },
         "sourcePath": "/Users/sjorek/Documents/Projects/Mesch/Workspace (Aptana)/goatee-script/src/Notator.coffee",
@@ -258,6 +3989,539 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
           "singleLineComment": ["#"],
           "ignorePrefix": "!",
           "foldPrefix": "~",
+          "doctags": {
+            "description": {
+              "section": "description",
+              "markdown": "{value}"
+            },
+            "abstract": {
+              "section": "access"
+            },
+            "constant": {
+              "section": "access"
+            },
+            "deprecated": {
+              "section": "access"
+            },
+            "internal": {
+              "section": "access"
+            },
+            "private": {
+              "section": "access"
+            },
+            "protected": {
+              "section": "access"
+            },
+            "public": {
+              "valuePrefix": "as",
+              "section": "access"
+            },
+            "static": {
+              "section": "access"
+            },
+            "constructor": {
+              "section": "special"
+            },
+            "destructor": {
+              "section": "special"
+            },
+            "class": {
+              "section": "type",
+              "markdown": "class *{type}*"
+            },
+            "event": {
+              "section": "type"
+            },
+            "method": {
+              "section": "type",
+              "markdown": "method *{type}*"
+            },
+            "mixin": {
+              "section": "type",
+              "markdown": "mixin *{type}*"
+            },
+            "module": {
+              "section": "type",
+              "markdown": "module *{type}*"
+            },
+            "package": {
+              "section": "type",
+              "markdown": "package *{type}*"
+            },
+            "property": {
+              "section": "type",
+              "markdown": "property *{type}*"
+            },
+            "accessor": {
+              "section": "flag",
+              "markdown": "is an accessor"
+            },
+            "async": {
+              "section": "flag",
+              "markdown": "is asynchronous"
+            },
+            "asynchronous": "async",
+            "getter": {
+              "section": "flag",
+              "markdown": "is a getter"
+            },
+            "recursive": {
+              "section": "flag",
+              "markdown": "is recursive"
+            },
+            "refactor": {
+              "section": "flag",
+              "markdown": "needs to be refactored"
+            },
+            "setter": {
+              "section": "flag",
+              "markdown": "is a setter"
+            },
+            "alias": {
+              "valuePrefix": "as",
+              "section": "metadata",
+              "markdown": "is aliased as *{type}*"
+            },
+            "augments": {
+              "section": "metadata",
+              "markdown": "extends *{type}*"
+            },
+            "extends": {
+              "section": "metadata",
+              "markdown": "extends *{type}*"
+            },
+            "fires": {
+              "section": "metadata"
+            },
+            "memberof": {
+              "section": "metadata",
+              "markdown": "is a member of *{type}*"
+            },
+            "mixes": {
+              "section": "metadata",
+              "markdown": "mixes *{type}* in"
+            },
+            "namespace": {
+              "section": "metadata",
+              "markdown": "is in namespace *{value}*"
+            },
+            "publishes": {
+              "section": "metadata"
+            },
+            "requests": {
+              "section": "metadata",
+              "markdown": "makes an ajax request to <{value}>"
+            },
+            "since": {
+              "section": "metadata",
+              "markdown": "is available since version {value}"
+            },
+            "subscribes": {
+              "valuePrefix": "to",
+              "section": "metadata",
+              "markdown": "subscribes to {type}"
+            },
+            "type": {
+              "section": "metadata"
+            },
+            "version": {
+              "section": "metadata",
+              "markdown": "has version {value}"
+            },
+            "author": {
+              "section": "authors"
+            },
+            "see": {
+              "section": "references"
+            },
+            "todo": {
+              "section": "todo",
+              "markdown": "TODO: {value}"
+            },
+            "example": {
+              "section": "example",
+              "markdown": "{value}"
+            },
+            "examples": "example",
+            "usage": "example",
+            "howto": {
+              "section": "howto",
+              "markdown": "{value}"
+            },
+            "note": {
+              "section": "discard"
+            },
+            "notes": "note",
+            "param": {
+              "section": "params"
+            },
+            "params": "param",
+            "parameters": "param",
+            "return": {
+              "section": "returns"
+            },
+            "returns": "return",
+            "throw": {
+              "section": "throws"
+            },
+            "throws": "throw",
+            "defaultNoValue": {
+              "section": "flag"
+            },
+            "defaultHasValue": {
+              "section": "metadata"
+            }
+          },
+          "namespace": {
+            "separator": ".",
+            "types": [
+              {
+                "goatee.Script.": ["http://sjorek.github.io/goatee-script/", "goatee."],
+                "goatee.Rules.": ["http://sjorek.github.io/goatee-rules/", "goatee."],
+                "goatee.": ["http://sjorek.github.io/goatee-js/", "goatee."]
+              }, {
+                "Array": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Array",
+                "ArrayBuffer": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/ArrayBuffer",
+                "Boolean": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Boolean",
+                "Collator": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Collator",
+                "DataView": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/DataView",
+                "Date": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Date",
+                "DateTimeFormat": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/DateTimeFormat",
+                "Error": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Error",
+                "EvalError": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/EvalError",
+                "Float32Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Float32Array",
+                "Float64Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Float64Array",
+                "Function": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Function",
+                "Infinity": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Infinity",
+                "Int8Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Int8Array",
+                "Int16Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Int16Array",
+                "Int32Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Int32Array",
+                "InternalError": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/InternalError",
+                "Intl": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Intl",
+                "Intl.Collator": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Collator",
+                "Intl.DateTimeFormat": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/DateTimeFormat",
+                "Intl.NumberFormat": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/NumberFormat",
+                "Iterator": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Iterator",
+                "JSON": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/JSON",
+                "Math": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Math",
+                "NaN": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/NaN",
+                "Number": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Number",
+                "NumberFormat": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/NumberFormat",
+                "Object": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Object",
+                "ParallelArray": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/ParallelArray",
+                "Proxy": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Proxy",
+                "RangeError": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/RangeError",
+                "ReferenceError": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/ReferenceError",
+                "RegExp": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/RegExp",
+                "StopIteration": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/StopIteration",
+                "String": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/String",
+                "SyntaxError": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/SyntaxError",
+                "TypeError": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/TypeError",
+                "URIError": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/URIError",
+                "Uint8Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Uint8Array",
+                "Uint8ClampedArray": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Uint8ClampedArray",
+                "Uint16Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Uint16Array",
+                "Uint32Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Uint32Array",
+                "null": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/null",
+                "undefined": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/undefined"
+              }, {
+                "Attr": "https://developer.mozilla.org/en/docs/Web/API/Attr",
+                "CDATASection": "https://developer.mozilla.org/en/docs/Web/API/CDATASection",
+                "CanvasGradient": "https://developer.mozilla.org/en/docs/Web/API/CanvasGradient",
+                "CanvasPattern": "https://developer.mozilla.org/en/docs/Web/API/CanvasPattern",
+                "CanvasPixelArray": "https://developer.mozilla.org/en/docs/Web/API/CanvasPixelArray",
+                "CanvasRenderingContext2D": "https://developer.mozilla.org/en/docs/Web/API/CanvasRenderingContext2D",
+                "CharacterData": "https://developer.mozilla.org/en/docs/Web/API/CharacterData",
+                "ChildNode": "https://developer.mozilla.org/en/docs/Web/API/ChildNode",
+                "Comment": "https://developer.mozilla.org/en/docs/Web/API/Comment",
+                "CustomEvent": "https://developer.mozilla.org/en/docs/Web/API/CustomEvent",
+                "DOMConfiguration": "https://developer.mozilla.org/en/docs/Web/API/DOMConfiguration",
+                "DOMError": "https://developer.mozilla.org/en/docs/Web/API/DOMError",
+                "DOMErrorHandler": "https://developer.mozilla.org/en/docs/Web/API/DOMErrorHandler",
+                "DOMException": "https://developer.mozilla.org/en/docs/Web/API/DOMException",
+                "DOMImplementation": "https://developer.mozilla.org/en/docs/Web/API/DOMImplementation",
+                "DOMImplementationList": "https://developer.mozilla.org/en/docs/Web/API/DOMImplementationList",
+                "DOMImplementationRegistry": "https://developer.mozilla.org/en/docs/Web/API/DOMImplementationRegistry",
+                "DOMImplementationSource": "https://developer.mozilla.org/en/docs/Web/API/DOMImplementationSource",
+                "DOMLocator": "https://developer.mozilla.org/en/docs/Web/API/DOMLocator",
+                "DOMObject": "https://developer.mozilla.org/en/docs/Web/API/DOMObject",
+                "DOMSettableTokenList": "https://developer.mozilla.org/en/docs/Web/API/DOMSettableTokenList",
+                "DOMString": "https://developer.mozilla.org/en/docs/Web/API/DOMString",
+                "DOMStringList": "https://developer.mozilla.org/en/docs/Web/API/DOMStringList",
+                "DOMStringMap": "https://developer.mozilla.org/en/docs/Web/API/DOMStringMap",
+                "DOMTimeStamp": "https://developer.mozilla.org/en/docs/Web/API/DOMTimeStamp",
+                "DOMTokenList": "https://developer.mozilla.org/en/docs/Web/API/DOMTokenList",
+                "DOMUserData": "https://developer.mozilla.org/en/docs/Web/API/DOMUserData",
+                "Document": "https://developer.mozilla.org/en/docs/Web/API/Document",
+                "DocumentFragment": "https://developer.mozilla.org/en/docs/Web/API/DocumentFragment",
+                "DocumentType": "https://developer.mozilla.org/en/docs/Web/API/DocumentType",
+                "Element": "https://developer.mozilla.org/en/docs/Web/API/Element",
+                "ElementTimeControl": "https://developer.mozilla.org/en/docs/Web/API/ElementTimeControl",
+                "Entity": "https://developer.mozilla.org/en/docs/Web/API/Entity",
+                "EntityReference": "https://developer.mozilla.org/en/docs/Web/API/EntityReference",
+                "Event": "https://developer.mozilla.org/en/docs/Web/API/Event",
+                "EventTarget": "https://developer.mozilla.org/en/docs/Web/API/EventTarget",
+                "HTMLAllCollection": "https://developer.mozilla.org/en/docs/Web/API/HTMLAllCollection",
+                "HTMLAnchorElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLAnchorElement",
+                "HTMLAppletElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLAppletElement",
+                "HTMLAreaElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLAreaElement",
+                "HTMLAudioElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLAudioElement",
+                "HTMLBRElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLBRElement",
+                "HTMLBaseElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLBaseElement",
+                "HTMLBaseFontElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLBaseFontElement",
+                "HTMLBodyElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLBodyElement",
+                "HTMLButtonElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLButtonElement",
+                "HTMLCanvasElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLCanvasElement",
+                "HTMLCollection": "https://developer.mozilla.org/en/docs/Web/API/HTMLCollection",
+                "HTMLDListElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLDListElement",
+                "HTMLDataElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLDataElement",
+                "HTMLDataListElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLDataListElement",
+                "HTMLDirectoryElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLDirectoryElement",
+                "HTMLDivElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLDivElement",
+                "HTMLElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLElement",
+                "HTMLEmbedElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLEmbedElement",
+                "HTMLFieldSetElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLFieldSetElement",
+                "HTMLFontElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLFontElement",
+                "HTMLFormControlsCollection": "https://developer.mozilla.org/en/docs/Web/API/HTMLFormControlsCollection",
+                "HTMLFormElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLFormElement",
+                "HTMLFrameElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLFrameElement",
+                "HTMLFrameSetElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLFrameSetElement",
+                "HTMLHRElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLHRElement",
+                "HTMLHeadElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLHeadElement",
+                "HTMLHeadingElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLHeadingElement",
+                "HTMLHtmlElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLHtmlElement",
+                "HTMLIFrameElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLIFrameElement",
+                "HTMLImageElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLImageElement",
+                "HTMLInputElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLInputElement",
+                "HTMLIsIndexElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLIsIndexElement",
+                "HTMLKeygenElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLKeygenElement",
+                "HTMLLIElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLLIElement",
+                "HTMLLabelElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLLabelElement",
+                "HTMLLegendElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLLegendElement",
+                "HTMLLinkElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLLinkElement",
+                "HTMLMapElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLMapElement",
+                "HTMLMediaElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLMediaElement",
+                "HTMLMenuElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLMenuElement",
+                "HTMLMetaElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLMetaElement",
+                "HTMLMeterElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLMeterElement",
+                "HTMLModElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLModElement",
+                "HTMLOListElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLOListElement",
+                "HTMLObjectElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLObjectElement",
+                "HTMLOptGroupElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLOptGroupElement",
+                "HTMLOptionElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLOptionElement",
+                "HTMLOptionsCollection": "https://developer.mozilla.org/en/docs/Web/API/HTMLOptionsCollection",
+                "HTMLOutputElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLOutputElement",
+                "HTMLParagraphElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLParagraphElement",
+                "HTMLParamElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLParamElement",
+                "HTMLPreElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLPreElement",
+                "HTMLProgressElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLProgressElement",
+                "HTMLPropertiesCollection": "https://developer.mozilla.org/en/docs/Web/API/HTMLPropertiesCollection",
+                "HTMLQuoteElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLQuoteElement",
+                "HTMLScriptElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLScriptElement",
+                "HTMLSelectElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLSelectElement",
+                "HTMLSourceElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLSourceElement",
+                "HTMLSpanElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLSpanElement",
+                "HTMLStyleElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLStyleElement",
+                "HTMLTableCaptionElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableCaptionElement",
+                "HTMLTableCellElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableCellElement",
+                "HTMLTableColElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableColElement",
+                "HTMLTableDataCellElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableDataCellElement",
+                "HTMLTableElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableElement",
+                "HTMLTableHeaderCellElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableHeaderCellElement",
+                "HTMLTableRowElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableRowElement",
+                "HTMLTableSectionElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableSectionElement",
+                "HTMLTextAreaElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTextAreaElement",
+                "HTMLTimeElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTimeElement",
+                "HTMLTitleElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTitleElement",
+                "HTMLTrackElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTrackElement",
+                "HTMLUListElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLUListElement",
+                "HTMLUnknownElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLUnknownElement",
+                "HTMLVideoElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLVideoElement",
+                "ImageData": "https://developer.mozilla.org/en/docs/Web/API/ImageData",
+                "MediaError": "https://developer.mozilla.org/en/docs/Web/API/MediaError",
+                "MutationObserver": "https://developer.mozilla.org/en/docs/Web/API/MutationObserver",
+                "MutationRecord": "https://developer.mozilla.org/en/docs/Web/API/MutationRecord",
+                "NameList": "https://developer.mozilla.org/en/docs/Web/API/NameList",
+                "NamedNodeMap": "https://developer.mozilla.org/en/docs/Web/API/NamedNodeMap",
+                "Node": "https://developer.mozilla.org/en/docs/Web/API/Node",
+                "NodeFilter": "https://developer.mozilla.org/en/docs/Web/API/NodeFilter",
+                "NodeIterator": "https://developer.mozilla.org/en/docs/Web/API/NodeIterator",
+                "NodeList": "https://developer.mozilla.org/en/docs/Web/API/NodeList",
+                "Notation": "https://developer.mozilla.org/en/docs/Web/API/Notation",
+                "NotifyAudioAvailableEvent": "https://developer.mozilla.org/en/docs/Web/API/NotifyAudioAvailableEvent",
+                "ParentNode": "https://developer.mozilla.org/en/docs/Web/API/ParentNode",
+                "ProcessingInstruction": "https://developer.mozilla.org/en/docs/Web/API/ProcessingInstruction",
+                "Promise": "https://developer.mozilla.org/en/docs/Web/API/Promise",
+                "PromiseResolver": "https://developer.mozilla.org/en/docs/Web/API/PromiseResolver",
+                "RadioNodeList": "https://developer.mozilla.org/en/docs/Web/API/RadioNodeList",
+                "Range": "https://developer.mozilla.org/en/docs/Web/API/Range",
+                "SVGAElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAElement",
+                "SVGAltGlyphDefElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAltGlyphDefElement",
+                "SVGAltGlyphElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAltGlyphElement",
+                "SVGAltGlyphItemElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAltGlyphItemElement",
+                "SVGAngle": "https://developer.mozilla.org/en/docs/Web/API/SVGAngle",
+                "SVGAnimateColorElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimateColorElement",
+                "SVGAnimateElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimateElement",
+                "SVGAnimateMotionElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimateMotionElement",
+                "SVGAnimateTransformElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimateTransformElement",
+                "SVGAnimatedAngle": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedAngle",
+                "SVGAnimatedBoolean": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedBoolean",
+                "SVGAnimatedEnumeration": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedEnumeration",
+                "SVGAnimatedInteger": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedInteger",
+                "SVGAnimatedLength": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedLength",
+                "SVGAnimatedLengthList": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedLengthList",
+                "SVGAnimatedNumber": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedNumber",
+                "SVGAnimatedNumberList": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedNumberList",
+                "SVGAnimatedPathData": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedPathData",
+                "SVGAnimatedPoints": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedPoints",
+                "SVGAnimatedPreserveAspectRatio": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedPreserveAspectRatio",
+                "SVGAnimatedRect": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedRect",
+                "SVGAnimatedString": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedString",
+                "SVGAnimatedTransformList": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedTransformList",
+                "SVGAnimationElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimationElement",
+                "SVGCSSRule": "https://developer.mozilla.org/en/docs/Web/API/SVGCSSRule",
+                "SVGCircleElement": "https://developer.mozilla.org/en/docs/Web/API/SVGCircleElement",
+                "SVGClipPathElement": "https://developer.mozilla.org/en/docs/Web/API/SVGClipPathElement",
+                "SVGColor": "https://developer.mozilla.org/en/docs/Web/API/SVGColor",
+                "SVGColorProfileElement": "https://developer.mozilla.org/en/docs/Web/API/SVGColorProfileElement",
+                "SVGColorProfileRule": "https://developer.mozilla.org/en/docs/Web/API/SVGColorProfileRule",
+                "SVGComponentTransferFunctionElement": "https://developer.mozilla.org/en/docs/Web/API/SVGComponentTransferFunctionElement",
+                "SVGCursorElement": "https://developer.mozilla.org/en/docs/Web/API/SVGCursorElement",
+                "SVGDefsElement": "https://developer.mozilla.org/en/docs/Web/API/SVGDefsElement",
+                "SVGDescElement": "https://developer.mozilla.org/en/docs/Web/API/SVGDescElement",
+                "SVGElement": "https://developer.mozilla.org/en/docs/Web/API/SVGElement",
+                "SVGElementInstance": "https://developer.mozilla.org/en/docs/Web/API/SVGElementInstance",
+                "SVGElementInstanceList": "https://developer.mozilla.org/en/docs/Web/API/SVGElementInstanceList",
+                "SVGEllipseElement": "https://developer.mozilla.org/en/docs/Web/API/SVGEllipseElement",
+                "SVGExternalResourcesRequired": "https://developer.mozilla.org/en/docs/Web/API/SVGExternalResourcesRequired",
+                "SVGFEBlendElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEBlendElement",
+                "SVGFEColorMatrixElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEColorMatrixElement",
+                "SVGFEComponentTransferElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEComponentTransferElement",
+                "SVGFECompositeElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFECompositeElement",
+                "SVGFEConvolveMatrixElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEConvolveMatrixElement",
+                "SVGFEDiffuseLightingElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEDiffuseLightingElement",
+                "SVGFEDisplacementMapElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEDisplacementMapElement",
+                "SVGFEDistantLightElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEDistantLightElement",
+                "SVGFEFloodElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEFloodElement",
+                "SVGFEFuncAElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEFuncAElement",
+                "SVGFEFuncBElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEFuncBElement",
+                "SVGFEFuncGElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEFuncGElement",
+                "SVGFEFuncRElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEFuncRElement",
+                "SVGFEGaussianBlurElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEGaussianBlurElement",
+                "SVGFEImageElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEImageElement",
+                "SVGFEMergeElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEMergeElement",
+                "SVGFEMergeNodeElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEMergeNodeElement",
+                "SVGFEMorphologyElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEMorphologyElement",
+                "SVGFEOffsetElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEOffsetElement",
+                "SVGFEPointLightElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEPointLightElement",
+                "SVGFESpecularLightingElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFESpecularLightingElement",
+                "SVGFESpotLightElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFESpotLightElement",
+                "SVGFETileElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFETileElement",
+                "SVGFETurbulenceElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFETurbulenceElement",
+                "SVGFilterElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFilterElement",
+                "SVGFilterPrimitiveStandardAttributes": "https://developer.mozilla.org/en/docs/Web/API/SVGFilterPrimitiveStandardAttributes",
+                "SVGFitToViewBox": "https://developer.mozilla.org/en/docs/Web/API/SVGFitToViewBox",
+                "SVGFontElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFontElement",
+                "SVGFontFaceElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFontFaceElement",
+                "SVGFontFaceFormatElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFontFaceFormatElement",
+                "SVGFontFaceNameElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFontFaceNameElement",
+                "SVGFontFaceSrcElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFontFaceSrcElement",
+                "SVGFontFaceUriElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFontFaceUriElement",
+                "SVGForeignObjectElement": "https://developer.mozilla.org/en/docs/Web/API/SVGForeignObjectElement",
+                "SVGGElement": "https://developer.mozilla.org/en/docs/Web/API/SVGGElement",
+                "SVGGlyphElement": "https://developer.mozilla.org/en/docs/Web/API/SVGGlyphElement",
+                "SVGGlyphRefElement": "https://developer.mozilla.org/en/docs/Web/API/SVGGlyphRefElement",
+                "SVGGradientElement": "https://developer.mozilla.org/en/docs/Web/API/SVGGradientElement",
+                "SVGHKernElement": "https://developer.mozilla.org/en/docs/Web/API/SVGHKernElement",
+                "SVGICCColor": "https://developer.mozilla.org/en/docs/Web/API/SVGICCColor",
+                "SVGImageElement": "https://developer.mozilla.org/en/docs/Web/API/SVGImageElement",
+                "SVGLangSpace": "https://developer.mozilla.org/en/docs/Web/API/SVGLangSpace",
+                "SVGLength": "https://developer.mozilla.org/en/docs/Web/API/SVGLength",
+                "SVGLengthList": "https://developer.mozilla.org/en/docs/Web/API/SVGLengthList",
+                "SVGLineElement": "https://developer.mozilla.org/en/docs/Web/API/SVGLineElement",
+                "SVGLinearGradientElement": "https://developer.mozilla.org/en/docs/Web/API/SVGLinearGradientElement",
+                "SVGLocatable": "https://developer.mozilla.org/en/docs/Web/API/SVGLocatable",
+                "SVGMPathElement": "https://developer.mozilla.org/en/docs/Web/API/SVGMPathElement",
+                "SVGMarkerElement": "https://developer.mozilla.org/en/docs/Web/API/SVGMarkerElement",
+                "SVGMaskElement": "https://developer.mozilla.org/en/docs/Web/API/SVGMaskElement",
+                "SVGMatrix": "https://developer.mozilla.org/en/docs/Web/API/SVGMatrix",
+                "SVGMetadataElement": "https://developer.mozilla.org/en/docs/Web/API/SVGMetadataElement",
+                "SVGMissingGlyphElement": "https://developer.mozilla.org/en/docs/Web/API/SVGMissingGlyphElement",
+                "SVGNumber": "https://developer.mozilla.org/en/docs/Web/API/SVGNumber",
+                "SVGNumberList": "https://developer.mozilla.org/en/docs/Web/API/SVGNumberList",
+                "SVGPaint": "https://developer.mozilla.org/en/docs/Web/API/SVGPaint",
+                "SVGPathElement": "https://developer.mozilla.org/en/docs/Web/API/SVGPathElement",
+                "SVGPathSeg": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSeg",
+                "SVGPathSegArcAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegArcAbs",
+                "SVGPathSegArcRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegArcRel",
+                "SVGPathSegClosePath": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegClosePath",
+                "SVGPathSegCurvetoCubicAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoCubicAbs",
+                "SVGPathSegCurvetoCubicRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoCubicRel",
+                "SVGPathSegCurvetoCubicSmoothAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoCubicSmoothAbs",
+                "SVGPathSegCurvetoCubicSmoothRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoCubicSmoothRel",
+                "SVGPathSegCurvetoQuadraticAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoQuadraticAbs",
+                "SVGPathSegCurvetoQuadraticRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoQuadraticRel",
+                "SVGPathSegCurvetoQuadraticSmoothAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoQuadraticSmoothAbs",
+                "SVGPathSegCurvetoQuadraticSmoothRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoQuadraticSmoothRel",
+                "SVGPathSegLinetoAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegLinetoAbs",
+                "SVGPathSegLinetoHorizontalAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegLinetoHorizontalAbs",
+                "SVGPathSegLinetoHorizontalRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegLinetoHorizontalRel",
+                "SVGPathSegLinetoRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegLinetoRel",
+                "SVGPathSegLinetoVerticalAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegLinetoVerticalAbs",
+                "SVGPathSegLinetoVerticalRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegLinetoVerticalRel",
+                "SVGPathSegList": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegList",
+                "SVGPathSegMovetoAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegMovetoAbs",
+                "SVGPathSegMovetoRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegMovetoRel",
+                "SVGPatternElement": "https://developer.mozilla.org/en/docs/Web/API/SVGPatternElement",
+                "SVGPoint": "https://developer.mozilla.org/en/docs/Web/API/SVGPoint",
+                "SVGPointList": "https://developer.mozilla.org/en/docs/Web/API/SVGPointList",
+                "SVGPolygonElement": "https://developer.mozilla.org/en/docs/Web/API/SVGPolygonElement",
+                "SVGPolylineElement": "https://developer.mozilla.org/en/docs/Web/API/SVGPolylineElement",
+                "SVGPreserveAspectRatio": "https://developer.mozilla.org/en/docs/Web/API/SVGPreserveAspectRatio",
+                "SVGRadialGradientElement": "https://developer.mozilla.org/en/docs/Web/API/SVGRadialGradientElement",
+                "SVGRect": "https://developer.mozilla.org/en/docs/Web/API/SVGRect",
+                "SVGRectElement": "https://developer.mozilla.org/en/docs/Web/API/SVGRectElement",
+                "SVGRenderingIntent": "https://developer.mozilla.org/en/docs/Web/API/SVGRenderingIntent",
+                "SVGSVGElement": "https://developer.mozilla.org/en/docs/Web/API/SVGSVGElement",
+                "SVGScriptElement": "https://developer.mozilla.org/en/docs/Web/API/SVGScriptElement",
+                "SVGSetElement": "https://developer.mozilla.org/en/docs/Web/API/SVGSetElement",
+                "SVGStopElement": "https://developer.mozilla.org/en/docs/Web/API/SVGStopElement",
+                "SVGStringList": "https://developer.mozilla.org/en/docs/Web/API/SVGStringList",
+                "SVGStylable": "https://developer.mozilla.org/en/docs/Web/API/SVGStylable",
+                "SVGStyleElement": "https://developer.mozilla.org/en/docs/Web/API/SVGStyleElement",
+                "SVGSwitchElement": "https://developer.mozilla.org/en/docs/Web/API/SVGSwitchElement",
+                "SVGSymbolElement": "https://developer.mozilla.org/en/docs/Web/API/SVGSymbolElement",
+                "SVGTRefElement": "https://developer.mozilla.org/en/docs/Web/API/SVGTRefElement",
+                "SVGTSpanElement": "https://developer.mozilla.org/en/docs/Web/API/SVGTSpanElement",
+                "SVGTests": "https://developer.mozilla.org/en/docs/Web/API/SVGTests",
+                "SVGTextContentElement": "https://developer.mozilla.org/en/docs/Web/API/SVGTextContentElement",
+                "SVGTextElement": "https://developer.mozilla.org/en/docs/Web/API/SVGTextElement",
+                "SVGTextPathElement": "https://developer.mozilla.org/en/docs/Web/API/SVGTextPathElement",
+                "SVGTextPositioningElement": "https://developer.mozilla.org/en/docs/Web/API/SVGTextPositioningElement",
+                "SVGTitleElement": "https://developer.mozilla.org/en/docs/Web/API/SVGTitleElement",
+                "SVGTransform": "https://developer.mozilla.org/en/docs/Web/API/SVGTransform",
+                "SVGTransformList": "https://developer.mozilla.org/en/docs/Web/API/SVGTransformList",
+                "SVGTransformable": "https://developer.mozilla.org/en/docs/Web/API/SVGTransformable",
+                "SVGURIReference": "https://developer.mozilla.org/en/docs/Web/API/SVGURIReference",
+                "SVGUnitTypes": "https://developer.mozilla.org/en/docs/Web/API/SVGUnitTypes",
+                "SVGUseElement": "https://developer.mozilla.org/en/docs/Web/API/SVGUseElement",
+                "SVGVKernElement": "https://developer.mozilla.org/en/docs/Web/API/SVGVKernElement",
+                "SVGViewElement": "https://developer.mozilla.org/en/docs/Web/API/SVGViewElement",
+                "SVGViewSpec": "https://developer.mozilla.org/en/docs/Web/API/SVGViewSpec",
+                "SVGZoomAndPan": "https://developer.mozilla.org/en/docs/Web/API/SVGZoomAndPan",
+                "Text": "https://developer.mozilla.org/en/docs/Web/API/Text",
+                "TextMetrics": "https://developer.mozilla.org/en/docs/Web/API/TextMetrics",
+                "TimeEvent": "https://developer.mozilla.org/en/docs/Web/API/TimeEvent",
+                "TreeWalker": "https://developer.mozilla.org/en/docs/Web/API/TreeWalker",
+                "TypeInfo": "https://developer.mozilla.org/en/docs/Web/API/TypeInfo",
+                "URL": "https://developer.mozilla.org/en/docs/Web/API/URL",
+                "UserDataHandler": "https://developer.mozilla.org/en/docs/Web/API/UserDataHandler",
+                "Window": "https://developer.mozilla.org/en/docs/Web/API/Window",
+                "Worker": "https://developer.mozilla.org/en/docs/Web/API/Worker",
+                "XMLDocument": "https://developer.mozilla.org/en/docs/Web/API/XMLDocument"
+              }
+            ]
+          },
           "name": "CoffeeScript"
         },
         "sourcePath": "/Users/sjorek/Documents/Projects/Mesch/Workspace (Aptana)/goatee-script/src/Parser.coffee",
@@ -278,6 +4542,539 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
           "singleLineComment": ["#"],
           "ignorePrefix": "!",
           "foldPrefix": "~",
+          "doctags": {
+            "description": {
+              "section": "description",
+              "markdown": "{value}"
+            },
+            "abstract": {
+              "section": "access"
+            },
+            "constant": {
+              "section": "access"
+            },
+            "deprecated": {
+              "section": "access"
+            },
+            "internal": {
+              "section": "access"
+            },
+            "private": {
+              "section": "access"
+            },
+            "protected": {
+              "section": "access"
+            },
+            "public": {
+              "valuePrefix": "as",
+              "section": "access"
+            },
+            "static": {
+              "section": "access"
+            },
+            "constructor": {
+              "section": "special"
+            },
+            "destructor": {
+              "section": "special"
+            },
+            "class": {
+              "section": "type",
+              "markdown": "class *{type}*"
+            },
+            "event": {
+              "section": "type"
+            },
+            "method": {
+              "section": "type",
+              "markdown": "method *{type}*"
+            },
+            "mixin": {
+              "section": "type",
+              "markdown": "mixin *{type}*"
+            },
+            "module": {
+              "section": "type",
+              "markdown": "module *{type}*"
+            },
+            "package": {
+              "section": "type",
+              "markdown": "package *{type}*"
+            },
+            "property": {
+              "section": "type",
+              "markdown": "property *{type}*"
+            },
+            "accessor": {
+              "section": "flag",
+              "markdown": "is an accessor"
+            },
+            "async": {
+              "section": "flag",
+              "markdown": "is asynchronous"
+            },
+            "asynchronous": "async",
+            "getter": {
+              "section": "flag",
+              "markdown": "is a getter"
+            },
+            "recursive": {
+              "section": "flag",
+              "markdown": "is recursive"
+            },
+            "refactor": {
+              "section": "flag",
+              "markdown": "needs to be refactored"
+            },
+            "setter": {
+              "section": "flag",
+              "markdown": "is a setter"
+            },
+            "alias": {
+              "valuePrefix": "as",
+              "section": "metadata",
+              "markdown": "is aliased as *{type}*"
+            },
+            "augments": {
+              "section": "metadata",
+              "markdown": "extends *{type}*"
+            },
+            "extends": {
+              "section": "metadata",
+              "markdown": "extends *{type}*"
+            },
+            "fires": {
+              "section": "metadata"
+            },
+            "memberof": {
+              "section": "metadata",
+              "markdown": "is a member of *{type}*"
+            },
+            "mixes": {
+              "section": "metadata",
+              "markdown": "mixes *{type}* in"
+            },
+            "namespace": {
+              "section": "metadata",
+              "markdown": "is in namespace *{value}*"
+            },
+            "publishes": {
+              "section": "metadata"
+            },
+            "requests": {
+              "section": "metadata",
+              "markdown": "makes an ajax request to <{value}>"
+            },
+            "since": {
+              "section": "metadata",
+              "markdown": "is available since version {value}"
+            },
+            "subscribes": {
+              "valuePrefix": "to",
+              "section": "metadata",
+              "markdown": "subscribes to {type}"
+            },
+            "type": {
+              "section": "metadata"
+            },
+            "version": {
+              "section": "metadata",
+              "markdown": "has version {value}"
+            },
+            "author": {
+              "section": "authors"
+            },
+            "see": {
+              "section": "references"
+            },
+            "todo": {
+              "section": "todo",
+              "markdown": "TODO: {value}"
+            },
+            "example": {
+              "section": "example",
+              "markdown": "{value}"
+            },
+            "examples": "example",
+            "usage": "example",
+            "howto": {
+              "section": "howto",
+              "markdown": "{value}"
+            },
+            "note": {
+              "section": "discard"
+            },
+            "notes": "note",
+            "param": {
+              "section": "params"
+            },
+            "params": "param",
+            "parameters": "param",
+            "return": {
+              "section": "returns"
+            },
+            "returns": "return",
+            "throw": {
+              "section": "throws"
+            },
+            "throws": "throw",
+            "defaultNoValue": {
+              "section": "flag"
+            },
+            "defaultHasValue": {
+              "section": "metadata"
+            }
+          },
+          "namespace": {
+            "separator": ".",
+            "types": [
+              {
+                "goatee.Script.": ["http://sjorek.github.io/goatee-script/", "goatee."],
+                "goatee.Rules.": ["http://sjorek.github.io/goatee-rules/", "goatee."],
+                "goatee.": ["http://sjorek.github.io/goatee-js/", "goatee."]
+              }, {
+                "Array": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Array",
+                "ArrayBuffer": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/ArrayBuffer",
+                "Boolean": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Boolean",
+                "Collator": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Collator",
+                "DataView": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/DataView",
+                "Date": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Date",
+                "DateTimeFormat": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/DateTimeFormat",
+                "Error": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Error",
+                "EvalError": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/EvalError",
+                "Float32Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Float32Array",
+                "Float64Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Float64Array",
+                "Function": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Function",
+                "Infinity": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Infinity",
+                "Int8Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Int8Array",
+                "Int16Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Int16Array",
+                "Int32Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Int32Array",
+                "InternalError": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/InternalError",
+                "Intl": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Intl",
+                "Intl.Collator": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Collator",
+                "Intl.DateTimeFormat": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/DateTimeFormat",
+                "Intl.NumberFormat": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/NumberFormat",
+                "Iterator": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Iterator",
+                "JSON": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/JSON",
+                "Math": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Math",
+                "NaN": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/NaN",
+                "Number": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Number",
+                "NumberFormat": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/NumberFormat",
+                "Object": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Object",
+                "ParallelArray": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/ParallelArray",
+                "Proxy": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Proxy",
+                "RangeError": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/RangeError",
+                "ReferenceError": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/ReferenceError",
+                "RegExp": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/RegExp",
+                "StopIteration": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/StopIteration",
+                "String": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/String",
+                "SyntaxError": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/SyntaxError",
+                "TypeError": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/TypeError",
+                "URIError": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/URIError",
+                "Uint8Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Uint8Array",
+                "Uint8ClampedArray": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Uint8ClampedArray",
+                "Uint16Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Uint16Array",
+                "Uint32Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Uint32Array",
+                "null": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/null",
+                "undefined": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/undefined"
+              }, {
+                "Attr": "https://developer.mozilla.org/en/docs/Web/API/Attr",
+                "CDATASection": "https://developer.mozilla.org/en/docs/Web/API/CDATASection",
+                "CanvasGradient": "https://developer.mozilla.org/en/docs/Web/API/CanvasGradient",
+                "CanvasPattern": "https://developer.mozilla.org/en/docs/Web/API/CanvasPattern",
+                "CanvasPixelArray": "https://developer.mozilla.org/en/docs/Web/API/CanvasPixelArray",
+                "CanvasRenderingContext2D": "https://developer.mozilla.org/en/docs/Web/API/CanvasRenderingContext2D",
+                "CharacterData": "https://developer.mozilla.org/en/docs/Web/API/CharacterData",
+                "ChildNode": "https://developer.mozilla.org/en/docs/Web/API/ChildNode",
+                "Comment": "https://developer.mozilla.org/en/docs/Web/API/Comment",
+                "CustomEvent": "https://developer.mozilla.org/en/docs/Web/API/CustomEvent",
+                "DOMConfiguration": "https://developer.mozilla.org/en/docs/Web/API/DOMConfiguration",
+                "DOMError": "https://developer.mozilla.org/en/docs/Web/API/DOMError",
+                "DOMErrorHandler": "https://developer.mozilla.org/en/docs/Web/API/DOMErrorHandler",
+                "DOMException": "https://developer.mozilla.org/en/docs/Web/API/DOMException",
+                "DOMImplementation": "https://developer.mozilla.org/en/docs/Web/API/DOMImplementation",
+                "DOMImplementationList": "https://developer.mozilla.org/en/docs/Web/API/DOMImplementationList",
+                "DOMImplementationRegistry": "https://developer.mozilla.org/en/docs/Web/API/DOMImplementationRegistry",
+                "DOMImplementationSource": "https://developer.mozilla.org/en/docs/Web/API/DOMImplementationSource",
+                "DOMLocator": "https://developer.mozilla.org/en/docs/Web/API/DOMLocator",
+                "DOMObject": "https://developer.mozilla.org/en/docs/Web/API/DOMObject",
+                "DOMSettableTokenList": "https://developer.mozilla.org/en/docs/Web/API/DOMSettableTokenList",
+                "DOMString": "https://developer.mozilla.org/en/docs/Web/API/DOMString",
+                "DOMStringList": "https://developer.mozilla.org/en/docs/Web/API/DOMStringList",
+                "DOMStringMap": "https://developer.mozilla.org/en/docs/Web/API/DOMStringMap",
+                "DOMTimeStamp": "https://developer.mozilla.org/en/docs/Web/API/DOMTimeStamp",
+                "DOMTokenList": "https://developer.mozilla.org/en/docs/Web/API/DOMTokenList",
+                "DOMUserData": "https://developer.mozilla.org/en/docs/Web/API/DOMUserData",
+                "Document": "https://developer.mozilla.org/en/docs/Web/API/Document",
+                "DocumentFragment": "https://developer.mozilla.org/en/docs/Web/API/DocumentFragment",
+                "DocumentType": "https://developer.mozilla.org/en/docs/Web/API/DocumentType",
+                "Element": "https://developer.mozilla.org/en/docs/Web/API/Element",
+                "ElementTimeControl": "https://developer.mozilla.org/en/docs/Web/API/ElementTimeControl",
+                "Entity": "https://developer.mozilla.org/en/docs/Web/API/Entity",
+                "EntityReference": "https://developer.mozilla.org/en/docs/Web/API/EntityReference",
+                "Event": "https://developer.mozilla.org/en/docs/Web/API/Event",
+                "EventTarget": "https://developer.mozilla.org/en/docs/Web/API/EventTarget",
+                "HTMLAllCollection": "https://developer.mozilla.org/en/docs/Web/API/HTMLAllCollection",
+                "HTMLAnchorElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLAnchorElement",
+                "HTMLAppletElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLAppletElement",
+                "HTMLAreaElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLAreaElement",
+                "HTMLAudioElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLAudioElement",
+                "HTMLBRElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLBRElement",
+                "HTMLBaseElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLBaseElement",
+                "HTMLBaseFontElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLBaseFontElement",
+                "HTMLBodyElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLBodyElement",
+                "HTMLButtonElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLButtonElement",
+                "HTMLCanvasElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLCanvasElement",
+                "HTMLCollection": "https://developer.mozilla.org/en/docs/Web/API/HTMLCollection",
+                "HTMLDListElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLDListElement",
+                "HTMLDataElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLDataElement",
+                "HTMLDataListElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLDataListElement",
+                "HTMLDirectoryElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLDirectoryElement",
+                "HTMLDivElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLDivElement",
+                "HTMLElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLElement",
+                "HTMLEmbedElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLEmbedElement",
+                "HTMLFieldSetElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLFieldSetElement",
+                "HTMLFontElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLFontElement",
+                "HTMLFormControlsCollection": "https://developer.mozilla.org/en/docs/Web/API/HTMLFormControlsCollection",
+                "HTMLFormElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLFormElement",
+                "HTMLFrameElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLFrameElement",
+                "HTMLFrameSetElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLFrameSetElement",
+                "HTMLHRElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLHRElement",
+                "HTMLHeadElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLHeadElement",
+                "HTMLHeadingElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLHeadingElement",
+                "HTMLHtmlElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLHtmlElement",
+                "HTMLIFrameElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLIFrameElement",
+                "HTMLImageElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLImageElement",
+                "HTMLInputElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLInputElement",
+                "HTMLIsIndexElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLIsIndexElement",
+                "HTMLKeygenElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLKeygenElement",
+                "HTMLLIElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLLIElement",
+                "HTMLLabelElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLLabelElement",
+                "HTMLLegendElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLLegendElement",
+                "HTMLLinkElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLLinkElement",
+                "HTMLMapElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLMapElement",
+                "HTMLMediaElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLMediaElement",
+                "HTMLMenuElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLMenuElement",
+                "HTMLMetaElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLMetaElement",
+                "HTMLMeterElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLMeterElement",
+                "HTMLModElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLModElement",
+                "HTMLOListElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLOListElement",
+                "HTMLObjectElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLObjectElement",
+                "HTMLOptGroupElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLOptGroupElement",
+                "HTMLOptionElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLOptionElement",
+                "HTMLOptionsCollection": "https://developer.mozilla.org/en/docs/Web/API/HTMLOptionsCollection",
+                "HTMLOutputElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLOutputElement",
+                "HTMLParagraphElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLParagraphElement",
+                "HTMLParamElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLParamElement",
+                "HTMLPreElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLPreElement",
+                "HTMLProgressElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLProgressElement",
+                "HTMLPropertiesCollection": "https://developer.mozilla.org/en/docs/Web/API/HTMLPropertiesCollection",
+                "HTMLQuoteElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLQuoteElement",
+                "HTMLScriptElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLScriptElement",
+                "HTMLSelectElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLSelectElement",
+                "HTMLSourceElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLSourceElement",
+                "HTMLSpanElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLSpanElement",
+                "HTMLStyleElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLStyleElement",
+                "HTMLTableCaptionElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableCaptionElement",
+                "HTMLTableCellElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableCellElement",
+                "HTMLTableColElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableColElement",
+                "HTMLTableDataCellElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableDataCellElement",
+                "HTMLTableElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableElement",
+                "HTMLTableHeaderCellElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableHeaderCellElement",
+                "HTMLTableRowElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableRowElement",
+                "HTMLTableSectionElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableSectionElement",
+                "HTMLTextAreaElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTextAreaElement",
+                "HTMLTimeElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTimeElement",
+                "HTMLTitleElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTitleElement",
+                "HTMLTrackElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTrackElement",
+                "HTMLUListElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLUListElement",
+                "HTMLUnknownElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLUnknownElement",
+                "HTMLVideoElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLVideoElement",
+                "ImageData": "https://developer.mozilla.org/en/docs/Web/API/ImageData",
+                "MediaError": "https://developer.mozilla.org/en/docs/Web/API/MediaError",
+                "MutationObserver": "https://developer.mozilla.org/en/docs/Web/API/MutationObserver",
+                "MutationRecord": "https://developer.mozilla.org/en/docs/Web/API/MutationRecord",
+                "NameList": "https://developer.mozilla.org/en/docs/Web/API/NameList",
+                "NamedNodeMap": "https://developer.mozilla.org/en/docs/Web/API/NamedNodeMap",
+                "Node": "https://developer.mozilla.org/en/docs/Web/API/Node",
+                "NodeFilter": "https://developer.mozilla.org/en/docs/Web/API/NodeFilter",
+                "NodeIterator": "https://developer.mozilla.org/en/docs/Web/API/NodeIterator",
+                "NodeList": "https://developer.mozilla.org/en/docs/Web/API/NodeList",
+                "Notation": "https://developer.mozilla.org/en/docs/Web/API/Notation",
+                "NotifyAudioAvailableEvent": "https://developer.mozilla.org/en/docs/Web/API/NotifyAudioAvailableEvent",
+                "ParentNode": "https://developer.mozilla.org/en/docs/Web/API/ParentNode",
+                "ProcessingInstruction": "https://developer.mozilla.org/en/docs/Web/API/ProcessingInstruction",
+                "Promise": "https://developer.mozilla.org/en/docs/Web/API/Promise",
+                "PromiseResolver": "https://developer.mozilla.org/en/docs/Web/API/PromiseResolver",
+                "RadioNodeList": "https://developer.mozilla.org/en/docs/Web/API/RadioNodeList",
+                "Range": "https://developer.mozilla.org/en/docs/Web/API/Range",
+                "SVGAElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAElement",
+                "SVGAltGlyphDefElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAltGlyphDefElement",
+                "SVGAltGlyphElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAltGlyphElement",
+                "SVGAltGlyphItemElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAltGlyphItemElement",
+                "SVGAngle": "https://developer.mozilla.org/en/docs/Web/API/SVGAngle",
+                "SVGAnimateColorElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimateColorElement",
+                "SVGAnimateElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimateElement",
+                "SVGAnimateMotionElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimateMotionElement",
+                "SVGAnimateTransformElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimateTransformElement",
+                "SVGAnimatedAngle": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedAngle",
+                "SVGAnimatedBoolean": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedBoolean",
+                "SVGAnimatedEnumeration": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedEnumeration",
+                "SVGAnimatedInteger": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedInteger",
+                "SVGAnimatedLength": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedLength",
+                "SVGAnimatedLengthList": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedLengthList",
+                "SVGAnimatedNumber": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedNumber",
+                "SVGAnimatedNumberList": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedNumberList",
+                "SVGAnimatedPathData": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedPathData",
+                "SVGAnimatedPoints": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedPoints",
+                "SVGAnimatedPreserveAspectRatio": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedPreserveAspectRatio",
+                "SVGAnimatedRect": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedRect",
+                "SVGAnimatedString": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedString",
+                "SVGAnimatedTransformList": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedTransformList",
+                "SVGAnimationElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimationElement",
+                "SVGCSSRule": "https://developer.mozilla.org/en/docs/Web/API/SVGCSSRule",
+                "SVGCircleElement": "https://developer.mozilla.org/en/docs/Web/API/SVGCircleElement",
+                "SVGClipPathElement": "https://developer.mozilla.org/en/docs/Web/API/SVGClipPathElement",
+                "SVGColor": "https://developer.mozilla.org/en/docs/Web/API/SVGColor",
+                "SVGColorProfileElement": "https://developer.mozilla.org/en/docs/Web/API/SVGColorProfileElement",
+                "SVGColorProfileRule": "https://developer.mozilla.org/en/docs/Web/API/SVGColorProfileRule",
+                "SVGComponentTransferFunctionElement": "https://developer.mozilla.org/en/docs/Web/API/SVGComponentTransferFunctionElement",
+                "SVGCursorElement": "https://developer.mozilla.org/en/docs/Web/API/SVGCursorElement",
+                "SVGDefsElement": "https://developer.mozilla.org/en/docs/Web/API/SVGDefsElement",
+                "SVGDescElement": "https://developer.mozilla.org/en/docs/Web/API/SVGDescElement",
+                "SVGElement": "https://developer.mozilla.org/en/docs/Web/API/SVGElement",
+                "SVGElementInstance": "https://developer.mozilla.org/en/docs/Web/API/SVGElementInstance",
+                "SVGElementInstanceList": "https://developer.mozilla.org/en/docs/Web/API/SVGElementInstanceList",
+                "SVGEllipseElement": "https://developer.mozilla.org/en/docs/Web/API/SVGEllipseElement",
+                "SVGExternalResourcesRequired": "https://developer.mozilla.org/en/docs/Web/API/SVGExternalResourcesRequired",
+                "SVGFEBlendElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEBlendElement",
+                "SVGFEColorMatrixElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEColorMatrixElement",
+                "SVGFEComponentTransferElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEComponentTransferElement",
+                "SVGFECompositeElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFECompositeElement",
+                "SVGFEConvolveMatrixElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEConvolveMatrixElement",
+                "SVGFEDiffuseLightingElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEDiffuseLightingElement",
+                "SVGFEDisplacementMapElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEDisplacementMapElement",
+                "SVGFEDistantLightElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEDistantLightElement",
+                "SVGFEFloodElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEFloodElement",
+                "SVGFEFuncAElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEFuncAElement",
+                "SVGFEFuncBElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEFuncBElement",
+                "SVGFEFuncGElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEFuncGElement",
+                "SVGFEFuncRElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEFuncRElement",
+                "SVGFEGaussianBlurElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEGaussianBlurElement",
+                "SVGFEImageElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEImageElement",
+                "SVGFEMergeElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEMergeElement",
+                "SVGFEMergeNodeElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEMergeNodeElement",
+                "SVGFEMorphologyElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEMorphologyElement",
+                "SVGFEOffsetElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEOffsetElement",
+                "SVGFEPointLightElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEPointLightElement",
+                "SVGFESpecularLightingElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFESpecularLightingElement",
+                "SVGFESpotLightElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFESpotLightElement",
+                "SVGFETileElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFETileElement",
+                "SVGFETurbulenceElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFETurbulenceElement",
+                "SVGFilterElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFilterElement",
+                "SVGFilterPrimitiveStandardAttributes": "https://developer.mozilla.org/en/docs/Web/API/SVGFilterPrimitiveStandardAttributes",
+                "SVGFitToViewBox": "https://developer.mozilla.org/en/docs/Web/API/SVGFitToViewBox",
+                "SVGFontElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFontElement",
+                "SVGFontFaceElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFontFaceElement",
+                "SVGFontFaceFormatElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFontFaceFormatElement",
+                "SVGFontFaceNameElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFontFaceNameElement",
+                "SVGFontFaceSrcElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFontFaceSrcElement",
+                "SVGFontFaceUriElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFontFaceUriElement",
+                "SVGForeignObjectElement": "https://developer.mozilla.org/en/docs/Web/API/SVGForeignObjectElement",
+                "SVGGElement": "https://developer.mozilla.org/en/docs/Web/API/SVGGElement",
+                "SVGGlyphElement": "https://developer.mozilla.org/en/docs/Web/API/SVGGlyphElement",
+                "SVGGlyphRefElement": "https://developer.mozilla.org/en/docs/Web/API/SVGGlyphRefElement",
+                "SVGGradientElement": "https://developer.mozilla.org/en/docs/Web/API/SVGGradientElement",
+                "SVGHKernElement": "https://developer.mozilla.org/en/docs/Web/API/SVGHKernElement",
+                "SVGICCColor": "https://developer.mozilla.org/en/docs/Web/API/SVGICCColor",
+                "SVGImageElement": "https://developer.mozilla.org/en/docs/Web/API/SVGImageElement",
+                "SVGLangSpace": "https://developer.mozilla.org/en/docs/Web/API/SVGLangSpace",
+                "SVGLength": "https://developer.mozilla.org/en/docs/Web/API/SVGLength",
+                "SVGLengthList": "https://developer.mozilla.org/en/docs/Web/API/SVGLengthList",
+                "SVGLineElement": "https://developer.mozilla.org/en/docs/Web/API/SVGLineElement",
+                "SVGLinearGradientElement": "https://developer.mozilla.org/en/docs/Web/API/SVGLinearGradientElement",
+                "SVGLocatable": "https://developer.mozilla.org/en/docs/Web/API/SVGLocatable",
+                "SVGMPathElement": "https://developer.mozilla.org/en/docs/Web/API/SVGMPathElement",
+                "SVGMarkerElement": "https://developer.mozilla.org/en/docs/Web/API/SVGMarkerElement",
+                "SVGMaskElement": "https://developer.mozilla.org/en/docs/Web/API/SVGMaskElement",
+                "SVGMatrix": "https://developer.mozilla.org/en/docs/Web/API/SVGMatrix",
+                "SVGMetadataElement": "https://developer.mozilla.org/en/docs/Web/API/SVGMetadataElement",
+                "SVGMissingGlyphElement": "https://developer.mozilla.org/en/docs/Web/API/SVGMissingGlyphElement",
+                "SVGNumber": "https://developer.mozilla.org/en/docs/Web/API/SVGNumber",
+                "SVGNumberList": "https://developer.mozilla.org/en/docs/Web/API/SVGNumberList",
+                "SVGPaint": "https://developer.mozilla.org/en/docs/Web/API/SVGPaint",
+                "SVGPathElement": "https://developer.mozilla.org/en/docs/Web/API/SVGPathElement",
+                "SVGPathSeg": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSeg",
+                "SVGPathSegArcAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegArcAbs",
+                "SVGPathSegArcRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegArcRel",
+                "SVGPathSegClosePath": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegClosePath",
+                "SVGPathSegCurvetoCubicAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoCubicAbs",
+                "SVGPathSegCurvetoCubicRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoCubicRel",
+                "SVGPathSegCurvetoCubicSmoothAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoCubicSmoothAbs",
+                "SVGPathSegCurvetoCubicSmoothRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoCubicSmoothRel",
+                "SVGPathSegCurvetoQuadraticAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoQuadraticAbs",
+                "SVGPathSegCurvetoQuadraticRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoQuadraticRel",
+                "SVGPathSegCurvetoQuadraticSmoothAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoQuadraticSmoothAbs",
+                "SVGPathSegCurvetoQuadraticSmoothRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoQuadraticSmoothRel",
+                "SVGPathSegLinetoAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegLinetoAbs",
+                "SVGPathSegLinetoHorizontalAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegLinetoHorizontalAbs",
+                "SVGPathSegLinetoHorizontalRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegLinetoHorizontalRel",
+                "SVGPathSegLinetoRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegLinetoRel",
+                "SVGPathSegLinetoVerticalAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegLinetoVerticalAbs",
+                "SVGPathSegLinetoVerticalRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegLinetoVerticalRel",
+                "SVGPathSegList": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegList",
+                "SVGPathSegMovetoAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegMovetoAbs",
+                "SVGPathSegMovetoRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegMovetoRel",
+                "SVGPatternElement": "https://developer.mozilla.org/en/docs/Web/API/SVGPatternElement",
+                "SVGPoint": "https://developer.mozilla.org/en/docs/Web/API/SVGPoint",
+                "SVGPointList": "https://developer.mozilla.org/en/docs/Web/API/SVGPointList",
+                "SVGPolygonElement": "https://developer.mozilla.org/en/docs/Web/API/SVGPolygonElement",
+                "SVGPolylineElement": "https://developer.mozilla.org/en/docs/Web/API/SVGPolylineElement",
+                "SVGPreserveAspectRatio": "https://developer.mozilla.org/en/docs/Web/API/SVGPreserveAspectRatio",
+                "SVGRadialGradientElement": "https://developer.mozilla.org/en/docs/Web/API/SVGRadialGradientElement",
+                "SVGRect": "https://developer.mozilla.org/en/docs/Web/API/SVGRect",
+                "SVGRectElement": "https://developer.mozilla.org/en/docs/Web/API/SVGRectElement",
+                "SVGRenderingIntent": "https://developer.mozilla.org/en/docs/Web/API/SVGRenderingIntent",
+                "SVGSVGElement": "https://developer.mozilla.org/en/docs/Web/API/SVGSVGElement",
+                "SVGScriptElement": "https://developer.mozilla.org/en/docs/Web/API/SVGScriptElement",
+                "SVGSetElement": "https://developer.mozilla.org/en/docs/Web/API/SVGSetElement",
+                "SVGStopElement": "https://developer.mozilla.org/en/docs/Web/API/SVGStopElement",
+                "SVGStringList": "https://developer.mozilla.org/en/docs/Web/API/SVGStringList",
+                "SVGStylable": "https://developer.mozilla.org/en/docs/Web/API/SVGStylable",
+                "SVGStyleElement": "https://developer.mozilla.org/en/docs/Web/API/SVGStyleElement",
+                "SVGSwitchElement": "https://developer.mozilla.org/en/docs/Web/API/SVGSwitchElement",
+                "SVGSymbolElement": "https://developer.mozilla.org/en/docs/Web/API/SVGSymbolElement",
+                "SVGTRefElement": "https://developer.mozilla.org/en/docs/Web/API/SVGTRefElement",
+                "SVGTSpanElement": "https://developer.mozilla.org/en/docs/Web/API/SVGTSpanElement",
+                "SVGTests": "https://developer.mozilla.org/en/docs/Web/API/SVGTests",
+                "SVGTextContentElement": "https://developer.mozilla.org/en/docs/Web/API/SVGTextContentElement",
+                "SVGTextElement": "https://developer.mozilla.org/en/docs/Web/API/SVGTextElement",
+                "SVGTextPathElement": "https://developer.mozilla.org/en/docs/Web/API/SVGTextPathElement",
+                "SVGTextPositioningElement": "https://developer.mozilla.org/en/docs/Web/API/SVGTextPositioningElement",
+                "SVGTitleElement": "https://developer.mozilla.org/en/docs/Web/API/SVGTitleElement",
+                "SVGTransform": "https://developer.mozilla.org/en/docs/Web/API/SVGTransform",
+                "SVGTransformList": "https://developer.mozilla.org/en/docs/Web/API/SVGTransformList",
+                "SVGTransformable": "https://developer.mozilla.org/en/docs/Web/API/SVGTransformable",
+                "SVGURIReference": "https://developer.mozilla.org/en/docs/Web/API/SVGURIReference",
+                "SVGUnitTypes": "https://developer.mozilla.org/en/docs/Web/API/SVGUnitTypes",
+                "SVGUseElement": "https://developer.mozilla.org/en/docs/Web/API/SVGUseElement",
+                "SVGVKernElement": "https://developer.mozilla.org/en/docs/Web/API/SVGVKernElement",
+                "SVGViewElement": "https://developer.mozilla.org/en/docs/Web/API/SVGViewElement",
+                "SVGViewSpec": "https://developer.mozilla.org/en/docs/Web/API/SVGViewSpec",
+                "SVGZoomAndPan": "https://developer.mozilla.org/en/docs/Web/API/SVGZoomAndPan",
+                "Text": "https://developer.mozilla.org/en/docs/Web/API/Text",
+                "TextMetrics": "https://developer.mozilla.org/en/docs/Web/API/TextMetrics",
+                "TimeEvent": "https://developer.mozilla.org/en/docs/Web/API/TimeEvent",
+                "TreeWalker": "https://developer.mozilla.org/en/docs/Web/API/TreeWalker",
+                "TypeInfo": "https://developer.mozilla.org/en/docs/Web/API/TypeInfo",
+                "URL": "https://developer.mozilla.org/en/docs/Web/API/URL",
+                "UserDataHandler": "https://developer.mozilla.org/en/docs/Web/API/UserDataHandler",
+                "Window": "https://developer.mozilla.org/en/docs/Web/API/Window",
+                "Worker": "https://developer.mozilla.org/en/docs/Web/API/Worker",
+                "XMLDocument": "https://developer.mozilla.org/en/docs/Web/API/XMLDocument"
+              }
+            ]
+          },
           "name": "CoffeeScript"
         },
         "sourcePath": "/Users/sjorek/Documents/Projects/Mesch/Workspace (Aptana)/goatee-script/src/Repl.coffee",
@@ -298,6 +5095,539 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
           "singleLineComment": ["#"],
           "ignorePrefix": "!",
           "foldPrefix": "~",
+          "doctags": {
+            "description": {
+              "section": "description",
+              "markdown": "{value}"
+            },
+            "abstract": {
+              "section": "access"
+            },
+            "constant": {
+              "section": "access"
+            },
+            "deprecated": {
+              "section": "access"
+            },
+            "internal": {
+              "section": "access"
+            },
+            "private": {
+              "section": "access"
+            },
+            "protected": {
+              "section": "access"
+            },
+            "public": {
+              "valuePrefix": "as",
+              "section": "access"
+            },
+            "static": {
+              "section": "access"
+            },
+            "constructor": {
+              "section": "special"
+            },
+            "destructor": {
+              "section": "special"
+            },
+            "class": {
+              "section": "type",
+              "markdown": "class *{type}*"
+            },
+            "event": {
+              "section": "type"
+            },
+            "method": {
+              "section": "type",
+              "markdown": "method *{type}*"
+            },
+            "mixin": {
+              "section": "type",
+              "markdown": "mixin *{type}*"
+            },
+            "module": {
+              "section": "type",
+              "markdown": "module *{type}*"
+            },
+            "package": {
+              "section": "type",
+              "markdown": "package *{type}*"
+            },
+            "property": {
+              "section": "type",
+              "markdown": "property *{type}*"
+            },
+            "accessor": {
+              "section": "flag",
+              "markdown": "is an accessor"
+            },
+            "async": {
+              "section": "flag",
+              "markdown": "is asynchronous"
+            },
+            "asynchronous": "async",
+            "getter": {
+              "section": "flag",
+              "markdown": "is a getter"
+            },
+            "recursive": {
+              "section": "flag",
+              "markdown": "is recursive"
+            },
+            "refactor": {
+              "section": "flag",
+              "markdown": "needs to be refactored"
+            },
+            "setter": {
+              "section": "flag",
+              "markdown": "is a setter"
+            },
+            "alias": {
+              "valuePrefix": "as",
+              "section": "metadata",
+              "markdown": "is aliased as *{type}*"
+            },
+            "augments": {
+              "section": "metadata",
+              "markdown": "extends *{type}*"
+            },
+            "extends": {
+              "section": "metadata",
+              "markdown": "extends *{type}*"
+            },
+            "fires": {
+              "section": "metadata"
+            },
+            "memberof": {
+              "section": "metadata",
+              "markdown": "is a member of *{type}*"
+            },
+            "mixes": {
+              "section": "metadata",
+              "markdown": "mixes *{type}* in"
+            },
+            "namespace": {
+              "section": "metadata",
+              "markdown": "is in namespace *{value}*"
+            },
+            "publishes": {
+              "section": "metadata"
+            },
+            "requests": {
+              "section": "metadata",
+              "markdown": "makes an ajax request to <{value}>"
+            },
+            "since": {
+              "section": "metadata",
+              "markdown": "is available since version {value}"
+            },
+            "subscribes": {
+              "valuePrefix": "to",
+              "section": "metadata",
+              "markdown": "subscribes to {type}"
+            },
+            "type": {
+              "section": "metadata"
+            },
+            "version": {
+              "section": "metadata",
+              "markdown": "has version {value}"
+            },
+            "author": {
+              "section": "authors"
+            },
+            "see": {
+              "section": "references"
+            },
+            "todo": {
+              "section": "todo",
+              "markdown": "TODO: {value}"
+            },
+            "example": {
+              "section": "example",
+              "markdown": "{value}"
+            },
+            "examples": "example",
+            "usage": "example",
+            "howto": {
+              "section": "howto",
+              "markdown": "{value}"
+            },
+            "note": {
+              "section": "discard"
+            },
+            "notes": "note",
+            "param": {
+              "section": "params"
+            },
+            "params": "param",
+            "parameters": "param",
+            "return": {
+              "section": "returns"
+            },
+            "returns": "return",
+            "throw": {
+              "section": "throws"
+            },
+            "throws": "throw",
+            "defaultNoValue": {
+              "section": "flag"
+            },
+            "defaultHasValue": {
+              "section": "metadata"
+            }
+          },
+          "namespace": {
+            "separator": ".",
+            "types": [
+              {
+                "goatee.Script.": ["http://sjorek.github.io/goatee-script/", "goatee."],
+                "goatee.Rules.": ["http://sjorek.github.io/goatee-rules/", "goatee."],
+                "goatee.": ["http://sjorek.github.io/goatee-js/", "goatee."]
+              }, {
+                "Array": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Array",
+                "ArrayBuffer": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/ArrayBuffer",
+                "Boolean": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Boolean",
+                "Collator": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Collator",
+                "DataView": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/DataView",
+                "Date": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Date",
+                "DateTimeFormat": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/DateTimeFormat",
+                "Error": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Error",
+                "EvalError": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/EvalError",
+                "Float32Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Float32Array",
+                "Float64Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Float64Array",
+                "Function": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Function",
+                "Infinity": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Infinity",
+                "Int8Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Int8Array",
+                "Int16Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Int16Array",
+                "Int32Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Int32Array",
+                "InternalError": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/InternalError",
+                "Intl": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Intl",
+                "Intl.Collator": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Collator",
+                "Intl.DateTimeFormat": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/DateTimeFormat",
+                "Intl.NumberFormat": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/NumberFormat",
+                "Iterator": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Iterator",
+                "JSON": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/JSON",
+                "Math": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Math",
+                "NaN": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/NaN",
+                "Number": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Number",
+                "NumberFormat": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/NumberFormat",
+                "Object": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Object",
+                "ParallelArray": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/ParallelArray",
+                "Proxy": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Proxy",
+                "RangeError": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/RangeError",
+                "ReferenceError": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/ReferenceError",
+                "RegExp": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/RegExp",
+                "StopIteration": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/StopIteration",
+                "String": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/String",
+                "SyntaxError": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/SyntaxError",
+                "TypeError": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/TypeError",
+                "URIError": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/URIError",
+                "Uint8Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Uint8Array",
+                "Uint8ClampedArray": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Uint8ClampedArray",
+                "Uint16Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Uint16Array",
+                "Uint32Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Uint32Array",
+                "null": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/null",
+                "undefined": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/undefined"
+              }, {
+                "Attr": "https://developer.mozilla.org/en/docs/Web/API/Attr",
+                "CDATASection": "https://developer.mozilla.org/en/docs/Web/API/CDATASection",
+                "CanvasGradient": "https://developer.mozilla.org/en/docs/Web/API/CanvasGradient",
+                "CanvasPattern": "https://developer.mozilla.org/en/docs/Web/API/CanvasPattern",
+                "CanvasPixelArray": "https://developer.mozilla.org/en/docs/Web/API/CanvasPixelArray",
+                "CanvasRenderingContext2D": "https://developer.mozilla.org/en/docs/Web/API/CanvasRenderingContext2D",
+                "CharacterData": "https://developer.mozilla.org/en/docs/Web/API/CharacterData",
+                "ChildNode": "https://developer.mozilla.org/en/docs/Web/API/ChildNode",
+                "Comment": "https://developer.mozilla.org/en/docs/Web/API/Comment",
+                "CustomEvent": "https://developer.mozilla.org/en/docs/Web/API/CustomEvent",
+                "DOMConfiguration": "https://developer.mozilla.org/en/docs/Web/API/DOMConfiguration",
+                "DOMError": "https://developer.mozilla.org/en/docs/Web/API/DOMError",
+                "DOMErrorHandler": "https://developer.mozilla.org/en/docs/Web/API/DOMErrorHandler",
+                "DOMException": "https://developer.mozilla.org/en/docs/Web/API/DOMException",
+                "DOMImplementation": "https://developer.mozilla.org/en/docs/Web/API/DOMImplementation",
+                "DOMImplementationList": "https://developer.mozilla.org/en/docs/Web/API/DOMImplementationList",
+                "DOMImplementationRegistry": "https://developer.mozilla.org/en/docs/Web/API/DOMImplementationRegistry",
+                "DOMImplementationSource": "https://developer.mozilla.org/en/docs/Web/API/DOMImplementationSource",
+                "DOMLocator": "https://developer.mozilla.org/en/docs/Web/API/DOMLocator",
+                "DOMObject": "https://developer.mozilla.org/en/docs/Web/API/DOMObject",
+                "DOMSettableTokenList": "https://developer.mozilla.org/en/docs/Web/API/DOMSettableTokenList",
+                "DOMString": "https://developer.mozilla.org/en/docs/Web/API/DOMString",
+                "DOMStringList": "https://developer.mozilla.org/en/docs/Web/API/DOMStringList",
+                "DOMStringMap": "https://developer.mozilla.org/en/docs/Web/API/DOMStringMap",
+                "DOMTimeStamp": "https://developer.mozilla.org/en/docs/Web/API/DOMTimeStamp",
+                "DOMTokenList": "https://developer.mozilla.org/en/docs/Web/API/DOMTokenList",
+                "DOMUserData": "https://developer.mozilla.org/en/docs/Web/API/DOMUserData",
+                "Document": "https://developer.mozilla.org/en/docs/Web/API/Document",
+                "DocumentFragment": "https://developer.mozilla.org/en/docs/Web/API/DocumentFragment",
+                "DocumentType": "https://developer.mozilla.org/en/docs/Web/API/DocumentType",
+                "Element": "https://developer.mozilla.org/en/docs/Web/API/Element",
+                "ElementTimeControl": "https://developer.mozilla.org/en/docs/Web/API/ElementTimeControl",
+                "Entity": "https://developer.mozilla.org/en/docs/Web/API/Entity",
+                "EntityReference": "https://developer.mozilla.org/en/docs/Web/API/EntityReference",
+                "Event": "https://developer.mozilla.org/en/docs/Web/API/Event",
+                "EventTarget": "https://developer.mozilla.org/en/docs/Web/API/EventTarget",
+                "HTMLAllCollection": "https://developer.mozilla.org/en/docs/Web/API/HTMLAllCollection",
+                "HTMLAnchorElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLAnchorElement",
+                "HTMLAppletElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLAppletElement",
+                "HTMLAreaElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLAreaElement",
+                "HTMLAudioElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLAudioElement",
+                "HTMLBRElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLBRElement",
+                "HTMLBaseElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLBaseElement",
+                "HTMLBaseFontElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLBaseFontElement",
+                "HTMLBodyElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLBodyElement",
+                "HTMLButtonElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLButtonElement",
+                "HTMLCanvasElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLCanvasElement",
+                "HTMLCollection": "https://developer.mozilla.org/en/docs/Web/API/HTMLCollection",
+                "HTMLDListElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLDListElement",
+                "HTMLDataElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLDataElement",
+                "HTMLDataListElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLDataListElement",
+                "HTMLDirectoryElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLDirectoryElement",
+                "HTMLDivElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLDivElement",
+                "HTMLElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLElement",
+                "HTMLEmbedElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLEmbedElement",
+                "HTMLFieldSetElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLFieldSetElement",
+                "HTMLFontElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLFontElement",
+                "HTMLFormControlsCollection": "https://developer.mozilla.org/en/docs/Web/API/HTMLFormControlsCollection",
+                "HTMLFormElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLFormElement",
+                "HTMLFrameElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLFrameElement",
+                "HTMLFrameSetElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLFrameSetElement",
+                "HTMLHRElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLHRElement",
+                "HTMLHeadElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLHeadElement",
+                "HTMLHeadingElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLHeadingElement",
+                "HTMLHtmlElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLHtmlElement",
+                "HTMLIFrameElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLIFrameElement",
+                "HTMLImageElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLImageElement",
+                "HTMLInputElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLInputElement",
+                "HTMLIsIndexElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLIsIndexElement",
+                "HTMLKeygenElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLKeygenElement",
+                "HTMLLIElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLLIElement",
+                "HTMLLabelElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLLabelElement",
+                "HTMLLegendElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLLegendElement",
+                "HTMLLinkElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLLinkElement",
+                "HTMLMapElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLMapElement",
+                "HTMLMediaElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLMediaElement",
+                "HTMLMenuElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLMenuElement",
+                "HTMLMetaElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLMetaElement",
+                "HTMLMeterElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLMeterElement",
+                "HTMLModElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLModElement",
+                "HTMLOListElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLOListElement",
+                "HTMLObjectElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLObjectElement",
+                "HTMLOptGroupElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLOptGroupElement",
+                "HTMLOptionElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLOptionElement",
+                "HTMLOptionsCollection": "https://developer.mozilla.org/en/docs/Web/API/HTMLOptionsCollection",
+                "HTMLOutputElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLOutputElement",
+                "HTMLParagraphElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLParagraphElement",
+                "HTMLParamElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLParamElement",
+                "HTMLPreElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLPreElement",
+                "HTMLProgressElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLProgressElement",
+                "HTMLPropertiesCollection": "https://developer.mozilla.org/en/docs/Web/API/HTMLPropertiesCollection",
+                "HTMLQuoteElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLQuoteElement",
+                "HTMLScriptElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLScriptElement",
+                "HTMLSelectElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLSelectElement",
+                "HTMLSourceElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLSourceElement",
+                "HTMLSpanElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLSpanElement",
+                "HTMLStyleElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLStyleElement",
+                "HTMLTableCaptionElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableCaptionElement",
+                "HTMLTableCellElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableCellElement",
+                "HTMLTableColElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableColElement",
+                "HTMLTableDataCellElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableDataCellElement",
+                "HTMLTableElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableElement",
+                "HTMLTableHeaderCellElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableHeaderCellElement",
+                "HTMLTableRowElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableRowElement",
+                "HTMLTableSectionElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableSectionElement",
+                "HTMLTextAreaElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTextAreaElement",
+                "HTMLTimeElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTimeElement",
+                "HTMLTitleElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTitleElement",
+                "HTMLTrackElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTrackElement",
+                "HTMLUListElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLUListElement",
+                "HTMLUnknownElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLUnknownElement",
+                "HTMLVideoElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLVideoElement",
+                "ImageData": "https://developer.mozilla.org/en/docs/Web/API/ImageData",
+                "MediaError": "https://developer.mozilla.org/en/docs/Web/API/MediaError",
+                "MutationObserver": "https://developer.mozilla.org/en/docs/Web/API/MutationObserver",
+                "MutationRecord": "https://developer.mozilla.org/en/docs/Web/API/MutationRecord",
+                "NameList": "https://developer.mozilla.org/en/docs/Web/API/NameList",
+                "NamedNodeMap": "https://developer.mozilla.org/en/docs/Web/API/NamedNodeMap",
+                "Node": "https://developer.mozilla.org/en/docs/Web/API/Node",
+                "NodeFilter": "https://developer.mozilla.org/en/docs/Web/API/NodeFilter",
+                "NodeIterator": "https://developer.mozilla.org/en/docs/Web/API/NodeIterator",
+                "NodeList": "https://developer.mozilla.org/en/docs/Web/API/NodeList",
+                "Notation": "https://developer.mozilla.org/en/docs/Web/API/Notation",
+                "NotifyAudioAvailableEvent": "https://developer.mozilla.org/en/docs/Web/API/NotifyAudioAvailableEvent",
+                "ParentNode": "https://developer.mozilla.org/en/docs/Web/API/ParentNode",
+                "ProcessingInstruction": "https://developer.mozilla.org/en/docs/Web/API/ProcessingInstruction",
+                "Promise": "https://developer.mozilla.org/en/docs/Web/API/Promise",
+                "PromiseResolver": "https://developer.mozilla.org/en/docs/Web/API/PromiseResolver",
+                "RadioNodeList": "https://developer.mozilla.org/en/docs/Web/API/RadioNodeList",
+                "Range": "https://developer.mozilla.org/en/docs/Web/API/Range",
+                "SVGAElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAElement",
+                "SVGAltGlyphDefElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAltGlyphDefElement",
+                "SVGAltGlyphElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAltGlyphElement",
+                "SVGAltGlyphItemElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAltGlyphItemElement",
+                "SVGAngle": "https://developer.mozilla.org/en/docs/Web/API/SVGAngle",
+                "SVGAnimateColorElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimateColorElement",
+                "SVGAnimateElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimateElement",
+                "SVGAnimateMotionElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimateMotionElement",
+                "SVGAnimateTransformElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimateTransformElement",
+                "SVGAnimatedAngle": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedAngle",
+                "SVGAnimatedBoolean": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedBoolean",
+                "SVGAnimatedEnumeration": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedEnumeration",
+                "SVGAnimatedInteger": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedInteger",
+                "SVGAnimatedLength": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedLength",
+                "SVGAnimatedLengthList": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedLengthList",
+                "SVGAnimatedNumber": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedNumber",
+                "SVGAnimatedNumberList": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedNumberList",
+                "SVGAnimatedPathData": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedPathData",
+                "SVGAnimatedPoints": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedPoints",
+                "SVGAnimatedPreserveAspectRatio": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedPreserveAspectRatio",
+                "SVGAnimatedRect": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedRect",
+                "SVGAnimatedString": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedString",
+                "SVGAnimatedTransformList": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedTransformList",
+                "SVGAnimationElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimationElement",
+                "SVGCSSRule": "https://developer.mozilla.org/en/docs/Web/API/SVGCSSRule",
+                "SVGCircleElement": "https://developer.mozilla.org/en/docs/Web/API/SVGCircleElement",
+                "SVGClipPathElement": "https://developer.mozilla.org/en/docs/Web/API/SVGClipPathElement",
+                "SVGColor": "https://developer.mozilla.org/en/docs/Web/API/SVGColor",
+                "SVGColorProfileElement": "https://developer.mozilla.org/en/docs/Web/API/SVGColorProfileElement",
+                "SVGColorProfileRule": "https://developer.mozilla.org/en/docs/Web/API/SVGColorProfileRule",
+                "SVGComponentTransferFunctionElement": "https://developer.mozilla.org/en/docs/Web/API/SVGComponentTransferFunctionElement",
+                "SVGCursorElement": "https://developer.mozilla.org/en/docs/Web/API/SVGCursorElement",
+                "SVGDefsElement": "https://developer.mozilla.org/en/docs/Web/API/SVGDefsElement",
+                "SVGDescElement": "https://developer.mozilla.org/en/docs/Web/API/SVGDescElement",
+                "SVGElement": "https://developer.mozilla.org/en/docs/Web/API/SVGElement",
+                "SVGElementInstance": "https://developer.mozilla.org/en/docs/Web/API/SVGElementInstance",
+                "SVGElementInstanceList": "https://developer.mozilla.org/en/docs/Web/API/SVGElementInstanceList",
+                "SVGEllipseElement": "https://developer.mozilla.org/en/docs/Web/API/SVGEllipseElement",
+                "SVGExternalResourcesRequired": "https://developer.mozilla.org/en/docs/Web/API/SVGExternalResourcesRequired",
+                "SVGFEBlendElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEBlendElement",
+                "SVGFEColorMatrixElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEColorMatrixElement",
+                "SVGFEComponentTransferElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEComponentTransferElement",
+                "SVGFECompositeElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFECompositeElement",
+                "SVGFEConvolveMatrixElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEConvolveMatrixElement",
+                "SVGFEDiffuseLightingElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEDiffuseLightingElement",
+                "SVGFEDisplacementMapElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEDisplacementMapElement",
+                "SVGFEDistantLightElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEDistantLightElement",
+                "SVGFEFloodElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEFloodElement",
+                "SVGFEFuncAElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEFuncAElement",
+                "SVGFEFuncBElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEFuncBElement",
+                "SVGFEFuncGElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEFuncGElement",
+                "SVGFEFuncRElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEFuncRElement",
+                "SVGFEGaussianBlurElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEGaussianBlurElement",
+                "SVGFEImageElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEImageElement",
+                "SVGFEMergeElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEMergeElement",
+                "SVGFEMergeNodeElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEMergeNodeElement",
+                "SVGFEMorphologyElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEMorphologyElement",
+                "SVGFEOffsetElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEOffsetElement",
+                "SVGFEPointLightElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEPointLightElement",
+                "SVGFESpecularLightingElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFESpecularLightingElement",
+                "SVGFESpotLightElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFESpotLightElement",
+                "SVGFETileElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFETileElement",
+                "SVGFETurbulenceElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFETurbulenceElement",
+                "SVGFilterElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFilterElement",
+                "SVGFilterPrimitiveStandardAttributes": "https://developer.mozilla.org/en/docs/Web/API/SVGFilterPrimitiveStandardAttributes",
+                "SVGFitToViewBox": "https://developer.mozilla.org/en/docs/Web/API/SVGFitToViewBox",
+                "SVGFontElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFontElement",
+                "SVGFontFaceElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFontFaceElement",
+                "SVGFontFaceFormatElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFontFaceFormatElement",
+                "SVGFontFaceNameElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFontFaceNameElement",
+                "SVGFontFaceSrcElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFontFaceSrcElement",
+                "SVGFontFaceUriElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFontFaceUriElement",
+                "SVGForeignObjectElement": "https://developer.mozilla.org/en/docs/Web/API/SVGForeignObjectElement",
+                "SVGGElement": "https://developer.mozilla.org/en/docs/Web/API/SVGGElement",
+                "SVGGlyphElement": "https://developer.mozilla.org/en/docs/Web/API/SVGGlyphElement",
+                "SVGGlyphRefElement": "https://developer.mozilla.org/en/docs/Web/API/SVGGlyphRefElement",
+                "SVGGradientElement": "https://developer.mozilla.org/en/docs/Web/API/SVGGradientElement",
+                "SVGHKernElement": "https://developer.mozilla.org/en/docs/Web/API/SVGHKernElement",
+                "SVGICCColor": "https://developer.mozilla.org/en/docs/Web/API/SVGICCColor",
+                "SVGImageElement": "https://developer.mozilla.org/en/docs/Web/API/SVGImageElement",
+                "SVGLangSpace": "https://developer.mozilla.org/en/docs/Web/API/SVGLangSpace",
+                "SVGLength": "https://developer.mozilla.org/en/docs/Web/API/SVGLength",
+                "SVGLengthList": "https://developer.mozilla.org/en/docs/Web/API/SVGLengthList",
+                "SVGLineElement": "https://developer.mozilla.org/en/docs/Web/API/SVGLineElement",
+                "SVGLinearGradientElement": "https://developer.mozilla.org/en/docs/Web/API/SVGLinearGradientElement",
+                "SVGLocatable": "https://developer.mozilla.org/en/docs/Web/API/SVGLocatable",
+                "SVGMPathElement": "https://developer.mozilla.org/en/docs/Web/API/SVGMPathElement",
+                "SVGMarkerElement": "https://developer.mozilla.org/en/docs/Web/API/SVGMarkerElement",
+                "SVGMaskElement": "https://developer.mozilla.org/en/docs/Web/API/SVGMaskElement",
+                "SVGMatrix": "https://developer.mozilla.org/en/docs/Web/API/SVGMatrix",
+                "SVGMetadataElement": "https://developer.mozilla.org/en/docs/Web/API/SVGMetadataElement",
+                "SVGMissingGlyphElement": "https://developer.mozilla.org/en/docs/Web/API/SVGMissingGlyphElement",
+                "SVGNumber": "https://developer.mozilla.org/en/docs/Web/API/SVGNumber",
+                "SVGNumberList": "https://developer.mozilla.org/en/docs/Web/API/SVGNumberList",
+                "SVGPaint": "https://developer.mozilla.org/en/docs/Web/API/SVGPaint",
+                "SVGPathElement": "https://developer.mozilla.org/en/docs/Web/API/SVGPathElement",
+                "SVGPathSeg": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSeg",
+                "SVGPathSegArcAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegArcAbs",
+                "SVGPathSegArcRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegArcRel",
+                "SVGPathSegClosePath": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegClosePath",
+                "SVGPathSegCurvetoCubicAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoCubicAbs",
+                "SVGPathSegCurvetoCubicRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoCubicRel",
+                "SVGPathSegCurvetoCubicSmoothAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoCubicSmoothAbs",
+                "SVGPathSegCurvetoCubicSmoothRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoCubicSmoothRel",
+                "SVGPathSegCurvetoQuadraticAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoQuadraticAbs",
+                "SVGPathSegCurvetoQuadraticRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoQuadraticRel",
+                "SVGPathSegCurvetoQuadraticSmoothAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoQuadraticSmoothAbs",
+                "SVGPathSegCurvetoQuadraticSmoothRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoQuadraticSmoothRel",
+                "SVGPathSegLinetoAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegLinetoAbs",
+                "SVGPathSegLinetoHorizontalAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegLinetoHorizontalAbs",
+                "SVGPathSegLinetoHorizontalRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegLinetoHorizontalRel",
+                "SVGPathSegLinetoRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegLinetoRel",
+                "SVGPathSegLinetoVerticalAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegLinetoVerticalAbs",
+                "SVGPathSegLinetoVerticalRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegLinetoVerticalRel",
+                "SVGPathSegList": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegList",
+                "SVGPathSegMovetoAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegMovetoAbs",
+                "SVGPathSegMovetoRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegMovetoRel",
+                "SVGPatternElement": "https://developer.mozilla.org/en/docs/Web/API/SVGPatternElement",
+                "SVGPoint": "https://developer.mozilla.org/en/docs/Web/API/SVGPoint",
+                "SVGPointList": "https://developer.mozilla.org/en/docs/Web/API/SVGPointList",
+                "SVGPolygonElement": "https://developer.mozilla.org/en/docs/Web/API/SVGPolygonElement",
+                "SVGPolylineElement": "https://developer.mozilla.org/en/docs/Web/API/SVGPolylineElement",
+                "SVGPreserveAspectRatio": "https://developer.mozilla.org/en/docs/Web/API/SVGPreserveAspectRatio",
+                "SVGRadialGradientElement": "https://developer.mozilla.org/en/docs/Web/API/SVGRadialGradientElement",
+                "SVGRect": "https://developer.mozilla.org/en/docs/Web/API/SVGRect",
+                "SVGRectElement": "https://developer.mozilla.org/en/docs/Web/API/SVGRectElement",
+                "SVGRenderingIntent": "https://developer.mozilla.org/en/docs/Web/API/SVGRenderingIntent",
+                "SVGSVGElement": "https://developer.mozilla.org/en/docs/Web/API/SVGSVGElement",
+                "SVGScriptElement": "https://developer.mozilla.org/en/docs/Web/API/SVGScriptElement",
+                "SVGSetElement": "https://developer.mozilla.org/en/docs/Web/API/SVGSetElement",
+                "SVGStopElement": "https://developer.mozilla.org/en/docs/Web/API/SVGStopElement",
+                "SVGStringList": "https://developer.mozilla.org/en/docs/Web/API/SVGStringList",
+                "SVGStylable": "https://developer.mozilla.org/en/docs/Web/API/SVGStylable",
+                "SVGStyleElement": "https://developer.mozilla.org/en/docs/Web/API/SVGStyleElement",
+                "SVGSwitchElement": "https://developer.mozilla.org/en/docs/Web/API/SVGSwitchElement",
+                "SVGSymbolElement": "https://developer.mozilla.org/en/docs/Web/API/SVGSymbolElement",
+                "SVGTRefElement": "https://developer.mozilla.org/en/docs/Web/API/SVGTRefElement",
+                "SVGTSpanElement": "https://developer.mozilla.org/en/docs/Web/API/SVGTSpanElement",
+                "SVGTests": "https://developer.mozilla.org/en/docs/Web/API/SVGTests",
+                "SVGTextContentElement": "https://developer.mozilla.org/en/docs/Web/API/SVGTextContentElement",
+                "SVGTextElement": "https://developer.mozilla.org/en/docs/Web/API/SVGTextElement",
+                "SVGTextPathElement": "https://developer.mozilla.org/en/docs/Web/API/SVGTextPathElement",
+                "SVGTextPositioningElement": "https://developer.mozilla.org/en/docs/Web/API/SVGTextPositioningElement",
+                "SVGTitleElement": "https://developer.mozilla.org/en/docs/Web/API/SVGTitleElement",
+                "SVGTransform": "https://developer.mozilla.org/en/docs/Web/API/SVGTransform",
+                "SVGTransformList": "https://developer.mozilla.org/en/docs/Web/API/SVGTransformList",
+                "SVGTransformable": "https://developer.mozilla.org/en/docs/Web/API/SVGTransformable",
+                "SVGURIReference": "https://developer.mozilla.org/en/docs/Web/API/SVGURIReference",
+                "SVGUnitTypes": "https://developer.mozilla.org/en/docs/Web/API/SVGUnitTypes",
+                "SVGUseElement": "https://developer.mozilla.org/en/docs/Web/API/SVGUseElement",
+                "SVGVKernElement": "https://developer.mozilla.org/en/docs/Web/API/SVGVKernElement",
+                "SVGViewElement": "https://developer.mozilla.org/en/docs/Web/API/SVGViewElement",
+                "SVGViewSpec": "https://developer.mozilla.org/en/docs/Web/API/SVGViewSpec",
+                "SVGZoomAndPan": "https://developer.mozilla.org/en/docs/Web/API/SVGZoomAndPan",
+                "Text": "https://developer.mozilla.org/en/docs/Web/API/Text",
+                "TextMetrics": "https://developer.mozilla.org/en/docs/Web/API/TextMetrics",
+                "TimeEvent": "https://developer.mozilla.org/en/docs/Web/API/TimeEvent",
+                "TreeWalker": "https://developer.mozilla.org/en/docs/Web/API/TreeWalker",
+                "TypeInfo": "https://developer.mozilla.org/en/docs/Web/API/TypeInfo",
+                "URL": "https://developer.mozilla.org/en/docs/Web/API/URL",
+                "UserDataHandler": "https://developer.mozilla.org/en/docs/Web/API/UserDataHandler",
+                "Window": "https://developer.mozilla.org/en/docs/Web/API/Window",
+                "Worker": "https://developer.mozilla.org/en/docs/Web/API/Worker",
+                "XMLDocument": "https://developer.mozilla.org/en/docs/Web/API/XMLDocument"
+              }
+            ]
+          },
           "name": "CoffeeScript"
         },
         "sourcePath": "/Users/sjorek/Documents/Projects/Mesch/Workspace (Aptana)/goatee-script/src/Runtime.coffee",
@@ -318,6 +5648,539 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
           "singleLineComment": ["#"],
           "ignorePrefix": "!",
           "foldPrefix": "~",
+          "doctags": {
+            "description": {
+              "section": "description",
+              "markdown": "{value}"
+            },
+            "abstract": {
+              "section": "access"
+            },
+            "constant": {
+              "section": "access"
+            },
+            "deprecated": {
+              "section": "access"
+            },
+            "internal": {
+              "section": "access"
+            },
+            "private": {
+              "section": "access"
+            },
+            "protected": {
+              "section": "access"
+            },
+            "public": {
+              "valuePrefix": "as",
+              "section": "access"
+            },
+            "static": {
+              "section": "access"
+            },
+            "constructor": {
+              "section": "special"
+            },
+            "destructor": {
+              "section": "special"
+            },
+            "class": {
+              "section": "type",
+              "markdown": "class *{type}*"
+            },
+            "event": {
+              "section": "type"
+            },
+            "method": {
+              "section": "type",
+              "markdown": "method *{type}*"
+            },
+            "mixin": {
+              "section": "type",
+              "markdown": "mixin *{type}*"
+            },
+            "module": {
+              "section": "type",
+              "markdown": "module *{type}*"
+            },
+            "package": {
+              "section": "type",
+              "markdown": "package *{type}*"
+            },
+            "property": {
+              "section": "type",
+              "markdown": "property *{type}*"
+            },
+            "accessor": {
+              "section": "flag",
+              "markdown": "is an accessor"
+            },
+            "async": {
+              "section": "flag",
+              "markdown": "is asynchronous"
+            },
+            "asynchronous": "async",
+            "getter": {
+              "section": "flag",
+              "markdown": "is a getter"
+            },
+            "recursive": {
+              "section": "flag",
+              "markdown": "is recursive"
+            },
+            "refactor": {
+              "section": "flag",
+              "markdown": "needs to be refactored"
+            },
+            "setter": {
+              "section": "flag",
+              "markdown": "is a setter"
+            },
+            "alias": {
+              "valuePrefix": "as",
+              "section": "metadata",
+              "markdown": "is aliased as *{type}*"
+            },
+            "augments": {
+              "section": "metadata",
+              "markdown": "extends *{type}*"
+            },
+            "extends": {
+              "section": "metadata",
+              "markdown": "extends *{type}*"
+            },
+            "fires": {
+              "section": "metadata"
+            },
+            "memberof": {
+              "section": "metadata",
+              "markdown": "is a member of *{type}*"
+            },
+            "mixes": {
+              "section": "metadata",
+              "markdown": "mixes *{type}* in"
+            },
+            "namespace": {
+              "section": "metadata",
+              "markdown": "is in namespace *{value}*"
+            },
+            "publishes": {
+              "section": "metadata"
+            },
+            "requests": {
+              "section": "metadata",
+              "markdown": "makes an ajax request to <{value}>"
+            },
+            "since": {
+              "section": "metadata",
+              "markdown": "is available since version {value}"
+            },
+            "subscribes": {
+              "valuePrefix": "to",
+              "section": "metadata",
+              "markdown": "subscribes to {type}"
+            },
+            "type": {
+              "section": "metadata"
+            },
+            "version": {
+              "section": "metadata",
+              "markdown": "has version {value}"
+            },
+            "author": {
+              "section": "authors"
+            },
+            "see": {
+              "section": "references"
+            },
+            "todo": {
+              "section": "todo",
+              "markdown": "TODO: {value}"
+            },
+            "example": {
+              "section": "example",
+              "markdown": "{value}"
+            },
+            "examples": "example",
+            "usage": "example",
+            "howto": {
+              "section": "howto",
+              "markdown": "{value}"
+            },
+            "note": {
+              "section": "discard"
+            },
+            "notes": "note",
+            "param": {
+              "section": "params"
+            },
+            "params": "param",
+            "parameters": "param",
+            "return": {
+              "section": "returns"
+            },
+            "returns": "return",
+            "throw": {
+              "section": "throws"
+            },
+            "throws": "throw",
+            "defaultNoValue": {
+              "section": "flag"
+            },
+            "defaultHasValue": {
+              "section": "metadata"
+            }
+          },
+          "namespace": {
+            "separator": ".",
+            "types": [
+              {
+                "goatee.Script.": ["http://sjorek.github.io/goatee-script/", "goatee."],
+                "goatee.Rules.": ["http://sjorek.github.io/goatee-rules/", "goatee."],
+                "goatee.": ["http://sjorek.github.io/goatee-js/", "goatee."]
+              }, {
+                "Array": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Array",
+                "ArrayBuffer": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/ArrayBuffer",
+                "Boolean": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Boolean",
+                "Collator": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Collator",
+                "DataView": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/DataView",
+                "Date": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Date",
+                "DateTimeFormat": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/DateTimeFormat",
+                "Error": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Error",
+                "EvalError": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/EvalError",
+                "Float32Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Float32Array",
+                "Float64Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Float64Array",
+                "Function": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Function",
+                "Infinity": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Infinity",
+                "Int8Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Int8Array",
+                "Int16Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Int16Array",
+                "Int32Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Int32Array",
+                "InternalError": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/InternalError",
+                "Intl": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Intl",
+                "Intl.Collator": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Collator",
+                "Intl.DateTimeFormat": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/DateTimeFormat",
+                "Intl.NumberFormat": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/NumberFormat",
+                "Iterator": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Iterator",
+                "JSON": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/JSON",
+                "Math": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Math",
+                "NaN": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/NaN",
+                "Number": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Number",
+                "NumberFormat": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/NumberFormat",
+                "Object": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Object",
+                "ParallelArray": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/ParallelArray",
+                "Proxy": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Proxy",
+                "RangeError": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/RangeError",
+                "ReferenceError": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/ReferenceError",
+                "RegExp": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/RegExp",
+                "StopIteration": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/StopIteration",
+                "String": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/String",
+                "SyntaxError": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/SyntaxError",
+                "TypeError": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/TypeError",
+                "URIError": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/URIError",
+                "Uint8Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Uint8Array",
+                "Uint8ClampedArray": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Uint8ClampedArray",
+                "Uint16Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Uint16Array",
+                "Uint32Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Uint32Array",
+                "null": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/null",
+                "undefined": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/undefined"
+              }, {
+                "Attr": "https://developer.mozilla.org/en/docs/Web/API/Attr",
+                "CDATASection": "https://developer.mozilla.org/en/docs/Web/API/CDATASection",
+                "CanvasGradient": "https://developer.mozilla.org/en/docs/Web/API/CanvasGradient",
+                "CanvasPattern": "https://developer.mozilla.org/en/docs/Web/API/CanvasPattern",
+                "CanvasPixelArray": "https://developer.mozilla.org/en/docs/Web/API/CanvasPixelArray",
+                "CanvasRenderingContext2D": "https://developer.mozilla.org/en/docs/Web/API/CanvasRenderingContext2D",
+                "CharacterData": "https://developer.mozilla.org/en/docs/Web/API/CharacterData",
+                "ChildNode": "https://developer.mozilla.org/en/docs/Web/API/ChildNode",
+                "Comment": "https://developer.mozilla.org/en/docs/Web/API/Comment",
+                "CustomEvent": "https://developer.mozilla.org/en/docs/Web/API/CustomEvent",
+                "DOMConfiguration": "https://developer.mozilla.org/en/docs/Web/API/DOMConfiguration",
+                "DOMError": "https://developer.mozilla.org/en/docs/Web/API/DOMError",
+                "DOMErrorHandler": "https://developer.mozilla.org/en/docs/Web/API/DOMErrorHandler",
+                "DOMException": "https://developer.mozilla.org/en/docs/Web/API/DOMException",
+                "DOMImplementation": "https://developer.mozilla.org/en/docs/Web/API/DOMImplementation",
+                "DOMImplementationList": "https://developer.mozilla.org/en/docs/Web/API/DOMImplementationList",
+                "DOMImplementationRegistry": "https://developer.mozilla.org/en/docs/Web/API/DOMImplementationRegistry",
+                "DOMImplementationSource": "https://developer.mozilla.org/en/docs/Web/API/DOMImplementationSource",
+                "DOMLocator": "https://developer.mozilla.org/en/docs/Web/API/DOMLocator",
+                "DOMObject": "https://developer.mozilla.org/en/docs/Web/API/DOMObject",
+                "DOMSettableTokenList": "https://developer.mozilla.org/en/docs/Web/API/DOMSettableTokenList",
+                "DOMString": "https://developer.mozilla.org/en/docs/Web/API/DOMString",
+                "DOMStringList": "https://developer.mozilla.org/en/docs/Web/API/DOMStringList",
+                "DOMStringMap": "https://developer.mozilla.org/en/docs/Web/API/DOMStringMap",
+                "DOMTimeStamp": "https://developer.mozilla.org/en/docs/Web/API/DOMTimeStamp",
+                "DOMTokenList": "https://developer.mozilla.org/en/docs/Web/API/DOMTokenList",
+                "DOMUserData": "https://developer.mozilla.org/en/docs/Web/API/DOMUserData",
+                "Document": "https://developer.mozilla.org/en/docs/Web/API/Document",
+                "DocumentFragment": "https://developer.mozilla.org/en/docs/Web/API/DocumentFragment",
+                "DocumentType": "https://developer.mozilla.org/en/docs/Web/API/DocumentType",
+                "Element": "https://developer.mozilla.org/en/docs/Web/API/Element",
+                "ElementTimeControl": "https://developer.mozilla.org/en/docs/Web/API/ElementTimeControl",
+                "Entity": "https://developer.mozilla.org/en/docs/Web/API/Entity",
+                "EntityReference": "https://developer.mozilla.org/en/docs/Web/API/EntityReference",
+                "Event": "https://developer.mozilla.org/en/docs/Web/API/Event",
+                "EventTarget": "https://developer.mozilla.org/en/docs/Web/API/EventTarget",
+                "HTMLAllCollection": "https://developer.mozilla.org/en/docs/Web/API/HTMLAllCollection",
+                "HTMLAnchorElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLAnchorElement",
+                "HTMLAppletElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLAppletElement",
+                "HTMLAreaElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLAreaElement",
+                "HTMLAudioElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLAudioElement",
+                "HTMLBRElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLBRElement",
+                "HTMLBaseElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLBaseElement",
+                "HTMLBaseFontElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLBaseFontElement",
+                "HTMLBodyElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLBodyElement",
+                "HTMLButtonElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLButtonElement",
+                "HTMLCanvasElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLCanvasElement",
+                "HTMLCollection": "https://developer.mozilla.org/en/docs/Web/API/HTMLCollection",
+                "HTMLDListElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLDListElement",
+                "HTMLDataElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLDataElement",
+                "HTMLDataListElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLDataListElement",
+                "HTMLDirectoryElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLDirectoryElement",
+                "HTMLDivElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLDivElement",
+                "HTMLElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLElement",
+                "HTMLEmbedElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLEmbedElement",
+                "HTMLFieldSetElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLFieldSetElement",
+                "HTMLFontElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLFontElement",
+                "HTMLFormControlsCollection": "https://developer.mozilla.org/en/docs/Web/API/HTMLFormControlsCollection",
+                "HTMLFormElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLFormElement",
+                "HTMLFrameElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLFrameElement",
+                "HTMLFrameSetElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLFrameSetElement",
+                "HTMLHRElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLHRElement",
+                "HTMLHeadElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLHeadElement",
+                "HTMLHeadingElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLHeadingElement",
+                "HTMLHtmlElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLHtmlElement",
+                "HTMLIFrameElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLIFrameElement",
+                "HTMLImageElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLImageElement",
+                "HTMLInputElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLInputElement",
+                "HTMLIsIndexElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLIsIndexElement",
+                "HTMLKeygenElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLKeygenElement",
+                "HTMLLIElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLLIElement",
+                "HTMLLabelElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLLabelElement",
+                "HTMLLegendElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLLegendElement",
+                "HTMLLinkElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLLinkElement",
+                "HTMLMapElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLMapElement",
+                "HTMLMediaElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLMediaElement",
+                "HTMLMenuElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLMenuElement",
+                "HTMLMetaElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLMetaElement",
+                "HTMLMeterElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLMeterElement",
+                "HTMLModElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLModElement",
+                "HTMLOListElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLOListElement",
+                "HTMLObjectElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLObjectElement",
+                "HTMLOptGroupElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLOptGroupElement",
+                "HTMLOptionElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLOptionElement",
+                "HTMLOptionsCollection": "https://developer.mozilla.org/en/docs/Web/API/HTMLOptionsCollection",
+                "HTMLOutputElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLOutputElement",
+                "HTMLParagraphElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLParagraphElement",
+                "HTMLParamElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLParamElement",
+                "HTMLPreElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLPreElement",
+                "HTMLProgressElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLProgressElement",
+                "HTMLPropertiesCollection": "https://developer.mozilla.org/en/docs/Web/API/HTMLPropertiesCollection",
+                "HTMLQuoteElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLQuoteElement",
+                "HTMLScriptElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLScriptElement",
+                "HTMLSelectElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLSelectElement",
+                "HTMLSourceElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLSourceElement",
+                "HTMLSpanElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLSpanElement",
+                "HTMLStyleElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLStyleElement",
+                "HTMLTableCaptionElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableCaptionElement",
+                "HTMLTableCellElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableCellElement",
+                "HTMLTableColElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableColElement",
+                "HTMLTableDataCellElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableDataCellElement",
+                "HTMLTableElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableElement",
+                "HTMLTableHeaderCellElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableHeaderCellElement",
+                "HTMLTableRowElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableRowElement",
+                "HTMLTableSectionElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableSectionElement",
+                "HTMLTextAreaElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTextAreaElement",
+                "HTMLTimeElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTimeElement",
+                "HTMLTitleElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTitleElement",
+                "HTMLTrackElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTrackElement",
+                "HTMLUListElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLUListElement",
+                "HTMLUnknownElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLUnknownElement",
+                "HTMLVideoElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLVideoElement",
+                "ImageData": "https://developer.mozilla.org/en/docs/Web/API/ImageData",
+                "MediaError": "https://developer.mozilla.org/en/docs/Web/API/MediaError",
+                "MutationObserver": "https://developer.mozilla.org/en/docs/Web/API/MutationObserver",
+                "MutationRecord": "https://developer.mozilla.org/en/docs/Web/API/MutationRecord",
+                "NameList": "https://developer.mozilla.org/en/docs/Web/API/NameList",
+                "NamedNodeMap": "https://developer.mozilla.org/en/docs/Web/API/NamedNodeMap",
+                "Node": "https://developer.mozilla.org/en/docs/Web/API/Node",
+                "NodeFilter": "https://developer.mozilla.org/en/docs/Web/API/NodeFilter",
+                "NodeIterator": "https://developer.mozilla.org/en/docs/Web/API/NodeIterator",
+                "NodeList": "https://developer.mozilla.org/en/docs/Web/API/NodeList",
+                "Notation": "https://developer.mozilla.org/en/docs/Web/API/Notation",
+                "NotifyAudioAvailableEvent": "https://developer.mozilla.org/en/docs/Web/API/NotifyAudioAvailableEvent",
+                "ParentNode": "https://developer.mozilla.org/en/docs/Web/API/ParentNode",
+                "ProcessingInstruction": "https://developer.mozilla.org/en/docs/Web/API/ProcessingInstruction",
+                "Promise": "https://developer.mozilla.org/en/docs/Web/API/Promise",
+                "PromiseResolver": "https://developer.mozilla.org/en/docs/Web/API/PromiseResolver",
+                "RadioNodeList": "https://developer.mozilla.org/en/docs/Web/API/RadioNodeList",
+                "Range": "https://developer.mozilla.org/en/docs/Web/API/Range",
+                "SVGAElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAElement",
+                "SVGAltGlyphDefElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAltGlyphDefElement",
+                "SVGAltGlyphElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAltGlyphElement",
+                "SVGAltGlyphItemElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAltGlyphItemElement",
+                "SVGAngle": "https://developer.mozilla.org/en/docs/Web/API/SVGAngle",
+                "SVGAnimateColorElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimateColorElement",
+                "SVGAnimateElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimateElement",
+                "SVGAnimateMotionElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimateMotionElement",
+                "SVGAnimateTransformElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimateTransformElement",
+                "SVGAnimatedAngle": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedAngle",
+                "SVGAnimatedBoolean": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedBoolean",
+                "SVGAnimatedEnumeration": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedEnumeration",
+                "SVGAnimatedInteger": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedInteger",
+                "SVGAnimatedLength": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedLength",
+                "SVGAnimatedLengthList": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedLengthList",
+                "SVGAnimatedNumber": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedNumber",
+                "SVGAnimatedNumberList": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedNumberList",
+                "SVGAnimatedPathData": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedPathData",
+                "SVGAnimatedPoints": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedPoints",
+                "SVGAnimatedPreserveAspectRatio": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedPreserveAspectRatio",
+                "SVGAnimatedRect": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedRect",
+                "SVGAnimatedString": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedString",
+                "SVGAnimatedTransformList": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedTransformList",
+                "SVGAnimationElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimationElement",
+                "SVGCSSRule": "https://developer.mozilla.org/en/docs/Web/API/SVGCSSRule",
+                "SVGCircleElement": "https://developer.mozilla.org/en/docs/Web/API/SVGCircleElement",
+                "SVGClipPathElement": "https://developer.mozilla.org/en/docs/Web/API/SVGClipPathElement",
+                "SVGColor": "https://developer.mozilla.org/en/docs/Web/API/SVGColor",
+                "SVGColorProfileElement": "https://developer.mozilla.org/en/docs/Web/API/SVGColorProfileElement",
+                "SVGColorProfileRule": "https://developer.mozilla.org/en/docs/Web/API/SVGColorProfileRule",
+                "SVGComponentTransferFunctionElement": "https://developer.mozilla.org/en/docs/Web/API/SVGComponentTransferFunctionElement",
+                "SVGCursorElement": "https://developer.mozilla.org/en/docs/Web/API/SVGCursorElement",
+                "SVGDefsElement": "https://developer.mozilla.org/en/docs/Web/API/SVGDefsElement",
+                "SVGDescElement": "https://developer.mozilla.org/en/docs/Web/API/SVGDescElement",
+                "SVGElement": "https://developer.mozilla.org/en/docs/Web/API/SVGElement",
+                "SVGElementInstance": "https://developer.mozilla.org/en/docs/Web/API/SVGElementInstance",
+                "SVGElementInstanceList": "https://developer.mozilla.org/en/docs/Web/API/SVGElementInstanceList",
+                "SVGEllipseElement": "https://developer.mozilla.org/en/docs/Web/API/SVGEllipseElement",
+                "SVGExternalResourcesRequired": "https://developer.mozilla.org/en/docs/Web/API/SVGExternalResourcesRequired",
+                "SVGFEBlendElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEBlendElement",
+                "SVGFEColorMatrixElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEColorMatrixElement",
+                "SVGFEComponentTransferElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEComponentTransferElement",
+                "SVGFECompositeElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFECompositeElement",
+                "SVGFEConvolveMatrixElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEConvolveMatrixElement",
+                "SVGFEDiffuseLightingElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEDiffuseLightingElement",
+                "SVGFEDisplacementMapElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEDisplacementMapElement",
+                "SVGFEDistantLightElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEDistantLightElement",
+                "SVGFEFloodElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEFloodElement",
+                "SVGFEFuncAElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEFuncAElement",
+                "SVGFEFuncBElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEFuncBElement",
+                "SVGFEFuncGElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEFuncGElement",
+                "SVGFEFuncRElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEFuncRElement",
+                "SVGFEGaussianBlurElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEGaussianBlurElement",
+                "SVGFEImageElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEImageElement",
+                "SVGFEMergeElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEMergeElement",
+                "SVGFEMergeNodeElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEMergeNodeElement",
+                "SVGFEMorphologyElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEMorphologyElement",
+                "SVGFEOffsetElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEOffsetElement",
+                "SVGFEPointLightElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEPointLightElement",
+                "SVGFESpecularLightingElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFESpecularLightingElement",
+                "SVGFESpotLightElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFESpotLightElement",
+                "SVGFETileElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFETileElement",
+                "SVGFETurbulenceElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFETurbulenceElement",
+                "SVGFilterElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFilterElement",
+                "SVGFilterPrimitiveStandardAttributes": "https://developer.mozilla.org/en/docs/Web/API/SVGFilterPrimitiveStandardAttributes",
+                "SVGFitToViewBox": "https://developer.mozilla.org/en/docs/Web/API/SVGFitToViewBox",
+                "SVGFontElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFontElement",
+                "SVGFontFaceElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFontFaceElement",
+                "SVGFontFaceFormatElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFontFaceFormatElement",
+                "SVGFontFaceNameElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFontFaceNameElement",
+                "SVGFontFaceSrcElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFontFaceSrcElement",
+                "SVGFontFaceUriElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFontFaceUriElement",
+                "SVGForeignObjectElement": "https://developer.mozilla.org/en/docs/Web/API/SVGForeignObjectElement",
+                "SVGGElement": "https://developer.mozilla.org/en/docs/Web/API/SVGGElement",
+                "SVGGlyphElement": "https://developer.mozilla.org/en/docs/Web/API/SVGGlyphElement",
+                "SVGGlyphRefElement": "https://developer.mozilla.org/en/docs/Web/API/SVGGlyphRefElement",
+                "SVGGradientElement": "https://developer.mozilla.org/en/docs/Web/API/SVGGradientElement",
+                "SVGHKernElement": "https://developer.mozilla.org/en/docs/Web/API/SVGHKernElement",
+                "SVGICCColor": "https://developer.mozilla.org/en/docs/Web/API/SVGICCColor",
+                "SVGImageElement": "https://developer.mozilla.org/en/docs/Web/API/SVGImageElement",
+                "SVGLangSpace": "https://developer.mozilla.org/en/docs/Web/API/SVGLangSpace",
+                "SVGLength": "https://developer.mozilla.org/en/docs/Web/API/SVGLength",
+                "SVGLengthList": "https://developer.mozilla.org/en/docs/Web/API/SVGLengthList",
+                "SVGLineElement": "https://developer.mozilla.org/en/docs/Web/API/SVGLineElement",
+                "SVGLinearGradientElement": "https://developer.mozilla.org/en/docs/Web/API/SVGLinearGradientElement",
+                "SVGLocatable": "https://developer.mozilla.org/en/docs/Web/API/SVGLocatable",
+                "SVGMPathElement": "https://developer.mozilla.org/en/docs/Web/API/SVGMPathElement",
+                "SVGMarkerElement": "https://developer.mozilla.org/en/docs/Web/API/SVGMarkerElement",
+                "SVGMaskElement": "https://developer.mozilla.org/en/docs/Web/API/SVGMaskElement",
+                "SVGMatrix": "https://developer.mozilla.org/en/docs/Web/API/SVGMatrix",
+                "SVGMetadataElement": "https://developer.mozilla.org/en/docs/Web/API/SVGMetadataElement",
+                "SVGMissingGlyphElement": "https://developer.mozilla.org/en/docs/Web/API/SVGMissingGlyphElement",
+                "SVGNumber": "https://developer.mozilla.org/en/docs/Web/API/SVGNumber",
+                "SVGNumberList": "https://developer.mozilla.org/en/docs/Web/API/SVGNumberList",
+                "SVGPaint": "https://developer.mozilla.org/en/docs/Web/API/SVGPaint",
+                "SVGPathElement": "https://developer.mozilla.org/en/docs/Web/API/SVGPathElement",
+                "SVGPathSeg": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSeg",
+                "SVGPathSegArcAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegArcAbs",
+                "SVGPathSegArcRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegArcRel",
+                "SVGPathSegClosePath": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegClosePath",
+                "SVGPathSegCurvetoCubicAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoCubicAbs",
+                "SVGPathSegCurvetoCubicRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoCubicRel",
+                "SVGPathSegCurvetoCubicSmoothAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoCubicSmoothAbs",
+                "SVGPathSegCurvetoCubicSmoothRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoCubicSmoothRel",
+                "SVGPathSegCurvetoQuadraticAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoQuadraticAbs",
+                "SVGPathSegCurvetoQuadraticRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoQuadraticRel",
+                "SVGPathSegCurvetoQuadraticSmoothAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoQuadraticSmoothAbs",
+                "SVGPathSegCurvetoQuadraticSmoothRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoQuadraticSmoothRel",
+                "SVGPathSegLinetoAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegLinetoAbs",
+                "SVGPathSegLinetoHorizontalAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegLinetoHorizontalAbs",
+                "SVGPathSegLinetoHorizontalRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegLinetoHorizontalRel",
+                "SVGPathSegLinetoRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegLinetoRel",
+                "SVGPathSegLinetoVerticalAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegLinetoVerticalAbs",
+                "SVGPathSegLinetoVerticalRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegLinetoVerticalRel",
+                "SVGPathSegList": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegList",
+                "SVGPathSegMovetoAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegMovetoAbs",
+                "SVGPathSegMovetoRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegMovetoRel",
+                "SVGPatternElement": "https://developer.mozilla.org/en/docs/Web/API/SVGPatternElement",
+                "SVGPoint": "https://developer.mozilla.org/en/docs/Web/API/SVGPoint",
+                "SVGPointList": "https://developer.mozilla.org/en/docs/Web/API/SVGPointList",
+                "SVGPolygonElement": "https://developer.mozilla.org/en/docs/Web/API/SVGPolygonElement",
+                "SVGPolylineElement": "https://developer.mozilla.org/en/docs/Web/API/SVGPolylineElement",
+                "SVGPreserveAspectRatio": "https://developer.mozilla.org/en/docs/Web/API/SVGPreserveAspectRatio",
+                "SVGRadialGradientElement": "https://developer.mozilla.org/en/docs/Web/API/SVGRadialGradientElement",
+                "SVGRect": "https://developer.mozilla.org/en/docs/Web/API/SVGRect",
+                "SVGRectElement": "https://developer.mozilla.org/en/docs/Web/API/SVGRectElement",
+                "SVGRenderingIntent": "https://developer.mozilla.org/en/docs/Web/API/SVGRenderingIntent",
+                "SVGSVGElement": "https://developer.mozilla.org/en/docs/Web/API/SVGSVGElement",
+                "SVGScriptElement": "https://developer.mozilla.org/en/docs/Web/API/SVGScriptElement",
+                "SVGSetElement": "https://developer.mozilla.org/en/docs/Web/API/SVGSetElement",
+                "SVGStopElement": "https://developer.mozilla.org/en/docs/Web/API/SVGStopElement",
+                "SVGStringList": "https://developer.mozilla.org/en/docs/Web/API/SVGStringList",
+                "SVGStylable": "https://developer.mozilla.org/en/docs/Web/API/SVGStylable",
+                "SVGStyleElement": "https://developer.mozilla.org/en/docs/Web/API/SVGStyleElement",
+                "SVGSwitchElement": "https://developer.mozilla.org/en/docs/Web/API/SVGSwitchElement",
+                "SVGSymbolElement": "https://developer.mozilla.org/en/docs/Web/API/SVGSymbolElement",
+                "SVGTRefElement": "https://developer.mozilla.org/en/docs/Web/API/SVGTRefElement",
+                "SVGTSpanElement": "https://developer.mozilla.org/en/docs/Web/API/SVGTSpanElement",
+                "SVGTests": "https://developer.mozilla.org/en/docs/Web/API/SVGTests",
+                "SVGTextContentElement": "https://developer.mozilla.org/en/docs/Web/API/SVGTextContentElement",
+                "SVGTextElement": "https://developer.mozilla.org/en/docs/Web/API/SVGTextElement",
+                "SVGTextPathElement": "https://developer.mozilla.org/en/docs/Web/API/SVGTextPathElement",
+                "SVGTextPositioningElement": "https://developer.mozilla.org/en/docs/Web/API/SVGTextPositioningElement",
+                "SVGTitleElement": "https://developer.mozilla.org/en/docs/Web/API/SVGTitleElement",
+                "SVGTransform": "https://developer.mozilla.org/en/docs/Web/API/SVGTransform",
+                "SVGTransformList": "https://developer.mozilla.org/en/docs/Web/API/SVGTransformList",
+                "SVGTransformable": "https://developer.mozilla.org/en/docs/Web/API/SVGTransformable",
+                "SVGURIReference": "https://developer.mozilla.org/en/docs/Web/API/SVGURIReference",
+                "SVGUnitTypes": "https://developer.mozilla.org/en/docs/Web/API/SVGUnitTypes",
+                "SVGUseElement": "https://developer.mozilla.org/en/docs/Web/API/SVGUseElement",
+                "SVGVKernElement": "https://developer.mozilla.org/en/docs/Web/API/SVGVKernElement",
+                "SVGViewElement": "https://developer.mozilla.org/en/docs/Web/API/SVGViewElement",
+                "SVGViewSpec": "https://developer.mozilla.org/en/docs/Web/API/SVGViewSpec",
+                "SVGZoomAndPan": "https://developer.mozilla.org/en/docs/Web/API/SVGZoomAndPan",
+                "Text": "https://developer.mozilla.org/en/docs/Web/API/Text",
+                "TextMetrics": "https://developer.mozilla.org/en/docs/Web/API/TextMetrics",
+                "TimeEvent": "https://developer.mozilla.org/en/docs/Web/API/TimeEvent",
+                "TreeWalker": "https://developer.mozilla.org/en/docs/Web/API/TreeWalker",
+                "TypeInfo": "https://developer.mozilla.org/en/docs/Web/API/TypeInfo",
+                "URL": "https://developer.mozilla.org/en/docs/Web/API/URL",
+                "UserDataHandler": "https://developer.mozilla.org/en/docs/Web/API/UserDataHandler",
+                "Window": "https://developer.mozilla.org/en/docs/Web/API/Window",
+                "Worker": "https://developer.mozilla.org/en/docs/Web/API/Worker",
+                "XMLDocument": "https://developer.mozilla.org/en/docs/Web/API/XMLDocument"
+              }
+            ]
+          },
           "name": "CoffeeScript"
         },
         "sourcePath": "/Users/sjorek/Documents/Projects/Mesch/Workspace (Aptana)/goatee-script/src/Scope.coffee",
@@ -338,6 +6201,539 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
           "singleLineComment": ["#"],
           "ignorePrefix": "!",
           "foldPrefix": "~",
+          "doctags": {
+            "description": {
+              "section": "description",
+              "markdown": "{value}"
+            },
+            "abstract": {
+              "section": "access"
+            },
+            "constant": {
+              "section": "access"
+            },
+            "deprecated": {
+              "section": "access"
+            },
+            "internal": {
+              "section": "access"
+            },
+            "private": {
+              "section": "access"
+            },
+            "protected": {
+              "section": "access"
+            },
+            "public": {
+              "valuePrefix": "as",
+              "section": "access"
+            },
+            "static": {
+              "section": "access"
+            },
+            "constructor": {
+              "section": "special"
+            },
+            "destructor": {
+              "section": "special"
+            },
+            "class": {
+              "section": "type",
+              "markdown": "class *{type}*"
+            },
+            "event": {
+              "section": "type"
+            },
+            "method": {
+              "section": "type",
+              "markdown": "method *{type}*"
+            },
+            "mixin": {
+              "section": "type",
+              "markdown": "mixin *{type}*"
+            },
+            "module": {
+              "section": "type",
+              "markdown": "module *{type}*"
+            },
+            "package": {
+              "section": "type",
+              "markdown": "package *{type}*"
+            },
+            "property": {
+              "section": "type",
+              "markdown": "property *{type}*"
+            },
+            "accessor": {
+              "section": "flag",
+              "markdown": "is an accessor"
+            },
+            "async": {
+              "section": "flag",
+              "markdown": "is asynchronous"
+            },
+            "asynchronous": "async",
+            "getter": {
+              "section": "flag",
+              "markdown": "is a getter"
+            },
+            "recursive": {
+              "section": "flag",
+              "markdown": "is recursive"
+            },
+            "refactor": {
+              "section": "flag",
+              "markdown": "needs to be refactored"
+            },
+            "setter": {
+              "section": "flag",
+              "markdown": "is a setter"
+            },
+            "alias": {
+              "valuePrefix": "as",
+              "section": "metadata",
+              "markdown": "is aliased as *{type}*"
+            },
+            "augments": {
+              "section": "metadata",
+              "markdown": "extends *{type}*"
+            },
+            "extends": {
+              "section": "metadata",
+              "markdown": "extends *{type}*"
+            },
+            "fires": {
+              "section": "metadata"
+            },
+            "memberof": {
+              "section": "metadata",
+              "markdown": "is a member of *{type}*"
+            },
+            "mixes": {
+              "section": "metadata",
+              "markdown": "mixes *{type}* in"
+            },
+            "namespace": {
+              "section": "metadata",
+              "markdown": "is in namespace *{value}*"
+            },
+            "publishes": {
+              "section": "metadata"
+            },
+            "requests": {
+              "section": "metadata",
+              "markdown": "makes an ajax request to <{value}>"
+            },
+            "since": {
+              "section": "metadata",
+              "markdown": "is available since version {value}"
+            },
+            "subscribes": {
+              "valuePrefix": "to",
+              "section": "metadata",
+              "markdown": "subscribes to {type}"
+            },
+            "type": {
+              "section": "metadata"
+            },
+            "version": {
+              "section": "metadata",
+              "markdown": "has version {value}"
+            },
+            "author": {
+              "section": "authors"
+            },
+            "see": {
+              "section": "references"
+            },
+            "todo": {
+              "section": "todo",
+              "markdown": "TODO: {value}"
+            },
+            "example": {
+              "section": "example",
+              "markdown": "{value}"
+            },
+            "examples": "example",
+            "usage": "example",
+            "howto": {
+              "section": "howto",
+              "markdown": "{value}"
+            },
+            "note": {
+              "section": "discard"
+            },
+            "notes": "note",
+            "param": {
+              "section": "params"
+            },
+            "params": "param",
+            "parameters": "param",
+            "return": {
+              "section": "returns"
+            },
+            "returns": "return",
+            "throw": {
+              "section": "throws"
+            },
+            "throws": "throw",
+            "defaultNoValue": {
+              "section": "flag"
+            },
+            "defaultHasValue": {
+              "section": "metadata"
+            }
+          },
+          "namespace": {
+            "separator": ".",
+            "types": [
+              {
+                "goatee.Script.": ["http://sjorek.github.io/goatee-script/", "goatee."],
+                "goatee.Rules.": ["http://sjorek.github.io/goatee-rules/", "goatee."],
+                "goatee.": ["http://sjorek.github.io/goatee-js/", "goatee."]
+              }, {
+                "Array": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Array",
+                "ArrayBuffer": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/ArrayBuffer",
+                "Boolean": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Boolean",
+                "Collator": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Collator",
+                "DataView": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/DataView",
+                "Date": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Date",
+                "DateTimeFormat": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/DateTimeFormat",
+                "Error": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Error",
+                "EvalError": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/EvalError",
+                "Float32Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Float32Array",
+                "Float64Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Float64Array",
+                "Function": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Function",
+                "Infinity": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Infinity",
+                "Int8Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Int8Array",
+                "Int16Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Int16Array",
+                "Int32Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Int32Array",
+                "InternalError": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/InternalError",
+                "Intl": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Intl",
+                "Intl.Collator": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Collator",
+                "Intl.DateTimeFormat": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/DateTimeFormat",
+                "Intl.NumberFormat": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/NumberFormat",
+                "Iterator": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Iterator",
+                "JSON": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/JSON",
+                "Math": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Math",
+                "NaN": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/NaN",
+                "Number": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Number",
+                "NumberFormat": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/NumberFormat",
+                "Object": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Object",
+                "ParallelArray": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/ParallelArray",
+                "Proxy": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Proxy",
+                "RangeError": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/RangeError",
+                "ReferenceError": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/ReferenceError",
+                "RegExp": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/RegExp",
+                "StopIteration": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/StopIteration",
+                "String": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/String",
+                "SyntaxError": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/SyntaxError",
+                "TypeError": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/TypeError",
+                "URIError": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/URIError",
+                "Uint8Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Uint8Array",
+                "Uint8ClampedArray": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Uint8ClampedArray",
+                "Uint16Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Uint16Array",
+                "Uint32Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Uint32Array",
+                "null": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/null",
+                "undefined": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/undefined"
+              }, {
+                "Attr": "https://developer.mozilla.org/en/docs/Web/API/Attr",
+                "CDATASection": "https://developer.mozilla.org/en/docs/Web/API/CDATASection",
+                "CanvasGradient": "https://developer.mozilla.org/en/docs/Web/API/CanvasGradient",
+                "CanvasPattern": "https://developer.mozilla.org/en/docs/Web/API/CanvasPattern",
+                "CanvasPixelArray": "https://developer.mozilla.org/en/docs/Web/API/CanvasPixelArray",
+                "CanvasRenderingContext2D": "https://developer.mozilla.org/en/docs/Web/API/CanvasRenderingContext2D",
+                "CharacterData": "https://developer.mozilla.org/en/docs/Web/API/CharacterData",
+                "ChildNode": "https://developer.mozilla.org/en/docs/Web/API/ChildNode",
+                "Comment": "https://developer.mozilla.org/en/docs/Web/API/Comment",
+                "CustomEvent": "https://developer.mozilla.org/en/docs/Web/API/CustomEvent",
+                "DOMConfiguration": "https://developer.mozilla.org/en/docs/Web/API/DOMConfiguration",
+                "DOMError": "https://developer.mozilla.org/en/docs/Web/API/DOMError",
+                "DOMErrorHandler": "https://developer.mozilla.org/en/docs/Web/API/DOMErrorHandler",
+                "DOMException": "https://developer.mozilla.org/en/docs/Web/API/DOMException",
+                "DOMImplementation": "https://developer.mozilla.org/en/docs/Web/API/DOMImplementation",
+                "DOMImplementationList": "https://developer.mozilla.org/en/docs/Web/API/DOMImplementationList",
+                "DOMImplementationRegistry": "https://developer.mozilla.org/en/docs/Web/API/DOMImplementationRegistry",
+                "DOMImplementationSource": "https://developer.mozilla.org/en/docs/Web/API/DOMImplementationSource",
+                "DOMLocator": "https://developer.mozilla.org/en/docs/Web/API/DOMLocator",
+                "DOMObject": "https://developer.mozilla.org/en/docs/Web/API/DOMObject",
+                "DOMSettableTokenList": "https://developer.mozilla.org/en/docs/Web/API/DOMSettableTokenList",
+                "DOMString": "https://developer.mozilla.org/en/docs/Web/API/DOMString",
+                "DOMStringList": "https://developer.mozilla.org/en/docs/Web/API/DOMStringList",
+                "DOMStringMap": "https://developer.mozilla.org/en/docs/Web/API/DOMStringMap",
+                "DOMTimeStamp": "https://developer.mozilla.org/en/docs/Web/API/DOMTimeStamp",
+                "DOMTokenList": "https://developer.mozilla.org/en/docs/Web/API/DOMTokenList",
+                "DOMUserData": "https://developer.mozilla.org/en/docs/Web/API/DOMUserData",
+                "Document": "https://developer.mozilla.org/en/docs/Web/API/Document",
+                "DocumentFragment": "https://developer.mozilla.org/en/docs/Web/API/DocumentFragment",
+                "DocumentType": "https://developer.mozilla.org/en/docs/Web/API/DocumentType",
+                "Element": "https://developer.mozilla.org/en/docs/Web/API/Element",
+                "ElementTimeControl": "https://developer.mozilla.org/en/docs/Web/API/ElementTimeControl",
+                "Entity": "https://developer.mozilla.org/en/docs/Web/API/Entity",
+                "EntityReference": "https://developer.mozilla.org/en/docs/Web/API/EntityReference",
+                "Event": "https://developer.mozilla.org/en/docs/Web/API/Event",
+                "EventTarget": "https://developer.mozilla.org/en/docs/Web/API/EventTarget",
+                "HTMLAllCollection": "https://developer.mozilla.org/en/docs/Web/API/HTMLAllCollection",
+                "HTMLAnchorElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLAnchorElement",
+                "HTMLAppletElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLAppletElement",
+                "HTMLAreaElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLAreaElement",
+                "HTMLAudioElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLAudioElement",
+                "HTMLBRElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLBRElement",
+                "HTMLBaseElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLBaseElement",
+                "HTMLBaseFontElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLBaseFontElement",
+                "HTMLBodyElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLBodyElement",
+                "HTMLButtonElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLButtonElement",
+                "HTMLCanvasElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLCanvasElement",
+                "HTMLCollection": "https://developer.mozilla.org/en/docs/Web/API/HTMLCollection",
+                "HTMLDListElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLDListElement",
+                "HTMLDataElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLDataElement",
+                "HTMLDataListElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLDataListElement",
+                "HTMLDirectoryElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLDirectoryElement",
+                "HTMLDivElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLDivElement",
+                "HTMLElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLElement",
+                "HTMLEmbedElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLEmbedElement",
+                "HTMLFieldSetElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLFieldSetElement",
+                "HTMLFontElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLFontElement",
+                "HTMLFormControlsCollection": "https://developer.mozilla.org/en/docs/Web/API/HTMLFormControlsCollection",
+                "HTMLFormElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLFormElement",
+                "HTMLFrameElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLFrameElement",
+                "HTMLFrameSetElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLFrameSetElement",
+                "HTMLHRElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLHRElement",
+                "HTMLHeadElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLHeadElement",
+                "HTMLHeadingElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLHeadingElement",
+                "HTMLHtmlElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLHtmlElement",
+                "HTMLIFrameElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLIFrameElement",
+                "HTMLImageElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLImageElement",
+                "HTMLInputElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLInputElement",
+                "HTMLIsIndexElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLIsIndexElement",
+                "HTMLKeygenElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLKeygenElement",
+                "HTMLLIElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLLIElement",
+                "HTMLLabelElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLLabelElement",
+                "HTMLLegendElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLLegendElement",
+                "HTMLLinkElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLLinkElement",
+                "HTMLMapElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLMapElement",
+                "HTMLMediaElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLMediaElement",
+                "HTMLMenuElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLMenuElement",
+                "HTMLMetaElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLMetaElement",
+                "HTMLMeterElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLMeterElement",
+                "HTMLModElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLModElement",
+                "HTMLOListElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLOListElement",
+                "HTMLObjectElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLObjectElement",
+                "HTMLOptGroupElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLOptGroupElement",
+                "HTMLOptionElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLOptionElement",
+                "HTMLOptionsCollection": "https://developer.mozilla.org/en/docs/Web/API/HTMLOptionsCollection",
+                "HTMLOutputElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLOutputElement",
+                "HTMLParagraphElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLParagraphElement",
+                "HTMLParamElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLParamElement",
+                "HTMLPreElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLPreElement",
+                "HTMLProgressElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLProgressElement",
+                "HTMLPropertiesCollection": "https://developer.mozilla.org/en/docs/Web/API/HTMLPropertiesCollection",
+                "HTMLQuoteElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLQuoteElement",
+                "HTMLScriptElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLScriptElement",
+                "HTMLSelectElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLSelectElement",
+                "HTMLSourceElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLSourceElement",
+                "HTMLSpanElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLSpanElement",
+                "HTMLStyleElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLStyleElement",
+                "HTMLTableCaptionElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableCaptionElement",
+                "HTMLTableCellElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableCellElement",
+                "HTMLTableColElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableColElement",
+                "HTMLTableDataCellElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableDataCellElement",
+                "HTMLTableElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableElement",
+                "HTMLTableHeaderCellElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableHeaderCellElement",
+                "HTMLTableRowElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableRowElement",
+                "HTMLTableSectionElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableSectionElement",
+                "HTMLTextAreaElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTextAreaElement",
+                "HTMLTimeElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTimeElement",
+                "HTMLTitleElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTitleElement",
+                "HTMLTrackElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTrackElement",
+                "HTMLUListElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLUListElement",
+                "HTMLUnknownElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLUnknownElement",
+                "HTMLVideoElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLVideoElement",
+                "ImageData": "https://developer.mozilla.org/en/docs/Web/API/ImageData",
+                "MediaError": "https://developer.mozilla.org/en/docs/Web/API/MediaError",
+                "MutationObserver": "https://developer.mozilla.org/en/docs/Web/API/MutationObserver",
+                "MutationRecord": "https://developer.mozilla.org/en/docs/Web/API/MutationRecord",
+                "NameList": "https://developer.mozilla.org/en/docs/Web/API/NameList",
+                "NamedNodeMap": "https://developer.mozilla.org/en/docs/Web/API/NamedNodeMap",
+                "Node": "https://developer.mozilla.org/en/docs/Web/API/Node",
+                "NodeFilter": "https://developer.mozilla.org/en/docs/Web/API/NodeFilter",
+                "NodeIterator": "https://developer.mozilla.org/en/docs/Web/API/NodeIterator",
+                "NodeList": "https://developer.mozilla.org/en/docs/Web/API/NodeList",
+                "Notation": "https://developer.mozilla.org/en/docs/Web/API/Notation",
+                "NotifyAudioAvailableEvent": "https://developer.mozilla.org/en/docs/Web/API/NotifyAudioAvailableEvent",
+                "ParentNode": "https://developer.mozilla.org/en/docs/Web/API/ParentNode",
+                "ProcessingInstruction": "https://developer.mozilla.org/en/docs/Web/API/ProcessingInstruction",
+                "Promise": "https://developer.mozilla.org/en/docs/Web/API/Promise",
+                "PromiseResolver": "https://developer.mozilla.org/en/docs/Web/API/PromiseResolver",
+                "RadioNodeList": "https://developer.mozilla.org/en/docs/Web/API/RadioNodeList",
+                "Range": "https://developer.mozilla.org/en/docs/Web/API/Range",
+                "SVGAElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAElement",
+                "SVGAltGlyphDefElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAltGlyphDefElement",
+                "SVGAltGlyphElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAltGlyphElement",
+                "SVGAltGlyphItemElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAltGlyphItemElement",
+                "SVGAngle": "https://developer.mozilla.org/en/docs/Web/API/SVGAngle",
+                "SVGAnimateColorElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimateColorElement",
+                "SVGAnimateElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimateElement",
+                "SVGAnimateMotionElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimateMotionElement",
+                "SVGAnimateTransformElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimateTransformElement",
+                "SVGAnimatedAngle": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedAngle",
+                "SVGAnimatedBoolean": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedBoolean",
+                "SVGAnimatedEnumeration": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedEnumeration",
+                "SVGAnimatedInteger": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedInteger",
+                "SVGAnimatedLength": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedLength",
+                "SVGAnimatedLengthList": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedLengthList",
+                "SVGAnimatedNumber": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedNumber",
+                "SVGAnimatedNumberList": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedNumberList",
+                "SVGAnimatedPathData": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedPathData",
+                "SVGAnimatedPoints": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedPoints",
+                "SVGAnimatedPreserveAspectRatio": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedPreserveAspectRatio",
+                "SVGAnimatedRect": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedRect",
+                "SVGAnimatedString": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedString",
+                "SVGAnimatedTransformList": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedTransformList",
+                "SVGAnimationElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimationElement",
+                "SVGCSSRule": "https://developer.mozilla.org/en/docs/Web/API/SVGCSSRule",
+                "SVGCircleElement": "https://developer.mozilla.org/en/docs/Web/API/SVGCircleElement",
+                "SVGClipPathElement": "https://developer.mozilla.org/en/docs/Web/API/SVGClipPathElement",
+                "SVGColor": "https://developer.mozilla.org/en/docs/Web/API/SVGColor",
+                "SVGColorProfileElement": "https://developer.mozilla.org/en/docs/Web/API/SVGColorProfileElement",
+                "SVGColorProfileRule": "https://developer.mozilla.org/en/docs/Web/API/SVGColorProfileRule",
+                "SVGComponentTransferFunctionElement": "https://developer.mozilla.org/en/docs/Web/API/SVGComponentTransferFunctionElement",
+                "SVGCursorElement": "https://developer.mozilla.org/en/docs/Web/API/SVGCursorElement",
+                "SVGDefsElement": "https://developer.mozilla.org/en/docs/Web/API/SVGDefsElement",
+                "SVGDescElement": "https://developer.mozilla.org/en/docs/Web/API/SVGDescElement",
+                "SVGElement": "https://developer.mozilla.org/en/docs/Web/API/SVGElement",
+                "SVGElementInstance": "https://developer.mozilla.org/en/docs/Web/API/SVGElementInstance",
+                "SVGElementInstanceList": "https://developer.mozilla.org/en/docs/Web/API/SVGElementInstanceList",
+                "SVGEllipseElement": "https://developer.mozilla.org/en/docs/Web/API/SVGEllipseElement",
+                "SVGExternalResourcesRequired": "https://developer.mozilla.org/en/docs/Web/API/SVGExternalResourcesRequired",
+                "SVGFEBlendElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEBlendElement",
+                "SVGFEColorMatrixElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEColorMatrixElement",
+                "SVGFEComponentTransferElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEComponentTransferElement",
+                "SVGFECompositeElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFECompositeElement",
+                "SVGFEConvolveMatrixElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEConvolveMatrixElement",
+                "SVGFEDiffuseLightingElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEDiffuseLightingElement",
+                "SVGFEDisplacementMapElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEDisplacementMapElement",
+                "SVGFEDistantLightElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEDistantLightElement",
+                "SVGFEFloodElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEFloodElement",
+                "SVGFEFuncAElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEFuncAElement",
+                "SVGFEFuncBElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEFuncBElement",
+                "SVGFEFuncGElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEFuncGElement",
+                "SVGFEFuncRElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEFuncRElement",
+                "SVGFEGaussianBlurElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEGaussianBlurElement",
+                "SVGFEImageElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEImageElement",
+                "SVGFEMergeElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEMergeElement",
+                "SVGFEMergeNodeElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEMergeNodeElement",
+                "SVGFEMorphologyElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEMorphologyElement",
+                "SVGFEOffsetElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEOffsetElement",
+                "SVGFEPointLightElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEPointLightElement",
+                "SVGFESpecularLightingElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFESpecularLightingElement",
+                "SVGFESpotLightElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFESpotLightElement",
+                "SVGFETileElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFETileElement",
+                "SVGFETurbulenceElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFETurbulenceElement",
+                "SVGFilterElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFilterElement",
+                "SVGFilterPrimitiveStandardAttributes": "https://developer.mozilla.org/en/docs/Web/API/SVGFilterPrimitiveStandardAttributes",
+                "SVGFitToViewBox": "https://developer.mozilla.org/en/docs/Web/API/SVGFitToViewBox",
+                "SVGFontElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFontElement",
+                "SVGFontFaceElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFontFaceElement",
+                "SVGFontFaceFormatElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFontFaceFormatElement",
+                "SVGFontFaceNameElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFontFaceNameElement",
+                "SVGFontFaceSrcElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFontFaceSrcElement",
+                "SVGFontFaceUriElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFontFaceUriElement",
+                "SVGForeignObjectElement": "https://developer.mozilla.org/en/docs/Web/API/SVGForeignObjectElement",
+                "SVGGElement": "https://developer.mozilla.org/en/docs/Web/API/SVGGElement",
+                "SVGGlyphElement": "https://developer.mozilla.org/en/docs/Web/API/SVGGlyphElement",
+                "SVGGlyphRefElement": "https://developer.mozilla.org/en/docs/Web/API/SVGGlyphRefElement",
+                "SVGGradientElement": "https://developer.mozilla.org/en/docs/Web/API/SVGGradientElement",
+                "SVGHKernElement": "https://developer.mozilla.org/en/docs/Web/API/SVGHKernElement",
+                "SVGICCColor": "https://developer.mozilla.org/en/docs/Web/API/SVGICCColor",
+                "SVGImageElement": "https://developer.mozilla.org/en/docs/Web/API/SVGImageElement",
+                "SVGLangSpace": "https://developer.mozilla.org/en/docs/Web/API/SVGLangSpace",
+                "SVGLength": "https://developer.mozilla.org/en/docs/Web/API/SVGLength",
+                "SVGLengthList": "https://developer.mozilla.org/en/docs/Web/API/SVGLengthList",
+                "SVGLineElement": "https://developer.mozilla.org/en/docs/Web/API/SVGLineElement",
+                "SVGLinearGradientElement": "https://developer.mozilla.org/en/docs/Web/API/SVGLinearGradientElement",
+                "SVGLocatable": "https://developer.mozilla.org/en/docs/Web/API/SVGLocatable",
+                "SVGMPathElement": "https://developer.mozilla.org/en/docs/Web/API/SVGMPathElement",
+                "SVGMarkerElement": "https://developer.mozilla.org/en/docs/Web/API/SVGMarkerElement",
+                "SVGMaskElement": "https://developer.mozilla.org/en/docs/Web/API/SVGMaskElement",
+                "SVGMatrix": "https://developer.mozilla.org/en/docs/Web/API/SVGMatrix",
+                "SVGMetadataElement": "https://developer.mozilla.org/en/docs/Web/API/SVGMetadataElement",
+                "SVGMissingGlyphElement": "https://developer.mozilla.org/en/docs/Web/API/SVGMissingGlyphElement",
+                "SVGNumber": "https://developer.mozilla.org/en/docs/Web/API/SVGNumber",
+                "SVGNumberList": "https://developer.mozilla.org/en/docs/Web/API/SVGNumberList",
+                "SVGPaint": "https://developer.mozilla.org/en/docs/Web/API/SVGPaint",
+                "SVGPathElement": "https://developer.mozilla.org/en/docs/Web/API/SVGPathElement",
+                "SVGPathSeg": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSeg",
+                "SVGPathSegArcAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegArcAbs",
+                "SVGPathSegArcRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegArcRel",
+                "SVGPathSegClosePath": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegClosePath",
+                "SVGPathSegCurvetoCubicAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoCubicAbs",
+                "SVGPathSegCurvetoCubicRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoCubicRel",
+                "SVGPathSegCurvetoCubicSmoothAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoCubicSmoothAbs",
+                "SVGPathSegCurvetoCubicSmoothRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoCubicSmoothRel",
+                "SVGPathSegCurvetoQuadraticAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoQuadraticAbs",
+                "SVGPathSegCurvetoQuadraticRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoQuadraticRel",
+                "SVGPathSegCurvetoQuadraticSmoothAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoQuadraticSmoothAbs",
+                "SVGPathSegCurvetoQuadraticSmoothRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoQuadraticSmoothRel",
+                "SVGPathSegLinetoAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegLinetoAbs",
+                "SVGPathSegLinetoHorizontalAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegLinetoHorizontalAbs",
+                "SVGPathSegLinetoHorizontalRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegLinetoHorizontalRel",
+                "SVGPathSegLinetoRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegLinetoRel",
+                "SVGPathSegLinetoVerticalAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegLinetoVerticalAbs",
+                "SVGPathSegLinetoVerticalRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegLinetoVerticalRel",
+                "SVGPathSegList": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegList",
+                "SVGPathSegMovetoAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegMovetoAbs",
+                "SVGPathSegMovetoRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegMovetoRel",
+                "SVGPatternElement": "https://developer.mozilla.org/en/docs/Web/API/SVGPatternElement",
+                "SVGPoint": "https://developer.mozilla.org/en/docs/Web/API/SVGPoint",
+                "SVGPointList": "https://developer.mozilla.org/en/docs/Web/API/SVGPointList",
+                "SVGPolygonElement": "https://developer.mozilla.org/en/docs/Web/API/SVGPolygonElement",
+                "SVGPolylineElement": "https://developer.mozilla.org/en/docs/Web/API/SVGPolylineElement",
+                "SVGPreserveAspectRatio": "https://developer.mozilla.org/en/docs/Web/API/SVGPreserveAspectRatio",
+                "SVGRadialGradientElement": "https://developer.mozilla.org/en/docs/Web/API/SVGRadialGradientElement",
+                "SVGRect": "https://developer.mozilla.org/en/docs/Web/API/SVGRect",
+                "SVGRectElement": "https://developer.mozilla.org/en/docs/Web/API/SVGRectElement",
+                "SVGRenderingIntent": "https://developer.mozilla.org/en/docs/Web/API/SVGRenderingIntent",
+                "SVGSVGElement": "https://developer.mozilla.org/en/docs/Web/API/SVGSVGElement",
+                "SVGScriptElement": "https://developer.mozilla.org/en/docs/Web/API/SVGScriptElement",
+                "SVGSetElement": "https://developer.mozilla.org/en/docs/Web/API/SVGSetElement",
+                "SVGStopElement": "https://developer.mozilla.org/en/docs/Web/API/SVGStopElement",
+                "SVGStringList": "https://developer.mozilla.org/en/docs/Web/API/SVGStringList",
+                "SVGStylable": "https://developer.mozilla.org/en/docs/Web/API/SVGStylable",
+                "SVGStyleElement": "https://developer.mozilla.org/en/docs/Web/API/SVGStyleElement",
+                "SVGSwitchElement": "https://developer.mozilla.org/en/docs/Web/API/SVGSwitchElement",
+                "SVGSymbolElement": "https://developer.mozilla.org/en/docs/Web/API/SVGSymbolElement",
+                "SVGTRefElement": "https://developer.mozilla.org/en/docs/Web/API/SVGTRefElement",
+                "SVGTSpanElement": "https://developer.mozilla.org/en/docs/Web/API/SVGTSpanElement",
+                "SVGTests": "https://developer.mozilla.org/en/docs/Web/API/SVGTests",
+                "SVGTextContentElement": "https://developer.mozilla.org/en/docs/Web/API/SVGTextContentElement",
+                "SVGTextElement": "https://developer.mozilla.org/en/docs/Web/API/SVGTextElement",
+                "SVGTextPathElement": "https://developer.mozilla.org/en/docs/Web/API/SVGTextPathElement",
+                "SVGTextPositioningElement": "https://developer.mozilla.org/en/docs/Web/API/SVGTextPositioningElement",
+                "SVGTitleElement": "https://developer.mozilla.org/en/docs/Web/API/SVGTitleElement",
+                "SVGTransform": "https://developer.mozilla.org/en/docs/Web/API/SVGTransform",
+                "SVGTransformList": "https://developer.mozilla.org/en/docs/Web/API/SVGTransformList",
+                "SVGTransformable": "https://developer.mozilla.org/en/docs/Web/API/SVGTransformable",
+                "SVGURIReference": "https://developer.mozilla.org/en/docs/Web/API/SVGURIReference",
+                "SVGUnitTypes": "https://developer.mozilla.org/en/docs/Web/API/SVGUnitTypes",
+                "SVGUseElement": "https://developer.mozilla.org/en/docs/Web/API/SVGUseElement",
+                "SVGVKernElement": "https://developer.mozilla.org/en/docs/Web/API/SVGVKernElement",
+                "SVGViewElement": "https://developer.mozilla.org/en/docs/Web/API/SVGViewElement",
+                "SVGViewSpec": "https://developer.mozilla.org/en/docs/Web/API/SVGViewSpec",
+                "SVGZoomAndPan": "https://developer.mozilla.org/en/docs/Web/API/SVGZoomAndPan",
+                "Text": "https://developer.mozilla.org/en/docs/Web/API/Text",
+                "TextMetrics": "https://developer.mozilla.org/en/docs/Web/API/TextMetrics",
+                "TimeEvent": "https://developer.mozilla.org/en/docs/Web/API/TimeEvent",
+                "TreeWalker": "https://developer.mozilla.org/en/docs/Web/API/TreeWalker",
+                "TypeInfo": "https://developer.mozilla.org/en/docs/Web/API/TypeInfo",
+                "URL": "https://developer.mozilla.org/en/docs/Web/API/URL",
+                "UserDataHandler": "https://developer.mozilla.org/en/docs/Web/API/UserDataHandler",
+                "Window": "https://developer.mozilla.org/en/docs/Web/API/Window",
+                "Worker": "https://developer.mozilla.org/en/docs/Web/API/Worker",
+                "XMLDocument": "https://developer.mozilla.org/en/docs/Web/API/XMLDocument"
+              }
+            ]
+          },
           "name": "CoffeeScript"
         },
         "sourcePath": "/Users/sjorek/Documents/Projects/Mesch/Workspace (Aptana)/goatee-script/src/Stack.coffee",
@@ -366,6 +6762,539 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
               "singleLineComment": ["#"],
               "ignorePrefix": "!",
               "foldPrefix": "~",
+              "doctags": {
+                "description": {
+                  "section": "description",
+                  "markdown": "{value}"
+                },
+                "abstract": {
+                  "section": "access"
+                },
+                "constant": {
+                  "section": "access"
+                },
+                "deprecated": {
+                  "section": "access"
+                },
+                "internal": {
+                  "section": "access"
+                },
+                "private": {
+                  "section": "access"
+                },
+                "protected": {
+                  "section": "access"
+                },
+                "public": {
+                  "valuePrefix": "as",
+                  "section": "access"
+                },
+                "static": {
+                  "section": "access"
+                },
+                "constructor": {
+                  "section": "special"
+                },
+                "destructor": {
+                  "section": "special"
+                },
+                "class": {
+                  "section": "type",
+                  "markdown": "class *{type}*"
+                },
+                "event": {
+                  "section": "type"
+                },
+                "method": {
+                  "section": "type",
+                  "markdown": "method *{type}*"
+                },
+                "mixin": {
+                  "section": "type",
+                  "markdown": "mixin *{type}*"
+                },
+                "module": {
+                  "section": "type",
+                  "markdown": "module *{type}*"
+                },
+                "package": {
+                  "section": "type",
+                  "markdown": "package *{type}*"
+                },
+                "property": {
+                  "section": "type",
+                  "markdown": "property *{type}*"
+                },
+                "accessor": {
+                  "section": "flag",
+                  "markdown": "is an accessor"
+                },
+                "async": {
+                  "section": "flag",
+                  "markdown": "is asynchronous"
+                },
+                "asynchronous": "async",
+                "getter": {
+                  "section": "flag",
+                  "markdown": "is a getter"
+                },
+                "recursive": {
+                  "section": "flag",
+                  "markdown": "is recursive"
+                },
+                "refactor": {
+                  "section": "flag",
+                  "markdown": "needs to be refactored"
+                },
+                "setter": {
+                  "section": "flag",
+                  "markdown": "is a setter"
+                },
+                "alias": {
+                  "valuePrefix": "as",
+                  "section": "metadata",
+                  "markdown": "is aliased as *{type}*"
+                },
+                "augments": {
+                  "section": "metadata",
+                  "markdown": "extends *{type}*"
+                },
+                "extends": {
+                  "section": "metadata",
+                  "markdown": "extends *{type}*"
+                },
+                "fires": {
+                  "section": "metadata"
+                },
+                "memberof": {
+                  "section": "metadata",
+                  "markdown": "is a member of *{type}*"
+                },
+                "mixes": {
+                  "section": "metadata",
+                  "markdown": "mixes *{type}* in"
+                },
+                "namespace": {
+                  "section": "metadata",
+                  "markdown": "is in namespace *{value}*"
+                },
+                "publishes": {
+                  "section": "metadata"
+                },
+                "requests": {
+                  "section": "metadata",
+                  "markdown": "makes an ajax request to <{value}>"
+                },
+                "since": {
+                  "section": "metadata",
+                  "markdown": "is available since version {value}"
+                },
+                "subscribes": {
+                  "valuePrefix": "to",
+                  "section": "metadata",
+                  "markdown": "subscribes to {type}"
+                },
+                "type": {
+                  "section": "metadata"
+                },
+                "version": {
+                  "section": "metadata",
+                  "markdown": "has version {value}"
+                },
+                "author": {
+                  "section": "authors"
+                },
+                "see": {
+                  "section": "references"
+                },
+                "todo": {
+                  "section": "todo",
+                  "markdown": "TODO: {value}"
+                },
+                "example": {
+                  "section": "example",
+                  "markdown": "{value}"
+                },
+                "examples": "example",
+                "usage": "example",
+                "howto": {
+                  "section": "howto",
+                  "markdown": "{value}"
+                },
+                "note": {
+                  "section": "discard"
+                },
+                "notes": "note",
+                "param": {
+                  "section": "params"
+                },
+                "params": "param",
+                "parameters": "param",
+                "return": {
+                  "section": "returns"
+                },
+                "returns": "return",
+                "throw": {
+                  "section": "throws"
+                },
+                "throws": "throw",
+                "defaultNoValue": {
+                  "section": "flag"
+                },
+                "defaultHasValue": {
+                  "section": "metadata"
+                }
+              },
+              "namespace": {
+                "separator": ".",
+                "types": [
+                  {
+                    "goatee.Script.": ["http://sjorek.github.io/goatee-script/", "goatee."],
+                    "goatee.Rules.": ["http://sjorek.github.io/goatee-rules/", "goatee."],
+                    "goatee.": ["http://sjorek.github.io/goatee-js/", "goatee."]
+                  }, {
+                    "Array": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Array",
+                    "ArrayBuffer": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/ArrayBuffer",
+                    "Boolean": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Boolean",
+                    "Collator": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Collator",
+                    "DataView": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/DataView",
+                    "Date": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Date",
+                    "DateTimeFormat": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/DateTimeFormat",
+                    "Error": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Error",
+                    "EvalError": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/EvalError",
+                    "Float32Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Float32Array",
+                    "Float64Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Float64Array",
+                    "Function": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Function",
+                    "Infinity": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Infinity",
+                    "Int8Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Int8Array",
+                    "Int16Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Int16Array",
+                    "Int32Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Int32Array",
+                    "InternalError": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/InternalError",
+                    "Intl": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Intl",
+                    "Intl.Collator": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Collator",
+                    "Intl.DateTimeFormat": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/DateTimeFormat",
+                    "Intl.NumberFormat": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/NumberFormat",
+                    "Iterator": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Iterator",
+                    "JSON": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/JSON",
+                    "Math": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Math",
+                    "NaN": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/NaN",
+                    "Number": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Number",
+                    "NumberFormat": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/NumberFormat",
+                    "Object": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Object",
+                    "ParallelArray": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/ParallelArray",
+                    "Proxy": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Proxy",
+                    "RangeError": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/RangeError",
+                    "ReferenceError": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/ReferenceError",
+                    "RegExp": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/RegExp",
+                    "StopIteration": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/StopIteration",
+                    "String": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/String",
+                    "SyntaxError": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/SyntaxError",
+                    "TypeError": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/TypeError",
+                    "URIError": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/URIError",
+                    "Uint8Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Uint8Array",
+                    "Uint8ClampedArray": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Uint8ClampedArray",
+                    "Uint16Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Uint16Array",
+                    "Uint32Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Uint32Array",
+                    "null": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/null",
+                    "undefined": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/undefined"
+                  }, {
+                    "Attr": "https://developer.mozilla.org/en/docs/Web/API/Attr",
+                    "CDATASection": "https://developer.mozilla.org/en/docs/Web/API/CDATASection",
+                    "CanvasGradient": "https://developer.mozilla.org/en/docs/Web/API/CanvasGradient",
+                    "CanvasPattern": "https://developer.mozilla.org/en/docs/Web/API/CanvasPattern",
+                    "CanvasPixelArray": "https://developer.mozilla.org/en/docs/Web/API/CanvasPixelArray",
+                    "CanvasRenderingContext2D": "https://developer.mozilla.org/en/docs/Web/API/CanvasRenderingContext2D",
+                    "CharacterData": "https://developer.mozilla.org/en/docs/Web/API/CharacterData",
+                    "ChildNode": "https://developer.mozilla.org/en/docs/Web/API/ChildNode",
+                    "Comment": "https://developer.mozilla.org/en/docs/Web/API/Comment",
+                    "CustomEvent": "https://developer.mozilla.org/en/docs/Web/API/CustomEvent",
+                    "DOMConfiguration": "https://developer.mozilla.org/en/docs/Web/API/DOMConfiguration",
+                    "DOMError": "https://developer.mozilla.org/en/docs/Web/API/DOMError",
+                    "DOMErrorHandler": "https://developer.mozilla.org/en/docs/Web/API/DOMErrorHandler",
+                    "DOMException": "https://developer.mozilla.org/en/docs/Web/API/DOMException",
+                    "DOMImplementation": "https://developer.mozilla.org/en/docs/Web/API/DOMImplementation",
+                    "DOMImplementationList": "https://developer.mozilla.org/en/docs/Web/API/DOMImplementationList",
+                    "DOMImplementationRegistry": "https://developer.mozilla.org/en/docs/Web/API/DOMImplementationRegistry",
+                    "DOMImplementationSource": "https://developer.mozilla.org/en/docs/Web/API/DOMImplementationSource",
+                    "DOMLocator": "https://developer.mozilla.org/en/docs/Web/API/DOMLocator",
+                    "DOMObject": "https://developer.mozilla.org/en/docs/Web/API/DOMObject",
+                    "DOMSettableTokenList": "https://developer.mozilla.org/en/docs/Web/API/DOMSettableTokenList",
+                    "DOMString": "https://developer.mozilla.org/en/docs/Web/API/DOMString",
+                    "DOMStringList": "https://developer.mozilla.org/en/docs/Web/API/DOMStringList",
+                    "DOMStringMap": "https://developer.mozilla.org/en/docs/Web/API/DOMStringMap",
+                    "DOMTimeStamp": "https://developer.mozilla.org/en/docs/Web/API/DOMTimeStamp",
+                    "DOMTokenList": "https://developer.mozilla.org/en/docs/Web/API/DOMTokenList",
+                    "DOMUserData": "https://developer.mozilla.org/en/docs/Web/API/DOMUserData",
+                    "Document": "https://developer.mozilla.org/en/docs/Web/API/Document",
+                    "DocumentFragment": "https://developer.mozilla.org/en/docs/Web/API/DocumentFragment",
+                    "DocumentType": "https://developer.mozilla.org/en/docs/Web/API/DocumentType",
+                    "Element": "https://developer.mozilla.org/en/docs/Web/API/Element",
+                    "ElementTimeControl": "https://developer.mozilla.org/en/docs/Web/API/ElementTimeControl",
+                    "Entity": "https://developer.mozilla.org/en/docs/Web/API/Entity",
+                    "EntityReference": "https://developer.mozilla.org/en/docs/Web/API/EntityReference",
+                    "Event": "https://developer.mozilla.org/en/docs/Web/API/Event",
+                    "EventTarget": "https://developer.mozilla.org/en/docs/Web/API/EventTarget",
+                    "HTMLAllCollection": "https://developer.mozilla.org/en/docs/Web/API/HTMLAllCollection",
+                    "HTMLAnchorElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLAnchorElement",
+                    "HTMLAppletElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLAppletElement",
+                    "HTMLAreaElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLAreaElement",
+                    "HTMLAudioElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLAudioElement",
+                    "HTMLBRElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLBRElement",
+                    "HTMLBaseElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLBaseElement",
+                    "HTMLBaseFontElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLBaseFontElement",
+                    "HTMLBodyElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLBodyElement",
+                    "HTMLButtonElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLButtonElement",
+                    "HTMLCanvasElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLCanvasElement",
+                    "HTMLCollection": "https://developer.mozilla.org/en/docs/Web/API/HTMLCollection",
+                    "HTMLDListElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLDListElement",
+                    "HTMLDataElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLDataElement",
+                    "HTMLDataListElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLDataListElement",
+                    "HTMLDirectoryElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLDirectoryElement",
+                    "HTMLDivElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLDivElement",
+                    "HTMLElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLElement",
+                    "HTMLEmbedElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLEmbedElement",
+                    "HTMLFieldSetElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLFieldSetElement",
+                    "HTMLFontElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLFontElement",
+                    "HTMLFormControlsCollection": "https://developer.mozilla.org/en/docs/Web/API/HTMLFormControlsCollection",
+                    "HTMLFormElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLFormElement",
+                    "HTMLFrameElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLFrameElement",
+                    "HTMLFrameSetElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLFrameSetElement",
+                    "HTMLHRElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLHRElement",
+                    "HTMLHeadElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLHeadElement",
+                    "HTMLHeadingElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLHeadingElement",
+                    "HTMLHtmlElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLHtmlElement",
+                    "HTMLIFrameElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLIFrameElement",
+                    "HTMLImageElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLImageElement",
+                    "HTMLInputElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLInputElement",
+                    "HTMLIsIndexElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLIsIndexElement",
+                    "HTMLKeygenElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLKeygenElement",
+                    "HTMLLIElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLLIElement",
+                    "HTMLLabelElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLLabelElement",
+                    "HTMLLegendElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLLegendElement",
+                    "HTMLLinkElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLLinkElement",
+                    "HTMLMapElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLMapElement",
+                    "HTMLMediaElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLMediaElement",
+                    "HTMLMenuElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLMenuElement",
+                    "HTMLMetaElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLMetaElement",
+                    "HTMLMeterElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLMeterElement",
+                    "HTMLModElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLModElement",
+                    "HTMLOListElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLOListElement",
+                    "HTMLObjectElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLObjectElement",
+                    "HTMLOptGroupElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLOptGroupElement",
+                    "HTMLOptionElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLOptionElement",
+                    "HTMLOptionsCollection": "https://developer.mozilla.org/en/docs/Web/API/HTMLOptionsCollection",
+                    "HTMLOutputElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLOutputElement",
+                    "HTMLParagraphElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLParagraphElement",
+                    "HTMLParamElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLParamElement",
+                    "HTMLPreElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLPreElement",
+                    "HTMLProgressElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLProgressElement",
+                    "HTMLPropertiesCollection": "https://developer.mozilla.org/en/docs/Web/API/HTMLPropertiesCollection",
+                    "HTMLQuoteElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLQuoteElement",
+                    "HTMLScriptElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLScriptElement",
+                    "HTMLSelectElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLSelectElement",
+                    "HTMLSourceElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLSourceElement",
+                    "HTMLSpanElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLSpanElement",
+                    "HTMLStyleElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLStyleElement",
+                    "HTMLTableCaptionElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableCaptionElement",
+                    "HTMLTableCellElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableCellElement",
+                    "HTMLTableColElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableColElement",
+                    "HTMLTableDataCellElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableDataCellElement",
+                    "HTMLTableElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableElement",
+                    "HTMLTableHeaderCellElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableHeaderCellElement",
+                    "HTMLTableRowElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableRowElement",
+                    "HTMLTableSectionElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableSectionElement",
+                    "HTMLTextAreaElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTextAreaElement",
+                    "HTMLTimeElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTimeElement",
+                    "HTMLTitleElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTitleElement",
+                    "HTMLTrackElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTrackElement",
+                    "HTMLUListElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLUListElement",
+                    "HTMLUnknownElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLUnknownElement",
+                    "HTMLVideoElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLVideoElement",
+                    "ImageData": "https://developer.mozilla.org/en/docs/Web/API/ImageData",
+                    "MediaError": "https://developer.mozilla.org/en/docs/Web/API/MediaError",
+                    "MutationObserver": "https://developer.mozilla.org/en/docs/Web/API/MutationObserver",
+                    "MutationRecord": "https://developer.mozilla.org/en/docs/Web/API/MutationRecord",
+                    "NameList": "https://developer.mozilla.org/en/docs/Web/API/NameList",
+                    "NamedNodeMap": "https://developer.mozilla.org/en/docs/Web/API/NamedNodeMap",
+                    "Node": "https://developer.mozilla.org/en/docs/Web/API/Node",
+                    "NodeFilter": "https://developer.mozilla.org/en/docs/Web/API/NodeFilter",
+                    "NodeIterator": "https://developer.mozilla.org/en/docs/Web/API/NodeIterator",
+                    "NodeList": "https://developer.mozilla.org/en/docs/Web/API/NodeList",
+                    "Notation": "https://developer.mozilla.org/en/docs/Web/API/Notation",
+                    "NotifyAudioAvailableEvent": "https://developer.mozilla.org/en/docs/Web/API/NotifyAudioAvailableEvent",
+                    "ParentNode": "https://developer.mozilla.org/en/docs/Web/API/ParentNode",
+                    "ProcessingInstruction": "https://developer.mozilla.org/en/docs/Web/API/ProcessingInstruction",
+                    "Promise": "https://developer.mozilla.org/en/docs/Web/API/Promise",
+                    "PromiseResolver": "https://developer.mozilla.org/en/docs/Web/API/PromiseResolver",
+                    "RadioNodeList": "https://developer.mozilla.org/en/docs/Web/API/RadioNodeList",
+                    "Range": "https://developer.mozilla.org/en/docs/Web/API/Range",
+                    "SVGAElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAElement",
+                    "SVGAltGlyphDefElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAltGlyphDefElement",
+                    "SVGAltGlyphElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAltGlyphElement",
+                    "SVGAltGlyphItemElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAltGlyphItemElement",
+                    "SVGAngle": "https://developer.mozilla.org/en/docs/Web/API/SVGAngle",
+                    "SVGAnimateColorElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimateColorElement",
+                    "SVGAnimateElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimateElement",
+                    "SVGAnimateMotionElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimateMotionElement",
+                    "SVGAnimateTransformElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimateTransformElement",
+                    "SVGAnimatedAngle": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedAngle",
+                    "SVGAnimatedBoolean": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedBoolean",
+                    "SVGAnimatedEnumeration": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedEnumeration",
+                    "SVGAnimatedInteger": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedInteger",
+                    "SVGAnimatedLength": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedLength",
+                    "SVGAnimatedLengthList": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedLengthList",
+                    "SVGAnimatedNumber": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedNumber",
+                    "SVGAnimatedNumberList": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedNumberList",
+                    "SVGAnimatedPathData": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedPathData",
+                    "SVGAnimatedPoints": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedPoints",
+                    "SVGAnimatedPreserveAspectRatio": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedPreserveAspectRatio",
+                    "SVGAnimatedRect": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedRect",
+                    "SVGAnimatedString": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedString",
+                    "SVGAnimatedTransformList": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedTransformList",
+                    "SVGAnimationElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimationElement",
+                    "SVGCSSRule": "https://developer.mozilla.org/en/docs/Web/API/SVGCSSRule",
+                    "SVGCircleElement": "https://developer.mozilla.org/en/docs/Web/API/SVGCircleElement",
+                    "SVGClipPathElement": "https://developer.mozilla.org/en/docs/Web/API/SVGClipPathElement",
+                    "SVGColor": "https://developer.mozilla.org/en/docs/Web/API/SVGColor",
+                    "SVGColorProfileElement": "https://developer.mozilla.org/en/docs/Web/API/SVGColorProfileElement",
+                    "SVGColorProfileRule": "https://developer.mozilla.org/en/docs/Web/API/SVGColorProfileRule",
+                    "SVGComponentTransferFunctionElement": "https://developer.mozilla.org/en/docs/Web/API/SVGComponentTransferFunctionElement",
+                    "SVGCursorElement": "https://developer.mozilla.org/en/docs/Web/API/SVGCursorElement",
+                    "SVGDefsElement": "https://developer.mozilla.org/en/docs/Web/API/SVGDefsElement",
+                    "SVGDescElement": "https://developer.mozilla.org/en/docs/Web/API/SVGDescElement",
+                    "SVGElement": "https://developer.mozilla.org/en/docs/Web/API/SVGElement",
+                    "SVGElementInstance": "https://developer.mozilla.org/en/docs/Web/API/SVGElementInstance",
+                    "SVGElementInstanceList": "https://developer.mozilla.org/en/docs/Web/API/SVGElementInstanceList",
+                    "SVGEllipseElement": "https://developer.mozilla.org/en/docs/Web/API/SVGEllipseElement",
+                    "SVGExternalResourcesRequired": "https://developer.mozilla.org/en/docs/Web/API/SVGExternalResourcesRequired",
+                    "SVGFEBlendElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEBlendElement",
+                    "SVGFEColorMatrixElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEColorMatrixElement",
+                    "SVGFEComponentTransferElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEComponentTransferElement",
+                    "SVGFECompositeElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFECompositeElement",
+                    "SVGFEConvolveMatrixElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEConvolveMatrixElement",
+                    "SVGFEDiffuseLightingElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEDiffuseLightingElement",
+                    "SVGFEDisplacementMapElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEDisplacementMapElement",
+                    "SVGFEDistantLightElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEDistantLightElement",
+                    "SVGFEFloodElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEFloodElement",
+                    "SVGFEFuncAElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEFuncAElement",
+                    "SVGFEFuncBElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEFuncBElement",
+                    "SVGFEFuncGElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEFuncGElement",
+                    "SVGFEFuncRElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEFuncRElement",
+                    "SVGFEGaussianBlurElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEGaussianBlurElement",
+                    "SVGFEImageElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEImageElement",
+                    "SVGFEMergeElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEMergeElement",
+                    "SVGFEMergeNodeElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEMergeNodeElement",
+                    "SVGFEMorphologyElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEMorphologyElement",
+                    "SVGFEOffsetElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEOffsetElement",
+                    "SVGFEPointLightElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEPointLightElement",
+                    "SVGFESpecularLightingElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFESpecularLightingElement",
+                    "SVGFESpotLightElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFESpotLightElement",
+                    "SVGFETileElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFETileElement",
+                    "SVGFETurbulenceElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFETurbulenceElement",
+                    "SVGFilterElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFilterElement",
+                    "SVGFilterPrimitiveStandardAttributes": "https://developer.mozilla.org/en/docs/Web/API/SVGFilterPrimitiveStandardAttributes",
+                    "SVGFitToViewBox": "https://developer.mozilla.org/en/docs/Web/API/SVGFitToViewBox",
+                    "SVGFontElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFontElement",
+                    "SVGFontFaceElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFontFaceElement",
+                    "SVGFontFaceFormatElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFontFaceFormatElement",
+                    "SVGFontFaceNameElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFontFaceNameElement",
+                    "SVGFontFaceSrcElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFontFaceSrcElement",
+                    "SVGFontFaceUriElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFontFaceUriElement",
+                    "SVGForeignObjectElement": "https://developer.mozilla.org/en/docs/Web/API/SVGForeignObjectElement",
+                    "SVGGElement": "https://developer.mozilla.org/en/docs/Web/API/SVGGElement",
+                    "SVGGlyphElement": "https://developer.mozilla.org/en/docs/Web/API/SVGGlyphElement",
+                    "SVGGlyphRefElement": "https://developer.mozilla.org/en/docs/Web/API/SVGGlyphRefElement",
+                    "SVGGradientElement": "https://developer.mozilla.org/en/docs/Web/API/SVGGradientElement",
+                    "SVGHKernElement": "https://developer.mozilla.org/en/docs/Web/API/SVGHKernElement",
+                    "SVGICCColor": "https://developer.mozilla.org/en/docs/Web/API/SVGICCColor",
+                    "SVGImageElement": "https://developer.mozilla.org/en/docs/Web/API/SVGImageElement",
+                    "SVGLangSpace": "https://developer.mozilla.org/en/docs/Web/API/SVGLangSpace",
+                    "SVGLength": "https://developer.mozilla.org/en/docs/Web/API/SVGLength",
+                    "SVGLengthList": "https://developer.mozilla.org/en/docs/Web/API/SVGLengthList",
+                    "SVGLineElement": "https://developer.mozilla.org/en/docs/Web/API/SVGLineElement",
+                    "SVGLinearGradientElement": "https://developer.mozilla.org/en/docs/Web/API/SVGLinearGradientElement",
+                    "SVGLocatable": "https://developer.mozilla.org/en/docs/Web/API/SVGLocatable",
+                    "SVGMPathElement": "https://developer.mozilla.org/en/docs/Web/API/SVGMPathElement",
+                    "SVGMarkerElement": "https://developer.mozilla.org/en/docs/Web/API/SVGMarkerElement",
+                    "SVGMaskElement": "https://developer.mozilla.org/en/docs/Web/API/SVGMaskElement",
+                    "SVGMatrix": "https://developer.mozilla.org/en/docs/Web/API/SVGMatrix",
+                    "SVGMetadataElement": "https://developer.mozilla.org/en/docs/Web/API/SVGMetadataElement",
+                    "SVGMissingGlyphElement": "https://developer.mozilla.org/en/docs/Web/API/SVGMissingGlyphElement",
+                    "SVGNumber": "https://developer.mozilla.org/en/docs/Web/API/SVGNumber",
+                    "SVGNumberList": "https://developer.mozilla.org/en/docs/Web/API/SVGNumberList",
+                    "SVGPaint": "https://developer.mozilla.org/en/docs/Web/API/SVGPaint",
+                    "SVGPathElement": "https://developer.mozilla.org/en/docs/Web/API/SVGPathElement",
+                    "SVGPathSeg": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSeg",
+                    "SVGPathSegArcAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegArcAbs",
+                    "SVGPathSegArcRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegArcRel",
+                    "SVGPathSegClosePath": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegClosePath",
+                    "SVGPathSegCurvetoCubicAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoCubicAbs",
+                    "SVGPathSegCurvetoCubicRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoCubicRel",
+                    "SVGPathSegCurvetoCubicSmoothAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoCubicSmoothAbs",
+                    "SVGPathSegCurvetoCubicSmoothRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoCubicSmoothRel",
+                    "SVGPathSegCurvetoQuadraticAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoQuadraticAbs",
+                    "SVGPathSegCurvetoQuadraticRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoQuadraticRel",
+                    "SVGPathSegCurvetoQuadraticSmoothAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoQuadraticSmoothAbs",
+                    "SVGPathSegCurvetoQuadraticSmoothRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoQuadraticSmoothRel",
+                    "SVGPathSegLinetoAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegLinetoAbs",
+                    "SVGPathSegLinetoHorizontalAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegLinetoHorizontalAbs",
+                    "SVGPathSegLinetoHorizontalRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegLinetoHorizontalRel",
+                    "SVGPathSegLinetoRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegLinetoRel",
+                    "SVGPathSegLinetoVerticalAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegLinetoVerticalAbs",
+                    "SVGPathSegLinetoVerticalRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegLinetoVerticalRel",
+                    "SVGPathSegList": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegList",
+                    "SVGPathSegMovetoAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegMovetoAbs",
+                    "SVGPathSegMovetoRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegMovetoRel",
+                    "SVGPatternElement": "https://developer.mozilla.org/en/docs/Web/API/SVGPatternElement",
+                    "SVGPoint": "https://developer.mozilla.org/en/docs/Web/API/SVGPoint",
+                    "SVGPointList": "https://developer.mozilla.org/en/docs/Web/API/SVGPointList",
+                    "SVGPolygonElement": "https://developer.mozilla.org/en/docs/Web/API/SVGPolygonElement",
+                    "SVGPolylineElement": "https://developer.mozilla.org/en/docs/Web/API/SVGPolylineElement",
+                    "SVGPreserveAspectRatio": "https://developer.mozilla.org/en/docs/Web/API/SVGPreserveAspectRatio",
+                    "SVGRadialGradientElement": "https://developer.mozilla.org/en/docs/Web/API/SVGRadialGradientElement",
+                    "SVGRect": "https://developer.mozilla.org/en/docs/Web/API/SVGRect",
+                    "SVGRectElement": "https://developer.mozilla.org/en/docs/Web/API/SVGRectElement",
+                    "SVGRenderingIntent": "https://developer.mozilla.org/en/docs/Web/API/SVGRenderingIntent",
+                    "SVGSVGElement": "https://developer.mozilla.org/en/docs/Web/API/SVGSVGElement",
+                    "SVGScriptElement": "https://developer.mozilla.org/en/docs/Web/API/SVGScriptElement",
+                    "SVGSetElement": "https://developer.mozilla.org/en/docs/Web/API/SVGSetElement",
+                    "SVGStopElement": "https://developer.mozilla.org/en/docs/Web/API/SVGStopElement",
+                    "SVGStringList": "https://developer.mozilla.org/en/docs/Web/API/SVGStringList",
+                    "SVGStylable": "https://developer.mozilla.org/en/docs/Web/API/SVGStylable",
+                    "SVGStyleElement": "https://developer.mozilla.org/en/docs/Web/API/SVGStyleElement",
+                    "SVGSwitchElement": "https://developer.mozilla.org/en/docs/Web/API/SVGSwitchElement",
+                    "SVGSymbolElement": "https://developer.mozilla.org/en/docs/Web/API/SVGSymbolElement",
+                    "SVGTRefElement": "https://developer.mozilla.org/en/docs/Web/API/SVGTRefElement",
+                    "SVGTSpanElement": "https://developer.mozilla.org/en/docs/Web/API/SVGTSpanElement",
+                    "SVGTests": "https://developer.mozilla.org/en/docs/Web/API/SVGTests",
+                    "SVGTextContentElement": "https://developer.mozilla.org/en/docs/Web/API/SVGTextContentElement",
+                    "SVGTextElement": "https://developer.mozilla.org/en/docs/Web/API/SVGTextElement",
+                    "SVGTextPathElement": "https://developer.mozilla.org/en/docs/Web/API/SVGTextPathElement",
+                    "SVGTextPositioningElement": "https://developer.mozilla.org/en/docs/Web/API/SVGTextPositioningElement",
+                    "SVGTitleElement": "https://developer.mozilla.org/en/docs/Web/API/SVGTitleElement",
+                    "SVGTransform": "https://developer.mozilla.org/en/docs/Web/API/SVGTransform",
+                    "SVGTransformList": "https://developer.mozilla.org/en/docs/Web/API/SVGTransformList",
+                    "SVGTransformable": "https://developer.mozilla.org/en/docs/Web/API/SVGTransformable",
+                    "SVGURIReference": "https://developer.mozilla.org/en/docs/Web/API/SVGURIReference",
+                    "SVGUnitTypes": "https://developer.mozilla.org/en/docs/Web/API/SVGUnitTypes",
+                    "SVGUseElement": "https://developer.mozilla.org/en/docs/Web/API/SVGUseElement",
+                    "SVGVKernElement": "https://developer.mozilla.org/en/docs/Web/API/SVGVKernElement",
+                    "SVGViewElement": "https://developer.mozilla.org/en/docs/Web/API/SVGViewElement",
+                    "SVGViewSpec": "https://developer.mozilla.org/en/docs/Web/API/SVGViewSpec",
+                    "SVGZoomAndPan": "https://developer.mozilla.org/en/docs/Web/API/SVGZoomAndPan",
+                    "Text": "https://developer.mozilla.org/en/docs/Web/API/Text",
+                    "TextMetrics": "https://developer.mozilla.org/en/docs/Web/API/TextMetrics",
+                    "TimeEvent": "https://developer.mozilla.org/en/docs/Web/API/TimeEvent",
+                    "TreeWalker": "https://developer.mozilla.org/en/docs/Web/API/TreeWalker",
+                    "TypeInfo": "https://developer.mozilla.org/en/docs/Web/API/TypeInfo",
+                    "URL": "https://developer.mozilla.org/en/docs/Web/API/URL",
+                    "UserDataHandler": "https://developer.mozilla.org/en/docs/Web/API/UserDataHandler",
+                    "Window": "https://developer.mozilla.org/en/docs/Web/API/Window",
+                    "Worker": "https://developer.mozilla.org/en/docs/Web/API/Worker",
+                    "XMLDocument": "https://developer.mozilla.org/en/docs/Web/API/XMLDocument"
+                  }
+                ]
+              },
               "name": "CoffeeScript"
             },
             "sourcePath": "/Users/sjorek/Documents/Projects/Mesch/Workspace (Aptana)/goatee-script/src/Tests/GoateeScriptTestSpec.coffee",
@@ -388,6 +7317,539 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
           "singleLineComment": ["#"],
           "ignorePrefix": "!",
           "foldPrefix": "~",
+          "doctags": {
+            "description": {
+              "section": "description",
+              "markdown": "{value}"
+            },
+            "abstract": {
+              "section": "access"
+            },
+            "constant": {
+              "section": "access"
+            },
+            "deprecated": {
+              "section": "access"
+            },
+            "internal": {
+              "section": "access"
+            },
+            "private": {
+              "section": "access"
+            },
+            "protected": {
+              "section": "access"
+            },
+            "public": {
+              "valuePrefix": "as",
+              "section": "access"
+            },
+            "static": {
+              "section": "access"
+            },
+            "constructor": {
+              "section": "special"
+            },
+            "destructor": {
+              "section": "special"
+            },
+            "class": {
+              "section": "type",
+              "markdown": "class *{type}*"
+            },
+            "event": {
+              "section": "type"
+            },
+            "method": {
+              "section": "type",
+              "markdown": "method *{type}*"
+            },
+            "mixin": {
+              "section": "type",
+              "markdown": "mixin *{type}*"
+            },
+            "module": {
+              "section": "type",
+              "markdown": "module *{type}*"
+            },
+            "package": {
+              "section": "type",
+              "markdown": "package *{type}*"
+            },
+            "property": {
+              "section": "type",
+              "markdown": "property *{type}*"
+            },
+            "accessor": {
+              "section": "flag",
+              "markdown": "is an accessor"
+            },
+            "async": {
+              "section": "flag",
+              "markdown": "is asynchronous"
+            },
+            "asynchronous": "async",
+            "getter": {
+              "section": "flag",
+              "markdown": "is a getter"
+            },
+            "recursive": {
+              "section": "flag",
+              "markdown": "is recursive"
+            },
+            "refactor": {
+              "section": "flag",
+              "markdown": "needs to be refactored"
+            },
+            "setter": {
+              "section": "flag",
+              "markdown": "is a setter"
+            },
+            "alias": {
+              "valuePrefix": "as",
+              "section": "metadata",
+              "markdown": "is aliased as *{type}*"
+            },
+            "augments": {
+              "section": "metadata",
+              "markdown": "extends *{type}*"
+            },
+            "extends": {
+              "section": "metadata",
+              "markdown": "extends *{type}*"
+            },
+            "fires": {
+              "section": "metadata"
+            },
+            "memberof": {
+              "section": "metadata",
+              "markdown": "is a member of *{type}*"
+            },
+            "mixes": {
+              "section": "metadata",
+              "markdown": "mixes *{type}* in"
+            },
+            "namespace": {
+              "section": "metadata",
+              "markdown": "is in namespace *{value}*"
+            },
+            "publishes": {
+              "section": "metadata"
+            },
+            "requests": {
+              "section": "metadata",
+              "markdown": "makes an ajax request to <{value}>"
+            },
+            "since": {
+              "section": "metadata",
+              "markdown": "is available since version {value}"
+            },
+            "subscribes": {
+              "valuePrefix": "to",
+              "section": "metadata",
+              "markdown": "subscribes to {type}"
+            },
+            "type": {
+              "section": "metadata"
+            },
+            "version": {
+              "section": "metadata",
+              "markdown": "has version {value}"
+            },
+            "author": {
+              "section": "authors"
+            },
+            "see": {
+              "section": "references"
+            },
+            "todo": {
+              "section": "todo",
+              "markdown": "TODO: {value}"
+            },
+            "example": {
+              "section": "example",
+              "markdown": "{value}"
+            },
+            "examples": "example",
+            "usage": "example",
+            "howto": {
+              "section": "howto",
+              "markdown": "{value}"
+            },
+            "note": {
+              "section": "discard"
+            },
+            "notes": "note",
+            "param": {
+              "section": "params"
+            },
+            "params": "param",
+            "parameters": "param",
+            "return": {
+              "section": "returns"
+            },
+            "returns": "return",
+            "throw": {
+              "section": "throws"
+            },
+            "throws": "throw",
+            "defaultNoValue": {
+              "section": "flag"
+            },
+            "defaultHasValue": {
+              "section": "metadata"
+            }
+          },
+          "namespace": {
+            "separator": ".",
+            "types": [
+              {
+                "goatee.Script.": ["http://sjorek.github.io/goatee-script/", "goatee."],
+                "goatee.Rules.": ["http://sjorek.github.io/goatee-rules/", "goatee."],
+                "goatee.": ["http://sjorek.github.io/goatee-js/", "goatee."]
+              }, {
+                "Array": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Array",
+                "ArrayBuffer": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/ArrayBuffer",
+                "Boolean": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Boolean",
+                "Collator": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Collator",
+                "DataView": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/DataView",
+                "Date": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Date",
+                "DateTimeFormat": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/DateTimeFormat",
+                "Error": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Error",
+                "EvalError": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/EvalError",
+                "Float32Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Float32Array",
+                "Float64Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Float64Array",
+                "Function": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Function",
+                "Infinity": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Infinity",
+                "Int8Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Int8Array",
+                "Int16Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Int16Array",
+                "Int32Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Int32Array",
+                "InternalError": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/InternalError",
+                "Intl": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Intl",
+                "Intl.Collator": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Collator",
+                "Intl.DateTimeFormat": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/DateTimeFormat",
+                "Intl.NumberFormat": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/NumberFormat",
+                "Iterator": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Iterator",
+                "JSON": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/JSON",
+                "Math": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Math",
+                "NaN": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/NaN",
+                "Number": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Number",
+                "NumberFormat": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/NumberFormat",
+                "Object": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Object",
+                "ParallelArray": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/ParallelArray",
+                "Proxy": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Proxy",
+                "RangeError": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/RangeError",
+                "ReferenceError": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/ReferenceError",
+                "RegExp": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/RegExp",
+                "StopIteration": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/StopIteration",
+                "String": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/String",
+                "SyntaxError": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/SyntaxError",
+                "TypeError": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/TypeError",
+                "URIError": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/URIError",
+                "Uint8Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Uint8Array",
+                "Uint8ClampedArray": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Uint8ClampedArray",
+                "Uint16Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Uint16Array",
+                "Uint32Array": "https://developer.mozilla.org/en/docs/JavaScript_typed_arrays/Uint32Array",
+                "null": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/null",
+                "undefined": "https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/undefined"
+              }, {
+                "Attr": "https://developer.mozilla.org/en/docs/Web/API/Attr",
+                "CDATASection": "https://developer.mozilla.org/en/docs/Web/API/CDATASection",
+                "CanvasGradient": "https://developer.mozilla.org/en/docs/Web/API/CanvasGradient",
+                "CanvasPattern": "https://developer.mozilla.org/en/docs/Web/API/CanvasPattern",
+                "CanvasPixelArray": "https://developer.mozilla.org/en/docs/Web/API/CanvasPixelArray",
+                "CanvasRenderingContext2D": "https://developer.mozilla.org/en/docs/Web/API/CanvasRenderingContext2D",
+                "CharacterData": "https://developer.mozilla.org/en/docs/Web/API/CharacterData",
+                "ChildNode": "https://developer.mozilla.org/en/docs/Web/API/ChildNode",
+                "Comment": "https://developer.mozilla.org/en/docs/Web/API/Comment",
+                "CustomEvent": "https://developer.mozilla.org/en/docs/Web/API/CustomEvent",
+                "DOMConfiguration": "https://developer.mozilla.org/en/docs/Web/API/DOMConfiguration",
+                "DOMError": "https://developer.mozilla.org/en/docs/Web/API/DOMError",
+                "DOMErrorHandler": "https://developer.mozilla.org/en/docs/Web/API/DOMErrorHandler",
+                "DOMException": "https://developer.mozilla.org/en/docs/Web/API/DOMException",
+                "DOMImplementation": "https://developer.mozilla.org/en/docs/Web/API/DOMImplementation",
+                "DOMImplementationList": "https://developer.mozilla.org/en/docs/Web/API/DOMImplementationList",
+                "DOMImplementationRegistry": "https://developer.mozilla.org/en/docs/Web/API/DOMImplementationRegistry",
+                "DOMImplementationSource": "https://developer.mozilla.org/en/docs/Web/API/DOMImplementationSource",
+                "DOMLocator": "https://developer.mozilla.org/en/docs/Web/API/DOMLocator",
+                "DOMObject": "https://developer.mozilla.org/en/docs/Web/API/DOMObject",
+                "DOMSettableTokenList": "https://developer.mozilla.org/en/docs/Web/API/DOMSettableTokenList",
+                "DOMString": "https://developer.mozilla.org/en/docs/Web/API/DOMString",
+                "DOMStringList": "https://developer.mozilla.org/en/docs/Web/API/DOMStringList",
+                "DOMStringMap": "https://developer.mozilla.org/en/docs/Web/API/DOMStringMap",
+                "DOMTimeStamp": "https://developer.mozilla.org/en/docs/Web/API/DOMTimeStamp",
+                "DOMTokenList": "https://developer.mozilla.org/en/docs/Web/API/DOMTokenList",
+                "DOMUserData": "https://developer.mozilla.org/en/docs/Web/API/DOMUserData",
+                "Document": "https://developer.mozilla.org/en/docs/Web/API/Document",
+                "DocumentFragment": "https://developer.mozilla.org/en/docs/Web/API/DocumentFragment",
+                "DocumentType": "https://developer.mozilla.org/en/docs/Web/API/DocumentType",
+                "Element": "https://developer.mozilla.org/en/docs/Web/API/Element",
+                "ElementTimeControl": "https://developer.mozilla.org/en/docs/Web/API/ElementTimeControl",
+                "Entity": "https://developer.mozilla.org/en/docs/Web/API/Entity",
+                "EntityReference": "https://developer.mozilla.org/en/docs/Web/API/EntityReference",
+                "Event": "https://developer.mozilla.org/en/docs/Web/API/Event",
+                "EventTarget": "https://developer.mozilla.org/en/docs/Web/API/EventTarget",
+                "HTMLAllCollection": "https://developer.mozilla.org/en/docs/Web/API/HTMLAllCollection",
+                "HTMLAnchorElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLAnchorElement",
+                "HTMLAppletElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLAppletElement",
+                "HTMLAreaElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLAreaElement",
+                "HTMLAudioElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLAudioElement",
+                "HTMLBRElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLBRElement",
+                "HTMLBaseElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLBaseElement",
+                "HTMLBaseFontElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLBaseFontElement",
+                "HTMLBodyElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLBodyElement",
+                "HTMLButtonElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLButtonElement",
+                "HTMLCanvasElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLCanvasElement",
+                "HTMLCollection": "https://developer.mozilla.org/en/docs/Web/API/HTMLCollection",
+                "HTMLDListElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLDListElement",
+                "HTMLDataElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLDataElement",
+                "HTMLDataListElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLDataListElement",
+                "HTMLDirectoryElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLDirectoryElement",
+                "HTMLDivElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLDivElement",
+                "HTMLElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLElement",
+                "HTMLEmbedElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLEmbedElement",
+                "HTMLFieldSetElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLFieldSetElement",
+                "HTMLFontElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLFontElement",
+                "HTMLFormControlsCollection": "https://developer.mozilla.org/en/docs/Web/API/HTMLFormControlsCollection",
+                "HTMLFormElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLFormElement",
+                "HTMLFrameElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLFrameElement",
+                "HTMLFrameSetElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLFrameSetElement",
+                "HTMLHRElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLHRElement",
+                "HTMLHeadElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLHeadElement",
+                "HTMLHeadingElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLHeadingElement",
+                "HTMLHtmlElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLHtmlElement",
+                "HTMLIFrameElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLIFrameElement",
+                "HTMLImageElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLImageElement",
+                "HTMLInputElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLInputElement",
+                "HTMLIsIndexElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLIsIndexElement",
+                "HTMLKeygenElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLKeygenElement",
+                "HTMLLIElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLLIElement",
+                "HTMLLabelElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLLabelElement",
+                "HTMLLegendElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLLegendElement",
+                "HTMLLinkElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLLinkElement",
+                "HTMLMapElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLMapElement",
+                "HTMLMediaElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLMediaElement",
+                "HTMLMenuElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLMenuElement",
+                "HTMLMetaElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLMetaElement",
+                "HTMLMeterElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLMeterElement",
+                "HTMLModElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLModElement",
+                "HTMLOListElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLOListElement",
+                "HTMLObjectElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLObjectElement",
+                "HTMLOptGroupElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLOptGroupElement",
+                "HTMLOptionElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLOptionElement",
+                "HTMLOptionsCollection": "https://developer.mozilla.org/en/docs/Web/API/HTMLOptionsCollection",
+                "HTMLOutputElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLOutputElement",
+                "HTMLParagraphElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLParagraphElement",
+                "HTMLParamElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLParamElement",
+                "HTMLPreElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLPreElement",
+                "HTMLProgressElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLProgressElement",
+                "HTMLPropertiesCollection": "https://developer.mozilla.org/en/docs/Web/API/HTMLPropertiesCollection",
+                "HTMLQuoteElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLQuoteElement",
+                "HTMLScriptElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLScriptElement",
+                "HTMLSelectElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLSelectElement",
+                "HTMLSourceElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLSourceElement",
+                "HTMLSpanElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLSpanElement",
+                "HTMLStyleElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLStyleElement",
+                "HTMLTableCaptionElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableCaptionElement",
+                "HTMLTableCellElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableCellElement",
+                "HTMLTableColElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableColElement",
+                "HTMLTableDataCellElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableDataCellElement",
+                "HTMLTableElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableElement",
+                "HTMLTableHeaderCellElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableHeaderCellElement",
+                "HTMLTableRowElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableRowElement",
+                "HTMLTableSectionElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTableSectionElement",
+                "HTMLTextAreaElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTextAreaElement",
+                "HTMLTimeElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTimeElement",
+                "HTMLTitleElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTitleElement",
+                "HTMLTrackElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLTrackElement",
+                "HTMLUListElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLUListElement",
+                "HTMLUnknownElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLUnknownElement",
+                "HTMLVideoElement": "https://developer.mozilla.org/en/docs/Web/API/HTMLVideoElement",
+                "ImageData": "https://developer.mozilla.org/en/docs/Web/API/ImageData",
+                "MediaError": "https://developer.mozilla.org/en/docs/Web/API/MediaError",
+                "MutationObserver": "https://developer.mozilla.org/en/docs/Web/API/MutationObserver",
+                "MutationRecord": "https://developer.mozilla.org/en/docs/Web/API/MutationRecord",
+                "NameList": "https://developer.mozilla.org/en/docs/Web/API/NameList",
+                "NamedNodeMap": "https://developer.mozilla.org/en/docs/Web/API/NamedNodeMap",
+                "Node": "https://developer.mozilla.org/en/docs/Web/API/Node",
+                "NodeFilter": "https://developer.mozilla.org/en/docs/Web/API/NodeFilter",
+                "NodeIterator": "https://developer.mozilla.org/en/docs/Web/API/NodeIterator",
+                "NodeList": "https://developer.mozilla.org/en/docs/Web/API/NodeList",
+                "Notation": "https://developer.mozilla.org/en/docs/Web/API/Notation",
+                "NotifyAudioAvailableEvent": "https://developer.mozilla.org/en/docs/Web/API/NotifyAudioAvailableEvent",
+                "ParentNode": "https://developer.mozilla.org/en/docs/Web/API/ParentNode",
+                "ProcessingInstruction": "https://developer.mozilla.org/en/docs/Web/API/ProcessingInstruction",
+                "Promise": "https://developer.mozilla.org/en/docs/Web/API/Promise",
+                "PromiseResolver": "https://developer.mozilla.org/en/docs/Web/API/PromiseResolver",
+                "RadioNodeList": "https://developer.mozilla.org/en/docs/Web/API/RadioNodeList",
+                "Range": "https://developer.mozilla.org/en/docs/Web/API/Range",
+                "SVGAElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAElement",
+                "SVGAltGlyphDefElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAltGlyphDefElement",
+                "SVGAltGlyphElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAltGlyphElement",
+                "SVGAltGlyphItemElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAltGlyphItemElement",
+                "SVGAngle": "https://developer.mozilla.org/en/docs/Web/API/SVGAngle",
+                "SVGAnimateColorElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimateColorElement",
+                "SVGAnimateElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimateElement",
+                "SVGAnimateMotionElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimateMotionElement",
+                "SVGAnimateTransformElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimateTransformElement",
+                "SVGAnimatedAngle": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedAngle",
+                "SVGAnimatedBoolean": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedBoolean",
+                "SVGAnimatedEnumeration": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedEnumeration",
+                "SVGAnimatedInteger": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedInteger",
+                "SVGAnimatedLength": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedLength",
+                "SVGAnimatedLengthList": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedLengthList",
+                "SVGAnimatedNumber": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedNumber",
+                "SVGAnimatedNumberList": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedNumberList",
+                "SVGAnimatedPathData": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedPathData",
+                "SVGAnimatedPoints": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedPoints",
+                "SVGAnimatedPreserveAspectRatio": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedPreserveAspectRatio",
+                "SVGAnimatedRect": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedRect",
+                "SVGAnimatedString": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedString",
+                "SVGAnimatedTransformList": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimatedTransformList",
+                "SVGAnimationElement": "https://developer.mozilla.org/en/docs/Web/API/SVGAnimationElement",
+                "SVGCSSRule": "https://developer.mozilla.org/en/docs/Web/API/SVGCSSRule",
+                "SVGCircleElement": "https://developer.mozilla.org/en/docs/Web/API/SVGCircleElement",
+                "SVGClipPathElement": "https://developer.mozilla.org/en/docs/Web/API/SVGClipPathElement",
+                "SVGColor": "https://developer.mozilla.org/en/docs/Web/API/SVGColor",
+                "SVGColorProfileElement": "https://developer.mozilla.org/en/docs/Web/API/SVGColorProfileElement",
+                "SVGColorProfileRule": "https://developer.mozilla.org/en/docs/Web/API/SVGColorProfileRule",
+                "SVGComponentTransferFunctionElement": "https://developer.mozilla.org/en/docs/Web/API/SVGComponentTransferFunctionElement",
+                "SVGCursorElement": "https://developer.mozilla.org/en/docs/Web/API/SVGCursorElement",
+                "SVGDefsElement": "https://developer.mozilla.org/en/docs/Web/API/SVGDefsElement",
+                "SVGDescElement": "https://developer.mozilla.org/en/docs/Web/API/SVGDescElement",
+                "SVGElement": "https://developer.mozilla.org/en/docs/Web/API/SVGElement",
+                "SVGElementInstance": "https://developer.mozilla.org/en/docs/Web/API/SVGElementInstance",
+                "SVGElementInstanceList": "https://developer.mozilla.org/en/docs/Web/API/SVGElementInstanceList",
+                "SVGEllipseElement": "https://developer.mozilla.org/en/docs/Web/API/SVGEllipseElement",
+                "SVGExternalResourcesRequired": "https://developer.mozilla.org/en/docs/Web/API/SVGExternalResourcesRequired",
+                "SVGFEBlendElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEBlendElement",
+                "SVGFEColorMatrixElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEColorMatrixElement",
+                "SVGFEComponentTransferElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEComponentTransferElement",
+                "SVGFECompositeElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFECompositeElement",
+                "SVGFEConvolveMatrixElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEConvolveMatrixElement",
+                "SVGFEDiffuseLightingElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEDiffuseLightingElement",
+                "SVGFEDisplacementMapElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEDisplacementMapElement",
+                "SVGFEDistantLightElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEDistantLightElement",
+                "SVGFEFloodElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEFloodElement",
+                "SVGFEFuncAElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEFuncAElement",
+                "SVGFEFuncBElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEFuncBElement",
+                "SVGFEFuncGElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEFuncGElement",
+                "SVGFEFuncRElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEFuncRElement",
+                "SVGFEGaussianBlurElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEGaussianBlurElement",
+                "SVGFEImageElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEImageElement",
+                "SVGFEMergeElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEMergeElement",
+                "SVGFEMergeNodeElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEMergeNodeElement",
+                "SVGFEMorphologyElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEMorphologyElement",
+                "SVGFEOffsetElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEOffsetElement",
+                "SVGFEPointLightElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFEPointLightElement",
+                "SVGFESpecularLightingElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFESpecularLightingElement",
+                "SVGFESpotLightElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFESpotLightElement",
+                "SVGFETileElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFETileElement",
+                "SVGFETurbulenceElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFETurbulenceElement",
+                "SVGFilterElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFilterElement",
+                "SVGFilterPrimitiveStandardAttributes": "https://developer.mozilla.org/en/docs/Web/API/SVGFilterPrimitiveStandardAttributes",
+                "SVGFitToViewBox": "https://developer.mozilla.org/en/docs/Web/API/SVGFitToViewBox",
+                "SVGFontElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFontElement",
+                "SVGFontFaceElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFontFaceElement",
+                "SVGFontFaceFormatElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFontFaceFormatElement",
+                "SVGFontFaceNameElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFontFaceNameElement",
+                "SVGFontFaceSrcElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFontFaceSrcElement",
+                "SVGFontFaceUriElement": "https://developer.mozilla.org/en/docs/Web/API/SVGFontFaceUriElement",
+                "SVGForeignObjectElement": "https://developer.mozilla.org/en/docs/Web/API/SVGForeignObjectElement",
+                "SVGGElement": "https://developer.mozilla.org/en/docs/Web/API/SVGGElement",
+                "SVGGlyphElement": "https://developer.mozilla.org/en/docs/Web/API/SVGGlyphElement",
+                "SVGGlyphRefElement": "https://developer.mozilla.org/en/docs/Web/API/SVGGlyphRefElement",
+                "SVGGradientElement": "https://developer.mozilla.org/en/docs/Web/API/SVGGradientElement",
+                "SVGHKernElement": "https://developer.mozilla.org/en/docs/Web/API/SVGHKernElement",
+                "SVGICCColor": "https://developer.mozilla.org/en/docs/Web/API/SVGICCColor",
+                "SVGImageElement": "https://developer.mozilla.org/en/docs/Web/API/SVGImageElement",
+                "SVGLangSpace": "https://developer.mozilla.org/en/docs/Web/API/SVGLangSpace",
+                "SVGLength": "https://developer.mozilla.org/en/docs/Web/API/SVGLength",
+                "SVGLengthList": "https://developer.mozilla.org/en/docs/Web/API/SVGLengthList",
+                "SVGLineElement": "https://developer.mozilla.org/en/docs/Web/API/SVGLineElement",
+                "SVGLinearGradientElement": "https://developer.mozilla.org/en/docs/Web/API/SVGLinearGradientElement",
+                "SVGLocatable": "https://developer.mozilla.org/en/docs/Web/API/SVGLocatable",
+                "SVGMPathElement": "https://developer.mozilla.org/en/docs/Web/API/SVGMPathElement",
+                "SVGMarkerElement": "https://developer.mozilla.org/en/docs/Web/API/SVGMarkerElement",
+                "SVGMaskElement": "https://developer.mozilla.org/en/docs/Web/API/SVGMaskElement",
+                "SVGMatrix": "https://developer.mozilla.org/en/docs/Web/API/SVGMatrix",
+                "SVGMetadataElement": "https://developer.mozilla.org/en/docs/Web/API/SVGMetadataElement",
+                "SVGMissingGlyphElement": "https://developer.mozilla.org/en/docs/Web/API/SVGMissingGlyphElement",
+                "SVGNumber": "https://developer.mozilla.org/en/docs/Web/API/SVGNumber",
+                "SVGNumberList": "https://developer.mozilla.org/en/docs/Web/API/SVGNumberList",
+                "SVGPaint": "https://developer.mozilla.org/en/docs/Web/API/SVGPaint",
+                "SVGPathElement": "https://developer.mozilla.org/en/docs/Web/API/SVGPathElement",
+                "SVGPathSeg": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSeg",
+                "SVGPathSegArcAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegArcAbs",
+                "SVGPathSegArcRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegArcRel",
+                "SVGPathSegClosePath": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegClosePath",
+                "SVGPathSegCurvetoCubicAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoCubicAbs",
+                "SVGPathSegCurvetoCubicRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoCubicRel",
+                "SVGPathSegCurvetoCubicSmoothAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoCubicSmoothAbs",
+                "SVGPathSegCurvetoCubicSmoothRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoCubicSmoothRel",
+                "SVGPathSegCurvetoQuadraticAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoQuadraticAbs",
+                "SVGPathSegCurvetoQuadraticRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoQuadraticRel",
+                "SVGPathSegCurvetoQuadraticSmoothAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoQuadraticSmoothAbs",
+                "SVGPathSegCurvetoQuadraticSmoothRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegCurvetoQuadraticSmoothRel",
+                "SVGPathSegLinetoAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegLinetoAbs",
+                "SVGPathSegLinetoHorizontalAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegLinetoHorizontalAbs",
+                "SVGPathSegLinetoHorizontalRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegLinetoHorizontalRel",
+                "SVGPathSegLinetoRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegLinetoRel",
+                "SVGPathSegLinetoVerticalAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegLinetoVerticalAbs",
+                "SVGPathSegLinetoVerticalRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegLinetoVerticalRel",
+                "SVGPathSegList": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegList",
+                "SVGPathSegMovetoAbs": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegMovetoAbs",
+                "SVGPathSegMovetoRel": "https://developer.mozilla.org/en/docs/Web/API/SVGPathSegMovetoRel",
+                "SVGPatternElement": "https://developer.mozilla.org/en/docs/Web/API/SVGPatternElement",
+                "SVGPoint": "https://developer.mozilla.org/en/docs/Web/API/SVGPoint",
+                "SVGPointList": "https://developer.mozilla.org/en/docs/Web/API/SVGPointList",
+                "SVGPolygonElement": "https://developer.mozilla.org/en/docs/Web/API/SVGPolygonElement",
+                "SVGPolylineElement": "https://developer.mozilla.org/en/docs/Web/API/SVGPolylineElement",
+                "SVGPreserveAspectRatio": "https://developer.mozilla.org/en/docs/Web/API/SVGPreserveAspectRatio",
+                "SVGRadialGradientElement": "https://developer.mozilla.org/en/docs/Web/API/SVGRadialGradientElement",
+                "SVGRect": "https://developer.mozilla.org/en/docs/Web/API/SVGRect",
+                "SVGRectElement": "https://developer.mozilla.org/en/docs/Web/API/SVGRectElement",
+                "SVGRenderingIntent": "https://developer.mozilla.org/en/docs/Web/API/SVGRenderingIntent",
+                "SVGSVGElement": "https://developer.mozilla.org/en/docs/Web/API/SVGSVGElement",
+                "SVGScriptElement": "https://developer.mozilla.org/en/docs/Web/API/SVGScriptElement",
+                "SVGSetElement": "https://developer.mozilla.org/en/docs/Web/API/SVGSetElement",
+                "SVGStopElement": "https://developer.mozilla.org/en/docs/Web/API/SVGStopElement",
+                "SVGStringList": "https://developer.mozilla.org/en/docs/Web/API/SVGStringList",
+                "SVGStylable": "https://developer.mozilla.org/en/docs/Web/API/SVGStylable",
+                "SVGStyleElement": "https://developer.mozilla.org/en/docs/Web/API/SVGStyleElement",
+                "SVGSwitchElement": "https://developer.mozilla.org/en/docs/Web/API/SVGSwitchElement",
+                "SVGSymbolElement": "https://developer.mozilla.org/en/docs/Web/API/SVGSymbolElement",
+                "SVGTRefElement": "https://developer.mozilla.org/en/docs/Web/API/SVGTRefElement",
+                "SVGTSpanElement": "https://developer.mozilla.org/en/docs/Web/API/SVGTSpanElement",
+                "SVGTests": "https://developer.mozilla.org/en/docs/Web/API/SVGTests",
+                "SVGTextContentElement": "https://developer.mozilla.org/en/docs/Web/API/SVGTextContentElement",
+                "SVGTextElement": "https://developer.mozilla.org/en/docs/Web/API/SVGTextElement",
+                "SVGTextPathElement": "https://developer.mozilla.org/en/docs/Web/API/SVGTextPathElement",
+                "SVGTextPositioningElement": "https://developer.mozilla.org/en/docs/Web/API/SVGTextPositioningElement",
+                "SVGTitleElement": "https://developer.mozilla.org/en/docs/Web/API/SVGTitleElement",
+                "SVGTransform": "https://developer.mozilla.org/en/docs/Web/API/SVGTransform",
+                "SVGTransformList": "https://developer.mozilla.org/en/docs/Web/API/SVGTransformList",
+                "SVGTransformable": "https://developer.mozilla.org/en/docs/Web/API/SVGTransformable",
+                "SVGURIReference": "https://developer.mozilla.org/en/docs/Web/API/SVGURIReference",
+                "SVGUnitTypes": "https://developer.mozilla.org/en/docs/Web/API/SVGUnitTypes",
+                "SVGUseElement": "https://developer.mozilla.org/en/docs/Web/API/SVGUseElement",
+                "SVGVKernElement": "https://developer.mozilla.org/en/docs/Web/API/SVGVKernElement",
+                "SVGViewElement": "https://developer.mozilla.org/en/docs/Web/API/SVGViewElement",
+                "SVGViewSpec": "https://developer.mozilla.org/en/docs/Web/API/SVGViewSpec",
+                "SVGZoomAndPan": "https://developer.mozilla.org/en/docs/Web/API/SVGZoomAndPan",
+                "Text": "https://developer.mozilla.org/en/docs/Web/API/Text",
+                "TextMetrics": "https://developer.mozilla.org/en/docs/Web/API/TextMetrics",
+                "TimeEvent": "https://developer.mozilla.org/en/docs/Web/API/TimeEvent",
+                "TreeWalker": "https://developer.mozilla.org/en/docs/Web/API/TreeWalker",
+                "TypeInfo": "https://developer.mozilla.org/en/docs/Web/API/TypeInfo",
+                "URL": "https://developer.mozilla.org/en/docs/Web/API/URL",
+                "UserDataHandler": "https://developer.mozilla.org/en/docs/Web/API/UserDataHandler",
+                "Window": "https://developer.mozilla.org/en/docs/Web/API/Window",
+                "Worker": "https://developer.mozilla.org/en/docs/Web/API/Worker",
+                "XMLDocument": "https://developer.mozilla.org/en/docs/Web/API/XMLDocument"
+              }
+            ]
+          },
           "name": "CoffeeScript"
         },
         "sourcePath": "/Users/sjorek/Documents/Projects/Mesch/Workspace (Aptana)/goatee-script/src/Utility.coffee",
@@ -634,14 +8096,29 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
   };
 
   buildTOCNode = function(node, metaInfo) {
-    var c, children$, discloser$, label$, node$, _i, _len, _ref, _ref1, _ref2;
+    var c, children$, clickLabel, discloser, discloser$, label$, node$, _i, _len, _ref, _ref1, _ref2;
     node$ = $("<li class=\"" + node.type + "\"/>");
+    discloser = null;
     switch (node.type) {
       case 'file':
         node$.append("<a class=\"label\" href=\"" + metaInfo.relativeRoot + node.data.targetPath + ".html\" title=\"" + node.data.projectPath + "\"><span class=\"text\">" + node.data.title + "</span></a>");
+        clickLabel = function(evt) {
+          if (evt.target === discloser) {
+            node$.toggleClass('expanded');
+            evt.preventDefault();
+            return false;
+          }
+          return selectNode(node$);
+        };
         break;
       case 'folder':
-        node$.append("<span class=\"label\"><span class=\"text\">" + node.data.title + "</span></span>");
+        node$.append("<a class=\"label\" href=\"#\"><span class=\"text\">" + node.data.title + "</span></a>");
+        clickLabel = function(evt) {
+          selectNode(node$);
+          node$.toggleClass('expanded');
+          evt.preventDefault();
+          return false;
+        };
     }
     if (((_ref = node.children) != null ? _ref.length : void 0) > 0) {
       children$ = $('<ol class="children"/>');
@@ -653,17 +8130,12 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
       node$.append(children$);
     }
     label$ = node$.find('> .label');
-    label$.click(function() {
-      return selectNode(node$);
-    });
+    label$.click(clickLabel);
     discloser$ = $('<span class="discloser"/>').prependTo(label$);
     if (!(((_ref2 = node.children) != null ? _ref2.length : void 0) > 0)) {
       discloser$.addClass('placeholder');
     }
-    discloser$.click(function(evt) {
-      node$.toggleClass('expanded');
-      return evt.preventDefault();
-    });
+    discloser = discloser$.get(0);
     if (node.type === 'file') {
       fileMap[node.data.targetPath] = node$;
     }

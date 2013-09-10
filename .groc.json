@@ -1,7 +1,8 @@
 {
   "glob": ["src/**/*.coffee", "README.md", "Cakefile"],
+  "strip": ["src/"],
   "index": "README.md",
   "title": "goatee-script",
-  "showdown": "table",
+  "showdown": ["table"],
   "whitespace-after-token": false
 }
