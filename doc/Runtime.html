@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><title>Runtime</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content=""><meta name="groc-document-path" content="Runtime"><meta name="groc-project-path" content="src/Runtime.coffee"><link rel="stylesheet" type="text/css" media="all" href="assets/style.css"><script type="text/javascript" src="assets/behavior.js"></script><body><div id="meta"><div class="file-path">src/Runtime.coffee</div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><p>© Copyright 2013 Stephan Jorek <a href="&#109;&#x61;&#105;&#x6c;&#116;&#x6f;:&#115;&#x74;&#101;&#112;&#x68;a&#110;&#x2e;&#106;&#111;&#x72;&#101;&#107;&#64;&#103;&#x6d;&#x61;&#105;&#108;&#46;&#x63;o&#109;">&#115;&#x74;&#101;&#112;&#x68;a&#110;&#x2e;&#106;&#111;&#x72;&#101;&#107;&#64;&#103;&#x6d;&#x61;&#105;&#108;&#46;&#x63;o&#109;</a>  </p>
+<!DOCTYPE html><html lang="en"><head><title>Runtime</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content=""><meta name="groc-document-path" content="Runtime"><meta name="groc-project-path" content="src/Runtime.coffee"><link rel="stylesheet" type="text/css" media="all" href="assets/style.css"><script type="text/javascript" src="assets/behavior.js"></script><body><div id="meta"><div class="file-path">src/Runtime.coffee</div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><p>© Copyright 2013 Stephan Jorek <a href="&#x6d;&#97;&#105;&#108;&#x74;&#111;:&#x73;&#116;&#101;&#112;h&#x61;&#x6e;&#46;jo&#114;&#101;&#x6b;&#x40;&#103;&#109;&#97;&#105;&#108;.&#99;&#x6f;&#109;">&#x73;&#116;&#101;&#112;h&#x61;&#x6e;&#46;jo&#114;&#101;&#x6b;&#x40;&#103;&#109;&#97;&#105;&#108;.&#99;&#x6f;&#109;</a>  </p>
 
 <p>Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -23,31 +23,24 @@ permissions and limitations under the License.</p></div></div><div class="code">
   <span class="nx">parse</span>
 <span class="p">}}</span>              <span class="o">=</span> <span class="nx">require</span> <span class="s">&#39;./Utility&#39;</span>
 
-<span class="nv">exports = </span><span class="nx">module</span><span class="o">?</span><span class="p">.</span><span class="nx">exports</span> <span class="o">?</span> <span class="k">this</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'>Class  is in namespace <em>GoateeScript</em></span></p>
+<span class="nv">exports = </span><span class="nx">module</span><span class="o">?</span><span class="p">.</span><span class="nx">exports</span> <span class="o">?</span> <span class="k">this</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'> class and namespace GoateeScript</span></p>
 
-<p>#</p>
-
-<p><br/><br/></p></div></div><div class="code"><div class="wrapper"><span class="nv">exports.Runtime = </span><span class="k">class</span> <span class="nx">Runtime</span>
+<p>#</p></div></div><div class="code"><div class="wrapper"><span class="nv">exports.Runtime = </span><span class="k">class</span> <span class="nx">Runtime</span>
 
   <span class="nv">_operations = </span><span class="nx">Expression</span><span class="p">.</span><span class="nx">operations</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p>#</p>
 
-<p><strong>Returns an <em><a href="https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Array">Array</a></em></strong></p>
-
-<p><br/><br/></p></div></div><div class="code"><div class="wrapper">  <span class="nv">Runtime.aliases  = _aliases = </span><span class="nx">do</span> <span class="nf">-&gt;</span>
+<p><strong>Returns an Array</strong></p></div></div><div class="code"><div class="wrapper">  <span class="nv">Runtime.aliases  = _aliases = </span><span class="nx">do</span> <span class="nf">-&gt;</span>
     <span class="nv">index = </span><span class="kc">null</span>
-    <span class="p">()</span> <span class="nf">-&gt;</span>
+    <span class="nf">() -&gt;</span>
       <span class="nx">index</span> <span class="o">?</span> <span class="nv">index = </span><span class="s">&#39;abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ$_&#39;</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s">&#39;&#39;</span><span class="p">)</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p>#</p>
 
-<p><strong>Parameter:</strong></p>
+<p>Parameters:</p>
 
 <ul>
-<li><strong><em>compress</em> must be a <em><a href="https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></em></strong> <br />
-, default: on</li>
+<li><strong>compress must be a Boolean.</strong><br/>(, default: on)</li>
 </ul>
 
-<p><strong>Returns a <em><a href="https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/String">String</a></em></strong></p>
-
-<p><br/><br/></p></div></div><div class="code"><div class="wrapper">  <span class="nv">Runtime.generate = </span><span class="nx">do</span> <span class="nf">-&gt;</span>
+<p><strong>Returns a String</strong></p></div></div><div class="code"><div class="wrapper">  <span class="nv">Runtime.generate = </span><span class="nx">do</span> <span class="nf">-&gt;</span>
 
     <span class="nv">aliases     = </span><span class="p">[]</span>
     <span class="k">for</span> <span class="nx">alias</span> <span class="k">in</span> <span class="nx">_aliases</span><span class="p">().</span><span class="nx">reverse</span><span class="p">()</span> <span class="k">when</span> <span class="o">not</span> <span class="nx">_operations</span><span class="p">[</span><span class="nx">alias</span><span class="p">]</span><span class="o">?</span>

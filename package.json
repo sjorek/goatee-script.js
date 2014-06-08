@@ -31,11 +31,11 @@
     "nomnom": "~1.6"
   },
   "devDependencies": {
-    "coffee-script": "~1.6",
+    "coffee-script": "~1",
     "jison": "~0.4",
     "benchmark": "~1.0",
-    "groc": "sjorek/groc",
-    "jasmine-node": "~1.11"
+    "groc": "nevir/groc",
+    "jasmine-node": "~1"
   },
   "readmeFilename": "README.md"
 }

@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><title>Expression</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content=""><meta name="groc-document-path" content="Expression"><meta name="groc-project-path" content="src/Expression.coffee"><link rel="stylesheet" type="text/css" media="all" href="assets/style.css"><script type="text/javascript" src="assets/behavior.js"></script><body><div id="meta"><div class="file-path">src/Expression.coffee</div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><p>© Copyright 2013 Stephan Jorek <a href="m&#97;&#x69;l&#116;&#111;:&#115;&#x74;&#101;p&#x68;&#97;&#x6e;&#46;&#106;&#x6f;&#114;&#101;&#107;&#64;&#103;&#x6d;&#97;&#105;&#108;&#x2e;&#99;&#x6f;m">&#115;&#x74;&#101;p&#x68;&#97;&#x6e;&#46;&#106;&#x6f;&#114;&#101;&#107;&#64;&#103;&#x6d;&#97;&#105;&#108;&#x2e;&#99;&#x6f;m</a>  </p>
+<!DOCTYPE html><html lang="en"><head><title>Expression</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content=""><meta name="groc-document-path" content="Expression"><meta name="groc-project-path" content="src/Expression.coffee"><link rel="stylesheet" type="text/css" media="all" href="assets/style.css"><script type="text/javascript" src="assets/behavior.js"></script><body><div id="meta"><div class="file-path">src/Expression.coffee</div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><p>© Copyright 2013 Stephan Jorek <a href="&#x6d;&#97;&#105;&#x6c;&#116;&#111;:&#115;&#x74;&#x65;&#112;&#x68;a&#110;&#x2e;&#106;&#111;re&#107;&#x40;&#103;&#109;&#x61;&#x69;l&#46;&#x63;&#111;&#x6d;">&#115;&#x74;&#x65;&#112;&#x68;a&#110;&#x2e;&#106;&#111;re&#107;&#x40;&#103;&#109;&#x61;&#x69;l&#46;&#x63;&#111;&#x6d;</a>  </p>
 
 <p>Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -22,14 +22,12 @@ permissions and limitations under the License.</p></div></div><div class="code">
   <span class="nx">isExpression</span>
 <span class="p">}}</span>              <span class="o">=</span> <span class="nx">require</span> <span class="s">&#39;./Utility&#39;</span>
 
-<span class="nv">exports = </span><span class="nx">module</span><span class="o">?</span><span class="p">.</span><span class="nx">exports</span> <span class="o">?</span> <span class="k">this</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'>Class  is in namespace <em>GoateeScript</em></span></p>
+<span class="nv">exports = </span><span class="nx">module</span><span class="o">?</span><span class="p">.</span><span class="nx">exports</span> <span class="o">?</span> <span class="k">this</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'> class and namespace GoateeScript</span></p>
 
 <p>#
 Expression are the glue between runtime-evaluation, -interpretation and
 -compilation.  The parser emits these expressions, whereas the compiler
-consumes them.</p>
-
-<p><br/><br/></p></div></div><div class="code"><div class="wrapper"><span class="nv">exports.Expression = </span><span class="k">class</span> <span class="nx">Expression</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Shortcuts to ease access to otherwise deeply nested properties</p></div></div><div class="code"><div class="wrapper">  <span class="nv">_stack        = </span><span class="kc">null</span>
+consumes them.</p></div></div><div class="code"><div class="wrapper"><span class="nv">exports.Expression = </span><span class="k">class</span> <span class="nx">Expression</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Shortcuts to ease access to otherwise deeply nested properties</p></div></div><div class="code"><div class="wrapper">  <span class="nv">_stack        = </span><span class="kc">null</span>
   <span class="nv">_scope        = </span><span class="kc">null</span>
   <span class="nv">_errors       = </span><span class="kc">null</span>
   <span class="nv">_global       = </span><span class="kc">null</span>
@@ -39,20 +37,16 @@ consumes them.</p>
 Determine if the current state resolves to a property.  Used by
 <code>Expression.operations.reference.evaluate</code></p>
 
-<p><strong>Returns a <em><a href="https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></em></strong></p>
-
-<p><br/><br/></p></div></div><div class="code"><div class="wrapper">  <span class="nv">_isProperty   = </span><span class="p">()</span> <span class="nf">-&gt;</span>
+<p><strong>Returns a Boolean</strong></p></div></div><div class="code"><div class="wrapper">  <span class="nv">_isProperty   = </span><span class="nf">() -&gt;</span>
     <span class="nv">p = </span><span class="nx">_stack</span><span class="p">.</span><span class="nx">parent</span><span class="p">()</span>
     <span class="nx">p</span><span class="o">?</span> <span class="o">and</span> <span class="nx">p</span><span class="p">.</span><span class="nx">operator</span><span class="p">.</span><span class="nx">name</span> <span class="o">is</span> <span class="nx">_property</span> <span class="o">and</span> <span class="nx">p</span><span class="p">.</span><span class="nx">parameters</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">is</span> <span class="nx">_stack</span><span class="p">.</span><span class="nx">current</span><span class="p">()</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p>#</p>
 
-<p><strong>Parameters:</strong></p>
+<p>Parameters:</p>
 
 <ul>
-<li><p><strong><em>context</em> must be an <em><a href="https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Object">Object</a></em></strong></p></li>
-<li><p><strong><em>expression</em> can be an <em>Expression</em> or a <em>mixed</em></strong></p></li>
-</ul>
-
-<p><br/><br/></p></div></div><div class="code"><div class="wrapper">  <span class="nv">Expression.execute = _execute = </span><span class="nf">(context, expression) -&gt;</span>
+<li><p><strong>context must be an Object.</strong></p></li>
+<li><p><strong>expression can be an Expression or a mixed.</strong></p></li>
+</ul></div></div><div class="code"><div class="wrapper">  <span class="nv">Expression.execute = _execute = </span><span class="nf">(context, expression) -&gt;</span>
     <span class="k">return</span> <span class="nx">expression</span> <span class="k">unless</span> <span class="nx">isExpression</span> <span class="nx">expression</span>
     <span class="nx">_stack</span><span class="p">.</span><span class="nx">push</span> <span class="nx">context</span><span class="p">,</span> <span class="nx">expression</span>
     <span class="k">try</span>
@@ -65,48 +59,36 @@ Set a static callback, to be invoked after an expression has been
 evaluated, but before the stack gets cleared.  Implemented as:
   <code>callback(expression, result, _stack, _errors)</code></p>
 
-<p><strong>Parameter:</strong></p>
+<p>Parameters:</p>
 
 <ul>
-<li><strong><em>A</em> must be a <em><a href="https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Function">Function</a></em></strong> <br />
-callback-function (closure) to invoke</li>
+<li><strong>A must be a Function.</strong><br/>(callback-function (closure) to invoke)</li>
 </ul>
 
-<p><strong>Returns a <em><a href="https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Function">Function</a></em></strong></p>
-
-<p><br/><br/></p></div></div><div class="code"><div class="wrapper">  <span class="nv">Expression.callback = </span><span class="nf">(callback) -&gt;</span>
+<p><strong>Returns a Function</strong></p></div></div><div class="code"><div class="wrapper">  <span class="nv">Expression.callback = </span><span class="nf">(callback) -&gt;</span>
     <span class="nv">_callback = </span><span class="nx">callback</span>
     <span class="k">return</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p>#
 Get an array of all errors caught and collected during evaluation or
 <code>false</code> if none of them occured.</p>
 
-<p><strong>Returns a <em><a href="https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></em> or an <em>Array<Error></em></strong></p>
-
-<p><br/><br/></p></div></div><div class="code"><div class="wrapper">  <span class="nv">Expression.errors = </span><span class="p">()</span> <span class="nf">-&gt;</span>
+<p><strong>Returns a Boolean or an Array<Error></strong></p></div></div><div class="code"><div class="wrapper">  <span class="nv">Expression.errors = </span><span class="nf">() -&gt;</span>
     <span class="nx">_errors</span> <span class="k">if</span> <span class="nx">_errors</span><span class="o">?</span> <span class="o">and</span> <span class="nx">_errors</span><span class="p">.</span><span class="nx">length</span> <span class="o">isnt</span> <span class="mi">0</span>
     <span class="kc">false</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p>#
 This is the start and finish of evaluations.  Resets the environment before
 and after any execution.  This implementation avoids self-recursion as it
 reassigns the evaluation function.</p>
 
-<p><strong>Parameters:</strong></p>
+<p>Parameters:</p>
 
 <ul>
-<li><p><strong><em>context</em> must be an <em><a href="https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Object">Object</a></em></strong> <br />
-(optional)</p></li>
-<li><p><strong><em>expression</em> can be an <em>Expression</em> or a <em>mixed</em></strong> <br />
-(optional)</p></li>
-<li><p><strong><em>variables</em> must be an <em><a href="https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Object">Object</a></em></strong> <br />
-(optional)</p></li>
-<li><p><strong><em>scope</em> must be an <em><a href="https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Array">Array</a></em></strong> <br />
-(optional)</p></li>
-<li><p><strong><em>stack</em> must be an <em><a href="https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Array">Array</a></em></strong> <br />
-(optional)</p></li>
+<li><p><strong>context must be an Object.</strong><br/>((optional))</p></li>
+<li><p><strong>expression can be an Expression or a mixed.</strong><br/>((optional))</p></li>
+<li><p><strong>variables must be an Object.</strong><br/>((optional))</p></li>
+<li><p><strong>scope must be an Array.</strong><br/>((optional))</p></li>
+<li><p><strong>stack must be an Array.</strong><br/>((optional))</p></li>
 </ul>
 
-<p><strong>Returns any type</strong></p>
-
-<p><br/><br/></p></div></div><div class="code"><div class="wrapper">  <span class="nv">Expression.evaluate = </span><span class="o">\</span>
+<p><strong>Returns a mixed</strong></p></div></div><div class="code"><div class="wrapper">  <span class="nv">Expression.evaluate = </span><span class="o">\</span>
   <span class="nv">_evaluate = </span><span class="nf">(context={}, expression, variables, scope, stack) -&gt;</span>
     <span class="k">return</span> <span class="nx">expression</span> <span class="k">unless</span> <span class="nx">isExpression</span> <span class="nx">expression</span>
 
@@ -134,16 +116,14 @@ reassigns the evaluation function.</p>
 Process the expression and evaluate its result. Chained (sub-)expressions
 and vector operations are resolved here.</p>
 
-<p><strong>Parameters:</strong></p>
+<p>Parameters:</p>
 
 <ul>
-<li><p><strong><em>context</em> must be an <em><a href="https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Object">Object</a></em></strong></p></li>
-<li><p><strong><em>expression</em> must be an <em>Expression</em></strong></p></li>
+<li><p><strong>context must be an Object.</strong></p></li>
+<li><p><strong>expression must be an Expression.</strong></p></li>
 </ul>
 
-<p><strong>Returns any type</strong></p>
-
-<p><br/><br/></p></div></div><div class="code"><div class="wrapper">  <span class="nv">_process = </span><span class="nf">(context, expression) -&gt;</span>
+<p><strong>Returns a mixed</strong></p></div></div><div class="code"><div class="wrapper">  <span class="nv">_process = </span><span class="nf">(context, expression) -&gt;</span>
     <span class="p">{</span><span class="nx">operator</span><span class="p">,</span><span class="nx">parameters</span><span class="p">}</span> <span class="o">=</span> <span class="nx">expression</span>
     <span class="k">if</span> <span class="nx">operator</span><span class="p">.</span><span class="nx">chain</span>
       <span class="k">unless</span> <span class="nx">parameters</span><span class="p">.</span><span class="nx">length</span> <span class="o">is</span> <span class="mi">2</span>
@@ -176,15 +156,13 @@ Determine the expression's boolean value, as defined in Ecmascript 3/5/6.
 Therefor arrays are processed recursivly item by item and if one of them
 resolves to a false value, this function returns false immediatly.</p>
 
-<p><strong>Parameter:</strong></p>
+<p>Parameters:</p>
 
 <ul>
-<li><strong><em>value</em> can be of any type</strong></li>
+<li><strong>value must be a mixed.</strong></li>
 </ul>
 
-<p><strong>Returns a <em>Booelan</em></strong></p>
-
-<p><br/><br/></p></div></div><div class="code"><div class="wrapper">  <span class="nv">Expression.booleanize = _booleanize = </span><span class="nf">(value) -&gt;</span>
+<p><strong>Returns a Booelan</strong></p></div></div><div class="code"><div class="wrapper">  <span class="nv">Expression.booleanize = _booleanize = </span><span class="nf">(value) -&gt;</span>
     <span class="k">if</span> <span class="nx">isArray</span> <span class="nx">value</span>
       <span class="k">for</span> <span class="nx">item</span> <span class="k">in</span> <span class="nx">value</span>
         <span class="k">if</span> <span class="nx">_booleanize</span> <span class="nx">item</span>
@@ -197,15 +175,13 @@ operator has a <code>format</code> function (see Èxpression.operations` below) 
 be called with the expression parameters, otherwise a string will be build
 from those parameters.</p>
 
-<p><strong>Parameter:</strong></p>
+<p>Parameters:</p>
 
 <ul>
-<li><strong><em>value</em> can be of any type</strong></li>
+<li><strong>value must be a mixed.</strong></li>
 </ul>
 
-<p><strong>Returns a <em><a href="https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/String">String</a></em></strong></p>
-
-<p><br/><br/></p></div></div><div class="code"><div class="wrapper">  <span class="nv">Expression.stringify = _stringify = </span><span class="nf">(value) -&gt;</span>
+<p><strong>Returns a String</strong></p></div></div><div class="code"><div class="wrapper">  <span class="nv">Expression.stringify = _stringify = </span><span class="nf">(value) -&gt;</span>
     <span class="k">if</span> <span class="o">not</span> <span class="nx">isExpression</span> <span class="nx">value</span>
       <span class="k">return</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span> <span class="nx">value</span>
 
@@ -217,13 +193,11 @@ from those parameters.</p>
     <span class="k">else</span> <span class="k">if</span> <span class="nx">parameters</span><span class="p">.</span><span class="nx">length</span> <span class="o">is</span> <span class="mi">2</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>basic operations</p></div></div><div class="code"><div class="wrapper">      <span class="s">&quot;</span><span class="si">#{</span><span class="nx">_stringify</span> <span class="nx">parameters</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}#{</span><span class="nx">operator</span><span class="si">}#{</span><span class="nx">_stringify</span> <span class="nx">parameters</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s">&quot;</span>
     <span class="k">else</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>block statements and … ?</p></div></div><div class="code"><div class="wrapper">      <span class="nv">format = </span><span class="p">[]</span>
       <span class="nx">format</span><span class="p">.</span><span class="nx">push</span> <span class="nx">_stringify</span><span class="p">(</span><span class="nx">parameter</span><span class="p">)</span> <span class="k">for</span> <span class="nx">parameter</span> <span class="k">in</span> <span class="nx">parameters</span>
-      <span class="nx">format</span><span class="p">.</span><span class="nx">join</span> <span class="s">&#39; &#39;</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'> is an <em><a href="https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Object">Object</a></em></span></p>
+      <span class="nx">format</span><span class="p">.</span><span class="nx">join</span> <span class="s">&#39; &#39;</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'> of type <em>Object</em></span></p>
 
 <p>#
 A dictionary of all known operations an expression might perform.
-Used during runtime interpretation, stringification and compilation.</p>
-
-<p><br/><br/></p></div></div><div class="code"><div class="wrapper">  <span class="nv">Expression.operations = _operations =</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>#
+Used during runtime interpretation, stringification and compilation.</p></div></div><div class="code"><div class="wrapper">  <span class="nv">Expression.operations = _operations =</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>#
 An assignment, filled below</p></div></div><div class="code"><div class="wrapper">    <span class="s">&#39;=&#39;</span><span class="o">:</span>
       <span class="nv">evaluate: </span><span class="nf">(a,b) -&gt;</span>
         <span class="nx">_local</span><span class="p">[</span><span class="nx">a</span><span class="p">]</span> <span class="o">=</span> <span class="nx">b</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>#
@@ -598,17 +572,13 @@ Fills and adds missing <code>Expression.operations</code></p></div></div><div cl
     <span class="k">return</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p>#
 Lookup an operation by its name (~ key in <code>Expression.operations</code>)</p>
 
-<p><strong>Parameter:</strong></p>
+<p>Parameters:</p>
 
 <ul>
-<li><strong><em>name</em> must be a <em><a href="https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/String">String</a></em></strong></li>
+<li><strong>name must be a String.</strong></li>
 </ul>
 
-<p><strong>Returns an <em><a href="https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Object">Object</a></em></strong></p>
-
-<p><strong>Can throw an <em><a href="https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Error">Error</a></em></strong></p>
-
-<p><br/><br/></p></div></div><div class="code"><div class="wrapper">  <span class="nv">Expression.operator = _operator = </span><span class="nf">(name) -&gt;</span>
+<p><strong>Returns an Object</strong><br/><strong>and</strong> <strong>Can throw an Error</strong></p></div></div><div class="code"><div class="wrapper">  <span class="nv">Expression.operator = _operator = </span><span class="nf">(name) -&gt;</span>
     <span class="k">if</span> <span class="p">(</span><span class="nv">op = </span><span class="nx">_operations</span><span class="p">[</span><span class="nx">name</span><span class="p">])</span><span class="o">?</span>
       <span class="k">return</span> <span class="k">if</span> <span class="nx">op</span><span class="p">.</span><span class="nx">name</span><span class="o">?</span> <span class="k">then</span> <span class="nx">op</span> <span class="k">else</span> <span class="nx">_operator</span> <span class="nx">op</span>
     <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;operation not found: </span><span class="si">#{</span><span class="nx">name</span><span class="si">}</span><span class="s">&quot;</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'>Constructor</span></p>
@@ -617,18 +587,14 @@ Lookup an operation by its name (~ key in <code>Expression.operations</code>)</p
 The expressions constructor.  Depending on the operations' constant and
 vector the given paramters might get evaluated here, to save nesting depth.</p>
 
-<p><strong>Parameters:</strong></p>
+<p>Parameters:</p>
 
 <ul>
-<li><p><strong><em>op</em> must be a <em><a href="https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/String">String</a></em></strong> <br />
-expression's operation name</p></li>
-<li><p><strong><em>parameters</em> must be an <em><a href="https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Array">Array</a></em></strong> <br />
-expression's parameters</p></li>
+<li><p><strong>op must be a String.</strong><br/>(expression's operation name)</p></li>
+<li><p><strong>parameters must be an Array.</strong><br/>(expression's parameters)</p></li>
 </ul>
 
-<p><strong>Returns an <em>Expression</em> or a <em>void</em></strong><br/>expression or an early resolved new instance<br/></p>
-
-<p><br/><br/></p></div></div><div class="code"><div class="wrapper">  <span class="nv">constructor: </span><span class="nf">(op, @parameters=[]) -&gt;</span>
+<p><strong>Returns an Expression or a void</strong><br/>(expression or an early resolved new instance)</p></div></div><div class="code"><div class="wrapper">  <span class="nv">constructor: </span><span class="nf">(op, @parameters=[]) -&gt;</span>
     <span class="vi">@operator   = </span><span class="nx">_operator</span><span class="p">(</span><span class="nx">op</span><span class="p">)</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>is this expression a constant?</p></div></div><div class="code"><div class="wrapper">    <span class="vi">@constant = </span><span class="nx">@operator</span><span class="p">.</span><span class="nx">constant</span> <span class="o">is</span> <span class="kc">true</span>
     <span class="k">if</span> <span class="nx">@constant</span>
       <span class="k">for</span> <span class="nx">parameter</span> <span class="k">in</span> <span class="nx">parameters</span>
@@ -645,17 +611,13 @@ then the result is a vector result</p></div></div><div class="code"><div class="
       <span class="k">return</span> <span class="k">new</span> <span class="nx">Expression</span> <span class="s">&#39;scalar&#39;</span><span class="p">,</span> <span class="p">[</span> <span class="nx">@evaluate</span> <span class="nx">_global</span> <span class="p">]</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>otherwise return this expression</p></div></div><div class="code"><div class="wrapper">    <span class="k">return</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p>#
 Allows expressions to be turned into strings</p>
 
-<p><strong>Returns a <em><a href="https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/String">String</a></em></strong></p>
-
-<p><br/><br/></p></div></div><div class="code"><div class="wrapper">  <span class="nv">toString: </span><span class="nf">-&gt;</span>
+<p><strong>Returns a String</strong></p></div></div><div class="code"><div class="wrapper">  <span class="nv">toString: </span><span class="nf">-&gt;</span>
     <span class="k">return</span> <span class="nx">@text</span> <span class="k">unless</span> <span class="nx">@text</span> <span class="o">is</span> <span class="kc">undefined</span>
     <span class="vi">@text = </span><span class="nx">_stringify</span> <span class="k">this</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p>#
 Allows expression to be turned into a kind of json-ast.  See
 <code>Compiler.coffee</code> for a complete ast-implementation</p>
 
-<p><strong>Returns an <em><a href="https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Object">Object</a></em> of <em>String:ops</em> or <em>Array:parameterses</em></strong></p>
-
-<p><br/><br/></p></div></div><div class="code"><div class="wrapper">  <span class="nv">toJSON: </span><span class="nf">(callback) -&gt;</span>
+<p><strong>Returns an Object.<String:op,Array:parameters></strong></p></div></div><div class="code"><div class="wrapper">  <span class="nv">toJSON: </span><span class="nf">(callback) -&gt;</span>
     <span class="k">return</span> <span class="nx">callback</span> <span class="k">this</span> <span class="k">if</span> <span class="nx">callback</span>
     <span class="k">if</span> <span class="nx">@operator</span><span class="p">.</span><span class="nx">name</span> <span class="o">is</span> <span class="s">&#39;scalar&#39;</span>
       <span class="nv">parameters = </span><span class="nx">@parameters</span>
@@ -665,20 +627,14 @@ Allows expression to be turned into a kind of json-ast.  See
     <span class="p">[</span><span class="nx">@operator</span><span class="p">.</span><span class="nx">name</span><span class="p">].</span><span class="nx">concat</span> <span class="nx">parameters</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p>#
 Evaluate this expressions value</p>
 
-<p><strong>Parameters:</strong></p>
+<p>Parameters:</p>
 
 <ul>
-<li><p><strong><em>context</em> must be an <em><a href="https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Object">Object</a></em></strong> <br />
-(optional)</p></li>
-<li><p><strong><em>variables</em> must be an <em><a href="https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Object">Object</a></em></strong> <br />
-(optional)</p></li>
-<li><p><strong><em>scope</em> must be an <em><a href="https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Array">Array</a></em></strong> <br />
-(optional)</p></li>
-<li><p><strong><em>stack</em> must be an <em><a href="https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Array">Array</a></em></strong> <br />
-(optional)</p></li>
+<li><p><strong>context must be an Object.</strong><br/>((optional))</p></li>
+<li><p><strong>variables must be an Object.</strong><br/>((optional))</p></li>
+<li><p><strong>scope must be an Array.</strong><br/>((optional))</p></li>
+<li><p><strong>stack must be an Array.</strong><br/>((optional))</p></li>
 </ul>
 
-<p><strong>Returns any type</strong></p>
-
-<p><br/><br/></p></div></div><div class="code"><div class="wrapper">  <span class="nv">evaluate: </span><span class="nf">(context, variables, scope, stack) -&gt;</span>
+<p><strong>Returns a mixed</strong></p></div></div><div class="code"><div class="wrapper">  <span class="nv">evaluate: </span><span class="nf">(context, variables, scope, stack) -&gt;</span>
     <span class="nx">_evaluate</span> <span class="nx">context</span><span class="p">,</span> <span class="k">this</span><span class="p">,</span> <span class="nx">variables</span><span class="p">,</span> <span class="nx">scope</span><span class="p">,</span> <span class="nx">stack</span></div></div></div></div></body></html>

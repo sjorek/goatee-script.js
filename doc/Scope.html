@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><title>Scope</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content=""><meta name="groc-document-path" content="Scope"><meta name="groc-project-path" content="src/Scope.coffee"><link rel="stylesheet" type="text/css" media="all" href="assets/style.css"><script type="text/javascript" src="assets/behavior.js"></script><body><div id="meta"><div class="file-path">src/Scope.coffee</div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><p>© Copyright 2013 Stephan Jorek <a href="&#109;&#x61;&#x69;&#108;&#x74;&#x6f;:&#x73;t&#x65;&#x70;&#x68;&#x61;n&#x2e;&#106;&#x6f;&#x72;&#101;&#x6b;&#64;&#103;&#x6d;&#97;&#105;&#108;&#46;&#99;&#x6f;&#x6d;">&#x73;t&#x65;&#x70;&#x68;&#x61;n&#x2e;&#106;&#x6f;&#x72;&#101;&#x6b;&#64;&#103;&#x6d;&#97;&#105;&#108;&#46;&#99;&#x6f;&#x6d;</a>  </p>
+<!DOCTYPE html><html lang="en"><head><title>Scope</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content=""><meta name="groc-document-path" content="Scope"><meta name="groc-project-path" content="src/Scope.coffee"><link rel="stylesheet" type="text/css" media="all" href="assets/style.css"><script type="text/javascript" src="assets/behavior.js"></script><body><div id="meta"><div class="file-path">src/Scope.coffee</div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><p>© Copyright 2013 Stephan Jorek <a href="&#109;a&#105;&#108;&#116;&#x6f;:&#115;&#x74;&#101;&#112;&#104;&#97;&#110;&#x2e;j&#x6f;&#x72;&#101;&#x6b;&#64;&#103;&#x6d;&#x61;il&#46;&#x63;&#111;&#109;">&#115;&#x74;&#101;&#112;&#104;&#97;&#110;&#x2e;j&#x6f;&#x72;&#101;&#x6b;&#64;&#103;&#x6d;&#x61;il&#46;&#x63;&#111;&#109;</a>  </p>
 
 <p>Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -12,47 +12,39 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
 implied. See the License for the specific language governing
 permissions and limitations under the License.</p></div></div><div class="code"><div class="wrapper"><span class="p">{</span><span class="nx">Expression</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span> <span class="s">&#39;./Expression&#39;</span>
 
-<span class="nv">exports = </span><span class="nx">module</span><span class="o">?</span><span class="p">.</span><span class="nx">exports</span> <span class="o">?</span> <span class="k">this</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'> is in namespace <em>GoateeScript</em></span></p>
+<span class="nv">exports = </span><span class="nx">module</span><span class="o">?</span><span class="p">.</span><span class="nx">exports</span> <span class="o">?</span> <span class="k">this</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'> namespace GoateeScript</span></p>
 
-<p>#</p>
-
-<p><br/><br/></p></div></div><div class="code"><div class="wrapper"><span class="nv">exports.Scope = </span><span class="k">class</span> <span class="nx">Scope</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p>#
+<p>#</p></div></div><div class="code"><div class="wrapper"><span class="nv">exports.Scope = </span><span class="k">class</span> <span class="nx">Scope</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p>#
 Create a new <strong>Expression</strong> instance</p>
 
-<p><strong>Parameters:</strong></p>
+<p>Parameters:</p>
 
 <ul>
-<li><p><strong><em>operator</em> must be a <em><a href="https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/String">String</a></em></strong></p></li>
-<li><p><strong><em>parameters</em> must be an <em><a href="https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/Array">Array</a></em></strong></p></li>
+<li><p><strong>operator must be a String.</strong></p></li>
+<li><p><strong>parameters must be an Array.</strong></p></li>
 </ul>
 
-<p><strong>Returns an <em>Expression</em></strong></p>
-
-<p><br/><br/></p></div></div><div class="code"><div class="wrapper">  <span class="nv">create  : </span><span class="nf">(operator, parameters) -&gt;</span>
+<p><strong>Returns an Expression</strong></p></div></div><div class="code"><div class="wrapper">  <span class="nv">create  : </span><span class="nf">(operator, parameters) -&gt;</span>
     <span class="k">new</span> <span class="nx">Expression</span><span class="p">(</span><span class="nx">operator</span><span class="p">,</span> <span class="nx">parameters</span><span class="p">)</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p>#
 Remove leading and trailing single- or double-quotes</p>
 
-<p><strong>Parameter:</strong></p>
+<p>Parameters:</p>
 
 <ul>
-<li><strong><em>s</em> must be a <em><a href="https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/String">String</a></em></strong></li>
+<li><strong>s must be a String.</strong></li>
 </ul>
 
-<p><strong>Returns a <em><a href="https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/String">String</a></em></strong></p>
-
-<p><br/><br/></p></div></div><div class="code"><div class="wrapper">  <span class="nv">escape  : </span><span class="nf">(s) -&gt;</span>
+<p><strong>Returns a String</strong></p></div></div><div class="code"><div class="wrapper">  <span class="nv">escape  : </span><span class="nf">(s) -&gt;</span>
     <span class="k">if</span> <span class="nx">s</span><span class="p">.</span><span class="nx">length</span> <span class="o">&lt;</span> <span class="mi">3</span> <span class="k">then</span> <span class="s">&quot;&quot;</span> <span class="k">else</span> <span class="nx">s</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nx">s</span><span class="p">.</span><span class="nx">length</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># .replace(/\\\n/,&#39;&#39;).replace(/\\([^xubfnvrt0])/g, &#39;$1&#39;)</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p>#
-Add an “else”-Statement <strong>e</strong> to given “if”-Expression **i</p>
+Add an “else”-Statement <strong>e</strong> to given “if”-Expression <strong>i</strong></p>
 
-<p><strong>Parameter:</strong></p>
+<p>Parameters:</p>
 
 <ul>
-<li><strong><em>s</em> must be a <em><a href="https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/String">String</a></em></strong></li>
+<li><strong>s must be a String.</strong></li>
 </ul>
 
-<p><strong>Returns a <em><a href="https://developer.mozilla.org/en/docs/JavaScript/Reference/Global_Objects/String">String</a></em></strong></p>
-
-<p><br/><br/></p></div></div><div class="code"><div class="wrapper">  <span class="nv">addElse : </span><span class="nx">do</span> <span class="nf">-&gt;</span>
+<p><strong>Returns a String</strong></p></div></div><div class="code"><div class="wrapper">  <span class="nv">addElse : </span><span class="nx">do</span> <span class="nf">-&gt;</span>
     <span class="nv">a = </span><span class="nf">(i, e) -&gt;</span>
       <span class="k">if</span> <span class="nx">i</span><span class="p">.</span><span class="nx">parameters</span><span class="p">.</span><span class="nx">length</span> <span class="o">is</span> <span class="mi">3</span>
         <span class="nx">a</span><span class="p">(</span><span class="nx">i</span><span class="p">.</span><span class="nx">parameters</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="nx">e</span><span class="p">)</span>

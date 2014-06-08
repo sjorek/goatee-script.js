@@ -93,6 +93,7 @@ task 'build:parser', 'rebuild the goatee-script parser; run at least “build:on
 
   if (rebuild is true or mapStat isnt false or jsStat is false or
       jsStat.mtime < csStat.mtime or jsStat.size < csStat.size)
+    require 'coffee-script/register'
     require 'jison' # TODO This seems to be important, have to figure out why !
     {Grammar} = require(cs.replace(/\.coffee$/,''))
     grammar   = new Grammar
