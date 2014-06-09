@@ -70,6 +70,7 @@ exports.Grammar = class Grammar
   # @constructor
   constructor: () ->
     bnf = @bnf
+    startSymbol = @startSymbol
     tokens = []
     known = {}
     tokenize = (name, alternatives) ->
@@ -77,7 +78,7 @@ exports.Grammar = class Grammar
         for token in alt[0].split ' '
           tokens.push token if not bnf[token]? and not known[token]?
           known[token] = true
-        alt[1] = "#{alt[1]}" if name is @startSymbol
+        alt[1] = "#{alt[1]}" if name is startSymbol
         alt
     for own name, alternatives of bnf
       bnf[name] = tokenize(name, alternatives)
