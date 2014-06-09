@@ -1,5 +1,5 @@
 ###
-© Copyright 2013 Stephan Jorek <stephan.jorek@gmail.com>  
+© Copyright 2013-2014 Stephan Jorek <stephan.jorek@gmail.com>  
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -94,15 +94,12 @@ exports.Grammar = class Grammar
   # keeping the value of `this`.
   #
   # @return {String}
-  create: (comment = 'Goatee Script Parser', prefix  = '', \
-           suffix  = 'parser.yy = new (require("./Scope").Scope);') ->
+  create: (comment = '/* Goatee Script Parser */', \
+           prefix  = '(function() {', \
+           scope   = 'parser.yy = new (require("./Scope").Scope());', \
+           suffix  = '}).call(this);') ->
     """
-    /* #{comment} */
-    (function() {
-    #{prefix}
-    #{Grammar.createParser(this).generate()}
-    #{suffix}
-    }).call(this);
+    #{comment}#{prefix}#{Grammar.createParser(this).generate()}#{scope}#{suffix}
     """
 
   # Use the default jison-lexer
