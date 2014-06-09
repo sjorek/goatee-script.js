@@ -61,18 +61,18 @@
   <span class="nx">invoke</span> <span class="s">&#39;build:once&#39;</span>
   <span class="nx">invoke</span> <span class="s">&#39;build:parser&#39;</span>
 
-<span class="nx">task</span> <span class="s">&#39;clean&#39;</span><span class="p">,</span> <span class="s">&#39;cleans “lib/” and “test/” folders&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span>
+<span class="nx">task</span> <span class="s">&#39;clean&#39;</span><span class="p">,</span> <span class="s">&#39;cleans “doc/” and “lib/” folders&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span>
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&#39;clean&#39;</span>
   <span class="nx">clean</span> <span class="s">&#39;doc&#39;</span>
   <span class="nx">fs</span><span class="p">.</span><span class="nx">mkdirSync</span> <span class="s">&#39;doc&#39;</span>
   <span class="nx">clean</span> <span class="s">&#39;lib&#39;</span>
   <span class="nx">fs</span><span class="p">.</span><span class="nx">mkdirSync</span> <span class="s">&#39;lib&#39;</span>
 
-<span class="nx">task</span> <span class="s">&#39;build:watch&#39;</span><span class="p">,</span> <span class="s">&#39;compile coffee-script in “src/” to javascript in “lib/” continiously&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span>
+<span class="nx">task</span> <span class="s">&#39;build:watch&#39;</span><span class="p">,</span> <span class="s">&#39;compile Coffeescript in “src/” to Javascript in “lib/” continiously&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span>
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&#39;build:watch&#39;</span>
   <span class="nx">spawn</span> <span class="s">&#39;coffee&#39;</span><span class="p">,</span> <span class="s">&#39;-o ../lib/ -mcw .&#39;</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s">&#39; &#39;</span><span class="p">),</span> <span class="nv">stdio: </span><span class="s">&#39;inherit&#39;</span><span class="p">,</span> <span class="nv">cwd: </span><span class="s">&#39;src&#39;</span>
 
-<span class="nx">task</span> <span class="s">&#39;build:once&#39;</span><span class="p">,</span> <span class="s">&#39;compile coffee-script in “src/” to javascript in “lib/” once&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span>
+<span class="nx">task</span> <span class="s">&#39;build:once&#39;</span><span class="p">,</span> <span class="s">&#39;compile Coffeescript in “src/” to Javascript in “lib/” once&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span>
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&#39;build:once&#39;</span>
   <span class="nx">spawn</span> <span class="s">&#39;coffee&#39;</span><span class="p">,</span> <span class="s">&#39;-o ../lib/ -mc .&#39;</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s">&#39; &#39;</span><span class="p">),</span> <span class="nv">stdio: </span><span class="s">&#39;inherit&#39;</span><span class="p">,</span> <span class="nv">cwd: </span><span class="s">&#39;src&#39;</span>
 
