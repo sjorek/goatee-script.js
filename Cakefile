@@ -68,18 +68,18 @@ task 'build', 'invokes “build:once” and “build:parser” in given order', 
   invoke 'build:once'
   invoke 'build:parser'
 
-task 'clean', 'cleans “lib/” and “test/” folders', ->
+task 'clean', 'cleans “doc/” and “lib/” folders', ->
   console.log 'clean'
   clean 'doc'
   fs.mkdirSync 'doc'
   clean 'lib'
   fs.mkdirSync 'lib'
 
-task 'build:watch', 'compile coffee-script in “src/” to javascript in “lib/” continiously', ->
+task 'build:watch', 'compile Coffeescript in “src/” to Javascript in “lib/” continiously', ->
   console.log 'build:watch'
   spawn 'coffee', '-o ../lib/ -mcw .'.split(' '), stdio: 'inherit', cwd: 'src'
 
-task 'build:once', 'compile coffee-script in “src/” to javascript in “lib/” once', ->
+task 'build:once', 'compile Coffeescript in “src/” to Javascript in “lib/” once', ->
   console.log 'build:once'
   spawn 'coffee', '-o ../lib/ -mc .'.split(' '), stdio: 'inherit', cwd: 'src'
 
