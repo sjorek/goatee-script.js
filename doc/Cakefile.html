@@ -63,7 +63,10 @@
 
 <span class="nx">task</span> <span class="s">&#39;clean&#39;</span><span class="p">,</span> <span class="s">&#39;cleans “lib/” and “test/” folders&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span>
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&#39;clean&#39;</span>
+  <span class="nx">clean</span> <span class="s">&#39;doc&#39;</span>
+  <span class="nx">fs</span><span class="p">.</span><span class="nx">mkdirSync</span> <span class="s">&#39;doc&#39;</span>
   <span class="nx">clean</span> <span class="s">&#39;lib&#39;</span>
+  <span class="nx">fs</span><span class="p">.</span><span class="nx">mkdirSync</span> <span class="s">&#39;lib&#39;</span>
 
 <span class="nx">task</span> <span class="s">&#39;build:watch&#39;</span><span class="p">,</span> <span class="s">&#39;compile coffee-script in “src/” to javascript in “lib/” continiously&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span>
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s">&#39;build:watch&#39;</span>

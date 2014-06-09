@@ -96,7 +96,7 @@ exports.Grammar = class Grammar
   # @return {String}
   create: (comment = '/* Goatee Script Parser */', \
            prefix  = '(function() {', \
-           scope   = 'parser.yy = new (require("./Scope").Scope());', \
+           scope   = ';parser.yy = new (require("./Scope").Scope);', \
            suffix  = '}).call(this);') ->
     """
     #{comment}#{prefix}#{Grammar.createParser(this).generate()}#{scope}#{suffix}
