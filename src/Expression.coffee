@@ -73,7 +73,7 @@ exports.Expression = class Expression
   #
   # @return {Boolean}
   _isProperty   = () ->
-    p = _stack.parent()
+    p = _stack.previous()
     p? and p.operator.name is _property and p.parameters[1] is _stack.current()
 
   ##

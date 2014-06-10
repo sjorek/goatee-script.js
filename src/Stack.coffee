@@ -38,7 +38,7 @@ exports.Stack = class Stack
   current     : ->
     if @stack.length > 0 then @stack[@stack.length - 1] else undefined
 
-  parent      : ->
+  previous    : ->
     if @stack.length > 1 then @stack[@stack.length - 2] else undefined
 
   push        : (context, expression) ->
@@ -46,7 +46,7 @@ exports.Stack = class Stack
     @stack.push expression
     return
 
-  pop        : () ->
+  pop         : () ->
     @scope.pop()
     @stack.pop()
     return
