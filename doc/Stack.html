@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><title>Stack</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content=""><meta name="groc-document-path" content="Stack"><meta name="groc-project-path" content="src/Stack.coffee"><link rel="stylesheet" type="text/css" media="all" href="assets/style.css"><script type="text/javascript" src="assets/behavior.js"></script><body><div id="meta"><div class="file-path">src/Stack.coffee</div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><p>© Copyright 2013-2014 Stephan Jorek <a href="&#x6d;&#97;&#105;&#x6c;&#116;&#111;:&#115;&#x74;&#x65;&#x70;h&#97;&#110;&#46;&#x6a;&#111;&#x72;&#101;&#x6b;&#x40;&#x67;&#109;&#x61;&#105;&#x6c;&#46;c&#x6f;&#109;">&#115;&#x74;&#x65;&#x70;h&#97;&#110;&#46;&#x6a;&#111;&#x72;&#101;&#x6b;&#x40;&#x67;&#109;&#x61;&#105;&#x6c;&#46;c&#x6f;&#109;</a>  </p>
+<!DOCTYPE html><html lang="en"><head><title>Stack</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content=""><meta name="groc-document-path" content="Stack"><meta name="groc-project-path" content="src/Stack.coffee"><link rel="stylesheet" type="text/css" media="all" href="assets/style.css"><script type="text/javascript" src="assets/behavior.js"></script><body><div id="meta"><div class="file-path">src/Stack.coffee</div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><p>© Copyright 2013-2014 Stephan Jorek <a href="m&#97;&#105;&#x6c;&#116;&#x6f;:&#115;&#116;&#x65;&#112;&#x68;&#97;&#110;.&#x6a;&#111;&#114;&#101;k&#64;&#103;&#x6d;&#x61;&#105;&#x6c;.&#x63;o&#109;">&#115;&#116;&#x65;&#112;&#x68;&#97;&#110;.&#x6a;&#111;&#114;&#101;k&#64;&#103;&#x6d;&#x61;&#105;&#x6c;.&#x63;o&#109;</a>  </p>
 
 <p>Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -32,7 +32,7 @@ permissions and limitations under the License.</p></div></div><div class="code">
   <span class="nv">current     : </span><span class="nf">-&gt;</span>
     <span class="k">if</span> <span class="nx">@stack</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">then</span> <span class="nx">@stack</span><span class="p">[</span><span class="nx">@stack</span><span class="p">.</span><span class="nx">length</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="k">else</span> <span class="kc">undefined</span>
 
-  <span class="nv">parent      : </span><span class="nf">-&gt;</span>
+  <span class="nv">previous    : </span><span class="nf">-&gt;</span>
     <span class="k">if</span> <span class="nx">@stack</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">then</span> <span class="nx">@stack</span><span class="p">[</span><span class="nx">@stack</span><span class="p">.</span><span class="nx">length</span> <span class="o">-</span> <span class="mi">2</span><span class="p">]</span> <span class="k">else</span> <span class="kc">undefined</span>
 
   <span class="nv">push        : </span><span class="nf">(context, expression) -&gt;</span>
@@ -40,7 +40,7 @@ permissions and limitations under the License.</p></div></div><div class="code">
     <span class="nx">@stack</span><span class="p">.</span><span class="nx">push</span> <span class="nx">expression</span>
     <span class="k">return</span>
 
-  <span class="nv">pop        : </span><span class="nf">() -&gt;</span>
+  <span class="nv">pop         : </span><span class="nf">() -&gt;</span>
     <span class="nx">@scope</span><span class="p">.</span><span class="nx">pop</span><span class="p">()</span>
     <span class="nx">@stack</span><span class="p">.</span><span class="nx">pop</span><span class="p">()</span>
     <span class="k">return</span></div></div></div></div></body></html>
