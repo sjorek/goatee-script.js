@@ -137,26 +137,24 @@ line. The last expression's value is always returned to the invoking context.
 
 Read the [annotated sources](http://sjorek.github.io/goatee-script/).
 
-## Installation
-
-### “Production”
-
-     $ npm install goatee-script --save
-
-### Install development version:
-
-    $ git clone https://github.com/sjorek/goatee-script
-    $ cd goatee-script
-    $ npm install
-
 ## Development
 
-### Install dependencies:
+### Install dependencies …
 
 - [git-scm](http://git-scm.com)
 - [node.js *(≥ 0.10)*](http://nodejs.org)
 - optional:
   - [pygments](http://pygments.org)
+
+  ### … for production version:
+
+       $ npm install goatee-script --save
+
+  ### … for development version:
+
+      $ git clone https://github.com/sjorek/goatee-script
+      $ cd goatee-script
+      $ npm install
 
 ### Run build …
 
