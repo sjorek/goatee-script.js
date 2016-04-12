@@ -1,46 +1,57 @@
-<!DOCTYPE html><html lang="en"><head><title>Stack</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content=""><meta name="groc-document-path" content="Stack"><meta name="groc-project-path" content="src/Stack.coffee"><link rel="stylesheet" type="text/css" media="all" href="assets/style.css"><script type="text/javascript" src="assets/behavior.js"></script><body><div id="meta"><div class="file-path">src/Stack.coffee</div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><p>© Copyright 2013-2014 Stephan Jorek <a href="m&#97;&#105;&#x6c;&#116;&#x6f;:&#115;&#116;&#x65;&#112;&#x68;&#97;&#110;.&#x6a;&#111;&#114;&#101;k&#64;&#103;&#x6d;&#x61;&#105;&#x6c;.&#x63;o&#109;">&#115;&#116;&#x65;&#112;&#x68;&#97;&#110;.&#x6a;&#111;&#114;&#101;k&#64;&#103;&#x6d;&#x61;&#105;&#x6c;.&#x63;o&#109;</a>  </p>
-
-<p>Licensed under the Apache License, Version 2.0 (the "License");
+<!DOCTYPE html><html lang="en"><head><title>Stack</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content=""><meta name="groc-document-path" content="Stack"><meta name="groc-project-path" content="src/Stack.coffee"><link rel="stylesheet" type="text/css" media="all" href="assets/style.css"><script type="text/javascript" src="assets/behavior.js"></script><body><div id="meta"><div class="file-path">src/Stack.coffee</div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><p>© Copyright 2013-2016 Stephan Jorek <a href="&#x6d;&#97;&#105;&#x6c;&#x74;&#x6f;&#x3a;&#x73;&#116;&#101;&#112;&#104;&#97;&#110;&#46;&#x6a;&#111;&#x72;&#x65;&#107;&#64;&#x67;&#x6d;&#x61;&#x69;&#108;&#46;&#x63;&#x6f;&#x6d;">&#x73;&#116;&#101;&#112;&#104;&#97;&#110;&#46;&#x6a;&#111;&#x72;&#x65;&#107;&#64;&#x67;&#x6d;&#x61;&#x69;&#108;&#46;&#x63;&#x6f;&#x6d;</a></p>
+<p>Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at</p>
-
 <p><a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a></p>
-
 <p>Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
+distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
 implied. See the License for the specific language governing
-permissions and limitations under the License.</p></div></div><div class="code"><div class="wrapper"><span class="nv">global = </span><span class="nx">do</span> <span class="nf">-&gt;</span> <span class="k">this</span>
+permissions and limitations under the License.</p></div></div><div class="code"><div class="wrapper"><span class="hljs-built_in">global</span> = <span class="hljs-keyword">do</span> -&gt; <span class="hljs-keyword">this</span>
 
-<span class="nv">exports = </span><span class="nx">module</span><span class="o">?</span><span class="p">.</span><span class="nx">exports</span> <span class="o">?</span> <span class="k">this</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'> namespace GoateeScript</span></p>
+exports = <span class="hljs-built_in">module</span>?.exports ? <span class="hljs-keyword">this</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h1 id="stack">Stack</h1>
+<hr></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'> class Stack and namespace GoateeScript</span></p>
+<hr></div></div><div class="code"><div class="wrapper">exports.Stack = <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Stack</span></span>
 
-<p>#</p></div></div><div class="code"><div class="wrapper"><span class="nv">exports.Stack = </span><span class="k">class</span> <span class="nx">Stack</span>
-
-  <span class="nv">global      : </span><span class="kc">undefined</span>
-  <span class="nv">local       : </span><span class="kc">null</span>
-  <span class="nv">stack       : </span><span class="kc">null</span>
-  <span class="nv">scope       : </span><span class="kc">null</span>
-
-  <span class="nv">constructor : </span><span class="nf">(@global = global, @local = {}, @scope = [], @stack = []) -&gt;</span>
-
-  <span class="nv">destructor  : </span><span class="nf">() -&gt;</span>
-    <span class="vi">@global = </span><span class="kc">undefined</span>
-    <span class="vi">@local  = </span><span class="kc">null</span>
-    <span class="vi">@scope  = </span><span class="kc">null</span>
-    <span class="vi">@stack  = </span><span class="kc">null</span>
-
-  <span class="nv">current     : </span><span class="nf">-&gt;</span>
-    <span class="k">if</span> <span class="nx">@stack</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">then</span> <span class="nx">@stack</span><span class="p">[</span><span class="nx">@stack</span><span class="p">.</span><span class="nx">length</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="k">else</span> <span class="kc">undefined</span>
-
-  <span class="nv">previous    : </span><span class="nf">-&gt;</span>
-    <span class="k">if</span> <span class="nx">@stack</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">then</span> <span class="nx">@stack</span><span class="p">[</span><span class="nx">@stack</span><span class="p">.</span><span class="nx">length</span> <span class="o">-</span> <span class="mi">2</span><span class="p">]</span> <span class="k">else</span> <span class="kc">undefined</span>
-
-  <span class="nv">push        : </span><span class="nf">(context, expression) -&gt;</span>
-    <span class="nx">@scope</span><span class="p">.</span><span class="nx">push</span> <span class="nx">context</span>
-    <span class="nx">@stack</span><span class="p">.</span><span class="nx">push</span> <span class="nx">expression</span>
-    <span class="k">return</span>
-
-  <span class="nv">pop         : </span><span class="nf">() -&gt;</span>
-    <span class="nx">@scope</span><span class="p">.</span><span class="nx">pop</span><span class="p">()</span>
-    <span class="nx">@stack</span><span class="p">.</span><span class="nx">pop</span><span class="p">()</span>
-    <span class="k">return</span></div></div></div></div></body></html>
+  <span class="hljs-built_in">global</span>      : <span class="hljs-literal">undefined</span>
+  local       : <span class="hljs-literal">null</span>
+  stack       : <span class="hljs-literal">null</span>
+  scope       : <span class="hljs-literal">null</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'>Constructor</span></p>
+<hr>
+<p>Parameters:</p>
+<ul>
+<li><p><strong>global is optional, must be an Object, and has a default value of undefined.</strong><br/>(… scope)</p>
+</li>
+<li><p><strong>local is optional, must be an Object, and has a default value of {}.</strong><br/>(… scope)</p>
+</li>
+<li><p><strong>scope is optional and must be an Array.</strong><br/>(… chain)</p>
+</li>
+<li><p><strong>stack is optional and must be an Array.</strong><br/>(… chain)</p>
+</li>
+</ul></div></div><div class="code"><div class="wrapper">  constructor : <span class="hljs-function"><span class="hljs-params">(<span class="hljs-property">@global</span> = <span class="hljs-built_in">global</span>, <span class="hljs-property">@local</span> = {}, <span class="hljs-property">@scope</span> = [], <span class="hljs-property">@stack</span> = [])</span> -&gt;</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'>Destructor</span></p>
+<hr></div></div><div class="code"><div class="wrapper">  destructor  : <span class="hljs-function"><span class="hljs-params">()</span> -&gt;</span>
+    <span class="hljs-property">@global</span> = <span class="hljs-literal">undefined</span>
+    <span class="hljs-property">@local</span>  = <span class="hljs-literal">null</span>
+    <span class="hljs-property">@scope</span>  = <span class="hljs-literal">null</span>
+    <span class="hljs-property">@stack</span>  = <span class="hljs-literal">null</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'>Method current</span></p>
+<hr>
+<p><strong>Returns a Stack or an undefined</strong></p></div></div><div class="code"><div class="wrapper">  current     : <span class="hljs-function">-&gt;</span>
+    <span class="hljs-keyword">if</span> <span class="hljs-property">@stack</span>.length &gt; <span class="hljs-number">0</span> <span class="hljs-keyword">then</span> <span class="hljs-property">@stack</span>[<span class="hljs-property">@stack</span>.length - <span class="hljs-number">1</span>] <span class="hljs-keyword">else</span> <span class="hljs-literal">undefined</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'>Method previous</span></p>
+<hr>
+<p><strong>Returns a Stack or an undefined</strong></p></div></div><div class="code"><div class="wrapper">  previous    : <span class="hljs-function">-&gt;</span>
+    <span class="hljs-keyword">if</span> <span class="hljs-property">@stack</span>.length &gt; <span class="hljs-number">1</span> <span class="hljs-keyword">then</span> <span class="hljs-property">@stack</span>[<span class="hljs-property">@stack</span>.length - <span class="hljs-number">2</span>] <span class="hljs-keyword">else</span> <span class="hljs-literal">undefined</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'>Method push</span></p>
+<hr>
+<p>Parameters:</p>
+<ul>
+<li><p><strong>context must be an Object.</strong></p>
+</li>
+<li><p><strong>expression must be an Expression.</strong></p>
+</li>
+</ul></div></div><div class="code"><div class="wrapper">  push        : <span class="hljs-function"><span class="hljs-params">(context, expression)</span> -&gt;</span>
+    <span class="hljs-property">@scope</span>.push context
+    <span class="hljs-property">@stack</span>.push expression
+    <span class="hljs-keyword">return</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'>Method pop</span></p>
+<hr></div></div><div class="code"><div class="wrapper">  pop         : <span class="hljs-function"><span class="hljs-params">()</span> -&gt;</span>
+    <span class="hljs-property">@scope</span>.pop()
+    <span class="hljs-property">@stack</span>.pop()
+    <span class="hljs-keyword">return</span></div></div></div></div></body></html>

@@ -1,5 +1,5 @@
 ###
-© Copyright 2013-2014 Stephan Jorek <stephan.jorek@gmail.com>  
+© Copyright 2013-2016 Stephan Jorek <stephan.jorek@gmail.com>
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -29,23 +29,31 @@ permissions and limitations under the License.
 
 exports = module?.exports ? this
 
-##
-# @class
-# @namespace GoateeScript
+## Runtime
+# -------------
+# Implements several expression-runtime related methods.
+
+#  -------------
+# @class Runtime
+# @namepace GoateeScript
 exports.Runtime = class Runtime
 
   _operations = Expression.operations
 
-  ##
+  #  -------------
+  # @method aliases
   # @return {Array}
+  # @static
   Runtime.aliases  = _aliases = do ->
     index = null
     () ->
       index ? index = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ$_'.split('')
 
-  ##
-  # @param  {Boolean} compress, default: on
+  #  -------------
+  # @method generate
+  # @param  {Boolean} [compress=true]
   # @return {String}
+  # @static
   Runtime.generate = do ->
 
     aliases     = []

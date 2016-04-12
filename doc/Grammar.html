@@ -1,421 +1,434 @@
-<!DOCTYPE html><html lang="en"><head><title>Grammar</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content=""><meta name="groc-document-path" content="Grammar"><meta name="groc-project-path" content="src/Grammar.coffee"><link rel="stylesheet" type="text/css" media="all" href="assets/style.css"><script type="text/javascript" src="assets/behavior.js"></script><body><div id="meta"><div class="file-path">src/Grammar.coffee</div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><p>© Copyright 2013-2014 Stephan Jorek <a href="&#109;&#97;i&#108;&#116;o:&#115;&#116;&#101;&#x70;&#104;&#x61;&#x6e;&#x2e;&#x6a;&#111;&#114;&#101;&#107;&#x40;&#x67;&#109;&#97;&#x69;&#x6c;&#x2e;&#x63;&#x6f;m">&#115;&#116;&#101;&#x70;&#104;&#x61;&#x6e;&#x2e;&#x6a;&#111;&#114;&#101;&#107;&#x40;&#x67;&#109;&#97;&#x69;&#x6c;&#x2e;&#x63;&#x6f;m</a>  </p>
-
-<p>Licensed under the Apache License, Version 2.0 (the "License");
+<!DOCTYPE html><html lang="en"><head><title>Grammar</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content=""><meta name="groc-document-path" content="Grammar"><meta name="groc-project-path" content="src/Grammar.coffee"><link rel="stylesheet" type="text/css" media="all" href="assets/style.css"><script type="text/javascript" src="assets/behavior.js"></script><body><div id="meta"><div class="file-path">src/Grammar.coffee</div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><p>© Copyright 2013-2016 Stephan Jorek <a href="&#x6d;&#97;&#105;&#x6c;&#x74;&#x6f;&#x3a;&#115;&#x74;&#x65;&#112;&#x68;&#x61;&#110;&#x2e;&#106;&#x6f;&#x72;&#101;&#107;&#64;&#x67;&#x6d;&#x61;&#x69;&#108;&#46;&#x63;&#111;&#x6d;">&#115;&#x74;&#x65;&#112;&#x68;&#x61;&#110;&#x2e;&#106;&#x6f;&#x72;&#101;&#107;&#64;&#x67;&#x6d;&#x61;&#x69;&#108;&#46;&#x63;&#111;&#x6d;</a></p>
+<p>Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at</p>
-
 <p><a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a></p>
-
 <p>Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
+distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
 implied. See the License for the specific language governing
-permissions and limitations under the License.</p></div></div><div class="code"><div class="wrapper"><span class="p">{</span><span class="nx">Parser</span><span class="p">}</span>    <span class="o">=</span> <span class="nx">require</span> <span class="s">&#39;jison&#39;</span>
-<span class="p">{</span><span class="nx">Notator</span><span class="o">:</span><span class="p">{</span>
-  <span class="nx">r</span><span class="p">,</span><span class="nx">o</span>
-<span class="p">}}</span>          <span class="o">=</span> <span class="nx">require</span> <span class="s">&#39;./Notator&#39;</span>
-<span class="p">{</span><span class="nx">Scope</span><span class="p">}</span>     <span class="o">=</span> <span class="nx">require</span> <span class="s">&#39;./Scope&#39;</span>
+permissions and limitations under the License.</p></div></div><div class="code"><div class="wrapper">{Parser}    = <span class="hljs-built_in">require</span> <span class="hljs-string">'jison'</span>
+{<span class="hljs-attribute">Notator</span>:{
+  r,o
+}}          = <span class="hljs-built_in">require</span> <span class="hljs-string">'./Notator'</span>
+{Scope}     = <span class="hljs-built_in">require</span> <span class="hljs-string">'./Scope'</span>
 
-<span class="nv">exports     = </span><span class="nx">module</span><span class="o">?</span><span class="p">.</span><span class="nx">exports</span> <span class="o">?</span> <span class="k">this</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'> class</span></p>
+exports     = <span class="hljs-built_in">module</span>?.exports ? <span class="hljs-keyword">this</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h1 id="grammar-">Grammar …</h1>
+<hr>
+<p>… is always useful.</p></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'> class Grammary and namepace GoateeScript</span></p>
+<hr>
+<p>Implements the <code>goatee-script</code> grammar definitions.</p></div></div><div class="code"><div class="wrapper">exports.Grammar = <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Grammar</span></span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Actually this is not needed, but it looks nicer ;-)</p></div></div><div class="code"><div class="wrapper">  $<span class="hljs-number">1</span> = $<span class="hljs-number">2</span> = $<span class="hljs-number">3</span> = $<span class="hljs-number">4</span> = $<span class="hljs-number">5</span> = $<span class="hljs-number">6</span> = $<span class="hljs-number">7</span> = $<span class="hljs-number">8</span> = <span class="hljs-literal">null</span>
 
-<p>#
-The <code>goatee-script</code> grammar definition</p></div></div><div class="code"><div class="wrapper"><span class="nv">exports.Grammar = </span><span class="k">class</span> <span class="nx">Grammar</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Actually this is not needed, but it looks nicer ;-)</p></div></div><div class="code"><div class="wrapper">  <span class="nv">$1 = $2 = $3 = $4 = $5 = $6 = $7 = $8 = </span><span class="kc">null</span>
-
-  <span class="nv">yy = </span><span class="k">new</span> <span class="nx">Scope</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p>#
-Initializes the <strong>Parser</strong> with our <strong>Grammar</strong></p>
-
+  yy = <span class="hljs-keyword">new</span> Scope</div></div></div><div class="segment"><div class="comments doc-section doc-section-static"><div class="wrapper"><p><span class='doc-section-header'>Static method createParser</span></p>
+<hr>
+<p>Initializes the <strong>Parser</strong> with our <strong>Grammar</strong></p>
 <p>Parameters:</p>
-
 <ul>
-<li><p><strong>grammar must be a Grammar.</strong></p></li>
-<li><p><strong>scope must be a Scope.</strong></p></li>
+<li><p><strong>grammar is optional and must be a Grammar.</strong></p>
+</li>
+<li><p><strong>scope is optional and must be a Scope.</strong></p>
+</li>
 </ul>
-
-<p><strong>Returns a Parser</strong></p></div></div><div class="code"><div class="wrapper">  <span class="nv">Grammar.createParser = </span><span class="nf">(grammar = new Grammar, scope = yy) -&gt;</span>
-      <span class="nv">parser = </span><span class="k">new</span> <span class="nx">Parser</span> <span class="nx">grammar</span>
-      <span class="nv">parser.yy = </span><span class="nx">scope</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><pre><code> lexer = parser.lexer
+<p><strong>Returns a Parser</strong></p></div></div><div class="code"><div class="wrapper">  Grammar.createParser = <span class="hljs-function"><span class="hljs-params">(grammar = <span class="hljs-keyword">new</span> Grammar, scope = yy)</span> -&gt;</span>
+      parser = <span class="hljs-keyword">new</span> Parser grammar
+      parser.yy.goatee = scope</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><pre><code> lexer = parser.lexer
  lex   = lexer.lex
  set   = lexer.setInput
  lexer.lex = (args...) -&gt;
-   console.log 'lex', [lexer.match, lexer.matched]
+   console.log &#39;lex&#39;, [lexer.match, lexer.matched]
    lex.apply(lexer,args)
  lexer.setInput = (args...) -&gt;
-   console.log 'set', args
-   set.apply(lexer,args)
-</code></pre></div></div><div class="code"><div class="wrapper">      <span class="nx">parser</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>assignment operation shortcut</p></div></div><div class="code"><div class="wrapper">  <span class="nv">Grammar.aop = aop = </span><span class="nf">(op) -&gt;</span> <span class="nx">o</span> <span class="s">&quot;REFERENCE </span><span class="si">#{</span><span class="nx">op</span><span class="si">}</span><span class="s"> Expression&quot;</span><span class="p">,</span> <span class="nf">-&gt;</span>
-    <span class="nx">yy</span><span class="p">.</span><span class="nx">create</span> <span class="nx">$2</span><span class="p">,</span> <span class="p">[</span><span class="nx">$1</span><span class="p">,</span> <span class="nx">$3</span><span class="p">]</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>binary operation shortcut</p></div></div><div class="code"><div class="wrapper">  <span class="nv">Grammar.bop = bop = </span><span class="nf">(op) -&gt;</span> <span class="nx">o</span> <span class="s">&quot;Expression </span><span class="si">#{</span><span class="nx">op</span><span class="si">}</span><span class="s"> Expression&quot;</span><span class="p">,</span> <span class="nf">-&gt;</span>
-    <span class="nx">yy</span><span class="p">.</span><span class="nx">create</span> <span class="nx">$2</span><span class="p">,</span> <span class="p">[</span><span class="nx">$1</span><span class="p">,</span> <span class="nx">$3</span><span class="p">]</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'>Constructor</span></p>
-
-<p>#
-Now that we have our <strong>Grammar.bnf</strong> and our <strong>Grammar.operators</strong>, so
+   console.log &#39;set&#39;, args
+   set.apply(lexer,args)</code></pre></div></div><div class="code"><div class="wrapper">      parser</div></div></div><div class="segment"><div class="comments doc-section doc-section-static"><div class="wrapper"><p><span class='doc-section-header'>Static method aop</span></p>
+<hr>
+<p>assignment operation shortcut</p></div></div><div class="code"><div class="wrapper">  Grammar.aop = aop = <span class="hljs-function"><span class="hljs-params">(op)</span> -&gt;</span> o <span class="hljs-string">"REFERENCE <span class="hljs-subst">#{op}</span> Expression"</span>, <span class="hljs-function">-&gt;</span>
+    yy.goatee.create $<span class="hljs-number">2</span>, [$<span class="hljs-number">1</span>, $<span class="hljs-number">3</span>]</div></div></div><div class="segment"><div class="comments doc-section doc-section-static"><div class="wrapper"><p><span class='doc-section-header'>Static method bop</span></p>
+<hr>
+<p> binary operation shortcut</p></div></div><div class="code"><div class="wrapper">  Grammar.bop = bop = <span class="hljs-function"><span class="hljs-params">(op)</span> -&gt;</span> o <span class="hljs-string">"Expression <span class="hljs-subst">#{op}</span> Expression"</span>, <span class="hljs-function">-&gt;</span>
+    yy.goatee.create $<span class="hljs-number">2</span>, [$<span class="hljs-number">1</span>, $<span class="hljs-number">3</span>]</div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'>Constructor</span></p>
+<hr>
+<p>Now that we have our <strong>Grammar.bnf</strong> and our <strong>Grammar.operators</strong>, so
 we can create our <strong>Jison.Parser</strong>.  We do this by processing all of our
 rules, recording all terminals (every symbol which does not appear as the
-name of a rule above) as "tokens".</p></div></div><div class="code"><div class="wrapper">  <span class="nv">constructor: </span><span class="nf">() -&gt;</span>
-    <span class="nv">bnf = </span><span class="nx">@bnf</span>
-    <span class="nv">startSymbol = </span><span class="nx">@startSymbol</span>
-    <span class="nv">tokens = </span><span class="p">[]</span>
-    <span class="nv">known = </span><span class="p">{}</span>
-    <span class="nv">tokenize = </span><span class="nf">(name, alternatives) -&gt;</span>
-      <span class="k">for</span> <span class="nx">alt</span> <span class="k">in</span> <span class="nx">alternatives</span>
-        <span class="k">for</span> <span class="nx">token</span> <span class="k">in</span> <span class="nx">alt</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">split</span> <span class="s">&#39; &#39;</span>
-          <span class="nx">tokens</span><span class="p">.</span><span class="nx">push</span> <span class="nx">token</span> <span class="k">if</span> <span class="o">not</span> <span class="nx">bnf</span><span class="p">[</span><span class="nx">token</span><span class="p">]</span><span class="o">?</span> <span class="o">and</span> <span class="o">not</span> <span class="nx">known</span><span class="p">[</span><span class="nx">token</span><span class="p">]</span><span class="o">?</span>
-          <span class="nx">known</span><span class="p">[</span><span class="nx">token</span><span class="p">]</span> <span class="o">=</span> <span class="kc">true</span>
-        <span class="nx">alt</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">alt</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s">&quot;</span> <span class="k">if</span> <span class="nx">name</span> <span class="o">is</span> <span class="nx">startSymbol</span>
-        <span class="nx">alt</span>
-    <span class="k">for</span> <span class="k">own</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">alternatives</span> <span class="k">of</span> <span class="nx">bnf</span>
-      <span class="nx">bnf</span><span class="p">[</span><span class="nx">name</span><span class="p">]</span> <span class="o">=</span> <span class="nx">tokenize</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="nx">alternatives</span><span class="p">)</span>
-    <span class="vi">@tokens = </span><span class="nx">tokens</span><span class="p">.</span><span class="nx">join</span> <span class="s">&#39; &#39;</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'> of type <em>String</em></span></p>
-
-<p>#
-Space-seperated list of grammar tokens, produced by this class' constructor</p></div></div><div class="code"><div class="wrapper">  <span class="nv">tokens : </span><span class="kc">null</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p>#
-Create and return the parsers source code wrapped into a closure, still
+name of a rule above) as &quot;tokens&quot;.</p></div></div><div class="code"><div class="wrapper">  <span class="hljs-attribute">constructor</span>: <span class="hljs-function"><span class="hljs-params">()</span> -&gt;</span>
+    bnf = <span class="hljs-property">@bnf</span>
+    startSymbol = <span class="hljs-property">@startSymbol</span>
+    tokens = []
+    known = {}
+<span class="hljs-function">    <span class="hljs-title">tokenize</span> = <span class="hljs-params">(name, alternatives)</span> -&gt;</span>
+      <span class="hljs-keyword">for</span> alt <span class="hljs-keyword">in</span> alternatives
+        <span class="hljs-keyword">for</span> token <span class="hljs-keyword">in</span> alt[<span class="hljs-number">0</span>].split <span class="hljs-string">' '</span>
+          tokens.push token <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> bnf[token]? <span class="hljs-keyword">and</span> <span class="hljs-keyword">not</span> known[token]?
+          known[token] = <span class="hljs-literal">true</span>
+        alt[<span class="hljs-number">1</span>] = <span class="hljs-string">"<span class="hljs-subst">#{alt[<span class="hljs-number">1</span>]}</span>"</span> <span class="hljs-keyword">if</span> name <span class="hljs-keyword">is</span> startSymbol
+        alt
+    <span class="hljs-keyword">for</span> own name, alternatives <span class="hljs-keyword">of</span> bnf
+      bnf[name] = tokenize(name, alternatives)
+    <span class="hljs-property">@tokens</span> = tokens.join <span class="hljs-string">' '</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'>Property of type <em>String</em></span></p>
+<p>Space-seperated list of grammar tokens, produced by this class&#39; constructor</p></div></div><div class="code"><div class="wrapper">  tokens : <span class="hljs-literal">null</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'>Method create</span></p>
+<hr>
+<p>Create and return the parsers source code wrapped into a closure, still
 keeping the value of <code>this</code>.</p>
+<p>Parameters:</p>
+<ul>
+<li><p><strong>comment is optional and must be a String.</strong></p>
+</li>
+<li><p><strong>prefix is optional and must be a String.</strong></p>
+</li>
+<li><p><strong>scope is optional and must be a String.</strong></p>
+</li>
+<li><p><strong>suffix is optional and must be a String.</strong></p>
+</li>
+</ul>
+<p><strong>Returns a String</strong></p></div></div><div class="code"><div class="wrapper">  <span class="hljs-attribute">create</span>: (comment = [<span class="hljs-string">'/* Goatee Script Parser */'</span>,<span class="hljs-string">''</span>].join <span class="hljs-string">"\n"</span>, \
+           prefix  = [<span class="hljs-string">'(function() {'</span>,<span class="hljs-string">''</span>].join <span class="hljs-string">"\n"</span>, \
+           scope   = [<span class="hljs-string">';'</span>,<span class="hljs-string">'parser.yy.goatee = new (require("./Scope").Scope)'</span>].join <span class="hljs-string">"\n"</span>, \
+           suffix  = [<span class="hljs-string">';'</span>,<span class="hljs-string">'}).call(this);'</span>].join <span class="hljs-string">"\n"</span>) -&gt;
+    [comment, prefix, Grammar.createParser(<span class="hljs-keyword">this</span>).generate(), scope, suffix].join <span class="hljs-string">''</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'>Property of type <em>Object</em></span></p>
+<hr>
+<p>Use the default jison-lexer</p></div></div><div class="code"><div class="wrapper">  <span class="hljs-attribute">lex</span>:</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Declare all lexer tokens</p></div></div><div class="code"><div class="wrapper">    <span class="hljs-attribute">rules</span>: [</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>ignore white-spaces</p></div></div><div class="code"><div class="wrapper">      r <span class="hljs-regexp">/\s+/</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>hexadecimal number</p></div></div><div class="code"><div class="wrapper">      r <span class="hljs-regexp">/0x[a-fA-F0-9]+\b/</span>        , <span class="hljs-function">-&gt;</span> <span class="hljs-string">'NUMBER'</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>decimal number</p></div></div><div class="code"><div class="wrapper">      r <span class="hljs-regexp">///
+        ([1-9][0-9]+|[0-9])
+        (\.[0-9]+)?
+        ([eE][-+]?[0-9]+)?
+        \b
+        ///</span>                       , <span class="hljs-function">-&gt;</span> <span class="hljs-string">'NUMBER'</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>constants</p></div></div><div class="code"><div class="wrapper">      r <span class="hljs-regexp">/null\b/</span>                  , <span class="hljs-function">-&gt;</span> <span class="hljs-string">'NULL'</span>
+      r <span class="hljs-regexp">/true\b/</span>                  , <span class="hljs-function">-&gt;</span> <span class="hljs-string">'TRUE'</span>
+      r <span class="hljs-regexp">/false\b/</span>                 , <span class="hljs-function">-&gt;</span> <span class="hljs-string">'FALSE'</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>control flow statements</p></div></div><div class="code"><div class="wrapper">      r <span class="hljs-regexp">/if\b/</span>                    , <span class="hljs-function">-&gt;</span> <span class="hljs-string">'IF'</span>
+      r <span class="hljs-regexp">/then\b/</span>                  , <span class="hljs-function">-&gt;</span> <span class="hljs-string">'THEN'</span>
+      r <span class="hljs-regexp">/else\b/</span>                  , <span class="hljs-function">-&gt;</span> <span class="hljs-string">'ELSE'</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>not yet implemented:</p>
+<pre><code> r /for\b/                   , -&gt; &#39;FOR&#39;</code></pre></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>the following reserved word are not allowed and
+raise exceptions if used in the wrong place</p></div></div><div class="code"><div class="wrapper">      r <span class="hljs-regexp">/return\b/</span>                , <span class="hljs-function">-&gt;</span> <span class="hljs-string">'RETURN'</span>
+      r <span class="hljs-regexp">/new\b/</span>                   , <span class="hljs-function">-&gt;</span> <span class="hljs-string">'NEW'</span>
+      r <span class="hljs-regexp">/typeof\b/</span>                , <span class="hljs-function">-&gt;</span> <span class="hljs-string">'TYPEOF'</span>
+      r <span class="hljs-regexp">/void\b/</span>                  , <span class="hljs-function">-&gt;</span> <span class="hljs-string">'VOID'</span>
+      r <span class="hljs-regexp">/instanceof\b/</span>            , <span class="hljs-function">-&gt;</span> <span class="hljs-string">'INSTANCEOF'</span>
+      r <span class="hljs-regexp">/yield\b/</span>                 , <span class="hljs-function">-&gt;</span> <span class="hljs-string">'YIELD'</span>
+      r <span class="hljs-regexp">/constructor\b/</span>           , <span class="hljs-function">-&gt;</span> <span class="hljs-string">'CONSTRUCTOR'</span>
+      r <span class="hljs-regexp">/(__proto__|prototype)\b/</span> , <span class="hljs-function">-&gt;</span> <span class="hljs-string">'PROTOTYPE'</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>identifier has to come AFTER reserved words</p></div></div><div class="code"><div class="wrapper">      r <span class="hljs-regexp">/this\b/</span>                  , <span class="hljs-function">-&gt;</span> <span class="hljs-string">'THIS'</span>       <span class="hljs-comment"># root context</span>
+      r <span class="hljs-regexp">/[@]/</span>                     , <span class="hljs-function">-&gt;</span> <span class="hljs-string">'SELF'</span>       <span class="hljs-comment"># current context</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>access context or variable from …</p>
+<p>… current scope:</p>
+<pre><code>$$ ~ SELF ~ current context
+$_        ~ current context&#39;s local variables
+_$        ~ current context&#39;s chain of scopes
+__        ~ current context&#39;s expression stack</code></pre>
+<p>… parent contexts:</p>
+<pre><code>_0        ~ current - 1 level (parent) context
+_1        ~ current - 2 levels (grand-parent) context
+_2        ~ current - 3 levels context
+…
+_9        ~ current - 10 levels context</code></pre>
+<p>… child contexts:</p>
+<pre><code>$9        ~ root + 9 levels context
+…
+$2        ~ root + 2 levels (grand-child) context
+$1        ~ root + 1 level (child) context
+$0 ~ THIS ~ root context</code></pre></div></div><div class="code"><div class="wrapper">      r <span class="hljs-regexp">/[$_][$_0-9]/</span>             , <span class="hljs-function">-&gt;</span> <span class="hljs-string">'CONTEXT'</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>mind the delibrately reduced set of allowed (start) characters
+compare with ES3/ES5/ES6</p></div></div><div class="code"><div class="wrapper">      r <span class="hljs-regexp">/[$_a-zA-Z]\w*/</span>           , <span class="hljs-function">-&gt;</span> <span class="hljs-string">'REFERENCE'</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>identifier above</p></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>double-quoted string</p></div></div><div class="code"><div class="wrapper">      r <span class="hljs-regexp">///
+        "
+        (
+          \\x[a-fA-F0-9]{2} |
+          \\u[a-fA-F0-9]{4} |
+          \\[^xu]           |
+          [^\\"]
+        )*
+        "
+        ///</span>                       , <span class="hljs-function">-&gt;</span> <span class="hljs-string">'STRING'</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>single-quoted string</p></div></div><div class="code"><div class="wrapper">      r <span class="hljs-regexp">///
+        '
+        (
+          \\[/'\\bfnrt]     |
+          \\u[a-fA-F0-9]{4} |
+          [^\\']
+        )*
+        '
+        ///</span>                       , <span class="hljs-function">-&gt;</span> <span class="hljs-string">'STRING'</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>ignore multiline-comments</p></div></div><div class="code"><div class="wrapper">      r <span class="hljs-regexp">/\/\*(?:.|[\r\n])*?\*\//</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>accessors below</p></div></div><div class="code"><div class="wrapper">      r <span class="hljs-regexp">/\./</span>                      , <span class="hljs-function">-&gt;</span> <span class="hljs-string">'.'</span>
+      r <span class="hljs-regexp">/\[/</span>                      , <span class="hljs-function">-&gt;</span> <span class="hljs-string">'['</span>
+      r <span class="hljs-regexp">/\]/</span>                      , <span class="hljs-function">-&gt;</span> <span class="hljs-string">']'</span>
+      r <span class="hljs-regexp">/\(/</span>                      , <span class="hljs-function">-&gt;</span> <span class="hljs-string">'('</span>
+      r <span class="hljs-regexp">/\)/</span>                      , <span class="hljs-function">-&gt;</span> <span class="hljs-string">')'</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>operators below</p></div></div><div class="code"><div class="wrapper">      r <span class="hljs-regexp">/\?/</span>                      , <span class="hljs-function">-&gt;</span> <span class="hljs-string">'?'</span>
+      r <span class="hljs-string">':'</span>                       , <span class="hljs-function">-&gt;</span> <span class="hljs-string">':'</span>
+      r <span class="hljs-string">';'</span>                       , <span class="hljs-function">-&gt;</span> <span class="hljs-string">';'</span>
+      r <span class="hljs-string">','</span>                       , <span class="hljs-function">-&gt;</span> <span class="hljs-string">','</span>
+      r <span class="hljs-string">'{'</span>                       , <span class="hljs-function">-&gt;</span> <span class="hljs-string">'{'</span>
+      r <span class="hljs-string">'}'</span>                       , <span class="hljs-function">-&gt;</span> <span class="hljs-string">'}'</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Mathematical assigment operators</p></div></div><div class="code"><div class="wrapper">      r <span class="hljs-string">'-='</span>                      , <span class="hljs-function">-&gt;</span>   <span class="hljs-string">'-='</span>
+      r <span class="hljs-regexp">/\+=/</span>                     , <span class="hljs-function">-&gt;</span>   <span class="hljs-string">'+='</span>
+      r <span class="hljs-regexp">/\*=/</span>                     , <span class="hljs-function">-&gt;</span>   <span class="hljs-string">'*='</span>
+      r <span class="hljs-regexp">/\/=/</span>                     , <span class="hljs-function">-&gt;</span>   <span class="hljs-string">'/='</span>
+      r <span class="hljs-string">'%='</span>                      , <span class="hljs-function">-&gt;</span>   <span class="hljs-string">'%='</span>
+      r <span class="hljs-string">'--'</span>                      , <span class="hljs-function">-&gt;</span> <span class="hljs-string">'--'</span>
+      r <span class="hljs-regexp">/\+\+/</span>                    , <span class="hljs-function">-&gt;</span> <span class="hljs-string">'++'</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Bitwise assigment operators</p></div></div><div class="code"><div class="wrapper">      r <span class="hljs-string">'&gt;&gt;&gt;='</span>                    , <span class="hljs-function">-&gt;</span> <span class="hljs-string">'&gt;&gt;&gt;='</span>
+      r <span class="hljs-string">'&gt;&gt;='</span>                     , <span class="hljs-function">-&gt;</span>  <span class="hljs-string">'&gt;&gt;='</span>
+      r <span class="hljs-string">'&lt;&lt;='</span>                     , <span class="hljs-function">-&gt;</span>  <span class="hljs-string">'&lt;&lt;='</span>
+      r <span class="hljs-regexp">/\&amp;=/</span>                     , <span class="hljs-function">-&gt;</span>   <span class="hljs-string">'&amp;='</span>
+      r <span class="hljs-regexp">/\|=/</span>                     , <span class="hljs-function">-&gt;</span>   <span class="hljs-string">'|='</span>
+      r <span class="hljs-regexp">/\^=/</span>                     , <span class="hljs-function">-&gt;</span>   <span class="hljs-string">'^='</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Boolean operators</p></div></div><div class="code"><div class="wrapper">      r <span class="hljs-string">'==='</span>                     , <span class="hljs-function">-&gt;</span> <span class="hljs-string">'==='</span>
+      r <span class="hljs-string">'!=='</span>                     , <span class="hljs-function">-&gt;</span> <span class="hljs-string">'!=='</span>
+      r <span class="hljs-string">'=='</span>                      , <span class="hljs-function">-&gt;</span> <span class="hljs-string">'=='</span>
+      r <span class="hljs-string">'!='</span>                      , <span class="hljs-function">-&gt;</span> <span class="hljs-string">'!='</span>
+      r <span class="hljs-string">'&lt;='</span>                      , <span class="hljs-function">-&gt;</span> <span class="hljs-string">'&lt;='</span>
+      r <span class="hljs-string">'&gt;='</span>                      , <span class="hljs-function">-&gt;</span> <span class="hljs-string">'&gt;='</span>
+      r <span class="hljs-string">'&lt;'</span>                       , <span class="hljs-function">-&gt;</span> <span class="hljs-string">'&lt;'</span>
+      r <span class="hljs-string">'&gt;'</span>                       , <span class="hljs-function">-&gt;</span> <span class="hljs-string">'&gt;'</span>
+      r <span class="hljs-regexp">/\&amp;\&amp;/</span>                    , <span class="hljs-function">-&gt;</span> <span class="hljs-string">'&amp;&amp;'</span>
+      r <span class="hljs-regexp">/\|\|/</span>                    , <span class="hljs-function">-&gt;</span> <span class="hljs-string">'||'</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Not (!) must be lower priority than != and !==</p></div></div><div class="code"><div class="wrapper">      r <span class="hljs-string">'!'</span>                       , <span class="hljs-function">-&gt;</span> <span class="hljs-string">'!'</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Mathemetical operators</p></div></div><div class="code"><div class="wrapper">      r <span class="hljs-string">'-'</span>                       , <span class="hljs-function">-&gt;</span> <span class="hljs-string">'-'</span>
+      r <span class="hljs-regexp">/\+/</span>                      , <span class="hljs-function">-&gt;</span> <span class="hljs-string">'+'</span>
+      r <span class="hljs-regexp">/\*/</span>                      , <span class="hljs-function">-&gt;</span> <span class="hljs-string">'*'</span>
+      r <span class="hljs-regexp">/\//</span>                      , <span class="hljs-function">-&gt;</span> <span class="hljs-string">'/'</span>
+      r <span class="hljs-regexp">/\^/</span>                      , <span class="hljs-function">-&gt;</span> <span class="hljs-string">'^'</span>
+      r <span class="hljs-string">'%'</span>                       , <span class="hljs-function">-&gt;</span> <span class="hljs-string">'%'</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Bitwise operators</p></div></div><div class="code"><div class="wrapper">      r <span class="hljs-string">'&gt;&gt;&gt;'</span>                     , <span class="hljs-function">-&gt;</span> <span class="hljs-string">'&gt;&gt;&gt;'</span>
+      r <span class="hljs-string">'&gt;&gt;'</span>                      , <span class="hljs-function">-&gt;</span> <span class="hljs-string">'&gt;&gt;'</span>
+      r <span class="hljs-string">'&lt;&lt;'</span>                      , <span class="hljs-function">-&gt;</span> <span class="hljs-string">'&lt;&lt;'</span>
+      r <span class="hljs-regexp">/\&amp;/</span>                      , <span class="hljs-function">-&gt;</span> <span class="hljs-string">'&amp;'</span>
+      r <span class="hljs-regexp">/\|/</span>                      , <span class="hljs-function">-&gt;</span> <span class="hljs-string">'|'</span>
+      r <span class="hljs-string">'~'</span>                       , <span class="hljs-function">-&gt;</span> <span class="hljs-string">'~'</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Assignment operator</p></div></div><div class="code"><div class="wrapper">      r <span class="hljs-string">'='</span>                       , <span class="hljs-function">-&gt;</span> <span class="hljs-string">'='</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>EOF is always last …
+TODO Figure out why the EOF token is “$”</p></div></div><div class="code"><div class="wrapper">      r <span class="hljs-string">'$'</span>                       , <span class="hljs-function">-&gt;</span> <span class="hljs-string">'EOF'</span>
+    ]</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h2 id="operator-precedence">Operator Precedence</h2>
+<p>Declare operator precedence from highest to lowest,
+see <a href="https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Operators/Operator_Precedence">Operator Precedence</a>.</p></div></div><div class="code"><div class="wrapper">  <span class="hljs-attribute">operators</span>: [
+    [<span class="hljs-string">'left'</span>, <span class="hljs-string">'.'</span>, <span class="hljs-string">'['</span>, <span class="hljs-string">']'</span>]                  <span class="hljs-comment">#  1 member</span>
+    [<span class="hljs-string">'right'</span>, <span class="hljs-string">'NEW'</span>]                         <span class="hljs-comment">#    new</span>
+    [<span class="hljs-string">'left'</span>, <span class="hljs-string">'('</span>, <span class="hljs-string">')'</span>]                       <span class="hljs-comment">#  2 call</span>
+    [<span class="hljs-string">'nonassoc'</span>, <span class="hljs-string">'++'</span>, <span class="hljs-string">'--'</span>]                 <span class="hljs-comment">#  3 decrement</span>
+    [<span class="hljs-string">'right'</span>, <span class="hljs-string">'!'</span>, <span class="hljs-string">'~'</span>, \ <span class="hljs-comment"># '+', '-', \      #  4 usually contains unary +/-</span>
+              <span class="hljs-string">'TYPEOF'</span>, <span class="hljs-string">'VOID'</span>, <span class="hljs-string">'DELETE'</span>]
+    [<span class="hljs-string">'left'</span>, <span class="hljs-string">'*'</span>, <span class="hljs-string">'/'</span>, <span class="hljs-string">'%'</span>]                  <span class="hljs-comment">#  5 multiply, divide, modulus</span>
+    [<span class="hljs-string">'left'</span>, <span class="hljs-string">'+'</span>, <span class="hljs-string">'-'</span>]                       <span class="hljs-comment">#  6 plus/add, minus/substract</span>
+    [<span class="hljs-string">'left'</span>, <span class="hljs-string">'&gt;&gt;&gt;'</span>, <span class="hljs-string">'&gt;&gt;'</span>, <span class="hljs-string">'&lt;&lt;'</span>]              <span class="hljs-comment">#  7 bitwise shift</span>
+    [<span class="hljs-string">'left'</span>, <span class="hljs-string">'&lt;='</span>, <span class="hljs-string">'&gt;='</span>, <span class="hljs-string">'&lt;'</span>, <span class="hljs-string">'&gt;'</span>]           <span class="hljs-comment">#  8 relational</span>
+    [<span class="hljs-string">'left'</span>, <span class="hljs-string">'IN'</span>, <span class="hljs-string">'INSTANCEOF'</span>]             <span class="hljs-comment">#   … in …, … instanceof …</span>
+    [<span class="hljs-string">'left'</span>, <span class="hljs-string">'==='</span>, <span class="hljs-string">'!=='</span>, <span class="hljs-string">'=='</span>, <span class="hljs-string">'!='</span>]       <span class="hljs-comment">#  9 equality</span>
+    [<span class="hljs-string">'left'</span>, <span class="hljs-string">'^'</span>]                            <span class="hljs-comment"># 11 bitwise and</span>
+    [<span class="hljs-string">'left'</span>, <span class="hljs-string">'&amp;'</span>]                            <span class="hljs-comment"># 10 bitwise xor</span>
+    [<span class="hljs-string">'left'</span>, <span class="hljs-string">'|'</span>]                            <span class="hljs-comment"># 12 bitwise or</span>
+    [<span class="hljs-string">'left'</span>, <span class="hljs-string">'&amp;&amp;'</span>]                           <span class="hljs-comment"># 13 logical and</span>
+    [<span class="hljs-string">'left'</span>, <span class="hljs-string">'||'</span>]                           <span class="hljs-comment"># 14 logical or</span>
+    [<span class="hljs-string">'right'</span>, <span class="hljs-string">'?'</span>, <span class="hljs-string">':'</span>]                      <span class="hljs-comment"># 15 inline conditional</span>
+    [<span class="hljs-string">'right'</span>, <span class="hljs-string">'YIELD'</span>]                       <span class="hljs-comment"># 16 yield is not (yet?) supported</span>
+    [<span class="hljs-string">'right'</span>, <span class="hljs-string">'='</span>,    <span class="hljs-string">'+='</span>, <span class="hljs-string">'-='</span>,  <span class="hljs-string">'*='</span>, \   <span class="hljs-comment"># 17 assignments</span>
+              <span class="hljs-string">'/='</span>,   <span class="hljs-string">'%='</span>, <span class="hljs-string">'&lt;&lt;='</span>, <span class="hljs-string">'&gt;&gt;='</span>,
+              <span class="hljs-string">'&gt;&gt;&gt;='</span>, <span class="hljs-string">'&amp;='</span>, <span class="hljs-string">'^='</span>,  <span class="hljs-string">'|='</span>]
+    [<span class="hljs-string">'left'</span>, <span class="hljs-string">','</span>]                            <span class="hljs-comment"># 18 comma</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Reverse the operators because jison orders precedence
+from low to high, and we have it high to low,
+see <a href="http://dinosaur.compilertools.net/yacc/index.html">Yacc</a>.</p></div></div><div class="code"><div class="wrapper">  ].reverse()</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>The <strong>Script</strong> is the top-level node in the syntax tree.</p></div></div><div class="code"><div class="wrapper">  startSymbol : <span class="hljs-string">'Script'</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h2 id="syntax-description-">Syntax description …</h2>
+<p>… notated in Backus-Naur-Format.</p></div></div><div class="code"><div class="wrapper">  <span class="hljs-attribute">bnf</span>:</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Since we parse bottom-up, all parsing must end here.</p></div></div><div class="code"><div class="wrapper">    <span class="hljs-attribute">Script</span>: [
+      r <span class="hljs-string">'End'</span>                       , <span class="hljs-function">-&gt;</span> yy.goatee.create <span class="hljs-string">'scalar'</span>, [<span class="hljs-literal">undefined</span>]
+      r <span class="hljs-string">'Statements End'</span>            , <span class="hljs-function">-&gt;</span> $<span class="hljs-number">1</span>
+      r <span class="hljs-string">'Seperator Statements End'</span>  , <span class="hljs-function">-&gt;</span> $<span class="hljs-number">2</span>
+    ]
 
-<p><strong>Returns a String</strong></p></div></div><div class="code"><div class="wrapper">  <span class="nv">create: </span><span class="p">(</span><span class="nv">comment = </span><span class="s">&#39;/* Goatee Script Parser */&#39;</span><span class="p">,</span> <span class="o">\</span>
-           <span class="nv">prefix  = </span><span class="s">&#39;(function() {&#39;</span><span class="p">,</span> <span class="o">\</span>
-           <span class="nv">scope   = </span><span class="s">&#39;;parser.yy = new (require(&quot;./Scope&quot;).Scope);&#39;</span><span class="p">,</span> <span class="o">\</span>
-           <span class="nv">suffix  = </span><span class="s">&#39;}).call(this);&#39;</span><span class="p">)</span> <span class="nf">-&gt;</span>
-    <span class="s">&quot;&quot;&quot;</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>{comment}#{prefix}#{Grammar.createParser(this).generate()}#{scope}#{suffix}</p></div></div><div class="code"><div class="wrapper"><span class="s">    &quot;&quot;&quot;</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Use the default jison-lexer</p></div></div><div class="code"><div class="wrapper">  <span class="nv">lex:</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Declare all lexer tokens</p></div></div><div class="code"><div class="wrapper">    <span class="nv">rules: </span><span class="p">[</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>ignore white-spaces</p></div></div><div class="code"><div class="wrapper">      <span class="nx">r</span> <span class="sr">/\s+/</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>hexadecimal number</p></div></div><div class="code"><div class="wrapper">      <span class="nx">r</span> <span class="sr">/0x[a-fA-F0-9]+\b/</span>        <span class="p">,</span> <span class="nf">-&gt;</span> <span class="s">&#39;NUMBER&#39;</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>decimal number</p></div></div><div class="code"><div class="wrapper">      <span class="nx">r</span> <span class="sr">///</span>
-<span class="sr">        ([1-9][0-9]+|[0-9])</span>
-<span class="sr">        (\.[0-9]+)?</span>
-<span class="sr">        ([eE][-+]?[0-9]+)?</span>
-<span class="sr">        \b</span>
-<span class="sr">        ///</span>                       <span class="p">,</span> <span class="nf">-&gt;</span> <span class="s">&#39;NUMBER&#39;</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>constants</p></div></div><div class="code"><div class="wrapper">      <span class="nx">r</span> <span class="sr">/null\b/</span>                  <span class="p">,</span> <span class="nf">-&gt;</span> <span class="s">&#39;NULL&#39;</span>
-      <span class="nx">r</span> <span class="sr">/true\b/</span>                  <span class="p">,</span> <span class="nf">-&gt;</span> <span class="s">&#39;TRUE&#39;</span>
-      <span class="nx">r</span> <span class="sr">/false\b/</span>                 <span class="p">,</span> <span class="nf">-&gt;</span> <span class="s">&#39;FALSE&#39;</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>control flow statements</p></div></div><div class="code"><div class="wrapper">      <span class="nx">r</span> <span class="sr">/if\b/</span>                    <span class="p">,</span> <span class="nf">-&gt;</span> <span class="s">&#39;IF&#39;</span>
-      <span class="nx">r</span> <span class="sr">/then\b/</span>                  <span class="p">,</span> <span class="nf">-&gt;</span> <span class="s">&#39;THEN&#39;</span>
-      <span class="nx">r</span> <span class="sr">/else\b/</span>                  <span class="p">,</span> <span class="nf">-&gt;</span> <span class="s">&#39;ELSE&#39;</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>r /for\b/                   , -> 'FOR'</p></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>the following reserved word are not allowed and
-raise exceptions if used in the wrong place</p></div></div><div class="code"><div class="wrapper">      <span class="nx">r</span> <span class="sr">/return\b/</span>                <span class="p">,</span> <span class="nf">-&gt;</span> <span class="s">&#39;RETURN&#39;</span>
-      <span class="nx">r</span> <span class="sr">/new\b/</span>                   <span class="p">,</span> <span class="nf">-&gt;</span> <span class="s">&#39;NEW&#39;</span>
-      <span class="nx">r</span> <span class="sr">/typeof\b/</span>                <span class="p">,</span> <span class="nf">-&gt;</span> <span class="s">&#39;TYPEOF&#39;</span>
-      <span class="nx">r</span> <span class="sr">/void\b/</span>                  <span class="p">,</span> <span class="nf">-&gt;</span> <span class="s">&#39;VOID&#39;</span>
-      <span class="nx">r</span> <span class="sr">/instanceof\b/</span>            <span class="p">,</span> <span class="nf">-&gt;</span> <span class="s">&#39;INSTANCEOF&#39;</span>
-      <span class="nx">r</span> <span class="sr">/yield\b/</span>                 <span class="p">,</span> <span class="nf">-&gt;</span> <span class="s">&#39;YIELD&#39;</span>
-      <span class="nx">r</span> <span class="sr">/constructor\b/</span>           <span class="p">,</span> <span class="nf">-&gt;</span> <span class="s">&#39;CONSTRUCTOR&#39;</span>
-      <span class="nx">r</span> <span class="sr">/(__proto__|prototype)\b/</span> <span class="p">,</span> <span class="nf">-&gt;</span> <span class="s">&#39;PROTOTYPE&#39;</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>identifier has to come AFTER reserved words</p></div></div><div class="code"><div class="wrapper">      <span class="nx">r</span> <span class="sr">/this\b/</span>                  <span class="p">,</span> <span class="nf">-&gt;</span> <span class="s">&#39;THIS&#39;</span>       <span class="c1"># root context</span>
-      <span class="nx">r</span> <span class="sr">/[@]/</span>                     <span class="p">,</span> <span class="nf">-&gt;</span> <span class="s">&#39;SELF&#39;</span>       <span class="c1"># current context</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>context or variable from scope
-  $$ ~ SELF ~ current context
-  $_        ~ current context's local variables
-  <em>$        ~ current context's chain of scopes
-  _</em>        ~ current context's expression stack
-  _0        ~ current - 1 level (parent) context
-  _1        ~ current - 2 levels (grand-parent) context
-  _2        ~ current - 3 levels context
-  …
-  _9        ~ current - 10 levels context
-  $9        ~ root + 9 levels context
-  …
-  $2        ~ root + 2 levels (grand-child) context
-  $1        ~ root + 1 level (child) context
-  $0 ~ THIS ~ root context</p></div></div><div class="code"><div class="wrapper">      <span class="nx">r</span> <span class="sr">/[$_][$_0-9]/</span>             <span class="p">,</span> <span class="nf">-&gt;</span> <span class="s">&#39;CONTEXT&#39;</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>mind the delibrately reduced set of allowed (start) characters
-compare with ES3/ES5/ES6</p></div></div><div class="code"><div class="wrapper">      <span class="nx">r</span> <span class="sr">/[$_a-zA-Z]\w*/</span>           <span class="p">,</span> <span class="nf">-&gt;</span> <span class="s">&#39;REFERENCE&#39;</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>identifier above</p></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>double-quoted string</p></div></div><div class="code"><div class="wrapper">      <span class="nx">r</span> <span class="sr">///</span>
-<span class="sr">        &quot;</span>
-<span class="sr">        (</span>
-<span class="sr">          \\x[a-fA-F0-9]{2} |</span>
-<span class="sr">          \\u[a-fA-F0-9]{4} |</span>
-<span class="sr">          \\[^xu]           |</span>
-<span class="sr">          [^\\&quot;]</span>
-<span class="sr">        )*</span>
-<span class="sr">        &quot;</span>
-<span class="sr">        ///</span>                       <span class="p">,</span> <span class="nf">-&gt;</span> <span class="s">&#39;STRING&#39;</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>single-quoted string</p></div></div><div class="code"><div class="wrapper">      <span class="nx">r</span> <span class="sr">///</span>
-<span class="sr">        &#39;</span>
-<span class="sr">        (</span>
-<span class="sr">          \\[/&#39;\\bfnrt]     |</span>
-<span class="sr">          \\u[a-fA-F0-9]{4} |</span>
-<span class="sr">          [^\\&#39;]</span>
-<span class="sr">        )*</span>
-<span class="sr">        &#39;</span>
-<span class="sr">        ///</span>                       <span class="p">,</span> <span class="nf">-&gt;</span> <span class="s">&#39;STRING&#39;</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>ignore multiline-comments</p></div></div><div class="code"><div class="wrapper">      <span class="nx">r</span> <span class="sr">/\/\*(?:.|[\r\n])*?\*\//</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>accessors below</p></div></div><div class="code"><div class="wrapper">      <span class="nx">r</span> <span class="sr">/\./</span>                      <span class="p">,</span> <span class="nf">-&gt;</span> <span class="s">&#39;.&#39;</span>
-      <span class="nx">r</span> <span class="sr">/\[/</span>                      <span class="p">,</span> <span class="nf">-&gt;</span> <span class="s">&#39;[&#39;</span>
-      <span class="nx">r</span> <span class="sr">/\]/</span>                      <span class="p">,</span> <span class="nf">-&gt;</span> <span class="s">&#39;]&#39;</span>
-      <span class="nx">r</span> <span class="sr">/\(/</span>                      <span class="p">,</span> <span class="nf">-&gt;</span> <span class="s">&#39;(&#39;</span>
-      <span class="nx">r</span> <span class="sr">/\)/</span>                      <span class="p">,</span> <span class="nf">-&gt;</span> <span class="s">&#39;)&#39;</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>operators below</p></div></div><div class="code"><div class="wrapper">      <span class="nx">r</span> <span class="sr">/\?/</span>                      <span class="p">,</span> <span class="nf">-&gt;</span> <span class="s">&#39;?&#39;</span>
-      <span class="nx">r</span> <span class="s">&#39;:&#39;</span>                       <span class="p">,</span> <span class="nf">-&gt;</span> <span class="s">&#39;:&#39;</span>
-      <span class="nx">r</span> <span class="s">&#39;;&#39;</span>                       <span class="p">,</span> <span class="nf">-&gt;</span> <span class="s">&#39;;&#39;</span>
-      <span class="nx">r</span> <span class="s">&#39;,&#39;</span>                       <span class="p">,</span> <span class="nf">-&gt;</span> <span class="s">&#39;,&#39;</span>
-      <span class="nx">r</span> <span class="s">&#39;{&#39;</span>                       <span class="p">,</span> <span class="nf">-&gt;</span> <span class="s">&#39;{&#39;</span>
-      <span class="nx">r</span> <span class="s">&#39;}&#39;</span>                       <span class="p">,</span> <span class="nf">-&gt;</span> <span class="s">&#39;}&#39;</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Mathematical assigment operators</p></div></div><div class="code"><div class="wrapper">      <span class="nx">r</span> <span class="s">&#39;-=&#39;</span>                      <span class="p">,</span> <span class="nf">-&gt;</span>   <span class="s">&#39;-=&#39;</span>
-      <span class="nx">r</span> <span class="sr">/\+=/</span>                     <span class="p">,</span> <span class="nf">-&gt;</span>   <span class="s">&#39;+=&#39;</span>
-      <span class="nx">r</span> <span class="sr">/\*=/</span>                     <span class="p">,</span> <span class="nf">-&gt;</span>   <span class="s">&#39;*=&#39;</span>
-      <span class="nx">r</span> <span class="sr">/\/=/</span>                     <span class="p">,</span> <span class="nf">-&gt;</span>   <span class="s">&#39;/=&#39;</span>
-      <span class="nx">r</span> <span class="s">&#39;%=&#39;</span>                      <span class="p">,</span> <span class="nf">-&gt;</span>   <span class="s">&#39;%=&#39;</span>
-      <span class="nx">r</span> <span class="s">&#39;--&#39;</span>                      <span class="p">,</span> <span class="nf">-&gt;</span> <span class="s">&#39;--&#39;</span>
-      <span class="nx">r</span> <span class="sr">/\+\+/</span>                    <span class="p">,</span> <span class="nf">-&gt;</span> <span class="s">&#39;++&#39;</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Bitwise assigment operators</p></div></div><div class="code"><div class="wrapper">      <span class="nx">r</span> <span class="s">&#39;&gt;&gt;&gt;=&#39;</span>                    <span class="p">,</span> <span class="nf">-&gt;</span> <span class="s">&#39;&gt;&gt;&gt;=&#39;</span>
-      <span class="nx">r</span> <span class="s">&#39;&gt;&gt;=&#39;</span>                     <span class="p">,</span> <span class="nf">-&gt;</span>  <span class="s">&#39;&gt;&gt;=&#39;</span>
-      <span class="nx">r</span> <span class="s">&#39;&lt;&lt;=&#39;</span>                     <span class="p">,</span> <span class="nf">-&gt;</span>  <span class="s">&#39;&lt;&lt;=&#39;</span>
-      <span class="nx">r</span> <span class="sr">/\&amp;=/</span>                     <span class="p">,</span> <span class="nf">-&gt;</span>   <span class="s">&#39;&amp;=&#39;</span>
-      <span class="nx">r</span> <span class="sr">/\|=/</span>                     <span class="p">,</span> <span class="nf">-&gt;</span>   <span class="s">&#39;|=&#39;</span>
-      <span class="nx">r</span> <span class="sr">/\^=/</span>                     <span class="p">,</span> <span class="nf">-&gt;</span>   <span class="s">&#39;^=&#39;</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Boolean operators</p></div></div><div class="code"><div class="wrapper">      <span class="nx">r</span> <span class="s">&#39;===&#39;</span>                     <span class="p">,</span> <span class="nf">-&gt;</span> <span class="s">&#39;===&#39;</span>
-      <span class="nx">r</span> <span class="s">&#39;!==&#39;</span>                     <span class="p">,</span> <span class="nf">-&gt;</span> <span class="s">&#39;!==&#39;</span>
-      <span class="nx">r</span> <span class="s">&#39;==&#39;</span>                      <span class="p">,</span> <span class="nf">-&gt;</span> <span class="s">&#39;==&#39;</span>
-      <span class="nx">r</span> <span class="s">&#39;!=&#39;</span>                      <span class="p">,</span> <span class="nf">-&gt;</span> <span class="s">&#39;!=&#39;</span>
-      <span class="nx">r</span> <span class="s">&#39;&lt;=&#39;</span>                      <span class="p">,</span> <span class="nf">-&gt;</span> <span class="s">&#39;&lt;=&#39;</span>
-      <span class="nx">r</span> <span class="s">&#39;&gt;=&#39;</span>                      <span class="p">,</span> <span class="nf">-&gt;</span> <span class="s">&#39;&gt;=&#39;</span>
-      <span class="nx">r</span> <span class="s">&#39;&lt;&#39;</span>                       <span class="p">,</span> <span class="nf">-&gt;</span> <span class="s">&#39;&lt;&#39;</span>
-      <span class="nx">r</span> <span class="s">&#39;&gt;&#39;</span>                       <span class="p">,</span> <span class="nf">-&gt;</span> <span class="s">&#39;&gt;&#39;</span>
-      <span class="nx">r</span> <span class="sr">/\&amp;\&amp;/</span>                    <span class="p">,</span> <span class="nf">-&gt;</span> <span class="s">&#39;&amp;&amp;&#39;</span>
-      <span class="nx">r</span> <span class="sr">/\|\|/</span>                    <span class="p">,</span> <span class="nf">-&gt;</span> <span class="s">&#39;||&#39;</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Not (!) must be lower priority than != and !==</p></div></div><div class="code"><div class="wrapper">      <span class="nx">r</span> <span class="s">&#39;!&#39;</span>                       <span class="p">,</span> <span class="nf">-&gt;</span> <span class="s">&#39;!&#39;</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Mathemetical operators</p></div></div><div class="code"><div class="wrapper">      <span class="nx">r</span> <span class="s">&#39;-&#39;</span>                       <span class="p">,</span> <span class="nf">-&gt;</span> <span class="s">&#39;-&#39;</span>
-      <span class="nx">r</span> <span class="sr">/\+/</span>                      <span class="p">,</span> <span class="nf">-&gt;</span> <span class="s">&#39;+&#39;</span>
-      <span class="nx">r</span> <span class="sr">/\*/</span>                      <span class="p">,</span> <span class="nf">-&gt;</span> <span class="s">&#39;*&#39;</span>
-      <span class="nx">r</span> <span class="sr">/\//</span>                      <span class="p">,</span> <span class="nf">-&gt;</span> <span class="s">&#39;/&#39;</span>
-      <span class="nx">r</span> <span class="sr">/\^/</span>                      <span class="p">,</span> <span class="nf">-&gt;</span> <span class="s">&#39;^&#39;</span>
-      <span class="nx">r</span> <span class="s">&#39;%&#39;</span>                       <span class="p">,</span> <span class="nf">-&gt;</span> <span class="s">&#39;%&#39;</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Bitwise operators</p></div></div><div class="code"><div class="wrapper">      <span class="nx">r</span> <span class="s">&#39;&gt;&gt;&gt;&#39;</span>                     <span class="p">,</span> <span class="nf">-&gt;</span> <span class="s">&#39;&gt;&gt;&gt;&#39;</span>
-      <span class="nx">r</span> <span class="s">&#39;&gt;&gt;&#39;</span>                      <span class="p">,</span> <span class="nf">-&gt;</span> <span class="s">&#39;&gt;&gt;&#39;</span>
-      <span class="nx">r</span> <span class="s">&#39;&lt;&lt;&#39;</span>                      <span class="p">,</span> <span class="nf">-&gt;</span> <span class="s">&#39;&lt;&lt;&#39;</span>
-      <span class="nx">r</span> <span class="sr">/\&amp;/</span>                      <span class="p">,</span> <span class="nf">-&gt;</span> <span class="s">&#39;&amp;&#39;</span>
-      <span class="nx">r</span> <span class="sr">/\|/</span>                      <span class="p">,</span> <span class="nf">-&gt;</span> <span class="s">&#39;|&#39;</span>
-      <span class="nx">r</span> <span class="s">&#39;~&#39;</span>                       <span class="p">,</span> <span class="nf">-&gt;</span> <span class="s">&#39;~&#39;</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Assignment operator</p></div></div><div class="code"><div class="wrapper">      <span class="nx">r</span> <span class="s">&#39;=&#39;</span>                       <span class="p">,</span> <span class="nf">-&gt;</span> <span class="s">&#39;=&#39;</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>EOF is always last …
-TODO Figure out why the EOF token is “$”</p></div></div><div class="code"><div class="wrapper">      <span class="nx">r</span> <span class="s">&#39;$&#39;</span>                       <span class="p">,</span> <span class="nf">-&gt;</span> <span class="s">&#39;EOF&#39;</span>
-    <span class="p">]</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'> see https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Operators/Operator_Precedence</span></p>
+    <span class="hljs-attribute">Statements</span>: [
+      o <span class="hljs-string">'Statement'</span>
+      o <span class="hljs-string">'Statements Seperator Statement'</span>, <span class="hljs-function">-&gt;</span>
+        <span class="hljs-keyword">if</span> $<span class="hljs-number">1.</span>operator.name <span class="hljs-keyword">is</span> <span class="hljs-string">'block'</span>
+          $<span class="hljs-number">1.</span>parameters.push $<span class="hljs-number">3</span>
+          $<span class="hljs-number">1</span>
+        <span class="hljs-keyword">else</span>
+          yy.goatee.create <span class="hljs-string">'block'</span>, [$<span class="hljs-number">1</span>, $<span class="hljs-number">3</span>]
+    ]
 
-<p>declare operator precedence from highest to lowest</p></div></div><div class="code"><div class="wrapper">  <span class="nv">operators: </span><span class="p">[</span>
-    <span class="p">[</span><span class="s">&#39;left&#39;</span><span class="p">,</span> <span class="s">&#39;.&#39;</span><span class="p">,</span> <span class="s">&#39;[&#39;</span><span class="p">,</span> <span class="s">&#39;]&#39;</span><span class="p">]</span>                  <span class="c1">#  1 member</span>
-    <span class="p">[</span><span class="s">&#39;right&#39;</span><span class="p">,</span> <span class="s">&#39;NEW&#39;</span><span class="p">]</span>                         <span class="c1">#    new</span>
-    <span class="p">[</span><span class="s">&#39;left&#39;</span><span class="p">,</span> <span class="s">&#39;(&#39;</span><span class="p">,</span> <span class="s">&#39;)&#39;</span><span class="p">]</span>                       <span class="c1">#  2 call</span>
-    <span class="p">[</span><span class="s">&#39;nonassoc&#39;</span><span class="p">,</span> <span class="s">&#39;++&#39;</span><span class="p">,</span> <span class="s">&#39;--&#39;</span><span class="p">]</span>                 <span class="c1">#  3 decrement</span>
-    <span class="p">[</span><span class="s">&#39;right&#39;</span><span class="p">,</span> <span class="s">&#39;!&#39;</span><span class="p">,</span> <span class="s">&#39;~&#39;</span><span class="p">,</span> <span class="err">\</span> <span class="c1"># &#39;+&#39;, &#39;-&#39;, \      #  4 usually contains unary +/-</span>
-              <span class="s">&#39;TYPEOF&#39;</span><span class="p">,</span> <span class="s">&#39;VOID&#39;</span><span class="p">,</span> <span class="s">&#39;DELETE&#39;</span><span class="p">]</span>
-    <span class="p">[</span><span class="s">&#39;left&#39;</span><span class="p">,</span> <span class="s">&#39;*&#39;</span><span class="p">,</span> <span class="s">&#39;/&#39;</span><span class="p">,</span> <span class="s">&#39;%&#39;</span><span class="p">]</span>                  <span class="c1">#  5 multiply, divide, modulus</span>
-    <span class="p">[</span><span class="s">&#39;left&#39;</span><span class="p">,</span> <span class="s">&#39;+&#39;</span><span class="p">,</span> <span class="s">&#39;-&#39;</span><span class="p">]</span>                       <span class="c1">#  6 plus/add, minus/substract</span>
-    <span class="p">[</span><span class="s">&#39;left&#39;</span><span class="p">,</span> <span class="s">&#39;&gt;&gt;&gt;&#39;</span><span class="p">,</span> <span class="s">&#39;&gt;&gt;&#39;</span><span class="p">,</span> <span class="s">&#39;&lt;&lt;&#39;</span><span class="p">]</span>              <span class="c1">#  7 bitwise shift</span>
-    <span class="p">[</span><span class="s">&#39;left&#39;</span><span class="p">,</span> <span class="s">&#39;&lt;=&#39;</span><span class="p">,</span> <span class="s">&#39;&gt;=&#39;</span><span class="p">,</span> <span class="s">&#39;&lt;&#39;</span><span class="p">,</span> <span class="s">&#39;&gt;&#39;</span><span class="p">]</span>           <span class="c1">#  8 relational</span>
-    <span class="p">[</span><span class="s">&#39;left&#39;</span><span class="p">,</span> <span class="s">&#39;IN&#39;</span><span class="p">,</span> <span class="s">&#39;INSTANCEOF&#39;</span><span class="p">]</span>             <span class="c1">#   … in …, … instanceof …</span>
-    <span class="p">[</span><span class="s">&#39;left&#39;</span><span class="p">,</span> <span class="s">&#39;===&#39;</span><span class="p">,</span> <span class="s">&#39;!==&#39;</span><span class="p">,</span> <span class="s">&#39;==&#39;</span><span class="p">,</span> <span class="s">&#39;!=&#39;</span><span class="p">]</span>       <span class="c1">#  9 equality</span>
-    <span class="p">[</span><span class="s">&#39;left&#39;</span><span class="p">,</span> <span class="s">&#39;^&#39;</span><span class="p">]</span>                            <span class="c1"># 11 bitwise and</span>
-    <span class="p">[</span><span class="s">&#39;left&#39;</span><span class="p">,</span> <span class="s">&#39;&amp;&#39;</span><span class="p">]</span>                            <span class="c1"># 10 bitwise xor</span>
-    <span class="p">[</span><span class="s">&#39;left&#39;</span><span class="p">,</span> <span class="s">&#39;|&#39;</span><span class="p">]</span>                            <span class="c1"># 12 bitwise or</span>
-    <span class="p">[</span><span class="s">&#39;left&#39;</span><span class="p">,</span> <span class="s">&#39;&amp;&amp;&#39;</span><span class="p">]</span>                           <span class="c1"># 13 logical and</span>
-    <span class="p">[</span><span class="s">&#39;left&#39;</span><span class="p">,</span> <span class="s">&#39;||&#39;</span><span class="p">]</span>                           <span class="c1"># 14 logical or</span>
-    <span class="p">[</span><span class="s">&#39;right&#39;</span><span class="p">,</span> <span class="s">&#39;?&#39;</span><span class="p">,</span> <span class="s">&#39;:&#39;</span><span class="p">]</span>                      <span class="c1"># 15 inline conditional</span>
-    <span class="p">[</span><span class="s">&#39;right&#39;</span><span class="p">,</span> <span class="s">&#39;YIELD&#39;</span><span class="p">]</span>                       <span class="c1"># 16 yield is not (yet?) supported</span>
-    <span class="p">[</span><span class="s">&#39;right&#39;</span><span class="p">,</span> <span class="s">&#39;=&#39;</span><span class="p">,</span>    <span class="s">&#39;+=&#39;</span><span class="p">,</span> <span class="s">&#39;-=&#39;</span><span class="p">,</span>  <span class="s">&#39;*=&#39;</span><span class="p">,</span> <span class="err">\</span>   <span class="c1"># 17 assignments</span>
-              <span class="s">&#39;/=&#39;</span><span class="p">,</span>   <span class="s">&#39;%=&#39;</span><span class="p">,</span> <span class="s">&#39;&lt;&lt;=&#39;</span><span class="p">,</span> <span class="s">&#39;&gt;&gt;=&#39;</span><span class="p">,</span>
-              <span class="s">&#39;&gt;&gt;&gt;=&#39;</span><span class="p">,</span> <span class="s">&#39;&amp;=&#39;</span><span class="p">,</span> <span class="s">&#39;^=&#39;</span><span class="p">,</span>  <span class="s">&#39;|=&#39;</span><span class="p">]</span>
-    <span class="p">[</span><span class="s">&#39;left&#39;</span><span class="p">,</span> <span class="s">&#39;,&#39;</span><span class="p">]</span>                            <span class="c1"># 18 comma</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'> see ([Yacc] (http://dinosaur.compilertools.net/yacc/index.html)).</span></p>
+    <span class="hljs-attribute">End</span>: [
+      r <span class="hljs-string">'EOF'</span>
+      r <span class="hljs-string">'Seperator EOF'</span>
+    ]
 
-<p>Reverse the operators because jison orders precedence from low to high,
-and we have it high to low</p></div></div><div class="code"><div class="wrapper">  <span class="p">].</span><span class="nx">reverse</span><span class="p">()</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>The <strong>Script</strong> is the top-level node in the syntax tree.</p></div></div><div class="code"><div class="wrapper">  <span class="nv">startSymbol : </span><span class="s">&#39;Script&#39;</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>#</p>
+    <span class="hljs-attribute">Identifier</span>: [
+      o <span class="hljs-string">'THIS'</span>
+      o <span class="hljs-string">'REFERENCE'</span>
+    ]
 
-<h2 id="the-syntax-description-notated-in-backus-naur-format">The syntax description notated in Backus-Naur-Format</h2></div></div><div class="code"><div class="wrapper">  <span class="nv">bnf:</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Since we parse bottom-up, all parsing must end here.</p></div></div><div class="code"><div class="wrapper">    <span class="nv">Script: </span><span class="p">[</span>
-      <span class="nx">r</span> <span class="s">&#39;End&#39;</span>                       <span class="p">,</span> <span class="nf">-&gt;</span> <span class="nx">yy</span><span class="p">.</span><span class="nx">create</span> <span class="s">&#39;scalar&#39;</span><span class="p">,</span> <span class="p">[</span><span class="kc">undefined</span><span class="p">]</span>
-      <span class="nx">r</span> <span class="s">&#39;Statements End&#39;</span>            <span class="p">,</span> <span class="nf">-&gt;</span> <span class="nx">$1</span>
-      <span class="nx">r</span> <span class="s">&#39;Seperator Statements End&#39;</span>  <span class="p">,</span> <span class="nf">-&gt;</span> <span class="nx">$2</span>
-    <span class="p">]</span>
+    <span class="hljs-attribute">Seperator</span>: [
+      r <span class="hljs-string">';'</span>
+      r <span class="hljs-string">'Seperator ;'</span>
+    ]
 
-    <span class="nv">Statements: </span><span class="p">[</span>
-      <span class="nx">o</span> <span class="s">&#39;Statement&#39;</span>
-      <span class="nx">o</span> <span class="s">&#39;Statements Seperator Statement&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span>
-        <span class="k">if</span> <span class="nx">$1</span><span class="p">.</span><span class="nx">operator</span><span class="p">.</span><span class="nx">name</span> <span class="o">is</span> <span class="s">&#39;block&#39;</span>
-          <span class="nx">$1</span><span class="p">.</span><span class="nx">parameters</span><span class="p">.</span><span class="nx">push</span> <span class="nx">$3</span>
-          <span class="nx">$1</span>
-        <span class="k">else</span>
-          <span class="nx">yy</span><span class="p">.</span><span class="nx">create</span> <span class="s">&#39;block&#39;</span><span class="p">,</span> <span class="p">[</span><span class="nx">$1</span><span class="p">,</span> <span class="nx">$3</span><span class="p">]</span>
-    <span class="p">]</span>
+    <span class="hljs-attribute">Statement</span>: [
+      o <span class="hljs-string">'Conditional'</span>
+      o <span class="hljs-string">'Expression'</span>
+    ]
 
-    <span class="nv">End: </span><span class="p">[</span>
-      <span class="nx">r</span> <span class="s">&#39;EOF&#39;</span>
-      <span class="nx">r</span> <span class="s">&#39;Seperator EOF&#39;</span>
-    <span class="p">]</span>
+    <span class="hljs-attribute">Parameters</span>: [
+      o <span class="hljs-string">''</span>                          , <span class="hljs-function">-&gt;</span> []
+      o <span class="hljs-string">'Expression'</span>                , <span class="hljs-function">-&gt;</span> [$<span class="hljs-number">1</span>]
+      o <span class="hljs-string">'Parameters , Expression'</span>   , <span class="hljs-function">-&gt;</span> $<span class="hljs-number">1.</span>concat $<span class="hljs-number">3</span>
+    ]
 
-    <span class="nv">Identifier: </span><span class="p">[</span>
-      <span class="nx">o</span> <span class="s">&#39;THIS&#39;</span>
-      <span class="nx">o</span> <span class="s">&#39;REFERENCE&#39;</span>
-    <span class="p">]</span>
+    <span class="hljs-attribute">Key</span>: [
+      o <span class="hljs-string">'Scalar'</span>
+      o <span class="hljs-string">'Primitive'</span>
+      o <span class="hljs-string">'Property'</span>
+    ]
 
-    <span class="nv">Seperator: </span><span class="p">[</span>
-      <span class="nx">r</span> <span class="s">&#39;;&#39;</span>
-      <span class="nx">r</span> <span class="s">&#39;Seperator ;&#39;</span>
-    <span class="p">]</span>
+    <span class="hljs-attribute">KeyValues</span>: [
+      o <span class="hljs-string">'Key : Expression'</span>          , <span class="hljs-function">-&gt;</span> [$<span class="hljs-number">1</span>,$<span class="hljs-number">3</span>]
+      o <span class="hljs-string">'KeyValues , KeyValues'</span>     , <span class="hljs-function">-&gt;</span> $<span class="hljs-number">1.</span>concat $<span class="hljs-number">3</span>
+    ]
 
-    <span class="nv">Statement: </span><span class="p">[</span>
-      <span class="nx">o</span> <span class="s">&#39;Conditional&#39;</span>
-      <span class="nx">o</span> <span class="s">&#39;Expression&#39;</span>
-    <span class="p">]</span>
+    <span class="hljs-attribute">Object</span>: [
+      o <span class="hljs-string">'{ }'</span>                       , <span class="hljs-function">-&gt;</span> yy.goatee.create <span class="hljs-string">'object'</span>, []
+      o <span class="hljs-string">'{ KeyValues }'</span>             , <span class="hljs-function">-&gt;</span> yy.goatee.create <span class="hljs-string">'object'</span>, $<span class="hljs-number">2</span>
+    ]
 
-    <span class="nv">Parameters: </span><span class="p">[</span>
-      <span class="nx">o</span> <span class="s">&#39;&#39;</span>                          <span class="p">,</span> <span class="nf">-&gt;</span> <span class="p">[]</span>
-      <span class="nx">o</span> <span class="s">&#39;Expression&#39;</span>                <span class="p">,</span> <span class="nf">-&gt;</span> <span class="p">[</span><span class="nx">$1</span><span class="p">]</span>
-      <span class="nx">o</span> <span class="s">&#39;Parameters , Expression&#39;</span>   <span class="p">,</span> <span class="nf">-&gt;</span> <span class="nx">$1</span><span class="p">.</span><span class="nx">concat</span> <span class="nx">$3</span>
-    <span class="p">]</span>
+    <span class="hljs-attribute">Elements</span>: [
+      o <span class="hljs-string">''</span>                          , <span class="hljs-function">-&gt;</span> []
+      o <span class="hljs-string">'Expression'</span>                , <span class="hljs-function">-&gt;</span> [$<span class="hljs-number">1</span>]
+      o <span class="hljs-string">'Elements , Elements'</span>       , <span class="hljs-function">-&gt;</span>
+        $<span class="hljs-number">1.</span>concat <span class="hljs-keyword">if</span> $<span class="hljs-number">3.</span>length <span class="hljs-keyword">is</span> <span class="hljs-number">0</span> <span class="hljs-keyword">then</span> [<span class="hljs-literal">undefined</span>] <span class="hljs-keyword">else</span> $<span class="hljs-number">3</span>
+    ]
 
-    <span class="nv">Key: </span><span class="p">[</span>
-      <span class="nx">o</span> <span class="s">&#39;Scalar&#39;</span>
-      <span class="nx">o</span> <span class="s">&#39;Primitive&#39;</span>
-      <span class="nx">o</span> <span class="s">&#39;Property&#39;</span>
-    <span class="p">]</span>
+    <span class="hljs-attribute">Array</span>: [
+      o <span class="hljs-string">'[ Elements ]'</span>              , <span class="hljs-function">-&gt;</span> yy.goatee.create <span class="hljs-string">'array'</span>, $<span class="hljs-number">2</span>
+    ]
 
-    <span class="nv">KeyValues: </span><span class="p">[</span>
-      <span class="nx">o</span> <span class="s">&#39;Key : Expression&#39;</span>          <span class="p">,</span> <span class="nf">-&gt;</span> <span class="p">[</span><span class="nx">$1</span><span class="p">,</span><span class="nx">$3</span><span class="p">]</span>
-      <span class="nx">o</span> <span class="s">&#39;KeyValues , KeyValues&#39;</span>     <span class="p">,</span> <span class="nf">-&gt;</span> <span class="nx">$1</span><span class="p">.</span><span class="nx">concat</span> <span class="nx">$3</span>
-    <span class="p">]</span>
+    <span class="hljs-attribute">Block</span>: [
+      o <span class="hljs-string">'{ Seperator }'</span>             , <span class="hljs-function">-&gt;</span> yy.goatee.create <span class="hljs-string">'scalar'</span>, [<span class="hljs-literal">undefined</span>]
+      o <span class="hljs-string">'{ Statements }'</span>            , <span class="hljs-function">-&gt;</span> $<span class="hljs-number">2</span>
+      o <span class="hljs-string">'{ Statements Seperator }'</span>  , <span class="hljs-function">-&gt;</span> $<span class="hljs-number">2</span>
+    ]
 
-    <span class="nb">Object</span><span class="o">:</span> <span class="p">[</span>
-      <span class="nx">o</span> <span class="s">&#39;{ }&#39;</span>                       <span class="p">,</span> <span class="nf">-&gt;</span> <span class="nx">yy</span><span class="p">.</span><span class="nx">create</span> <span class="s">&#39;object&#39;</span><span class="p">,</span> <span class="p">[]</span>
-      <span class="nx">o</span> <span class="s">&#39;{ KeyValues }&#39;</span>             <span class="p">,</span> <span class="nf">-&gt;</span> <span class="nx">yy</span><span class="p">.</span><span class="nx">create</span> <span class="s">&#39;object&#39;</span><span class="p">,</span> <span class="nx">$2</span>
-    <span class="p">]</span>
+    <span class="hljs-attribute">If</span>: [
+      o <span class="hljs-string">'IF Group Block'</span>            , <span class="hljs-function">-&gt;</span>
+        yy.goatee.create <span class="hljs-string">'if'</span>,  [$<span class="hljs-number">2</span>,$<span class="hljs-number">3</span>]
+      o <span class="hljs-string">'If ELSE IF Group Block'</span>    , <span class="hljs-function">-&gt;</span>
+        yy.goatee.addElse $<span class="hljs-number">1</span>, yy.goatee.create(<span class="hljs-string">'if'</span>, [$<span class="hljs-number">4</span>,$<span class="hljs-number">5</span>])
+    ]
 
-    <span class="nv">Elements: </span><span class="p">[</span>
-      <span class="nx">o</span> <span class="s">&#39;&#39;</span>                          <span class="p">,</span> <span class="nf">-&gt;</span> <span class="p">[]</span>
-      <span class="nx">o</span> <span class="s">&#39;Expression&#39;</span>                <span class="p">,</span> <span class="nf">-&gt;</span> <span class="p">[</span><span class="nx">$1</span><span class="p">]</span>
-      <span class="nx">o</span> <span class="s">&#39;Elements , Elements&#39;</span>       <span class="p">,</span> <span class="nf">-&gt;</span>
-        <span class="nx">$1</span><span class="p">.</span><span class="nx">concat</span> <span class="k">if</span> <span class="nx">$3</span><span class="p">.</span><span class="nx">length</span> <span class="o">is</span> <span class="mi">0</span> <span class="k">then</span> <span class="p">[</span><span class="kc">undefined</span><span class="p">]</span> <span class="k">else</span> <span class="nx">$3</span>
-    <span class="p">]</span>
+    <span class="hljs-attribute">Conditional</span>: [
+      o <span class="hljs-string">'If'</span>
+      o <span class="hljs-string">'If ELSE Block'</span>             , <span class="hljs-function">-&gt;</span> yy.goatee.addElse $<span class="hljs-number">1</span>, $<span class="hljs-number">3</span>
+    ]
 
-    <span class="nb">Array</span><span class="o">:</span> <span class="p">[</span>
-      <span class="nx">o</span> <span class="s">&#39;[ Elements ]&#39;</span>              <span class="p">,</span> <span class="nf">-&gt;</span> <span class="nx">yy</span><span class="p">.</span><span class="nx">create</span> <span class="s">&#39;array&#39;</span><span class="p">,</span> <span class="nx">$2</span>
-    <span class="p">]</span>
+    <span class="hljs-attribute">IncDec</span>: [
+      o <span class="hljs-string">"++"</span>
+      o <span class="hljs-string">"--"</span>
+    ]
 
-    <span class="nv">Block: </span><span class="p">[</span>
-      <span class="nx">o</span> <span class="s">&#39;{ Seperator }&#39;</span>             <span class="p">,</span> <span class="nf">-&gt;</span> <span class="nx">yy</span><span class="p">.</span><span class="nx">create</span> <span class="s">&#39;scalar&#39;</span><span class="p">,</span> <span class="p">[</span><span class="kc">undefined</span><span class="p">]</span>
-      <span class="nx">o</span> <span class="s">&#39;{ Statements }&#39;</span>            <span class="p">,</span> <span class="nf">-&gt;</span> <span class="nx">$2</span>
-      <span class="nx">o</span> <span class="s">&#39;{ Statements Seperator }&#39;</span>  <span class="p">,</span> <span class="nf">-&gt;</span> <span class="nx">$2</span>
-    <span class="p">]</span>
+    <span class="hljs-attribute">Assignment</span>: [
+      o <span class="hljs-string">"IncDec Identifier"</span>         , <span class="hljs-function">-&gt;</span> yy.goatee.create $<span class="hljs-number">1</span>, [$<span class="hljs-number">2</span>, <span class="hljs-number">0</span>]
+      o <span class="hljs-string">"Identifier IncDec"</span>         , <span class="hljs-function">-&gt;</span> yy.goatee.create $<span class="hljs-number">2</span>, [$<span class="hljs-number">1</span>, <span class="hljs-number">1</span>]
+      aop <span class="hljs-string">'-='</span>
+      aop <span class="hljs-string">'+='</span>
+      aop <span class="hljs-string">'*='</span>
+      aop <span class="hljs-string">'/='</span>
+      aop <span class="hljs-string">'%='</span>
+      aop <span class="hljs-string">'^='</span>
+      aop <span class="hljs-string">'&gt;&gt;&gt;='</span>
+      aop <span class="hljs-string">'&gt;&gt;='</span>
+      aop <span class="hljs-string">'&lt;&lt;='</span>
+      aop <span class="hljs-string">'&amp;='</span>
+      aop <span class="hljs-string">'|='</span>
+      aop <span class="hljs-string">'='</span>
+    ]
 
-    <span class="nv">If: </span><span class="p">[</span>
-      <span class="nx">o</span> <span class="s">&#39;IF Group Block&#39;</span>            <span class="p">,</span> <span class="nf">-&gt;</span>
-        <span class="nx">yy</span><span class="p">.</span><span class="nx">create</span> <span class="s">&#39;if&#39;</span><span class="p">,</span>  <span class="p">[</span><span class="nx">$2</span><span class="p">,</span><span class="nx">$3</span><span class="p">]</span>
-      <span class="nx">o</span> <span class="s">&#39;If ELSE IF Group Block&#39;</span>    <span class="p">,</span> <span class="nf">-&gt;</span>
-        <span class="nx">yy</span><span class="p">.</span><span class="nx">addElse</span> <span class="nx">$1</span><span class="p">,</span> <span class="nx">yy</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="s">&#39;if&#39;</span><span class="p">,</span> <span class="p">[</span><span class="nx">$4</span><span class="p">,</span><span class="nx">$5</span><span class="p">])</span>
-    <span class="p">]</span>
+    <span class="hljs-attribute">Scalar</span>: [
+      o <span class="hljs-string">'NUMBER'</span>                    , <span class="hljs-function">-&gt;</span> Number($<span class="hljs-number">1</span>)
+      o <span class="hljs-string">'+ NUMBER'</span>                  , <span class="hljs-function">-&gt;</span> + Number($<span class="hljs-number">2</span>)
+      o <span class="hljs-string">'- NUMBER'</span>                  , <span class="hljs-function">-&gt;</span> - Number($<span class="hljs-number">2</span>)
+      o <span class="hljs-string">'STRING'</span>                    , <span class="hljs-function">-&gt;</span> yy.goatee.escape($<span class="hljs-number">1</span>)
+    ]
 
-    <span class="nv">Conditional: </span><span class="p">[</span>
-      <span class="nx">o</span> <span class="s">&#39;If&#39;</span>
-      <span class="nx">o</span> <span class="s">&#39;If ELSE Block&#39;</span>             <span class="p">,</span> <span class="nf">-&gt;</span> <span class="nx">yy</span><span class="p">.</span><span class="nx">addElse</span> <span class="nx">$1</span><span class="p">,</span> <span class="nx">$3</span>
-    <span class="p">]</span>
+    <span class="hljs-attribute">Primitive</span>: [
+      o <span class="hljs-string">'NULL'</span>                      , <span class="hljs-function">-&gt;</span> <span class="hljs-literal">null</span>
+      o <span class="hljs-string">'TRUE'</span>                      , <span class="hljs-function">-&gt;</span> <span class="hljs-literal">true</span>
+      o <span class="hljs-string">'FALSE'</span>                     , <span class="hljs-function">-&gt;</span> <span class="hljs-literal">false</span>
+    ]
 
-    <span class="nv">IncDec: </span><span class="p">[</span>
-      <span class="nx">o</span> <span class="s">&quot;++&quot;</span>
-      <span class="nx">o</span> <span class="s">&quot;--&quot;</span>
-    <span class="p">]</span>
+    <span class="hljs-attribute">Operation</span>: [</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Mathemetical operations</p></div></div><div class="code"><div class="wrapper">      bop <span class="hljs-string">'*'</span>
+      bop <span class="hljs-string">'/'</span>
+      bop <span class="hljs-string">'%'</span>
+      bop <span class="hljs-string">'+'</span>
+      bop <span class="hljs-string">'-'</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Boolean operations</p></div></div><div class="code"><div class="wrapper">      o <span class="hljs-string">'! Expression'</span>              , <span class="hljs-function">-&gt;</span>                <span class="hljs-comment"># logical not</span>
+        yy.goatee.create <span class="hljs-string">'!'</span> , [$<span class="hljs-number">2</span>]
+      bop <span class="hljs-string">'&lt;='</span>
+      bop <span class="hljs-string">'&gt;='</span>
+      bop <span class="hljs-string">'&lt;'</span>
+      bop <span class="hljs-string">'&gt;'</span>
+      bop <span class="hljs-string">'==='</span>
+      bop <span class="hljs-string">'!=='</span>
+      bop <span class="hljs-string">'=='</span>
+      bop <span class="hljs-string">'!='</span>
+      bop <span class="hljs-string">'&amp;&amp;'</span>
+      bop <span class="hljs-string">'||'</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Bitwise operations</p></div></div><div class="code"><div class="wrapper">      o <span class="hljs-string">'~ Expression'</span>              , <span class="hljs-function">-&gt;</span>                <span class="hljs-comment"># bitwise not</span>
+         yy.goatee.create <span class="hljs-string">'~'</span> , [$<span class="hljs-number">2</span>]
+      bop <span class="hljs-string">'&gt;&gt;&gt;'</span>
+      bop <span class="hljs-string">'&gt;&gt;'</span>
+      bop <span class="hljs-string">'&lt;&lt;'</span>
+      bop <span class="hljs-string">'&amp;'</span>
+      bop <span class="hljs-string">'|'</span>
+      bop <span class="hljs-string">'^'</span>
+    ]
 
-    <span class="nv">Assignment: </span><span class="p">[</span>
-      <span class="nx">o</span> <span class="s">&quot;IncDec Identifier&quot;</span>         <span class="p">,</span> <span class="nf">-&gt;</span> <span class="nx">yy</span><span class="p">.</span><span class="nx">create</span> <span class="nx">$1</span><span class="p">,</span> <span class="p">[</span><span class="nx">$2</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
-      <span class="nx">o</span> <span class="s">&quot;Identifier IncDec&quot;</span>         <span class="p">,</span> <span class="nf">-&gt;</span> <span class="nx">yy</span><span class="p">.</span><span class="nx">create</span> <span class="nx">$2</span><span class="p">,</span> <span class="p">[</span><span class="nx">$1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
-      <span class="nx">aop</span> <span class="s">&#39;-=&#39;</span>
-      <span class="nx">aop</span> <span class="s">&#39;+=&#39;</span>
-      <span class="nx">aop</span> <span class="s">&#39;*=&#39;</span>
-      <span class="nx">aop</span> <span class="s">&#39;/=&#39;</span>
-      <span class="nx">aop</span> <span class="s">&#39;%=&#39;</span>
-      <span class="nx">aop</span> <span class="s">&#39;^=&#39;</span>
-      <span class="nx">aop</span> <span class="s">&#39;&gt;&gt;&gt;=&#39;</span>
-      <span class="nx">aop</span> <span class="s">&#39;&gt;&gt;=&#39;</span>
-      <span class="nx">aop</span> <span class="s">&#39;&lt;&lt;=&#39;</span>
-      <span class="nx">aop</span> <span class="s">&#39;&amp;=&#39;</span>
-      <span class="nx">aop</span> <span class="s">&#39;|=&#39;</span>
-      <span class="nx">aop</span> <span class="s">&#39;=&#39;</span>
-    <span class="p">]</span>
+    <span class="hljs-attribute">Literal</span>: [
+      o <span class="hljs-string">'Object'</span>                                        <span class="hljs-comment"># object literal</span>
+      o <span class="hljs-string">'Array'</span>                                         <span class="hljs-comment"># array literal</span>
+      o <span class="hljs-string">'Primitive'</span>                 , <span class="hljs-function">-&gt;</span>                <span class="hljs-comment"># boolean, null</span>
+        yy.goatee.create <span class="hljs-string">'scalar'</span>,  [$<span class="hljs-number">1</span>]
+      o <span class="hljs-string">'Scalar'</span>                    , <span class="hljs-function">-&gt;</span>                <span class="hljs-comment"># number, string</span>
+        yy.goatee.create <span class="hljs-string">'scalar'</span>,  [$<span class="hljs-number">1</span>]
+    ]
 
-    <span class="nv">Scalar: </span><span class="p">[</span>
-      <span class="nx">o</span> <span class="s">&#39;NUMBER&#39;</span>                    <span class="p">,</span> <span class="nf">-&gt;</span> <span class="nb">Number</span><span class="p">(</span><span class="nx">$1</span><span class="p">)</span>
-      <span class="nx">o</span> <span class="s">&#39;+ NUMBER&#39;</span>                  <span class="p">,</span> <span class="nf">-&gt;</span> <span class="o">+</span> <span class="nb">Number</span><span class="p">(</span><span class="nx">$2</span><span class="p">)</span>
-      <span class="nx">o</span> <span class="s">&#39;- NUMBER&#39;</span>                  <span class="p">,</span> <span class="nf">-&gt;</span> <span class="o">-</span> <span class="nb">Number</span><span class="p">(</span><span class="nx">$2</span><span class="p">)</span>
-      <span class="nx">o</span> <span class="s">&#39;STRING&#39;</span>                    <span class="p">,</span> <span class="nf">-&gt;</span> <span class="nx">yy</span><span class="p">.</span><span class="nx">escape</span><span class="p">(</span><span class="nx">$1</span><span class="p">)</span>
-    <span class="p">]</span>
+    <span class="hljs-attribute">Scope</span>: [
+      o <span class="hljs-string">'CONTEXT'</span>                   , <span class="hljs-function">-&gt;</span>                <span class="hljs-comment"># context reference</span>
+        yy.goatee.create <span class="hljs-string">'context'</span>, [$<span class="hljs-number">1</span>]
+      o <span class="hljs-string">'SELF'</span>                      , <span class="hljs-function">-&gt;</span>                <span class="hljs-comment"># this reference ≠ this</span>
+        yy.goatee.create <span class="hljs-string">'context'</span>, [$<span class="hljs-number">1</span>]
+    ]
 
-    <span class="nv">Primitive: </span><span class="p">[</span>
-      <span class="nx">o</span> <span class="s">&#39;NULL&#39;</span>                      <span class="p">,</span> <span class="nf">-&gt;</span> <span class="kc">null</span>
-      <span class="nx">o</span> <span class="s">&#39;TRUE&#39;</span>                      <span class="p">,</span> <span class="nf">-&gt;</span> <span class="kc">true</span>
-      <span class="nx">o</span> <span class="s">&#39;FALSE&#39;</span>                     <span class="p">,</span> <span class="nf">-&gt;</span> <span class="kc">false</span>
-    <span class="p">]</span>
+    <span class="hljs-attribute">Reference</span>: [
+      o <span class="hljs-string">'Identifier'</span>              , <span class="hljs-function">-&gt;</span>
+        yy.goatee.create <span class="hljs-string">'reference'</span>, [$<span class="hljs-number">1</span>]
+      o <span class="hljs-string">'Scope Property'</span>          , <span class="hljs-function">-&gt;</span>                  <span class="hljs-comment"># shorthand dot operator</span>
+        yy.goatee.create <span class="hljs-string">'.'</span>, [$<span class="hljs-number">1</span>, yy.goatee.create(<span class="hljs-string">'property'</span>, [$<span class="hljs-number">2</span>])]
+      o <span class="hljs-string">'Scope'</span>
+    ]
 
-    <span class="nv">Operation: </span><span class="p">[</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Mathemetical operations</p></div></div><div class="code"><div class="wrapper">      <span class="nx">bop</span> <span class="s">&#39;*&#39;</span>
-      <span class="nx">bop</span> <span class="s">&#39;/&#39;</span>
-      <span class="nx">bop</span> <span class="s">&#39;%&#39;</span>
-      <span class="nx">bop</span> <span class="s">&#39;+&#39;</span>
-      <span class="nx">bop</span> <span class="s">&#39;-&#39;</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Boolean operations</p></div></div><div class="code"><div class="wrapper">      <span class="nx">o</span> <span class="s">&#39;! Expression&#39;</span>              <span class="p">,</span> <span class="nf">-&gt;</span>                <span class="c1"># logical not</span>
-        <span class="nx">yy</span><span class="p">.</span><span class="nx">create</span> <span class="s">&#39;!&#39;</span> <span class="p">,</span> <span class="p">[</span><span class="nx">$2</span><span class="p">]</span>
-      <span class="nx">bop</span> <span class="s">&#39;&lt;=&#39;</span>
-      <span class="nx">bop</span> <span class="s">&#39;&gt;=&#39;</span>
-      <span class="nx">bop</span> <span class="s">&#39;&lt;&#39;</span>
-      <span class="nx">bop</span> <span class="s">&#39;&gt;&#39;</span>
-      <span class="nx">bop</span> <span class="s">&#39;===&#39;</span>
-      <span class="nx">bop</span> <span class="s">&#39;!==&#39;</span>
-      <span class="nx">bop</span> <span class="s">&#39;==&#39;</span>
-      <span class="nx">bop</span> <span class="s">&#39;!=&#39;</span>
-      <span class="nx">bop</span> <span class="s">&#39;&amp;&amp;&#39;</span>
-      <span class="nx">bop</span> <span class="s">&#39;||&#39;</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Bitwise operations</p></div></div><div class="code"><div class="wrapper">      <span class="nx">o</span> <span class="s">&#39;~ Expression&#39;</span>              <span class="p">,</span> <span class="nf">-&gt;</span>                <span class="c1"># bitwise not</span>
-         <span class="nx">yy</span><span class="p">.</span><span class="nx">create</span> <span class="s">&#39;~&#39;</span> <span class="p">,</span> <span class="p">[</span><span class="nx">$2</span><span class="p">]</span>
-      <span class="nx">bop</span> <span class="s">&#39;&gt;&gt;&gt;&#39;</span>
-      <span class="nx">bop</span> <span class="s">&#39;&gt;&gt;&#39;</span>
-      <span class="nx">bop</span> <span class="s">&#39;&lt;&lt;&#39;</span>
-      <span class="nx">bop</span> <span class="s">&#39;&amp;&#39;</span>
-      <span class="nx">bop</span> <span class="s">&#39;|&#39;</span>
-      <span class="nx">bop</span> <span class="s">&#39;^&#39;</span>
-    <span class="p">]</span>
+    <span class="hljs-attribute">Property</span>: [</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>CONSTRUCTOR and PROTOTYPE should be safe …</p></div></div><div class="code"><div class="wrapper">      o <span class="hljs-string">'CONSTRUCTOR'</span>
+      o <span class="hljs-string">'PROTOTYPE'</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>… if not remove them here and adjust tests accordingly !</p></div></div><div class="code"><div class="wrapper">      o <span class="hljs-string">'THIS'</span>
+      o <span class="hljs-string">'IF'</span>
+      o <span class="hljs-string">'THEN'</span>
+      o <span class="hljs-string">'ELSE'</span>
+      o <span class="hljs-string">'YIELD'</span>
+      o <span class="hljs-string">'INSTANCEOF'</span>
+      o <span class="hljs-string">'VOID'</span>
+      o <span class="hljs-string">'TYPEOF'</span>
+      o <span class="hljs-string">'NEW'</span>
+      o <span class="hljs-string">'RETURN'</span>
+      o <span class="hljs-string">'CONTEXT'</span>
+      o <span class="hljs-string">'REFERENCE'</span>
+      o <span class="hljs-string">'CONTEXT Property'</span>        , <span class="hljs-function">-&gt;</span> $<span class="hljs-number">1</span> + $<span class="hljs-number">2</span>
+      o <span class="hljs-string">'CONTEXT Primitive'</span>       , <span class="hljs-function">-&gt;</span> $<span class="hljs-number">1</span> + $<span class="hljs-number">2</span>
+    ]
 
-    <span class="nv">Literal: </span><span class="p">[</span>
-      <span class="nx">o</span> <span class="s">&#39;Object&#39;</span>                                        <span class="c1"># object literal</span>
-      <span class="nx">o</span> <span class="s">&#39;Array&#39;</span>                                         <span class="c1"># array literal</span>
-      <span class="nx">o</span> <span class="s">&#39;Primitive&#39;</span>                 <span class="p">,</span> <span class="nf">-&gt;</span>                <span class="c1"># boolean, null</span>
-        <span class="nx">yy</span><span class="p">.</span><span class="nx">create</span> <span class="s">&#39;scalar&#39;</span><span class="p">,</span>  <span class="p">[</span><span class="nx">$1</span><span class="p">]</span>
-      <span class="nx">o</span> <span class="s">&#39;Scalar&#39;</span>                    <span class="p">,</span> <span class="nf">-&gt;</span>                <span class="c1"># number, string</span>
-        <span class="nx">yy</span><span class="p">.</span><span class="nx">create</span> <span class="s">&#39;scalar&#39;</span><span class="p">,</span>  <span class="p">[</span><span class="nx">$1</span><span class="p">]</span>
-    <span class="p">]</span>
+    <span class="hljs-attribute">Chain</span>: [
+      o <span class="hljs-string">'Expression . Primitive'</span>  , <span class="hljs-function">-&gt;</span>
+        yy.goatee.create <span class="hljs-string">'.'</span>, [$<span class="hljs-number">1</span>, yy.goatee.create(<span class="hljs-string">'property'</span>, [$<span class="hljs-number">3</span>])]
+      o <span class="hljs-string">'Expression . Property'</span>   , <span class="hljs-function">-&gt;</span>
+        yy.goatee.create <span class="hljs-string">'.'</span>, [$<span class="hljs-number">1</span>, yy.goatee.create(<span class="hljs-string">'property'</span>, [$<span class="hljs-number">3</span>])]
+    ]
 
-    <span class="nv">Scope: </span><span class="p">[</span>
-      <span class="nx">o</span> <span class="s">&#39;CONTEXT&#39;</span>                   <span class="p">,</span> <span class="nf">-&gt;</span>                <span class="c1"># context reference</span>
-        <span class="nx">yy</span><span class="p">.</span><span class="nx">create</span> <span class="s">&#39;context&#39;</span><span class="p">,</span> <span class="p">[</span><span class="nx">$1</span><span class="p">]</span>
-      <span class="nx">o</span> <span class="s">&#39;SELF&#39;</span>                      <span class="p">,</span> <span class="nf">-&gt;</span>                <span class="c1"># this reference ≠ this</span>
-        <span class="nx">yy</span><span class="p">.</span><span class="nx">create</span> <span class="s">&#39;context&#39;</span><span class="p">,</span> <span class="p">[</span><span class="nx">$1</span><span class="p">]</span>
-    <span class="p">]</span>
+    <span class="hljs-attribute">List</span>: [
+      o <span class="hljs-string">'Statement'</span>
+      o <span class="hljs-string">'List , Statement'</span>        , <span class="hljs-function">-&gt;</span>
+        <span class="hljs-keyword">if</span> $<span class="hljs-number">1.</span>operator.name <span class="hljs-keyword">is</span> <span class="hljs-string">'list'</span>
+          $<span class="hljs-number">1.</span>parameters.push $<span class="hljs-number">3</span>
+          $<span class="hljs-number">1</span>
+        <span class="hljs-keyword">else</span>
+          yy.goatee.create <span class="hljs-string">'list'</span>, [$<span class="hljs-number">1</span>, $<span class="hljs-number">3</span>]
+    ]
 
-    <span class="nv">Reference: </span><span class="p">[</span>
-      <span class="nx">o</span> <span class="s">&#39;Identifier&#39;</span>              <span class="p">,</span> <span class="nf">-&gt;</span>
-        <span class="nx">yy</span><span class="p">.</span><span class="nx">create</span> <span class="s">&#39;reference&#39;</span><span class="p">,</span> <span class="p">[</span><span class="nx">$1</span><span class="p">]</span>
-      <span class="nx">o</span> <span class="s">&#39;Scope Property&#39;</span>          <span class="p">,</span> <span class="nf">-&gt;</span>                  <span class="c1"># shorthand dot operator</span>
-        <span class="nx">yy</span><span class="p">.</span><span class="nx">create</span> <span class="s">&#39;.&#39;</span><span class="p">,</span> <span class="p">[</span><span class="nx">$1</span><span class="p">,</span> <span class="nx">yy</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="s">&#39;property&#39;</span><span class="p">,</span> <span class="p">[</span><span class="nx">$2</span><span class="p">])]</span>
-      <span class="nx">o</span> <span class="s">&#39;Scope&#39;</span>
-    <span class="p">]</span>
+    <span class="hljs-attribute">Group</span>: [
+      o <span class="hljs-string">'( List )'</span>                , <span class="hljs-function">-&gt;</span> yy.goatee.create <span class="hljs-string">'group'</span>, [$<span class="hljs-number">2</span>]
+    ]
 
-    <span class="nv">Property: </span><span class="p">[</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>CONSTRUCTOR and PROTOTYPE should be safe …</p></div></div><div class="code"><div class="wrapper">      <span class="nx">o</span> <span class="s">&#39;CONSTRUCTOR&#39;</span>
-      <span class="nx">o</span> <span class="s">&#39;PROTOTYPE&#39;</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>… if not remove them here and adjust tests accordingly !</p></div></div><div class="code"><div class="wrapper">      <span class="nx">o</span> <span class="s">&#39;THIS&#39;</span>
-      <span class="nx">o</span> <span class="s">&#39;IF&#39;</span>
-      <span class="nx">o</span> <span class="s">&#39;THEN&#39;</span>
-      <span class="nx">o</span> <span class="s">&#39;ELSE&#39;</span>
-      <span class="nx">o</span> <span class="s">&#39;YIELD&#39;</span>
-      <span class="nx">o</span> <span class="s">&#39;INSTANCEOF&#39;</span>
-      <span class="nx">o</span> <span class="s">&#39;VOID&#39;</span>
-      <span class="nx">o</span> <span class="s">&#39;TYPEOF&#39;</span>
-      <span class="nx">o</span> <span class="s">&#39;NEW&#39;</span>
-      <span class="nx">o</span> <span class="s">&#39;RETURN&#39;</span>
-      <span class="nx">o</span> <span class="s">&#39;CONTEXT&#39;</span>
-      <span class="nx">o</span> <span class="s">&#39;REFERENCE&#39;</span>
-      <span class="nx">o</span> <span class="s">&#39;CONTEXT Property&#39;</span>        <span class="p">,</span> <span class="nf">-&gt;</span> <span class="nx">$1</span> <span class="o">+</span> <span class="nx">$2</span>
-      <span class="nx">o</span> <span class="s">&#39;CONTEXT Primitive&#39;</span>       <span class="p">,</span> <span class="nf">-&gt;</span> <span class="nx">$1</span> <span class="o">+</span> <span class="nx">$2</span>
-    <span class="p">]</span>
-
-    <span class="nv">Chain: </span><span class="p">[</span>
-      <span class="nx">o</span> <span class="s">&#39;Expression . Primitive&#39;</span>  <span class="p">,</span> <span class="nf">-&gt;</span>
-        <span class="nx">yy</span><span class="p">.</span><span class="nx">create</span> <span class="s">&#39;.&#39;</span><span class="p">,</span> <span class="p">[</span><span class="nx">$1</span><span class="p">,</span> <span class="nx">yy</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="s">&#39;property&#39;</span><span class="p">,</span> <span class="p">[</span><span class="nx">$3</span><span class="p">])]</span>
-      <span class="nx">o</span> <span class="s">&#39;Expression . Property&#39;</span>   <span class="p">,</span> <span class="nf">-&gt;</span>
-        <span class="nx">yy</span><span class="p">.</span><span class="nx">create</span> <span class="s">&#39;.&#39;</span><span class="p">,</span> <span class="p">[</span><span class="nx">$1</span><span class="p">,</span> <span class="nx">yy</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="s">&#39;property&#39;</span><span class="p">,</span> <span class="p">[</span><span class="nx">$3</span><span class="p">])]</span>
-    <span class="p">]</span>
-
-    <span class="nv">List: </span><span class="p">[</span>
-      <span class="nx">o</span> <span class="s">&#39;Statement&#39;</span>
-      <span class="nx">o</span> <span class="s">&#39;List , Statement&#39;</span>        <span class="p">,</span> <span class="nf">-&gt;</span>
-        <span class="k">if</span> <span class="nx">$1</span><span class="p">.</span><span class="nx">operator</span><span class="p">.</span><span class="nx">name</span> <span class="o">is</span> <span class="s">&#39;list&#39;</span>
-          <span class="nx">$1</span><span class="p">.</span><span class="nx">parameters</span><span class="p">.</span><span class="nx">push</span> <span class="nx">$3</span>
-          <span class="nx">$1</span>
-        <span class="k">else</span>
-          <span class="nx">yy</span><span class="p">.</span><span class="nx">create</span> <span class="s">&#39;list&#39;</span><span class="p">,</span> <span class="p">[</span><span class="nx">$1</span><span class="p">,</span> <span class="nx">$3</span><span class="p">]</span>
-    <span class="p">]</span>
-
-    <span class="nv">Group: </span><span class="p">[</span>
-      <span class="nx">o</span> <span class="s">&#39;( List )&#39;</span>                <span class="p">,</span> <span class="nf">-&gt;</span> <span class="nx">yy</span><span class="p">.</span><span class="nx">create</span> <span class="s">&#39;group&#39;</span><span class="p">,</span> <span class="p">[</span><span class="nx">$2</span><span class="p">]</span>
-    <span class="p">]</span>
-
-    <span class="nv">Expression: </span><span class="p">[</span>
-      <span class="nx">o</span> <span class="s">&#39;Expression ? Expression : Expression&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span>      <span class="c1"># ternary conditional</span>
-        <span class="nx">yy</span><span class="p">.</span><span class="nx">create</span> <span class="s">&#39;?:&#39;</span><span class="p">,</span> <span class="p">[</span><span class="nx">$1</span><span class="p">,</span> <span class="nx">$3</span><span class="p">,</span> <span class="nx">$5</span><span class="p">]</span>
-      <span class="nx">o</span> <span class="s">&#39;Expression ( Parameters )&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span>                 <span class="c1"># function call</span>
-        <span class="nx">yy</span><span class="p">.</span><span class="nx">create</span> <span class="s">&#39;()&#39;</span><span class="p">,</span> <span class="p">[</span><span class="nx">$1</span><span class="p">].</span><span class="nx">concat</span> <span class="nx">$3</span>
-      <span class="nx">o</span> <span class="s">&#39;Expression [ Expression ]&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span>                 <span class="c1"># indexer</span>
-        <span class="nx">yy</span><span class="p">.</span><span class="nx">create</span> <span class="s">&#39;[]&#39;</span><span class="p">,</span> <span class="p">[</span><span class="nx">$1</span><span class="p">,</span> <span class="nx">$3</span><span class="p">]</span>
-      <span class="nx">o</span> <span class="s">&#39;Assignment&#39;</span>
-      <span class="nx">o</span> <span class="s">&#39;Reference&#39;</span>
-      <span class="nx">o</span> <span class="s">&#39;Literal&#39;</span>
-      <span class="nx">o</span> <span class="s">&#39;Operation&#39;</span>
-      <span class="nx">o</span> <span class="s">&#39;Chain&#39;</span>
-      <span class="nx">o</span> <span class="s">&#39;Group&#39;</span>
-    <span class="p">]</span></div></div></div></div></body></html>
+    <span class="hljs-attribute">Expression</span>: [
+      o <span class="hljs-string">'Expression ? Expression : Expression'</span>, <span class="hljs-function">-&gt;</span>      <span class="hljs-comment"># ternary conditional</span>
+        yy.goatee.create <span class="hljs-string">'?:'</span>, [$<span class="hljs-number">1</span>, $<span class="hljs-number">3</span>, $<span class="hljs-number">5</span>]
+      o <span class="hljs-string">'Expression ( Parameters )'</span>, <span class="hljs-function">-&gt;</span>                 <span class="hljs-comment"># function call</span>
+        yy.goatee.create <span class="hljs-string">'()'</span>, [$<span class="hljs-number">1</span>].concat $<span class="hljs-number">3</span>
+      o <span class="hljs-string">'Expression [ Expression ]'</span>, <span class="hljs-function">-&gt;</span>                 <span class="hljs-comment"># indexer</span>
+        yy.goatee.create <span class="hljs-string">'[]'</span>, [$<span class="hljs-number">1</span>, $<span class="hljs-number">3</span>]
+      o <span class="hljs-string">'Assignment'</span>
+      o <span class="hljs-string">'Reference'</span>
+      o <span class="hljs-string">'Literal'</span>
+      o <span class="hljs-string">'Operation'</span>
+      o <span class="hljs-string">'Chain'</span>
+      o <span class="hljs-string">'Group'</span>
+    ]</div></div></div></div></body></html>

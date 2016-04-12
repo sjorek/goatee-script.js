@@ -1,74 +1,117 @@
-<!DOCTYPE html><html lang="en"><head><title>Utility</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content=""><meta name="groc-document-path" content="Utility"><meta name="groc-project-path" content="src/Utility.coffee"><link rel="stylesheet" type="text/css" media="all" href="assets/style.css"><script type="text/javascript" src="assets/behavior.js"></script><body><div id="meta"><div class="file-path">src/Utility.coffee</div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><p>© Copyright 2013-2014 Stephan Jorek <a href="&#109;&#x61;&#x69;&#x6c;&#116;&#x6f;:&#115;&#116;&#101;&#x70;&#104;&#97;&#110;&#x2e;&#106;&#x6f;&#114;&#x65;&#x6b;&#64;&#x67;&#x6d;&#x61;i&#x6c;&#46;&#x63;&#x6f;&#109;">&#115;&#116;&#101;&#x70;&#104;&#97;&#110;&#x2e;&#106;&#x6f;&#114;&#x65;&#x6b;&#64;&#x67;&#x6d;&#x61;i&#x6c;&#46;&#x63;&#x6f;&#109;</a>  </p>
-
-<p>Licensed under the Apache License, Version 2.0 (the "License");
+<!DOCTYPE html><html lang="en"><head><title>Utility</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content=""><meta name="groc-document-path" content="Utility"><meta name="groc-project-path" content="src/Utility.coffee"><link rel="stylesheet" type="text/css" media="all" href="assets/style.css"><script type="text/javascript" src="assets/behavior.js"></script><body><div id="meta"><div class="file-path">src/Utility.coffee</div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><p>© Copyright 2013-2016 Stephan Jorek <a href="&#109;&#x61;&#x69;&#x6c;&#x74;&#111;&#58;&#115;&#116;&#x65;&#112;&#x68;&#x61;&#110;&#x2e;&#x6a;&#x6f;&#114;&#x65;&#107;&#x40;&#103;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#99;&#111;&#109;">&#115;&#116;&#x65;&#112;&#x68;&#x61;&#110;&#x2e;&#x6a;&#x6f;&#114;&#x65;&#107;&#x40;&#103;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#99;&#111;&#109;</a></p>
+<p>Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at</p>
-
 <p><a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a></p>
-
 <p>Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
+distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
 implied. See the License for the specific language governing
-permissions and limitations under the License.</p></div></div><div class="code"><div class="wrapper"><span class="nv">exports = </span><span class="nx">module</span><span class="o">?</span><span class="p">.</span><span class="nx">exports</span> <span class="o">?</span> <span class="k">this</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'> class and namespace GoateeScript</span></p>
+permissions and limitations under the License.</p></div></div><div class="code"><div class="wrapper">exports = <span class="hljs-built_in">module</span>?.exports ? <span class="hljs-keyword">this</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h1 id="utilities">Utilities</h1>
+<hr></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'> class Utility and namespace GoateeScript</span></p>
+<hr></div></div><div class="code"><div class="wrapper">exports.Utility = <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Utility</span></span>
 
-<p>#</p></div></div><div class="code"><div class="wrapper"><span class="nv">exports.Utility = </span><span class="k">class</span> <span class="nx">Utility</span>
+  _parser = <span class="hljs-literal">null</span>
 
-  <span class="nv">_parser = </span><span class="kc">null</span>
-
-  <span class="nv">_toString = </span><span class="nb">Object</span><span class="o">::</span><span class="nx">toString</span>
-  <span class="nv">_call     = </span><span class="nb">Function</span><span class="o">::</span><span class="nx">call</span>
-  <span class="nv">_slice    = </span><span class="nb">Array</span><span class="o">::</span><span class="nx">slice</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>New in EcmaScript 1.5
-http://webreflection.blogspot.com/2010/02/functionprototypebind.html
-This is still needed by Safari.</p></div></div><div class="code"><div class="wrapper">  <span class="nv">Utility.bindFunction = </span><span class="nx">do</span> <span class="nf">-&gt;</span>
-    <span class="nv">_bind = </span><span class="nb">Function</span><span class="o">::</span><span class="nx">bind</span>
-    <span class="k">if</span> <span class="nx">_bind</span><span class="o">?</span> <span class="o">and</span> <span class="kc">false</span>
-      <span class="nf">(args...) -&gt;</span>
-        <span class="nf">-&gt;</span> <span class="nx">_bind</span><span class="p">.</span><span class="nx">apply</span> <span class="nx">args</span>
-    <span class="k">else</span>
-      <span class="nf">(fn, context, args...) -&gt;</span>
-        <span class="k">if</span> <span class="nx">args</span><span class="p">.</span><span class="nx">length</span> <span class="o">is</span> <span class="mi">0</span>
-          <span class="nf">-&gt;</span> <span class="nx">fn</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">context</span><span class="p">)</span>
-        <span class="k">else</span>
-          <span class="nf">-&gt;</span> <span class="nx">fn</span><span class="p">.</span><span class="nx">apply</span> <span class="nx">context</span><span class="p">,</span> <span class="nx">args</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p>#
-Finds a slice of an array.</p>
-
-<p>Parameters:</p>
-
+  _toString = <span class="hljs-attribute">Object</span>::toString
+  _call     = <span class="hljs-attribute">Function</span>::call
+  _slice    = <span class="hljs-attribute">Array</span>::slice</div></div></div><div class="segment"><div class="comments doc-section doc-section-static"><div class="wrapper"><p><span class='doc-section-header'>Static method bindFunction</span></p>
+<hr>
+<p>This is still needed by Safari.</p>
+<p>See:</p>
 <ul>
-<li><p><strong>array must be an Array.</strong><br/>(Array to be sliced.)</p></li>
-<li><p><strong>start must be a Number.</strong><br/>(The start of the slice.)</p></li>
-<li><p><strong>end must be a Number.</strong><br/>(The end of the slice (optional).)</p></li>
-</ul>
-
-<p><strong>Returns an Array</strong><br/>(array The slice of the array from start to end.)</p></div></div><div class="code"><div class="wrapper">  <span class="nv">Utility.arraySlice = </span><span class="nf">(array, start, end) -&gt;</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Use
-  return Function.prototype.call.apply(Array.prototype.slice, arguments);
-instead of the simpler
-  return Array.prototype.slice.call(array, start, opt_end);
-here because of a bug in the FF and IE implementations of
-Array.prototype.slice which causes this function to return an empty list
-if end is not provided.</p></div></div><div class="code"><div class="wrapper">    <span class="nx">_call</span><span class="p">.</span><span class="nx">apply</span> <span class="nx">_slice</span><span class="p">,</span> <span class="nx">arguments</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'> see http://coffeescript.org/documentation/docs/underscore.html</span></p>
-
-<p>Modified version using String::substring instead of String::substr</p></div></div><div class="code"><div class="wrapper">  <span class="nv">Utility.isString = </span><span class="nf">(obj) -&gt;</span>
-    <span class="o">!!</span><span class="p">(</span><span class="nx">obj</span> <span class="o">is</span> <span class="s">&#39;&#39;</span> <span class="o">or</span> <span class="p">(</span><span class="nx">obj</span> <span class="o">and</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">charCodeAt</span> <span class="o">and</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">substring</span><span class="p">))</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'> see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/isArray</span></p></div></div><div class="code"><div class="wrapper">  <span class="nv">Utility.isArray = </span><span class="k">if</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">isArray</span><span class="o">?</span> <span class="o">and</span> <span class="kc">false</span> <span class="k">then</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">isArray</span> <span class="k">else</span> <span class="nf">(obj) -&gt;</span>
-    <span class="nx">_toString</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">obj</span><span class="p">)</span> <span class="o">is</span> <span class="s">&#39;[object Array]&#39;</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'> see http://coffeescript.org/documentation/docs/underscore.html</span></p></div></div><div class="code"><div class="wrapper">  <span class="nv">Utility.isNumber = </span><span class="nf">(obj) -&gt;</span>
-    <span class="p">(</span><span class="nx">obj</span> <span class="o">is</span> <span class="o">+</span><span class="nx">obj</span><span class="p">)</span> <span class="o">or</span> <span class="nx">_toString</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">obj</span><span class="p">)</span> <span class="o">is</span> <span class="s">&#39;[object Number]&#39;</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'> see http://coffeescript.org/documentation/docs/underscore.html</span></p></div></div><div class="code"><div class="wrapper">  <span class="nv">Utility.isFunction = _isFunction = </span><span class="nf">(obj) -&gt;</span>
-    <span class="o">!!</span><span class="p">(</span><span class="nx">obj</span> <span class="o">and</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">constructor</span> <span class="o">and</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">call</span> <span class="o">and</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">apply</span><span class="p">)</span>
-
-  <span class="nv">Utility.isExpression = </span><span class="nf">(obj) -&gt;</span>
-    <span class="nx">_isFunction</span> <span class="nx">obj</span><span class="o">?</span><span class="p">.</span><span class="nx">evaluate</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p>#</p>
-
+<li><a href="http://webreflection.blogspot.com/2010/02/functionprototypebind.html">Function.prototype.bind in EcmaScript ≥ 1.5</a></li>
+</ul></div></div><div class="code"><div class="wrapper">  Utility.bindFunction = <span class="hljs-keyword">do</span> -&gt;
+    _bind = <span class="hljs-attribute">Function</span>::bind
+    <span class="hljs-keyword">if</span> _bind? <span class="hljs-keyword">and</span> <span class="hljs-literal">false</span>
+      (args...) -&gt;
+        -&gt; _bind.apply args
+    <span class="hljs-keyword">else</span>
+      (fn, context, args...) -&gt;
+        <span class="hljs-keyword">if</span> args.length <span class="hljs-keyword">is</span> <span class="hljs-number">0</span>
+          -&gt; fn.call(context)
+        <span class="hljs-keyword">else</span>
+          -&gt; fn.apply context, args</div></div></div><div class="segment"><div class="comments doc-section doc-section-static"><div class="wrapper"><p><span class='doc-section-header'>Static method arraySlice</span></p>
+<hr>
+<p>Finds a slice of an array.</p>
 <p>Parameters:</p>
-
+<ul>
+<li><p><strong>array must be an Array.</strong><br/>(Array to be sliced.)</p>
+</li>
+<li><p><strong>start must be a Number.</strong><br/>(The start of the slice.)</p>
+</li>
+<li><p><strong>end is optional and must be a Number.</strong><br/>(The end of the slice.)</p>
+</li>
+</ul>
+<p><strong>Returns an Array</strong><br/>(array The slice of the array from start to end.)</p></div></div><div class="code"><div class="wrapper">  Utility.arraySlice = <span class="hljs-function"><span class="hljs-params">(array, start, end)</span> -&gt;</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Use …</p>
+<pre><code> return Function.prototype.call.apply(Array.prototype.slice, arguments);</code></pre>
+<p>… instead of the simpler …</p>
+<pre><code> return Array.prototype.slice.call(array, start, opt_end);</code></pre>
+<p>… here because of a bug in the FF and IE implementations of
+Array.prototype.slice which causes this function to return an empty list
+if end is not provided.</p></div></div><div class="code"><div class="wrapper">    _call.apply _slice, arguments</div></div></div><div class="segment"><div class="comments doc-section doc-section-static"><div class="wrapper"><p><span class='doc-section-header'>Static method isString</span></p>
+<hr>
+<p>Modified version using String::substring instead of String::substr</p>
+<p>See:</p>
+<ul>
+<li><a href="http://coffeescript.org/documentation/docs/underscore.html">underscore.coffee</a></li>
+</ul>
+<p>Parameters:</p>
+<ul>
+<li><strong>obj must be a mixed.</strong></li>
+</ul>
+<p><strong>Returns a Boolean</strong></p></div></div><div class="code"><div class="wrapper">  Utility.isString = <span class="hljs-function"><span class="hljs-params">(obj)</span> -&gt;</span>
+    !!(obj <span class="hljs-keyword">is</span> <span class="hljs-string">''</span> <span class="hljs-keyword">or</span> (obj <span class="hljs-keyword">and</span> obj.charCodeAt <span class="hljs-keyword">and</span> obj.substring))</div></div></div><div class="segment"><div class="comments doc-section doc-section-static"><div class="wrapper"><p><span class='doc-section-header'>Static method isArray</span></p>
+<hr>
+<p>See:</p>
+<ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/isArray">Array.isArray</a></li>
+</ul>
+<p>Parameters:</p>
+<ul>
+<li><strong>obj must be a mixed.</strong></li>
+</ul>
+<p><strong>Returns a Boolean</strong></p></div></div><div class="code"><div class="wrapper">  Utility.isArray = <span class="hljs-keyword">if</span> Array.isArray? <span class="hljs-keyword">and</span> <span class="hljs-literal">false</span> <span class="hljs-keyword">then</span> Array.isArray <span class="hljs-keyword">else</span> (obj) -&gt;
+    _toString.call(obj) <span class="hljs-keyword">is</span> <span class="hljs-string">'[object Array]'</span></div></div></div><div class="segment"><div class="comments doc-section doc-section-static"><div class="wrapper"><p><span class='doc-section-header'>Static method isNumber</span></p>
+<hr>
+<p>See:</p>
+<ul>
+<li><a href="http://coffeescript.org/documentation/docs/underscore.html">underscore.coffee</a></li>
+</ul>
+<p>Parameters:</p>
+<ul>
+<li><strong>obj must be a mixed.</strong></li>
+</ul>
+<p><strong>Returns a Boolean</strong></p></div></div><div class="code"><div class="wrapper">  Utility.isNumber = <span class="hljs-function"><span class="hljs-params">(obj)</span> -&gt;</span>
+    (obj <span class="hljs-keyword">is</span> +obj) <span class="hljs-keyword">or</span> _toString.call(obj) <span class="hljs-keyword">is</span> <span class="hljs-string">'[object Number]'</span></div></div></div><div class="segment"><div class="comments doc-section doc-section-static"><div class="wrapper"><p><span class='doc-section-header'>Static method isFunction</span></p>
+<hr>
+<p>See:</p>
+<ul>
+<li><a href="http://coffeescript.org/documentation/docs/underscore.html">underscore.coffee</a></li>
+</ul>
+<p>Parameters:</p>
+<ul>
+<li><strong>obj must be a mixed.</strong></li>
+</ul>
+<p><strong>Returns a Boolean</strong></p></div></div><div class="code"><div class="wrapper">  Utility.isFunction = _isFunction = <span class="hljs-function"><span class="hljs-params">(obj)</span> -&gt;</span>
+    !!(obj <span class="hljs-keyword">and</span> obj.constructor <span class="hljs-keyword">and</span> obj.call <span class="hljs-keyword">and</span> obj.apply)</div></div></div><div class="segment"><div class="comments doc-section doc-section-static"><div class="wrapper"><p><span class='doc-section-header'>Static method isExpression</span></p>
+<hr>
+<p>Parameters:</p>
+<ul>
+<li><strong>obj must be a mixed.</strong></li>
+</ul>
+<p><strong>Returns a Boolean</strong></p></div></div><div class="code"><div class="wrapper">  Utility.isExpression = <span class="hljs-function"><span class="hljs-params">(obj)</span> -&gt;</span>
+    _isFunction obj?.evaluate</div></div></div><div class="segment"><div class="comments doc-section doc-section-static"><div class="wrapper"><p><span class='doc-section-header'>Static method parseScript is aliased as parse</span></p>
+<hr>
+<p>Parameters:</p>
 <ul>
 <li><strong>code must be a String.</strong></li>
 </ul>
-
-<p><strong>Returns an Expression</strong></p></div></div><div class="code"><div class="wrapper">  <span class="nv">Utility.parse = </span><span class="o">\</span>
-  <span class="nv">Utility.parseScript = </span><span class="nx">do</span> <span class="nf">-&gt;</span>
-    <span class="nv">cache  = </span><span class="p">{}</span>
-    <span class="nf">(code) -&gt;</span>
-      <span class="k">return</span> <span class="nx">cache</span><span class="p">[</span><span class="nx">code</span><span class="p">]</span> <span class="k">if</span> <span class="nx">cache</span><span class="p">.</span><span class="nx">hasOwnProperty</span><span class="p">(</span><span class="nx">code</span><span class="p">)</span>
-      <span class="nx">_parser</span> <span class="o">?=</span> <span class="nx">require</span> <span class="s">&#39;./Parser&#39;</span>
-      <span class="nv">expression = </span><span class="nx">_parser</span><span class="p">.</span><span class="nx">parse</span> <span class="nx">code</span>
-      <span class="nx">cache</span><span class="p">[</span><span class="nx">code</span><span class="p">]</span> <span class="o">=</span> <span class="nx">cache</span><span class="p">[</span><span class="s">&#39;&#39;</span> <span class="o">+</span> <span class="nx">expression</span><span class="p">]</span> <span class="o">=</span> <span class="nx">expression</span></div></div></div></div></body></html>
+<p><strong>Returns an Expression</strong></p></div></div><div class="code"><div class="wrapper">  Utility.parse = \
+  Utility.parseScript = <span class="hljs-keyword">do</span> -&gt;
+    cache  = {}
+    (code) -&gt;
+      <span class="hljs-keyword">return</span> cache[code] <span class="hljs-keyword">if</span> cache.hasOwnProperty(code)
+      _parser ?= <span class="hljs-built_in">require</span> <span class="hljs-string">'./Parser'</span>
+      expression = _parser.parse code
+      cache[code] = cache[<span class="hljs-string">''</span> + expression] = expression</div></div></div></div></body></html>

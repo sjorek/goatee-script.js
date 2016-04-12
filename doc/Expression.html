@@ -1,640 +1,606 @@
-<!DOCTYPE html><html lang="en"><head><title>Expression</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content=""><meta name="groc-document-path" content="Expression"><meta name="groc-project-path" content="src/Expression.coffee"><link rel="stylesheet" type="text/css" media="all" href="assets/style.css"><script type="text/javascript" src="assets/behavior.js"></script><body><div id="meta"><div class="file-path">src/Expression.coffee</div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><p>© Copyright 2013-2014 Stephan Jorek <a href="m&#x61;&#105;&#108;&#116;&#x6f;:&#115;&#116;&#101;&#112;&#104;&#x61;&#110;&#x2e;&#106;&#111;&#x72;&#101;&#x6b;&#64;&#x67;&#x6d;&#x61;&#105;&#x6c;&#x2e;&#99;&#111;&#x6d;">&#115;&#116;&#101;&#112;&#104;&#x61;&#110;&#x2e;&#106;&#111;&#x72;&#101;&#x6b;&#64;&#x67;&#x6d;&#x61;&#105;&#x6c;&#x2e;&#99;&#111;&#x6d;</a>  </p>
-
-<p>Licensed under the Apache License, Version 2.0 (the "License");
+<!DOCTYPE html><html lang="en"><head><title>Expression</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content=""><meta name="groc-document-path" content="Expression"><meta name="groc-project-path" content="src/Expression.coffee"><link rel="stylesheet" type="text/css" media="all" href="assets/style.css"><script type="text/javascript" src="assets/behavior.js"></script><body><div id="meta"><div class="file-path">src/Expression.coffee</div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><p>© Copyright 2013-2016 Stephan Jorek <a href="&#109;&#x61;&#105;&#108;&#116;&#111;&#x3a;&#x73;&#x74;&#101;&#x70;&#x68;&#97;&#x6e;&#x2e;&#x6a;&#111;&#x72;&#x65;&#107;&#x40;&#103;&#x6d;&#x61;&#x69;&#x6c;&#46;&#99;&#111;&#109;">&#x73;&#x74;&#101;&#x70;&#x68;&#97;&#x6e;&#x2e;&#x6a;&#111;&#x72;&#x65;&#107;&#x40;&#103;&#x6d;&#x61;&#x69;&#x6c;&#46;&#99;&#111;&#109;</a></p>
+<p>Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at</p>
-
 <p><a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a></p>
-
 <p>Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
+distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
 implied. See the License for the specific language governing
-permissions and limitations under the License.</p></div></div><div class="code"><div class="wrapper"><span class="p">{</span><span class="nx">Stack</span><span class="p">}</span>         <span class="o">=</span> <span class="nx">require</span> <span class="s">&#39;./Stack&#39;</span>
+permissions and limitations under the License.</p></div></div><div class="code"><div class="wrapper">{Stack}         = <span class="hljs-built_in">require</span> <span class="hljs-string">'./Stack'</span>
 
-<span class="p">{</span><span class="nx">Utility</span><span class="o">:</span><span class="p">{</span>
-  <span class="nx">bindFunction</span><span class="p">,</span>
-  <span class="nx">toString</span><span class="p">,</span>
-  <span class="nx">isString</span><span class="p">,</span>
-  <span class="nx">isArray</span><span class="p">,</span>
-  <span class="nx">isNumber</span><span class="p">,</span>
-  <span class="nx">isFunction</span><span class="p">,</span>
-  <span class="nx">isExpression</span>
-<span class="p">}}</span>              <span class="o">=</span> <span class="nx">require</span> <span class="s">&#39;./Utility&#39;</span>
+{<span class="hljs-attribute">Utility</span>:{
+  bindFunction,
+  toString,
+  isString,
+  isArray,
+  isNumber,
+  isFunction,
+  isExpression
+}}              = <span class="hljs-built_in">require</span> <span class="hljs-string">'./Utility'</span>
 
-<span class="nv">exports = </span><span class="nx">module</span><span class="o">?</span><span class="p">.</span><span class="nx">exports</span> <span class="o">?</span> <span class="k">this</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'> class and namespace GoateeScript</span></p>
-
-<p>#
-Expression are the glue between runtime-evaluation, -interpretation and
--compilation.  The parser emits these expressions, whereas the compiler
-consumes them.</p></div></div><div class="code"><div class="wrapper"><span class="nv">exports.Expression = </span><span class="k">class</span> <span class="nx">Expression</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Shortcuts to ease access to otherwise deeply nested properties</p></div></div><div class="code"><div class="wrapper">  <span class="nv">_stack        = </span><span class="kc">null</span>
-  <span class="nv">_scope        = </span><span class="kc">null</span>
-  <span class="nv">_errors       = </span><span class="kc">null</span>
-  <span class="nv">_global       = </span><span class="kc">null</span>
-  <span class="nv">_local        = </span><span class="kc">null</span>
-  <span class="nv">_operations   = </span><span class="kc">null</span>
-  <span class="nv">_parser       = </span><span class="kc">null</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>reference to <code>Expression.operations.scalar.name</code></p></div></div><div class="code"><div class="wrapper">  <span class="nv">_scalar       = </span><span class="kc">null</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>reference to <code>Expression.operations['.'].name</code></p></div></div><div class="code"><div class="wrapper">  <span class="nv">_property     = </span><span class="kc">null</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>static reference to a callback function</p></div></div><div class="code"><div class="wrapper">  <span class="nv">_callback     = </span><span class="kc">null</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>reference to <code>Expression.operations.reference.format</code></p></div></div><div class="code"><div class="wrapper">  <span class="nv">_reference    = </span><span class="kc">null</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>a wrapper around <code>Expression.operations.reference.format</code></p></div></div><div class="code"><div class="wrapper">  <span class="nv">_variable     = </span><span class="kc">null</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>reference to <code>Expression.operations.reference.evaluate</code></p></div></div><div class="code"><div class="wrapper">  <span class="nv">_resolve      = </span><span class="kc">null</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>reference to <code>Expression.operations['='].evaluate</code></p></div></div><div class="code"><div class="wrapper">  <span class="nv">_assignment   = </span><span class="kc">null</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p>#
-Determine if the current state resolves to a property.  Used by
+exports = <span class="hljs-built_in">module</span>?.exports ? <span class="hljs-keyword">this</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h1 id="expressions-">Expressions …</h1>
+<hr>
+<p>… are the glue between runtime-evaluation, -interpretation and
+-compilation.  The parser emits these expressions, whereas the
+compiler consumes them.</p></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'> class Expression and namespace GoateeScript</span></p>
+<hr></div></div><div class="code"><div class="wrapper">exports.Expression = <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Expression</span></span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Shortcuts to ease access to otherwise deeply nested properties</p></div></div><div class="code"><div class="wrapper">  _stack        = <span class="hljs-literal">null</span>
+  _scope        = <span class="hljs-literal">null</span>
+  _errors       = <span class="hljs-literal">null</span>
+  _global       = <span class="hljs-literal">null</span>
+  _local        = <span class="hljs-literal">null</span>
+  _operations   = <span class="hljs-literal">null</span>
+  _parser       = <span class="hljs-literal">null</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>reference to <code>Expression.operations.scalar.name</code></p></div></div><div class="code"><div class="wrapper">  _scalar       = <span class="hljs-literal">null</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>reference to <code>Expression.operations[&#39;.&#39;].name</code></p></div></div><div class="code"><div class="wrapper">  _property     = <span class="hljs-literal">null</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>static reference to a callback function</p></div></div><div class="code"><div class="wrapper">  _callback     = <span class="hljs-literal">null</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>reference to <code>Expression.operations.reference.format</code></p></div></div><div class="code"><div class="wrapper">  _reference    = <span class="hljs-literal">null</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>a wrapper around <code>Expression.operations.reference.format</code></p></div></div><div class="code"><div class="wrapper">  _variable     = <span class="hljs-literal">null</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>reference to <code>Expression.operations.reference.evaluate</code></p></div></div><div class="code"><div class="wrapper">  _resolve      = <span class="hljs-literal">null</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>reference to <code>Expression.operations[&#39;=&#39;].evaluate</code></p></div></div><div class="code"><div class="wrapper">  _assignment   = <span class="hljs-literal">null</span></div></div></div><div class="segment"><div class="comments doc-section doc-section-private"><div class="wrapper"><p><span class='doc-section-header'>Private function _isProperty</span></p>
+<hr>
+<p>Determine if the current state resolves to a property.  Used by
 <code>Expression.operations.reference.evaluate</code></p>
-
-<p><strong>Returns a Boolean</strong></p></div></div><div class="code"><div class="wrapper">  <span class="nv">_isProperty   = </span><span class="nf">() -&gt;</span>
-    <span class="nv">p = </span><span class="nx">_stack</span><span class="p">.</span><span class="nx">previous</span><span class="p">()</span>
-    <span class="nx">p</span><span class="o">?</span> <span class="o">and</span> <span class="nx">p</span><span class="p">.</span><span class="nx">operator</span><span class="p">.</span><span class="nx">name</span> <span class="o">is</span> <span class="nx">_property</span> <span class="o">and</span> <span class="nx">p</span><span class="p">.</span><span class="nx">parameters</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">is</span> <span class="nx">_stack</span><span class="p">.</span><span class="nx">current</span><span class="p">()</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p>#</p>
-
+<p><strong>Returns a Boolean</strong></p></div></div><div class="code"><div class="wrapper"><span class="hljs-function">  <span class="hljs-title">_isProperty</span>   = <span class="hljs-params">()</span> -&gt;</span>
+    p = _stack.previous()
+    p? <span class="hljs-keyword">and</span> p.operator.name <span class="hljs-keyword">is</span> _property <span class="hljs-keyword">and</span> p.parameters[<span class="hljs-number">1</span>] <span class="hljs-keyword">is</span> _stack.current()</div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'>Method execute</span></p>
+<hr>
 <p>Parameters:</p>
-
 <ul>
-<li><p><strong>context must be an Object.</strong></p></li>
-<li><p><strong>expression can be an Expression or a mixed.</strong></p></li>
-</ul></div></div><div class="code"><div class="wrapper">  <span class="nv">Expression.execute = _execute = </span><span class="nf">(context, expression) -&gt;</span>
-    <span class="k">return</span> <span class="nx">expression</span> <span class="k">unless</span> <span class="nx">isExpression</span> <span class="nx">expression</span>
-    <span class="nx">_stack</span><span class="p">.</span><span class="nx">push</span> <span class="nx">context</span><span class="p">,</span> <span class="nx">expression</span>
-    <span class="k">try</span>
-      <span class="nv">result = </span><span class="nx">_process</span> <span class="nx">context</span><span class="p">,</span> <span class="nx">expression</span>
-    <span class="k">catch</span> <span class="nx">e</span>
-      <span class="p">(</span><span class="nx">_errors</span> <span class="o">?=</span> <span class="p">[]).</span><span class="nx">push</span> <span class="nx">e</span>
-    <span class="nx">_stack</span><span class="p">.</span><span class="nx">pop</span><span class="p">()</span>
-    <span class="k">return</span> <span class="nx">result</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p>#
-Set a static callback, to be invoked after an expression has been
-evaluated, but before the stack gets cleared.  Implemented as:
-  <code>callback(expression, result, _stack, _errors)</code></p>
-
+<li><p><strong>context must be an Object.</strong></p>
+</li>
+<li><p><strong>expression can be an Expression or a mixed.</strong></p>
+</li>
+</ul>
+<p><strong>Returns a mixed</strong></p></div></div><div class="code"><div class="wrapper">  Expression.execute = _execute = <span class="hljs-function"><span class="hljs-params">(context, expression)</span> -&gt;</span>
+    <span class="hljs-keyword">return</span> expression <span class="hljs-keyword">unless</span> isExpression expression
+    _stack.push context, expression
+    <span class="hljs-keyword">try</span>
+      result = _process context, expression
+    <span class="hljs-keyword">catch</span> e
+      (_errors ?= []).push e
+    _stack.pop()
+    <span class="hljs-keyword">return</span> result</div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'>Method callback</span></p>
+<hr>
+<p>Set a static callback, to be invoked after an expression has been
+evaluated, but before the stack gets cleared.  Implemented as:</p>
+<pre><code> callback(expression, result, _stack, _errors)</code></pre>
 <p>Parameters:</p>
-
 <ul>
 <li><strong>A must be a Function.</strong><br/>(callback-function (closure) to invoke)</li>
-</ul>
-
-<p><strong>Returns a Function</strong></p></div></div><div class="code"><div class="wrapper">  <span class="nv">Expression.callback = </span><span class="nf">(callback) -&gt;</span>
-    <span class="nv">_callback = </span><span class="nx">callback</span>
-    <span class="k">return</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p>#
-Get an array of all errors caught and collected during evaluation or
+</ul></div></div><div class="code"><div class="wrapper">  Expression.callback = <span class="hljs-function"><span class="hljs-params">(callback)</span> -&gt;</span>
+    _callback = callback
+    <span class="hljs-keyword">return</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'>Method errors</span></p>
+<hr>
+<p>Get an array of all errors caught and collected during evaluation or
 <code>false</code> if none of them occured.</p>
-
-<p><strong>Returns a Boolean or an Array<Error></strong></p></div></div><div class="code"><div class="wrapper">  <span class="nv">Expression.errors = </span><span class="nf">() -&gt;</span>
-    <span class="nx">_errors</span> <span class="k">if</span> <span class="nx">_errors</span><span class="o">?</span> <span class="o">and</span> <span class="nx">_errors</span><span class="p">.</span><span class="nx">length</span> <span class="o">isnt</span> <span class="mi">0</span>
-    <span class="kc">false</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p>#
-This is the start and finish of evaluations.  Resets the environment before
+<p><strong>Returns a Boolean or an Array<Error></strong></p></div></div><div class="code"><div class="wrapper">  Expression.errors = <span class="hljs-function"><span class="hljs-params">()</span> -&gt;</span>
+    _errors <span class="hljs-keyword">if</span> _errors? <span class="hljs-keyword">and</span> _errors.length <span class="hljs-keyword">isnt</span> <span class="hljs-number">0</span>
+    <span class="hljs-literal">false</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'>Method evaluate</span></p>
+<hr>
+<p>This is the start and finish of evaluations.  Resets the environment before
 and after any execution.  This implementation avoids self-recursion as it
 reassigns the evaluation function.</p>
-
 <p>Parameters:</p>
-
 <ul>
-<li><p><strong>context must be an Object.</strong><br/>((optional))</p></li>
-<li><p><strong>expression can be an Expression or a mixed.</strong><br/>((optional))</p></li>
-<li><p><strong>variables must be an Object.</strong><br/>((optional))</p></li>
-<li><p><strong>scope must be an Array.</strong><br/>((optional))</p></li>
-<li><p><strong>stack must be an Array.</strong><br/>((optional))</p></li>
+<li><p><strong>context is optional and must be an Object.</strong></p>
+</li>
+<li><p><strong>expression is optional and can be an Expression or a mixed.</strong></p>
+</li>
+<li><p><strong>variables is optional and must be an Object.</strong></p>
+</li>
+<li><p><strong>scope is optional and must be an Array.</strong></p>
+</li>
+<li><p><strong>stack is optional and must be an Array.</strong></p>
+</li>
 </ul>
+<p><strong>Returns a mixed</strong></p></div></div><div class="code"><div class="wrapper">  Expression.evaluate = \
+<span class="hljs-function">  <span class="hljs-title">_evaluate</span> = <span class="hljs-params">(context={}, expression, variables, scope, stack)</span> -&gt;</span>
+    <span class="hljs-keyword">return</span> expression <span class="hljs-keyword">unless</span> isExpression expression
 
-<p><strong>Returns a mixed</strong></p></div></div><div class="code"><div class="wrapper">  <span class="nv">Expression.evaluate = </span><span class="o">\</span>
-  <span class="nv">_evaluate = </span><span class="nf">(context={}, expression, variables, scope, stack) -&gt;</span>
-    <span class="k">return</span> <span class="nx">expression</span> <span class="k">unless</span> <span class="nx">isExpression</span> <span class="nx">expression</span>
+    isGlobalScope = <span class="hljs-keyword">not</span> _stack?
+    <span class="hljs-keyword">if</span> isGlobalScope
+      _stack    = <span class="hljs-keyword">new</span> Stack(context, variables, scope, stack)
+      _scope    = _stack.scope
+      _errors   = <span class="hljs-literal">null</span>
+      _global   = _stack.<span class="hljs-built_in">global</span>
+      _local    = _stack.local
+      _evaluate = _execute
 
-    <span class="nv">isGlobalScope = </span><span class="o">not</span> <span class="nx">_stack</span><span class="o">?</span>
-    <span class="k">if</span> <span class="nx">isGlobalScope</span>
-      <span class="nv">_stack    = </span><span class="k">new</span> <span class="nx">Stack</span><span class="p">(</span><span class="nx">context</span><span class="p">,</span> <span class="nx">variables</span><span class="p">,</span> <span class="nx">scope</span><span class="p">,</span> <span class="nx">stack</span><span class="p">)</span>
-      <span class="nv">_scope    = </span><span class="nx">_stack</span><span class="p">.</span><span class="nx">scope</span>
-      <span class="nv">_errors   = </span><span class="kc">null</span>
-      <span class="nv">_global   = </span><span class="nx">_stack</span><span class="p">.</span><span class="nx">global</span>
-      <span class="nv">_local    = </span><span class="nx">_stack</span><span class="p">.</span><span class="nx">local</span>
-      <span class="nv">_evaluate = </span><span class="nx">_execute</span>
+    result = _execute context, expression
 
-    <span class="nv">result = </span><span class="nx">_execute</span> <span class="nx">context</span><span class="p">,</span> <span class="nx">expression</span>
+    <span class="hljs-keyword">if</span> isGlobalScope
+      _callback(expression, result, _stack, _errors) <span class="hljs-keyword">if</span> _callback?
+      _stack.destructor()
+      _stack    = <span class="hljs-literal">null</span>
+      _scope    = <span class="hljs-literal">null</span>
+      _global   = <span class="hljs-literal">null</span>
+      _local    = <span class="hljs-literal">null</span>
+      _evaluate = Expression.evaluate
 
-    <span class="k">if</span> <span class="nx">isGlobalScope</span>
-      <span class="nx">_callback</span><span class="p">(</span><span class="nx">expression</span><span class="p">,</span> <span class="nx">result</span><span class="p">,</span> <span class="nx">_stack</span><span class="p">,</span> <span class="nx">_errors</span><span class="p">)</span> <span class="k">if</span> <span class="nx">_callback</span><span class="o">?</span>
-      <span class="nx">_stack</span><span class="p">.</span><span class="nx">destructor</span><span class="p">()</span>
-      <span class="nv">_stack    = </span><span class="kc">null</span>
-      <span class="nv">_scope    = </span><span class="kc">null</span>
-      <span class="nv">_global   = </span><span class="kc">null</span>
-      <span class="nv">_local    = </span><span class="kc">null</span>
-      <span class="nv">_evaluate = </span><span class="nx">Expression</span><span class="p">.</span><span class="nx">evaluate</span>
-
-    <span class="nx">result</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p>#
-Process the expression and evaluate its result. Chained (sub-)expressions
+    result</div></div></div><div class="segment"><div class="comments doc-section doc-section-private"><div class="wrapper"><p><span class='doc-section-header'>Private function _process</span></p>
+<hr>
+<p>Process the expression and evaluate its result. Chained (sub-)expressions
 and vector operations are resolved here.</p>
-
 <p>Parameters:</p>
-
 <ul>
-<li><p><strong>context must be an Object.</strong></p></li>
-<li><p><strong>expression must be an Expression.</strong></p></li>
+<li><p><strong>context must be an Object.</strong></p>
+</li>
+<li><p><strong>expression must be an Expression.</strong></p>
+</li>
 </ul>
+<p><strong>Returns a mixed</strong></p></div></div><div class="code"><div class="wrapper"><span class="hljs-function">  <span class="hljs-title">_process</span> = <span class="hljs-params">(context, expression)</span> -&gt;</span>
+    {operator,parameters} = expression
+    <span class="hljs-keyword">if</span> operator.chain
+      <span class="hljs-keyword">unless</span> parameters.length <span class="hljs-keyword">is</span> <span class="hljs-number">2</span>
+        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> Error <span class="hljs-string">"chain only supports 2 parameters"</span>
+      [left,right] = parameters
+      context = _execute context, left
 
-<p><strong>Returns a mixed</strong></p></div></div><div class="code"><div class="wrapper">  <span class="nv">_process = </span><span class="nf">(context, expression) -&gt;</span>
-    <span class="p">{</span><span class="nx">operator</span><span class="p">,</span><span class="nx">parameters</span><span class="p">}</span> <span class="o">=</span> <span class="nx">expression</span>
-    <span class="k">if</span> <span class="nx">operator</span><span class="p">.</span><span class="nx">chain</span>
-      <span class="k">unless</span> <span class="nx">parameters</span><span class="p">.</span><span class="nx">length</span> <span class="o">is</span> <span class="mi">2</span>
-        <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;chain only supports 2 parameters&quot;</span>
-      <span class="p">[</span><span class="nx">left</span><span class="p">,</span><span class="nx">right</span><span class="p">]</span> <span class="o">=</span> <span class="nx">parameters</span>
-      <span class="nv">context = </span><span class="nx">_execute</span> <span class="nx">context</span><span class="p">,</span> <span class="nx">left</span>
+      <span class="hljs-keyword">if</span> left.vector
+        values = []
+        <span class="hljs-keyword">for</span> leftValue <span class="hljs-keyword">in</span> context
+          rightValue = _execute leftValue, right
+          value = operator.evaluate.call leftValue, leftValue, rightValue</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p> see if the right part of the operation is vector or not</p></div></div><div class="code"><div class="wrapper">          <span class="hljs-keyword">if</span> right.vector
+            <span class="hljs-keyword">unless</span> isArray value
+              <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> Error <span class="hljs-string">"vector operation did not return an array as expected: <span class="hljs-subst">#{JSON.stringify operator}</span>"</span>
+            values.push.apply values, value
+          <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> value?
+            values.push value
+        <span class="hljs-keyword">return</span> values
 
-      <span class="k">if</span> <span class="nx">left</span><span class="p">.</span><span class="nx">vector</span>
-        <span class="nv">values = </span><span class="p">[]</span>
-        <span class="k">for</span> <span class="nx">leftValue</span> <span class="k">in</span> <span class="nx">context</span>
-          <span class="nv">rightValue = </span><span class="nx">_execute</span> <span class="nx">leftValue</span><span class="p">,</span> <span class="nx">right</span>
-          <span class="nv">value = </span><span class="nx">operator</span><span class="p">.</span><span class="nx">evaluate</span><span class="p">.</span><span class="nx">call</span> <span class="nx">leftValue</span><span class="p">,</span> <span class="nx">leftValue</span><span class="p">,</span> <span class="nx">rightValue</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>see if the right part of the operation is vector or not</p></div></div><div class="code"><div class="wrapper">          <span class="k">if</span> <span class="nx">right</span><span class="p">.</span><span class="nx">vector</span>
-            <span class="k">unless</span> <span class="nx">isArray</span> <span class="nx">value</span>
-              <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;vector operation did not return an array as expected: </span><span class="si">#{</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span> <span class="nx">operator</span><span class="si">}</span><span class="s">&quot;</span>
-            <span class="nx">values</span><span class="p">.</span><span class="nx">push</span><span class="p">.</span><span class="nx">apply</span> <span class="nx">values</span><span class="p">,</span> <span class="nx">value</span>
-          <span class="k">else</span> <span class="k">if</span> <span class="nx">value</span><span class="o">?</span>
-            <span class="nx">values</span><span class="p">.</span><span class="nx">push</span> <span class="nx">value</span>
-        <span class="k">return</span> <span class="nx">values</span>
+      rightValue = _execute context, right
+      <span class="hljs-keyword">return</span> operator.evaluate.call context, context, rightValue
 
-      <span class="nv">rightValue = </span><span class="nx">_execute</span> <span class="nx">context</span><span class="p">,</span> <span class="nx">right</span>
-      <span class="k">return</span> <span class="nx">operator</span><span class="p">.</span><span class="nx">evaluate</span><span class="p">.</span><span class="nx">call</span> <span class="nx">context</span><span class="p">,</span> <span class="nx">context</span><span class="p">,</span> <span class="nx">rightValue</span>
+    <span class="hljs-keyword">if</span> operator.raw
+      <span class="hljs-keyword">return</span> operator.evaluate.apply context, parameters
 
-    <span class="k">if</span> <span class="nx">operator</span><span class="p">.</span><span class="nx">raw</span>
-      <span class="k">return</span> <span class="nx">operator</span><span class="p">.</span><span class="nx">evaluate</span><span class="p">.</span><span class="nx">apply</span> <span class="nx">context</span><span class="p">,</span> <span class="nx">parameters</span>
-
-    <span class="nv">values = </span><span class="p">[]</span>
-    <span class="nx">values</span><span class="p">.</span><span class="nx">push</span> <span class="nx">_execute</span><span class="p">(</span><span class="nx">context</span><span class="p">,</span> <span class="nx">rightValue</span><span class="p">)</span> <span class="k">for</span> <span class="nx">rightValue</span> <span class="k">in</span> <span class="nx">parameters</span>
-    <span class="nx">operator</span><span class="p">.</span><span class="nx">evaluate</span><span class="p">.</span><span class="nx">apply</span> <span class="nx">context</span><span class="p">,</span> <span class="nx">values</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p>#
-Determine the expression's boolean value, as defined in Ecmascript 3/5/6.
+    values = []
+    values.push _execute(context, rightValue) <span class="hljs-keyword">for</span> rightValue <span class="hljs-keyword">in</span> parameters
+    operator.evaluate.apply context, values</div></div></div><div class="segment"><div class="comments doc-section doc-section-static"><div class="wrapper"><p><span class='doc-section-header'>Static method booleanize</span></p>
+<hr>
+<p>Determine the expression&#39;s boolean value, as defined in Ecmascript 3/5/6.
 Therefor arrays are processed recursivly item by item and if one of them
 resolves to a false value, this function returns false immediatly.</p>
-
 <p>Parameters:</p>
-
 <ul>
 <li><strong>value must be a mixed.</strong></li>
 </ul>
-
-<p><strong>Returns a Booelan</strong></p></div></div><div class="code"><div class="wrapper">  <span class="nv">Expression.booleanize = _booleanize = </span><span class="nf">(value) -&gt;</span>
-    <span class="k">if</span> <span class="nx">isArray</span> <span class="nx">value</span>
-      <span class="k">for</span> <span class="nx">item</span> <span class="k">in</span> <span class="nx">value</span>
-        <span class="k">if</span> <span class="nx">_booleanize</span> <span class="nx">item</span>
-          <span class="k">return</span> <span class="kc">true</span>
-      <span class="k">return</span> <span class="kc">false</span>
-    <span class="k">return</span> <span class="nb">Boolean</span> <span class="nx">value</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p>#
-Returns the given value as string.  If the given value is not an expression
-<code>JSON.stringify</code> will be called to deliver the result.  If the expression's
+<p><strong>Returns a Booelan</strong></p></div></div><div class="code"><div class="wrapper">  Expression.booleanize = _booleanize = <span class="hljs-function"><span class="hljs-params">(value)</span> -&gt;</span>
+    <span class="hljs-keyword">if</span> isArray value
+      <span class="hljs-keyword">for</span> item <span class="hljs-keyword">in</span> value
+        <span class="hljs-keyword">if</span> _booleanize item
+          <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>
+      <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>
+    <span class="hljs-keyword">return</span> Boolean value</div></div></div><div class="segment"><div class="comments doc-section doc-section-static"><div class="wrapper"><p><span class='doc-section-header'>Static method stringify</span></p>
+<hr>
+<p>Returns the given value as string.  If the given value is not an expression
+<code>JSON.stringify</code> will be called to deliver the result.  If the expression&#39;s
 operator has a <code>format</code> function (see Èxpression.operations` below) it will
 be called with the expression parameters, otherwise a string will be build
 from those parameters.</p>
-
 <p>Parameters:</p>
-
 <ul>
 <li><strong>value must be a mixed.</strong></li>
 </ul>
+<p><strong>Returns a String</strong></p></div></div><div class="code"><div class="wrapper">  Expression.stringify = _stringify = <span class="hljs-function"><span class="hljs-params">(value)</span> -&gt;</span>
+    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> isExpression value
+      <span class="hljs-keyword">return</span> JSON.stringify value
 
-<p><strong>Returns a String</strong></p></div></div><div class="code"><div class="wrapper">  <span class="nv">Expression.stringify = _stringify = </span><span class="nf">(value) -&gt;</span>
-    <span class="k">if</span> <span class="o">not</span> <span class="nx">isExpression</span> <span class="nx">value</span>
-      <span class="k">return</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span> <span class="nx">value</span>
+    {operator,parameters} = value
+    {format}              = operator
 
-    <span class="p">{</span><span class="nx">operator</span><span class="p">,</span><span class="nx">parameters</span><span class="p">}</span> <span class="o">=</span> <span class="nx">value</span>
-    <span class="p">{</span><span class="nx">format</span><span class="p">}</span>              <span class="o">=</span> <span class="nx">operator</span>
-
-    <span class="k">if</span> <span class="nx">format</span><span class="o">?</span>
-      <span class="k">return</span> <span class="nx">format</span><span class="p">.</span><span class="nx">apply</span> <span class="k">this</span><span class="p">,</span> <span class="nx">parameters</span>
-    <span class="k">else</span> <span class="k">if</span> <span class="nx">parameters</span><span class="p">.</span><span class="nx">length</span> <span class="o">is</span> <span class="mi">2</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>basic operations</p></div></div><div class="code"><div class="wrapper">      <span class="s">&quot;</span><span class="si">#{</span><span class="nx">_stringify</span> <span class="nx">parameters</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}#{</span><span class="nx">operator</span><span class="si">}#{</span><span class="nx">_stringify</span> <span class="nx">parameters</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s">&quot;</span>
-    <span class="k">else</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>block statements and … ?</p></div></div><div class="code"><div class="wrapper">      <span class="nv">format = </span><span class="p">[]</span>
-      <span class="nx">format</span><span class="p">.</span><span class="nx">push</span> <span class="nx">_stringify</span><span class="p">(</span><span class="nx">parameter</span><span class="p">)</span> <span class="k">for</span> <span class="nx">parameter</span> <span class="k">in</span> <span class="nx">parameters</span>
-      <span class="nx">format</span><span class="p">.</span><span class="nx">join</span> <span class="s">&#39; &#39;</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'> of type <em>Object</em></span></p>
-
-<p>#
-A dictionary of all known operations an expression might perform.
-Used during runtime interpretation, stringification and compilation.</p></div></div><div class="code"><div class="wrapper">  <span class="nv">Expression.operations = _operations =</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>#
-An assignment, filled below</p></div></div><div class="code"><div class="wrapper">    <span class="s">&#39;=&#39;</span><span class="o">:</span>
-      <span class="nv">evaluate: </span><span class="nf">(a,b) -&gt;</span>
-        <span class="nx">_local</span><span class="p">[</span><span class="nx">a</span><span class="p">]</span> <span class="o">=</span> <span class="nx">b</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>#
-Assigment operations are filled below (<code>_assign</code>)
-'-='  : {}
-'+='  : {}
-'*='  : {}
-'/='  : {}
-'%='  : {}
-'^='  : {}
-'>>>=': {}
-'>>=' : {}
-'&lt;&lt;=' : {}
-'&amp;='  : {}
-'|='  : {}</p></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>#
-Increment and decrement operation are filled below (<code>_incdec</code>)
-'++':
- format: (a,b) ->
-   if b then "#{<em>stringify(a)}++" else "++#{</em>stringify(a)}"
- evaluate: (a,b) ->
-   c = <em>operations.reference.evaluate(a)
-   _assignment.call(this, a, c + 1)
-   if b then c else c + 1
-'--':
- format: (a,b) ->
-   if b then "#{</em>stringify(a)}--" else "--#{_stringify(a)}"
- evaluate: (a,b) ->
-   c = _operations.reference.evaluate(a)
-   _assignment.call(this, a, c - 1)
-   if b then c else c - 1</p></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>#
-An object's property</p></div></div><div class="code"><div class="wrapper">    <span class="s">&#39;.&#39;</span><span class="o">:</span>
-      <span class="nv">chain   : </span><span class="kc">true</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>The formatter is not needed anymore
-format  : (a,b) -> "#{<em>stringify a}.#{</em>stringify b}"</p></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>#
-a.b with a &lt;- b
-Function (b) bound to its container (a) now, otherwise it would have
+    <span class="hljs-keyword">if</span> format?
+      <span class="hljs-keyword">return</span> format.apply <span class="hljs-keyword">this</span>, parameters
+    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> parameters.length <span class="hljs-keyword">is</span> <span class="hljs-number">2</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>basic operations</p></div></div><div class="code"><div class="wrapper">      <span class="hljs-string">"<span class="hljs-subst">#{_stringify parameters[<span class="hljs-number">0</span>]}</span><span class="hljs-subst">#{operator}</span><span class="hljs-subst">#{_stringify parameters[<span class="hljs-number">1</span>]}</span>"</span>
+    <span class="hljs-keyword">else</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>block statements and … ?</p></div></div><div class="code"><div class="wrapper">      format = []
+      format.push _stringify(parameter) <span class="hljs-keyword">for</span> parameter <span class="hljs-keyword">in</span> parameters
+      format.join <span class="hljs-string">' '</span></div></div></div><div class="segment"><div class="comments doc-section doc-section-static"><div class="wrapper"><p><span class='doc-section-header'>Static property operations of type <em>Object</em></span></p>
+<hr>
+<p>A dictionary of all known operations an expression might perform.
+Used during runtime interpretation, stringification and compilation.</p></div></div><div class="code"><div class="wrapper">  Expression.operations = _operations =</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>An assignment, filled below</p></div></div><div class="code"><div class="wrapper">    <span class="hljs-string">'='</span>:
+      <span class="hljs-attribute">evaluate</span>: <span class="hljs-function"><span class="hljs-params">(a,b)</span> -&gt;</span>
+        _local[a] = b</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Assigment operations are filled below (<code>_assign</code>)</p>
+<pre><code>&#39;-=&#39;  : {}
+&#39;+=&#39;  : {}
+&#39;*=&#39;  : {}
+&#39;/=&#39;  : {}
+&#39;%=&#39;  : {}
+&#39;^=&#39;  : {}
+&#39;&gt;&gt;&gt;=&#39;: {}
+&#39;&gt;&gt;=&#39; : {}
+&#39;&lt;&lt;=&#39; : {}
+&#39;&amp;=&#39;  : {}
+&#39;|=&#39;  : {}</code></pre></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Increment and decrement operation are filled below (<code>_incdec</code>)</p>
+<pre><code>&#39;++&#39;:
+  format: (a,b) -&gt;
+    if b then &quot;#{_stringify(a)}++&quot; else &quot;++#{_stringify(a)}&quot;
+  evaluate: (a,b) -&gt;
+    c = _operations.reference.evaluate(a)
+    _assignment.call(this, a, c + 1)
+    if b then c else c + 1
+&#39;--&#39;:
+  format: (a,b) -&gt;
+    if b then &quot;#{_stringify(a)}--&quot; else &quot;--#{_stringify(a)}&quot;
+  evaluate: (a,b) -&gt;
+    c = _operations.reference.evaluate(a)
+    _assignment.call(this, a, c - 1)
+    if b then c else c - 1</code></pre></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>An object&#39;s property</p></div></div><div class="code"><div class="wrapper">    <span class="hljs-string">'.'</span>:
+      chain   : <span class="hljs-literal">true</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>The formatter is not needed anymore</p>
+<pre><code> format  : (a,b) -&gt; &quot;#{_stringify a}.#{_stringify b}&quot;</code></pre></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>a.b with a &lt;- b</p>
+<p>Function (b) bound to its container (a) now, otherwise it would have
 the _global context as its scope.  If the container (a) is the _global
 context, (b) has already been bound to (a), hence (b) is returned as it
-is to avoid binding it twice.</p></div></div><div class="code"><div class="wrapper">      <span class="nv">evaluate: </span><span class="nf">(a,b) -&gt;</span>
-        <span class="k">if</span> <span class="nx">a</span> <span class="o">isnt</span> <span class="nx">_global</span> <span class="o">and</span> <span class="nx">isFunction</span> <span class="nx">b</span> <span class="k">then</span> <span class="nx">bindFunction</span> <span class="nx">b</span><span class="p">,</span> <span class="nx">a</span> <span class="k">else</span> <span class="nx">b</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>#
-Negation and bitwise inversion operations are filled below (<code>_single</code>)
-'!':
- constant: true
- evaluate: (a) -> !a
-'~':
- constant: true
- evaluate: (a) -> ~a</p></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>#
-Mathemetical and bitwise operations which can not resolve early
-are filled below (<code>_pair</code>)
-'+':
- constant: true
- evaluate: (a,b) -> a + b
-'-':
- constant: true
- evaluate: (a,b) -> a - b
-'*':
- constant: true
- evaluate: (a,b) -> a * b
-'/':
- constant: true
- evaluate: (a,b) -> a / b
-'%':
- constant: true
- evaluate: (a,b) -> a % b
-'^':
- constant: true
- evaluate: (a,b) -> a ^ b
-'>>>':
- constant: true
- evaluate: (a,b) -> a >>> b
-'>>':
- constant: true
- evaluate: (a,b) -> a >> b
-'&lt;&lt;':
- constant: true
- evaluate: (a,b) -> a &lt;&lt; b
-'&amp;':
- constant: true
- evaluate: (a,b) -> a &amp; b
-'|':
- constant: true
- evaluate: (a,b) -> a | b</p></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>#
-Early resolving boolean <code>and</code></p></div></div><div class="code"><div class="wrapper">    <span class="s">&#39;&amp;&amp;&#39;</span><span class="o">:</span>
-      <span class="nv">raw     : </span><span class="kc">true</span>
-      <span class="nv">constant: </span><span class="kc">true</span>
-      <span class="nv">evaluate: </span><span class="nf">(a,b) -&gt;</span>
-        <span class="nv">a = </span><span class="nx">_execute</span> <span class="k">this</span><span class="p">,</span> <span class="nx">a</span>
-        <span class="k">if</span> <span class="o">not</span> <span class="nx">a</span>
-          <span class="k">return</span> <span class="nx">a</span>
-        <span class="nv">b = </span><span class="nx">_execute</span> <span class="k">this</span><span class="p">,</span> <span class="nx">b</span>
-        <span class="k">return</span> <span class="nx">b</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>#
-Early resolving boolean <code>or</code></p></div></div><div class="code"><div class="wrapper">    <span class="s">&#39;||&#39;</span><span class="o">:</span>
-      <span class="nv">raw     : </span><span class="kc">true</span>
-      <span class="nv">constant: </span><span class="kc">true</span>
-      <span class="nv">evaluate: </span><span class="nf">(a,b) -&gt;</span>
-        <span class="nv">a = </span><span class="nx">_execute</span> <span class="k">this</span><span class="p">,</span> <span class="nx">a</span>
-        <span class="k">if</span> <span class="nx">a</span>
-          <span class="k">return</span> <span class="nx">a</span>
-        <span class="nv">b = </span><span class="nx">_execute</span> <span class="k">this</span><span class="p">,</span> <span class="nx">b</span>
-        <span class="k">return</span> <span class="nx">b</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>#
-Boolean operations which can not resolve early are filled below (<code>_bools</code>)
-'&lt;':
- constant: true
- vector: false
- evaluate: (a,b) -> a &lt; b
-'>':
- constant: true
- vector: false
- evaluate: (a,b) -> a > b
-'&lt;=':
- constant: true
- vector: false
- evaluate: (a,b) -> a &lt;= b
-'>=':
- constant: true
- vector: false
- evaluate: (a,b) -> a >= b
-'===':
- constant: true
- vector: false
- evaluate: (a,b) -> <code>a === b</code>
-'!==':
- constant: true
- vector: false
- evaluate: (a,b) -> <code>a !== b</code></p></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>#
-Boolean operations which can not resolve early and keep their paramters as
-raw values are filled below (<code>_raws</code>)
-'==':
- constant: true
- vector: false
- raw     : true
- evaluate: (a,b) ->
-   return <code>a == b</code>
-   #return <code>a[0] == b</code> if isArray a and a.length is 1
-   #return <code>a == b[0]</code> if isArray b and b.length is 1
-'!=':
- constant: true
- vector: false
- raw     : true
- evaluate: (a,b) ->
-   return <code>a != b</code>
-   #return <code>a[0] != b</code> if isArray a and a.length is 1
-   #return <code>a != b[0]</code> if isArray b and b.length is 1</p></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>#
-Ternary conditional clause</p></div></div><div class="code"><div class="wrapper">    <span class="s">&#39;?:&#39;</span><span class="o">:</span>
-      <span class="nv">constant: </span><span class="kc">true</span>
-      <span class="nv">raw     : </span><span class="kc">true</span>
-      <span class="nv">vector: </span><span class="kc">false</span>
-      <span class="nv">format: </span><span class="nf">(a,b,c) -&gt;</span>
-        <span class="s">&quot;(</span><span class="si">#{</span><span class="nx">_stringify</span><span class="p">(</span><span class="nx">a</span><span class="p">)</span><span class="si">}</span><span class="s">?</span><span class="si">#{</span><span class="nx">_stringify</span><span class="p">(</span><span class="nx">b</span><span class="p">)</span><span class="si">}</span><span class="s">:</span><span class="si">#{</span><span class="nx">_stringify</span><span class="p">(</span><span class="nx">c</span><span class="p">)</span><span class="si">}</span><span class="s">)&quot;</span>
-      <span class="nv">evaluate: </span><span class="nf">(a,b,c) -&gt;</span>
-        <span class="nv">a = </span><span class="nx">_execute</span> <span class="k">this</span><span class="p">,</span> <span class="nx">a</span>
-        <span class="nx">_execute</span> <span class="k">this</span><span class="p">,</span> <span class="k">if</span> <span class="nx">_booleanize</span> <span class="nx">a</span> <span class="k">then</span> <span class="nx">b</span> <span class="k">else</span> <span class="nx">c</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>#
-Function call</p></div></div><div class="code"><div class="wrapper">    <span class="s">&#39;()&#39;</span><span class="o">:</span>
-      <span class="nv">vector: </span><span class="kc">false</span>
-      <span class="nv">format: </span><span class="nf">(f,a...) -&gt;</span>
-        <span class="nx">f</span> <span class="o">+</span> <span class="s">&#39;(&#39;</span> <span class="o">+</span> <span class="nx">a</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="s">&#39;,&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#39;)&#39;</span>
-      <span class="nv">evaluate: </span><span class="nf">(f,a...) -&gt;</span>
-        <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Missing argument to call.&quot;</span> <span class="k">unless</span> <span class="nx">f</span><span class="o">?</span>
-        <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;Given argument is not callable.&quot;</span> <span class="k">unless</span> <span class="nx">isFunction</span> <span class="nx">f</span>
-        <span class="nx">f</span><span class="p">.</span><span class="nx">apply</span> <span class="k">this</span><span class="p">,</span> <span class="nx">a</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>#
-Array accessor</p></div></div><div class="code"><div class="wrapper">    <span class="s">&#39;[]&#39;</span><span class="o">:</span>
-      <span class="nv">chain: </span><span class="kc">false</span>
-      <span class="nv">vector: </span><span class="kc">false</span>
-      <span class="nv">format: </span><span class="nf">(a,b) -&gt;</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">a</span><span class="si">}</span><span class="s">[</span><span class="si">#{</span><span class="nx">b</span><span class="si">}</span><span class="s">]&quot;</span>
-      <span class="nv">evaluate: </span><span class="nf">(a,b) -&gt;</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>support negative indexers, if you literally want "-1" then use a string literal</p></div></div><div class="code"><div class="wrapper">        <span class="k">if</span> <span class="nx">isNumber</span><span class="p">(</span><span class="nx">b</span><span class="p">)</span> <span class="o">and</span> <span class="nx">b</span> <span class="o">&lt;</span> <span class="mi">0</span>
-          <span class="nx">a</span><span class="p">[(</span><span class="k">if</span> <span class="nx">a</span><span class="p">.</span><span class="nx">length</span><span class="o">?</span> <span class="k">then</span> <span class="nx">a</span><span class="p">.</span><span class="nx">length</span> <span class="k">else</span> <span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="nx">b</span><span class="p">]</span>
-        <span class="k">else</span>
-          <span class="nx">a</span><span class="p">[</span><span class="nx">b</span><span class="p">]</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>#
-We dont support predicates, but might want to do so in future.
-'{}':
- chain: true
- vector: false
- format: (a,b) -> "#{a}{#{b}}"
- evaluate: (a,b) -> if _booleanize b then a else undefined</p></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>#
-Contexts resolve much more detailed, see below.
-'$':
- format: -> '$'
- vector: false
- evaluate: -> _global
-'@':
- format: -> '@'
- vector: false
- evaluate: -> this</p></div></div><div class="code"><div class="wrapper">    <span class="nv">context:</span>
-      <span class="nv">alias   : </span><span class="s">&#39;c&#39;</span>
-      <span class="nv">format  : </span><span class="nf">(c) -&gt;</span>
-        <span class="k">switch</span> <span class="nx">c</span>
-          <span class="k">when</span> <span class="s">&quot;@&quot;</span>  <span class="k">then</span> <span class="s">&quot;this&quot;</span>
-          <span class="k">when</span> <span class="s">&quot;$$&quot;</span> <span class="k">then</span> <span class="s">&quot;_global&quot;</span>
-          <span class="k">when</span> <span class="s">&quot;$_&quot;</span> <span class="k">then</span> <span class="s">&quot;_local&quot;</span>
-          <span class="k">when</span> <span class="s">&quot;_$&quot;</span> <span class="k">then</span> <span class="s">&quot;_scope&quot;</span>
-          <span class="k">when</span> <span class="s">&quot;__&quot;</span> <span class="k">then</span> <span class="s">&quot;_stack&quot;</span>
-          <span class="k">when</span> <span class="s">&quot;$0&quot;</span><span class="p">,</span> <span class="s">&quot;$1&quot;</span><span class="p">,</span> <span class="s">&quot;$2&quot;</span><span class="p">,</span> <span class="s">&quot;$3&quot;</span><span class="p">,</span> <span class="s">&quot;$4&quot;</span><span class="p">,</span> <span class="s">&quot;$5&quot;</span><span class="p">,</span> <span class="s">&quot;$6&quot;</span><span class="p">,</span> <span class="s">&quot;$7&quot;</span><span class="p">,</span> <span class="s">&quot;$8&quot;</span><span class="p">,</span> <span class="s">&quot;$9&quot;</span>
-            <span class="s">&quot;_scope[</span><span class="si">#{</span><span class="nx">c</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s">]&quot;</span>
-          <span class="k">when</span> <span class="s">&quot;_0&quot;</span><span class="p">,</span> <span class="s">&quot;_1&quot;</span><span class="p">,</span> <span class="s">&quot;_2&quot;</span><span class="p">,</span> <span class="s">&quot;_3&quot;</span><span class="p">,</span> <span class="s">&quot;_4&quot;</span><span class="p">,</span> <span class="s">&quot;_5&quot;</span><span class="p">,</span> <span class="s">&quot;_6&quot;</span><span class="p">,</span> <span class="s">&quot;_7&quot;</span><span class="p">,</span> <span class="s">&quot;_8&quot;</span><span class="p">,</span> <span class="s">&quot;_9&quot;</span>
-            <span class="s">&quot;_scope[_scope.length-</span><span class="si">#{</span><span class="nx">c</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s">]&quot;</span>
-          <span class="k">else</span> <span class="s">&quot;undefined&quot;</span>
-      <span class="nv">vector  : </span><span class="kc">false</span>
-      <span class="nv">evaluate: </span><span class="nf">(c) -&gt;</span>
-        <span class="k">switch</span> <span class="nx">c</span>
-          <span class="k">when</span> <span class="s">&quot;@&quot;</span>  <span class="k">then</span> <span class="k">this</span>
-          <span class="k">when</span> <span class="s">&quot;$$&quot;</span> <span class="k">then</span> <span class="nx">_global</span>
-          <span class="k">when</span> <span class="s">&quot;$_&quot;</span> <span class="k">then</span> <span class="nx">_local</span>
-          <span class="k">when</span> <span class="s">&quot;_$&quot;</span> <span class="k">then</span> <span class="nx">_scope</span>
-          <span class="k">when</span> <span class="s">&quot;__&quot;</span> <span class="k">then</span> <span class="nx">_stack</span><span class="p">.</span><span class="nx">stack</span>
-          <span class="k">when</span> <span class="s">&quot;$0&quot;</span><span class="p">,</span> <span class="s">&quot;$1&quot;</span><span class="p">,</span> <span class="s">&quot;$2&quot;</span><span class="p">,</span> <span class="s">&quot;$3&quot;</span><span class="p">,</span> <span class="s">&quot;$4&quot;</span><span class="p">,</span> <span class="s">&quot;$5&quot;</span><span class="p">,</span> <span class="s">&quot;$6&quot;</span><span class="p">,</span> <span class="s">&quot;$7&quot;</span><span class="p">,</span> <span class="s">&quot;$8&quot;</span><span class="p">,</span> <span class="s">&quot;$9&quot;</span><span class="p">,</span> <span class="o">\</span>
-               <span class="s">&quot;_0&quot;</span><span class="p">,</span> <span class="s">&quot;_1&quot;</span><span class="p">,</span> <span class="s">&quot;_2&quot;</span><span class="p">,</span> <span class="s">&quot;_3&quot;</span><span class="p">,</span> <span class="s">&quot;_4&quot;</span><span class="p">,</span> <span class="s">&quot;_5&quot;</span><span class="p">,</span> <span class="s">&quot;_6&quot;</span><span class="p">,</span> <span class="s">&quot;_7&quot;</span><span class="p">,</span> <span class="s">&quot;_8&quot;</span><span class="p">,</span> <span class="s">&quot;_9&quot;</span>
-            <span class="nx">_scope</span><span class="p">[</span><span class="k">if</span> <span class="nx">c</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">is</span> <span class="s">&quot;$&quot;</span> <span class="k">then</span> <span class="nx">c</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">else</span> <span class="nx">_scope</span><span class="p">.</span><span class="nx">length</span><span class="o">-</span><span class="nx">c</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-          <span class="k">else</span> <span class="kc">undefined</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>#
-A property-value</p></div></div><div class="code"><div class="wrapper">    <span class="nv">property:</span>
-      <span class="nv">alias   : </span><span class="s">&#39;p&#39;</span>
-      <span class="nv">format  : </span><span class="nf">(a) -&gt;</span> <span class="nx">a</span>
-      <span class="nv">vector  : </span><span class="kc">false</span>
-      <span class="nv">evaluate: </span><span class="nf">(a) -&gt;</span>
-        <span class="k">if</span> <span class="nx">a</span> <span class="o">is</span> <span class="s">&quot;constructor&quot;</span> <span class="o">or</span> <span class="nx">a</span> <span class="o">is</span> <span class="s">&quot;__proto__&quot;</span> <span class="o">or</span> <span class="nx">a</span> <span class="o">is</span> <span class="s">&quot;prototype&quot;</span>
-          <span class="kc">undefined</span>
-        <span class="k">else</span>
-          <span class="k">this</span><span class="p">[</span><span class="nx">a</span><span class="p">]</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>#
-A local variable or context reference from scope</p></div></div><div class="code"><div class="wrapper">    <span class="nv">reference:</span>
-      <span class="nv">alias : </span><span class="s">&#39;r&#39;</span>
-      <span class="nv">format: </span><span class="nf">(a) -&gt;</span>
-        <span class="k">if</span> <span class="nx">a</span> <span class="o">is</span> <span class="s">&quot;this&quot;</span>
-          <span class="s">&quot;this&quot;</span>
-        <span class="k">else</span>
-          <span class="s">&quot;_resolve(this,</span><span class="si">#{</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span> <span class="nx">a</span><span class="si">}</span><span class="s">).</span><span class="si">#{</span><span class="nx">a</span><span class="si">}</span><span class="s">&quot;</span>
-      <span class="nv">vector  : </span><span class="kc">false</span>
-      <span class="nv">evaluate: </span><span class="nf">(a) -&gt;</span>
-        <span class="k">if</span> <span class="nx">a</span> <span class="o">is</span> <span class="s">&quot;this&quot;</span>
-          <span class="k">this</span>
-        <span class="k">else</span> <span class="k">if</span> <span class="nx">a</span> <span class="o">is</span> <span class="s">&quot;constructor&quot;</span> <span class="o">or</span> <span class="nx">a</span> <span class="o">is</span> <span class="s">&quot;__proto__&quot;</span> <span class="o">or</span> <span class="nx">a</span> <span class="o">is</span> <span class="s">&quot;prototype&quot;</span>
-          <span class="kc">undefined</span>
-        <span class="k">else</span>
-          <span class="nv">v = </span><span class="k">this</span><span class="p">[</span><span class="nx">a</span><span class="p">]</span>
-          <span class="k">if</span> <span class="k">this</span> <span class="o">is</span> <span class="nx">_local</span>
-            <span class="k">return</span> <span class="nx">v</span>
-          <span class="k">if</span> <span class="nx">_isProperty</span><span class="p">()</span>
-            <span class="k">return</span> <span class="nx">v</span> <span class="k">if</span> <span class="k">this</span><span class="p">.</span><span class="nx">hasOwnProperty</span> <span class="nx">a</span>
-          <span class="k">else</span>
-            <span class="k">return</span> <span class="nx">_local</span><span class="p">[</span><span class="nx">a</span><span class="p">]</span> <span class="k">if</span> <span class="nx">_local</span><span class="p">.</span><span class="nx">hasOwnProperty</span> <span class="nx">a</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>walk the context stack from top to bottom looking for value</p></div></div><div class="code"><div class="wrapper">            <span class="k">for</span> <span class="nx">c</span> <span class="k">in</span> <span class="nx">_scope</span> <span class="k">by</span> <span class="o">-</span><span class="mi">1</span> <span class="k">when</span> <span class="nx">c</span><span class="p">.</span><span class="nx">hasOwnProperty</span> <span class="nx">a</span>
-              <span class="k">return</span> <span class="nx">c</span><span class="p">[</span><span class="nx">a</span><span class="p">]</span>
-          <span class="nx">v</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>#
-We dont support children, because we dont't want to deeply clone array
+is to avoid binding it twice.</p></div></div><div class="code"><div class="wrapper">      <span class="hljs-attribute">evaluate</span>: <span class="hljs-function"><span class="hljs-params">(a,b)</span> -&gt;</span>
+        <span class="hljs-keyword">if</span> a <span class="hljs-keyword">isnt</span> _global <span class="hljs-keyword">and</span> isFunction b <span class="hljs-keyword">then</span> bindFunction b, a <span class="hljs-keyword">else</span> b</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Negation and bitwise inversion operations are filled below (<code>_single</code>)</p>
+<pre><code>&#39;!&#39;:
+  constant: true
+  evaluate: (a) -&gt; !a
+&#39;~&#39;:
+  constant: true
+  evaluate: (a) -&gt; ~a</code></pre></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Mathemetical and bitwise operations which can not resolve early
+are filled below (<code>_pair</code>)</p>
+<pre><code>&#39;+&#39;:
+  constant: true
+  evaluate: (a,b) -&gt; a + b
+&#39;-&#39;:
+  constant: true
+  evaluate: (a,b) -&gt; a - b
+&#39;*&#39;:
+  constant: true
+  evaluate: (a,b) -&gt; a * b
+&#39;/&#39;:
+  constant: true
+  evaluate: (a,b) -&gt; a / b
+&#39;%&#39;:
+  constant: true
+  evaluate: (a,b) -&gt; a % b
+&#39;^&#39;:
+  constant: true
+  evaluate: (a,b) -&gt; a ^ b
+&#39;&gt;&gt;&gt;&#39;:
+  constant: true
+  evaluate: (a,b) -&gt; a &gt;&gt;&gt; b
+&#39;&gt;&gt;&#39;:
+  constant: true
+  evaluate: (a,b) -&gt; a &gt;&gt; b
+&#39;&lt;&lt;&#39;:
+  constant: true
+  evaluate: (a,b) -&gt; a &lt;&lt; b
+&#39;&amp;&#39;:
+  constant: true
+  evaluate: (a,b) -&gt; a &amp; b
+&#39;|&#39;:
+  constant: true
+  evaluate: (a,b) -&gt; a | b</code></pre></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Early resolving boolean <code>and</code></p></div></div><div class="code"><div class="wrapper">    <span class="hljs-string">'&amp;&amp;'</span>:
+      raw     : <span class="hljs-literal">true</span>
+      <span class="hljs-attribute">constant</span>: <span class="hljs-literal">true</span>
+      <span class="hljs-attribute">evaluate</span>: <span class="hljs-function"><span class="hljs-params">(a,b)</span> -&gt;</span>
+        a = _execute <span class="hljs-keyword">this</span>, a
+        <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> a
+          <span class="hljs-keyword">return</span> a
+        b = _execute <span class="hljs-keyword">this</span>, b
+        <span class="hljs-keyword">return</span> b</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Early resolving boolean <code>or</code></p></div></div><div class="code"><div class="wrapper">    <span class="hljs-string">'||'</span>:
+      raw     : <span class="hljs-literal">true</span>
+      <span class="hljs-attribute">constant</span>: <span class="hljs-literal">true</span>
+      <span class="hljs-attribute">evaluate</span>: <span class="hljs-function"><span class="hljs-params">(a,b)</span> -&gt;</span>
+        a = _execute <span class="hljs-keyword">this</span>, a
+        <span class="hljs-keyword">if</span> a
+          <span class="hljs-keyword">return</span> a
+        b = _execute <span class="hljs-keyword">this</span>, b
+        <span class="hljs-keyword">return</span> b</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Boolean operations which can not resolve early are filled below (<code>_bools</code>)</p>
+<pre><code>&#39;&lt;&#39;:
+  constant: true
+  vector: false
+  evaluate: (a,b) -&gt; a &lt; b
+&#39;&gt;&#39;:
+  constant: true
+  vector: false
+  evaluate: (a,b) -&gt; a &gt; b
+&#39;&lt;=&#39;:
+  constant: true
+  vector: false
+  evaluate: (a,b) -&gt; a &lt;= b
+&#39;&gt;=&#39;:
+  constant: true
+  vector: false
+  evaluate: (a,b) -&gt; a &gt;= b
+&#39;===&#39;:
+  constant: true
+  vector: false
+  evaluate: (a,b) -&gt; `a === b`
+&#39;!==&#39;:
+  constant: true
+  vector: false
+  evaluate: (a,b) -&gt; `a !== b`</code></pre></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Boolean operations which can not resolve early and keep their paramters as
+raw values are filled below (<code>_raws</code>)</p>
+<pre><code>&#39;==&#39;:
+  constant: true
+  vector: false
+  raw     : true
+  evaluate: (a,b) -&gt;
+    return `a == b`
+    #     return `a[0] == b` if isArray a and a.length is 1
+    #     return `a == b[0]` if isArray b and b.length is 1
+&#39;!=&#39;:
+  constant: true
+  vector: false
+  raw     : true
+  evaluate: (a,b) -&gt;
+    return `a != b`
+    #     return `a[0] != b` if isArray a and a.length is 1
+    #return `a != b[0]` if isArray b and b.length is 1</code></pre></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Ternary conditional clause</p></div></div><div class="code"><div class="wrapper">    <span class="hljs-string">'?:'</span>:
+      <span class="hljs-attribute">constant</span>: <span class="hljs-literal">true</span>
+      raw     : <span class="hljs-literal">true</span>
+      <span class="hljs-attribute">vector</span>: <span class="hljs-literal">false</span>
+      <span class="hljs-attribute">format</span>: <span class="hljs-function"><span class="hljs-params">(a,b,c)</span> -&gt;</span>
+        <span class="hljs-string">"(<span class="hljs-subst">#{_stringify(a)}</span>?<span class="hljs-subst">#{_stringify(b)}</span>:<span class="hljs-subst">#{_stringify(c)}</span>)"</span>
+      <span class="hljs-attribute">evaluate</span>: <span class="hljs-function"><span class="hljs-params">(a,b,c)</span> -&gt;</span>
+        a = _execute <span class="hljs-keyword">this</span>, a
+        _execute <span class="hljs-keyword">this</span>, <span class="hljs-keyword">if</span> _booleanize a <span class="hljs-keyword">then</span> b <span class="hljs-keyword">else</span> c</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Function call</p></div></div><div class="code"><div class="wrapper">    <span class="hljs-string">'()'</span>:
+      <span class="hljs-attribute">vector</span>: <span class="hljs-literal">false</span>
+      <span class="hljs-attribute">format</span>: <span class="hljs-function"><span class="hljs-params">(f,a...)</span> -&gt;</span>
+        f + <span class="hljs-string">'('</span> + a.join(<span class="hljs-string">','</span>) + <span class="hljs-string">')'</span>
+      <span class="hljs-attribute">evaluate</span>: <span class="hljs-function"><span class="hljs-params">(f,a...)</span> -&gt;</span>
+        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> Error <span class="hljs-string">"Missing argument to call."</span> <span class="hljs-keyword">unless</span> f?
+        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> Error <span class="hljs-string">"Given argument is not callable."</span> <span class="hljs-keyword">unless</span> isFunction f
+        f.apply <span class="hljs-keyword">this</span>, a</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Array accessor</p></div></div><div class="code"><div class="wrapper">    <span class="hljs-string">'[]'</span>:
+      <span class="hljs-attribute">chain</span>: <span class="hljs-literal">false</span>
+      <span class="hljs-attribute">vector</span>: <span class="hljs-literal">false</span>
+      <span class="hljs-attribute">format</span>: <span class="hljs-function"><span class="hljs-params">(a,b)</span> -&gt;</span> <span class="hljs-string">"<span class="hljs-subst">#{a}</span>[<span class="hljs-subst">#{b}</span>]"</span>
+      <span class="hljs-attribute">evaluate</span>: <span class="hljs-function"><span class="hljs-params">(a,b)</span> -&gt;</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p> support negative indexers, if you literally want &quot;-1&quot; then use a string literal</p></div></div><div class="code"><div class="wrapper">        <span class="hljs-keyword">if</span> isNumber(b) <span class="hljs-keyword">and</span> b &lt; <span class="hljs-number">0</span>
+          a[(<span class="hljs-keyword">if</span> a.length? <span class="hljs-keyword">then</span> a.length <span class="hljs-keyword">else</span> <span class="hljs-number">0</span>) + b]
+        <span class="hljs-keyword">else</span>
+          a[b]</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>We dont support predicates, but might want to do so in future.</p>
+<pre><code>&#39;{}&#39;:
+  chain: true
+  vector: false
+  format: (a,b) -&gt; &quot;#{a}{#{b}}&quot;
+  evaluate: (a,b) -&gt; if _booleanize b then a else undefined</code></pre></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Contexts resolve much more detailed, see below.</p>
+<pre><code>&#39;$&#39;:
+  format: -&gt; &#39;$&#39;
+  vector: false
+  evaluate: -&gt; _global
+&#39;@&#39;:
+  format: -&gt; &#39;@&#39;
+  vector: false
+  evaluate: -&gt; this</code></pre></div></div><div class="code"><div class="wrapper">    <span class="hljs-attribute">context</span>:
+      alias   : <span class="hljs-string">'c'</span>
+      format  : <span class="hljs-function"><span class="hljs-params">(c)</span> -&gt;</span>
+        <span class="hljs-keyword">switch</span> c
+          <span class="hljs-keyword">when</span> <span class="hljs-string">"@"</span>  <span class="hljs-keyword">then</span> <span class="hljs-string">"this"</span>
+          <span class="hljs-keyword">when</span> <span class="hljs-string">"$$"</span> <span class="hljs-keyword">then</span> <span class="hljs-string">"_global"</span>
+          <span class="hljs-keyword">when</span> <span class="hljs-string">"$_"</span> <span class="hljs-keyword">then</span> <span class="hljs-string">"_local"</span>
+          <span class="hljs-keyword">when</span> <span class="hljs-string">"_$"</span> <span class="hljs-keyword">then</span> <span class="hljs-string">"_scope"</span>
+          <span class="hljs-keyword">when</span> <span class="hljs-string">"__"</span> <span class="hljs-keyword">then</span> <span class="hljs-string">"_stack"</span>
+          <span class="hljs-keyword">when</span> <span class="hljs-string">"$0"</span>, <span class="hljs-string">"$1"</span>, <span class="hljs-string">"$2"</span>, <span class="hljs-string">"$3"</span>, <span class="hljs-string">"$4"</span>, <span class="hljs-string">"$5"</span>, <span class="hljs-string">"$6"</span>, <span class="hljs-string">"$7"</span>, <span class="hljs-string">"$8"</span>, <span class="hljs-string">"$9"</span>
+            <span class="hljs-string">"_scope[<span class="hljs-subst">#{c[<span class="hljs-number">1</span>]}</span>]"</span>
+          <span class="hljs-keyword">when</span> <span class="hljs-string">"_0"</span>, <span class="hljs-string">"_1"</span>, <span class="hljs-string">"_2"</span>, <span class="hljs-string">"_3"</span>, <span class="hljs-string">"_4"</span>, <span class="hljs-string">"_5"</span>, <span class="hljs-string">"_6"</span>, <span class="hljs-string">"_7"</span>, <span class="hljs-string">"_8"</span>, <span class="hljs-string">"_9"</span>
+            <span class="hljs-string">"_scope[_scope.length-<span class="hljs-subst">#{c[<span class="hljs-number">1</span>]+<span class="hljs-number">1</span>}</span>]"</span>
+          <span class="hljs-keyword">else</span> <span class="hljs-string">"undefined"</span>
+      vector  : <span class="hljs-literal">false</span>
+      <span class="hljs-attribute">evaluate</span>: <span class="hljs-function"><span class="hljs-params">(c)</span> -&gt;</span>
+        <span class="hljs-keyword">switch</span> c
+          <span class="hljs-keyword">when</span> <span class="hljs-string">"@"</span>  <span class="hljs-keyword">then</span> <span class="hljs-keyword">this</span>
+          <span class="hljs-keyword">when</span> <span class="hljs-string">"$$"</span> <span class="hljs-keyword">then</span> _global
+          <span class="hljs-keyword">when</span> <span class="hljs-string">"$_"</span> <span class="hljs-keyword">then</span> _local
+          <span class="hljs-keyword">when</span> <span class="hljs-string">"_$"</span> <span class="hljs-keyword">then</span> _scope
+          <span class="hljs-keyword">when</span> <span class="hljs-string">"__"</span> <span class="hljs-keyword">then</span> _stack.stack
+          <span class="hljs-keyword">when</span> <span class="hljs-string">"$0"</span>, <span class="hljs-string">"$1"</span>, <span class="hljs-string">"$2"</span>, <span class="hljs-string">"$3"</span>, <span class="hljs-string">"$4"</span>, <span class="hljs-string">"$5"</span>, <span class="hljs-string">"$6"</span>, <span class="hljs-string">"$7"</span>, <span class="hljs-string">"$8"</span>, <span class="hljs-string">"$9"</span>, \
+               <span class="hljs-string">"_0"</span>, <span class="hljs-string">"_1"</span>, <span class="hljs-string">"_2"</span>, <span class="hljs-string">"_3"</span>, <span class="hljs-string">"_4"</span>, <span class="hljs-string">"_5"</span>, <span class="hljs-string">"_6"</span>, <span class="hljs-string">"_7"</span>, <span class="hljs-string">"_8"</span>, <span class="hljs-string">"_9"</span>
+            _scope[<span class="hljs-keyword">if</span> c[<span class="hljs-number">0</span>] <span class="hljs-keyword">is</span> <span class="hljs-string">"$"</span> <span class="hljs-keyword">then</span> c[<span class="hljs-number">1</span>] <span class="hljs-keyword">else</span> _scope.length-c[<span class="hljs-number">1</span>]-<span class="hljs-number">1</span>]
+          <span class="hljs-keyword">else</span> <span class="hljs-literal">undefined</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>A property-value</p></div></div><div class="code"><div class="wrapper">    <span class="hljs-attribute">property</span>:
+      alias   : <span class="hljs-string">'p'</span>
+      format  : <span class="hljs-function"><span class="hljs-params">(a)</span> -&gt;</span> a
+      vector  : <span class="hljs-literal">false</span>
+      <span class="hljs-attribute">evaluate</span>: <span class="hljs-function"><span class="hljs-params">(a)</span> -&gt;</span>
+        <span class="hljs-keyword">if</span> a <span class="hljs-keyword">is</span> <span class="hljs-string">"constructor"</span> <span class="hljs-keyword">or</span> a <span class="hljs-keyword">is</span> <span class="hljs-string">"__proto__"</span> <span class="hljs-keyword">or</span> a <span class="hljs-keyword">is</span> <span class="hljs-string">"prototype"</span>
+          <span class="hljs-literal">undefined</span>
+        <span class="hljs-keyword">else</span>
+          <span class="hljs-keyword">this</span>[a]</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>A local variable or context reference from scope</p></div></div><div class="code"><div class="wrapper">    <span class="hljs-attribute">reference</span>:
+      alias : <span class="hljs-string">'r'</span>
+      <span class="hljs-attribute">format</span>: <span class="hljs-function"><span class="hljs-params">(a)</span> -&gt;</span>
+        <span class="hljs-keyword">if</span> a <span class="hljs-keyword">is</span> <span class="hljs-string">"this"</span>
+          <span class="hljs-string">"this"</span>
+        <span class="hljs-keyword">else</span>
+          <span class="hljs-string">"_resolve(this,<span class="hljs-subst">#{JSON.stringify a}</span>).<span class="hljs-subst">#{a}</span>"</span>
+      vector  : <span class="hljs-literal">false</span>
+      <span class="hljs-attribute">evaluate</span>: <span class="hljs-function"><span class="hljs-params">(a)</span> -&gt;</span>
+        <span class="hljs-keyword">if</span> a <span class="hljs-keyword">is</span> <span class="hljs-string">"this"</span>
+          <span class="hljs-keyword">this</span>
+        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> a <span class="hljs-keyword">is</span> <span class="hljs-string">"constructor"</span> <span class="hljs-keyword">or</span> a <span class="hljs-keyword">is</span> <span class="hljs-string">"__proto__"</span> <span class="hljs-keyword">or</span> a <span class="hljs-keyword">is</span> <span class="hljs-string">"prototype"</span>
+          <span class="hljs-literal">undefined</span>
+        <span class="hljs-keyword">else</span>
+          v = <span class="hljs-keyword">this</span>[a]
+          <span class="hljs-keyword">if</span> <span class="hljs-keyword">this</span> <span class="hljs-keyword">is</span> _local
+            <span class="hljs-keyword">return</span> v
+          <span class="hljs-keyword">if</span> _isProperty()
+            <span class="hljs-keyword">return</span> v <span class="hljs-keyword">if</span> <span class="hljs-keyword">this</span>.hasOwnProperty a
+          <span class="hljs-keyword">else</span>
+            <span class="hljs-keyword">return</span> _local[a] <span class="hljs-keyword">if</span> _local.hasOwnProperty a</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p> walk the context stack from top to bottom looking for value</p></div></div><div class="code"><div class="wrapper">            <span class="hljs-keyword">for</span> c <span class="hljs-keyword">in</span> _scope <span class="hljs-keyword">by</span> -<span class="hljs-number">1</span> <span class="hljs-keyword">when</span> c.hasOwnProperty a
+              <span class="hljs-keyword">return</span> c[a]
+          v</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>We dont support children, because we dont&#39;t want to deeply clone array
 values or opbject properties.  But we might want to do so in future, if
-we can get rid of the <code>underscore</code>-dependency.
-children:
- alias   : 'C'
- format  : -> '*'
- vector  : true
- evaluate: () ->
-   if isArray @
-     _.clone @
-   else
-     _.values @</p></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>#
-A number, string, boolean or null</p></div></div><div class="code"><div class="wrapper">    <span class="nv">scalar:</span>
-      <span class="nv">alias   : </span><span class="s">&#39;s&#39;</span>
-      <span class="nv">constant: </span><span class="kc">true</span>
-      <span class="nv">vector  : </span><span class="kc">false</span>
-      <span class="nv">format  : </span><span class="nf">(a) -&gt;</span> <span class="k">if</span> <span class="nx">a</span> <span class="o">is</span> <span class="kc">undefined</span> <span class="k">then</span> <span class="s">&#39;&#39;</span> <span class="k">else</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span> <span class="nx">a</span>
-      <span class="nv">evaluate: </span><span class="nf">(a) -&gt;</span> <span class="nx">a</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>#
-A block of statements seperated by semicolon</p></div></div><div class="code"><div class="wrapper">    <span class="nv">block:</span>
-      <span class="nv">alias   : </span><span class="s">&#39;b&#39;</span>
-      <span class="nv">format  : </span><span class="nf">(s...) -&gt;</span> <span class="nx">s</span><span class="p">.</span><span class="nx">join</span> <span class="s">&#39;;&#39;</span>
-      <span class="nv">evaluate: </span><span class="nf">-&gt;</span> <span class="nx">arguments</span><span class="p">[</span><span class="nx">arguments</span><span class="p">.</span><span class="nx">length</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>#
-A list of statements seperated by comma</p></div></div><div class="code"><div class="wrapper">    <span class="nv">list:</span>
-      <span class="nv">alias   : </span><span class="s">&#39;l&#39;</span>
-      <span class="nv">format  : </span><span class="nf">(s...) -&gt;</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">s</span><span class="p">.</span><span class="nx">join</span> <span class="s">&#39;,&#39;</span><span class="si">}</span><span class="s">&quot;</span>
-      <span class="nv">evaluate: </span><span class="nf">-&gt;</span> <span class="nx">arguments</span><span class="p">[</span><span class="nx">arguments</span><span class="p">.</span><span class="nx">length</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>#
-A group covers the list from above with parenthesis</p></div></div><div class="code"><div class="wrapper">    <span class="nv">group:</span>
-      <span class="nv">alias   : </span><span class="s">&#39;g&#39;</span>
-      <span class="nv">format  : </span><span class="nf">(l) -&gt;</span> <span class="s">&quot;(</span><span class="si">#{</span><span class="nx">l</span><span class="si">}</span><span class="s">)&quot;</span>
-      <span class="nv">evaluate: </span><span class="nf">(l) -&gt;</span> <span class="nx">_execute</span> <span class="k">this</span><span class="p">,</span> <span class="nx">l</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>#
-An early resolving <code>if</code>/<code>else</code> statement, uses <code>Expression.booleanize</code>
-to determine the “truth” of parameter <code>a</code>.</p></div></div><div class="code"><div class="wrapper">    <span class="k">if</span><span class="o">:</span>
-      <span class="nv">alias   : </span><span class="s">&#39;i&#39;</span>
-      <span class="nv">raw     : </span><span class="kc">true</span>
-      <span class="nv">format  : </span><span class="nf">(a,b,c) -&gt;</span>
-        <span class="k">if</span> <span class="nx">c</span><span class="o">?</span>
-          <span class="s">&quot;if </span><span class="si">#{</span><span class="nx">a</span><span class="si">}</span><span class="s"> {</span><span class="si">#{</span><span class="nx">b</span><span class="si">}</span><span class="s">} else {</span><span class="si">#{</span><span class="nx">c</span><span class="si">}</span><span class="s">}&quot;</span>
-        <span class="k">else</span>
-          <span class="s">&quot;if </span><span class="si">#{</span><span class="nx">a</span><span class="si">}</span><span class="s"> {</span><span class="si">#{</span><span class="nx">b</span><span class="si">}</span><span class="s">}&quot;</span>
-      <span class="nv">evaluate: </span><span class="nf">(a,b,c) -&gt;</span>
-        <span class="k">if</span> <span class="nx">_booleanize</span> <span class="nx">_execute</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">a</span><span class="p">)</span>
-          <span class="nx">_execute</span> <span class="k">this</span><span class="p">,</span> <span class="nx">b</span>
-        <span class="k">else</span> <span class="k">if</span> <span class="nx">c</span><span class="o">?</span>
-          <span class="nx">_execute</span> <span class="k">this</span><span class="p">,</span> <span class="nx">c</span>
-        <span class="k">else</span>
-          <span class="kc">undefined</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>#
-We dont't support iterations, but might want to do so in future.
-for:
- alias   : 'f'
- raw     : true
- format  : (a,b) -> "for #{a} {#{b}}"
- evaluate: (a,b) ->
-   a = _execute this, a
-   return undefined unless a?
-   for value in _.values a
-     _execute value, b</p></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>#
-An array of values</p></div></div><div class="code"><div class="wrapper">    <span class="nv">array:</span>
-      <span class="nv">alias   : </span><span class="s">&#39;a&#39;</span>
-      <span class="nv">format  : </span><span class="nf">(e...) -&gt;</span> <span class="s">&quot;[</span><span class="si">#{</span><span class="nx">e</span><span class="p">.</span><span class="nx">join</span> <span class="s">&#39;,&#39;</span><span class="si">}</span><span class="s">]&quot;</span>
-      <span class="nv">evaluate: </span><span class="nf">(e...) -&gt;</span> <span class="nx">e</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>#
-An object of keys and values.</p></div></div><div class="code"><div class="wrapper">    <span class="nv">object:</span>
-      <span class="nv">alias   : </span><span class="s">&#39;o&#39;</span>
-      <span class="nv">format  : </span><span class="nf">-&gt;</span>
-        <span class="nv">o = </span><span class="p">[]</span>
-        <span class="nx">o</span><span class="p">.</span><span class="nx">push</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">k</span><span class="si">}</span><span class="s">:</span><span class="si">#{</span><span class="nx">arguments</span><span class="p">[</span><span class="nx">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s">&quot;</span> <span class="k">for</span> <span class="nx">k</span><span class="p">,</span><span class="nx">i</span> <span class="k">in</span> <span class="nx">arguments</span> <span class="k">by</span> <span class="mi">2</span>
-        <span class="s">&quot;{</span><span class="si">#{</span><span class="nx">o</span><span class="p">.</span><span class="nx">join</span> <span class="s">&#39;,&#39;</span><span class="si">}</span><span class="s">}&quot;</span>
-      <span class="nv">evaluate: </span><span class="nf">-&gt;</span>
-        <span class="nv">o = </span><span class="p">{}</span>
-        <span class="nx">o</span><span class="p">[</span><span class="nx">k</span><span class="p">]</span> <span class="o">=</span> <span class="nx">arguments</span><span class="p">[</span><span class="nx">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="nx">k</span><span class="p">,</span><span class="nx">i</span> <span class="k">in</span> <span class="nx">arguments</span> <span class="k">by</span> <span class="mi">2</span>
-        <span class="nx">o</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>#
-Fills and adds missing <code>Expression.operations</code></p></div></div><div class="code"><div class="wrapper">  <span class="nx">do</span> <span class="nf">-&gt;</span>
+we can get rid of the <code>underscore</code>-dependency.</p>
+<pre><code>children:
+  alias   : &#39;C&#39;
+  format  : -&gt; &#39;*&#39;
+  vector  : true
+  evaluate: () -&gt;
+    if isArray @
+      _.clone @
+    else
+      _.values @</code></pre></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>A number, string, boolean or null</p></div></div><div class="code"><div class="wrapper">    <span class="hljs-attribute">scalar</span>:
+      alias   : <span class="hljs-string">'s'</span>
+      <span class="hljs-attribute">constant</span>: <span class="hljs-literal">true</span>
+      vector  : <span class="hljs-literal">false</span>
+      format  : <span class="hljs-function"><span class="hljs-params">(a)</span> -&gt;</span> <span class="hljs-keyword">if</span> a <span class="hljs-keyword">is</span> <span class="hljs-literal">undefined</span> <span class="hljs-keyword">then</span> <span class="hljs-string">''</span> <span class="hljs-keyword">else</span> JSON.stringify a
+      <span class="hljs-attribute">evaluate</span>: <span class="hljs-function"><span class="hljs-params">(a)</span> -&gt;</span> a</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>A block of statements seperated by semicolon</p></div></div><div class="code"><div class="wrapper">    <span class="hljs-attribute">block</span>:
+      alias   : <span class="hljs-string">'b'</span>
+      format  : <span class="hljs-function"><span class="hljs-params">(s...)</span> -&gt;</span> s.join <span class="hljs-string">';'</span>
+      <span class="hljs-attribute">evaluate</span>: <span class="hljs-function">-&gt;</span> arguments[arguments.length-<span class="hljs-number">1</span>]</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>A list of statements seperated by comma</p></div></div><div class="code"><div class="wrapper">    <span class="hljs-attribute">list</span>:
+      alias   : <span class="hljs-string">'l'</span>
+      format  : <span class="hljs-function"><span class="hljs-params">(s...)</span> -&gt;</span> <span class="hljs-string">"<span class="hljs-subst">#{s.join <span class="hljs-string">','</span>}</span>"</span>
+      <span class="hljs-attribute">evaluate</span>: <span class="hljs-function">-&gt;</span> arguments[arguments.length-<span class="hljs-number">1</span>]</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>A group covers the list from above with parenthesis</p></div></div><div class="code"><div class="wrapper">    <span class="hljs-attribute">group</span>:
+      alias   : <span class="hljs-string">'g'</span>
+      format  : <span class="hljs-function"><span class="hljs-params">(l)</span> -&gt;</span> <span class="hljs-string">"(<span class="hljs-subst">#{l}</span>)"</span>
+      <span class="hljs-attribute">evaluate</span>: <span class="hljs-function"><span class="hljs-params">(l)</span> -&gt;</span> _execute <span class="hljs-keyword">this</span>, l</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>An early resolving <code>if</code>/<code>else</code> statement, uses <code>Expression.booleanize</code>
+to determine the “truth” of parameter <code>a</code>.</p></div></div><div class="code"><div class="wrapper">    <span class="hljs-attribute">if</span>:
+      alias   : <span class="hljs-string">'i'</span>
+      raw     : <span class="hljs-literal">true</span>
+      format  : <span class="hljs-function"><span class="hljs-params">(a,b,c)</span> -&gt;</span>
+        <span class="hljs-keyword">if</span> c?
+          <span class="hljs-string">"if <span class="hljs-subst">#{a}</span> {<span class="hljs-subst">#{b}</span>} else {<span class="hljs-subst">#{c}</span>}"</span>
+        <span class="hljs-keyword">else</span>
+          <span class="hljs-string">"if <span class="hljs-subst">#{a}</span> {<span class="hljs-subst">#{b}</span>}"</span>
+      <span class="hljs-attribute">evaluate</span>: <span class="hljs-function"><span class="hljs-params">(a,b,c)</span> -&gt;</span>
+        <span class="hljs-keyword">if</span> _booleanize _execute(<span class="hljs-keyword">this</span>, a)
+          _execute <span class="hljs-keyword">this</span>, b
+        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> c?
+          _execute <span class="hljs-keyword">this</span>, c
+        <span class="hljs-keyword">else</span>
+          <span class="hljs-literal">undefined</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>We dont&#39;t support iterations, but might want to do so in future.</p>
+<pre><code>for:
+  alias   : &#39;f&#39;
+  raw     : true
+  format  : (a,b) -&gt; &quot;for #{a} {#{b}}&quot;
+  evaluate: (a,b) -&gt;
+    a = _execute this, a
+    return undefined unless a?
+    for value in _.values a
+     _execute value, b</code></pre></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>An array of values</p></div></div><div class="code"><div class="wrapper">    <span class="hljs-attribute">array</span>:
+      alias   : <span class="hljs-string">'a'</span>
+      format  : <span class="hljs-function"><span class="hljs-params">(e...)</span> -&gt;</span> <span class="hljs-string">"[<span class="hljs-subst">#{e.join <span class="hljs-string">','</span>}</span>]"</span>
+      <span class="hljs-attribute">evaluate</span>: <span class="hljs-function"><span class="hljs-params">(e...)</span> -&gt;</span> e</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>An object of keys and values.</p></div></div><div class="code"><div class="wrapper">    <span class="hljs-attribute">object</span>:
+      alias   : <span class="hljs-string">'o'</span>
+      format  : <span class="hljs-function">-&gt;</span>
+        o = []
+        o.push <span class="hljs-string">"<span class="hljs-subst">#{k}</span>:<span class="hljs-subst">#{arguments[i+<span class="hljs-number">1</span>]}</span>"</span> <span class="hljs-keyword">for</span> k,i <span class="hljs-keyword">in</span> arguments <span class="hljs-keyword">by</span> <span class="hljs-number">2</span>
+        <span class="hljs-string">"{<span class="hljs-subst">#{o.join <span class="hljs-string">','</span>}</span>}"</span>
+      <span class="hljs-attribute">evaluate</span>: <span class="hljs-function">-&gt;</span>
+        o = {}
+        o[k] = arguments[i+<span class="hljs-number">1</span>] <span class="hljs-keyword">for</span> k,i <span class="hljs-keyword">in</span> arguments <span class="hljs-keyword">by</span> <span class="hljs-number">2</span>
+        o</div></div></div><div class="segment"><div class="comments doc-section doc-section-private"><div class="wrapper"><p><span class='doc-section-header'>Private function</span></p>
+<hr>
+<p>Fill and add missing <code>Expression.operations</code></p></div></div><div class="code"><div class="wrapper">  <span class="hljs-keyword">do</span> -&gt;
 
-    <span class="nv">_reference  = </span><span class="nx">_operations</span><span class="p">.</span><span class="nx">reference</span><span class="p">.</span><span class="nx">format</span>
-    <span class="nv">_variable   = </span><span class="nf">(a) -&gt;</span>
-      <span class="nx">_reference</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">a</span><span class="p">).</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/^_resolve/</span><span class="p">,</span><span class="s">&#39;_variable&#39;</span><span class="p">)</span>
+    _reference  = _operations.reference.format
+<span class="hljs-function">    <span class="hljs-title">_variable</span>   = <span class="hljs-params">(a)</span> -&gt;</span>
+      _reference.call(<span class="hljs-keyword">this</span>, a).replace(<span class="hljs-regexp">/^_resolve/</span>,<span class="hljs-string">'_variable'</span>)
 
-    <span class="nv">_resolve    = </span><span class="nx">_operations</span><span class="p">.</span><span class="nx">reference</span><span class="p">.</span><span class="nx">evaluate</span>
-    <span class="nv">_assignment = </span><span class="nx">_operations</span><span class="p">[</span><span class="s">&#39;=&#39;</span><span class="p">].</span><span class="nx">evaluate</span>
+    _resolve    = _operations.reference.evaluate
+    _assignment = _operations[<span class="hljs-string">'='</span>].evaluate
 
-    <span class="nv">_incdec = </span><span class="p">[</span><span class="s">&#39;++&#39;</span><span class="p">,</span> <span class="s">&#39;--&#39;</span><span class="p">]</span>
-    <span class="nv">_single = </span><span class="p">[</span><span class="s">&#39;!&#39;</span><span class="p">,</span> <span class="s">&#39;~&#39;</span><span class="p">,</span> <span class="p">]</span>
-    <span class="nv">_pairs  = </span><span class="p">[</span><span class="s">&#39;+&#39;</span><span class="p">,</span> <span class="s">&#39;-&#39;</span><span class="p">,</span> <span class="s">&#39;*&#39;</span><span class="p">,</span> <span class="s">&#39;/&#39;</span><span class="p">,</span> <span class="s">&#39;%&#39;</span><span class="p">,</span> <span class="s">&#39;^&#39;</span><span class="p">,</span> <span class="s">&#39;&gt;&gt;&gt;&#39;</span><span class="p">,</span> <span class="s">&#39;&gt;&gt;&#39;</span><span class="p">,</span> <span class="s">&#39;&lt;&lt;&#39;</span><span class="p">,</span> <span class="s">&#39;&amp;&#39;</span><span class="p">,</span> <span class="s">&#39;|&#39;</span><span class="p">]</span>
-    <span class="nv">_bools  = </span><span class="p">[</span><span class="s">&#39;&lt;&#39;</span><span class="p">,</span> <span class="s">&#39;&gt;&#39;</span><span class="p">,</span> <span class="s">&#39;&lt;=&#39;</span><span class="p">,</span> <span class="s">&#39;&gt;=&#39;</span><span class="p">,</span> <span class="s">&#39;===&#39;</span><span class="p">,</span> <span class="s">&#39;!==&#39;</span><span class="p">]</span>
-    <span class="nv">_raws   = </span><span class="p">[</span><span class="s">&#39;==&#39;</span><span class="p">,</span> <span class="s">&#39;!=&#39;</span><span class="p">]</span>
-    <span class="nv">_assign = </span><span class="p">[</span><span class="s">&#39;=&#39;</span><span class="p">,</span> <span class="s">&#39;-=&#39;</span><span class="p">,</span> <span class="s">&#39;+=&#39;</span><span class="p">,</span> <span class="s">&#39;*=&#39;</span><span class="p">,</span> <span class="s">&#39;/=&#39;</span><span class="p">,</span> <span class="s">&#39;%=&#39;</span><span class="p">,</span> <span class="s">&#39;^=&#39;</span><span class="p">,</span> <span class="s">&#39;&gt;&gt;&gt;=&#39;</span><span class="p">,</span> <span class="s">&#39;&gt;&gt;=&#39;</span><span class="p">,</span> <span class="s">&#39;&lt;&lt;=&#39;</span><span class="p">,</span> <span class="s">&#39;&amp;=&#39;</span><span class="p">,</span> <span class="s">&#39;|=&#39;</span><span class="p">]</span>
+    _incdec = [<span class="hljs-string">'++'</span>, <span class="hljs-string">'--'</span>]
+    _single = [<span class="hljs-string">'!'</span>, <span class="hljs-string">'~'</span>, ]
+    _pairs  = [<span class="hljs-string">'+'</span>, <span class="hljs-string">'-'</span>, <span class="hljs-string">'*'</span>, <span class="hljs-string">'/'</span>, <span class="hljs-string">'%'</span>, <span class="hljs-string">'^'</span>, <span class="hljs-string">'&gt;&gt;&gt;'</span>, <span class="hljs-string">'&gt;&gt;'</span>, <span class="hljs-string">'&lt;&lt;'</span>, <span class="hljs-string">'&amp;'</span>, <span class="hljs-string">'|'</span>]
+    _bools  = [<span class="hljs-string">'&lt;'</span>, <span class="hljs-string">'&gt;'</span>, <span class="hljs-string">'&lt;='</span>, <span class="hljs-string">'&gt;='</span>, <span class="hljs-string">'==='</span>, <span class="hljs-string">'!=='</span>]
+    _raws   = [<span class="hljs-string">'=='</span>, <span class="hljs-string">'!='</span>]
+    _assign = [<span class="hljs-string">'='</span>, <span class="hljs-string">'-='</span>, <span class="hljs-string">'+='</span>, <span class="hljs-string">'*='</span>, <span class="hljs-string">'/='</span>, <span class="hljs-string">'%='</span>, <span class="hljs-string">'^='</span>, <span class="hljs-string">'&gt;&gt;&gt;='</span>, <span class="hljs-string">'&gt;&gt;='</span>, <span class="hljs-string">'&lt;&lt;='</span>, <span class="hljs-string">'&amp;='</span>, <span class="hljs-string">'|='</span>]
 
-    <span class="k">for</span> <span class="nx">key</span> <span class="k">in</span> <span class="nx">_incdec</span>
-      <span class="nx">_operations</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span> <span class="o">=</span>
-        <span class="nv">format: </span><span class="nx">do</span> <span class="nf">-&gt;</span>
-          <span class="nv">k = </span><span class="nx">key</span>
-          <span class="nf">(a,b) -&gt;</span> <span class="k">if</span> <span class="nx">b</span> <span class="k">then</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">_variable</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">a</span><span class="p">)</span><span class="si">}#{</span><span class="nx">k</span><span class="si">}</span><span class="s">&quot;</span> <span class="k">else</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">k</span><span class="si">}#{</span><span class="nx">_variable</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">a</span><span class="p">)</span><span class="si">}</span><span class="s">&quot;</span>
-        <span class="nv">evaluate: </span><span class="nx">do</span> <span class="nf">-&gt;</span>
-          <span class="nv">i = </span><span class="k">if</span> <span class="nx">key</span> <span class="o">is</span> <span class="s">&quot;++&quot;</span> <span class="k">then</span> <span class="o">+</span><span class="mi">1</span> <span class="k">else</span> <span class="o">-</span><span class="mi">1</span>
-          <span class="nf">(a,b) -&gt;</span>
-            <span class="nv">c = </span><span class="nb">Number</span><span class="p">(</span><span class="nx">_resolve</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">a</span><span class="p">))</span>
-            <span class="nx">_assignment</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">a</span><span class="p">,</span> <span class="nx">c</span> <span class="o">+</span> <span class="nx">i</span><span class="p">)</span>
-            <span class="k">if</span> <span class="nx">b</span> <span class="k">then</span> <span class="nx">c</span> <span class="k">else</span> <span class="nx">c</span> <span class="o">+</span> <span class="nx">i</span>
+    <span class="hljs-keyword">for</span> key <span class="hljs-keyword">in</span> _incdec
+      _operations[key] =
+        <span class="hljs-attribute">format</span>: <span class="hljs-keyword">do</span> -&gt;
+          k = key
+          (a,b) -&gt; <span class="hljs-keyword">if</span> b <span class="hljs-keyword">then</span> <span class="hljs-string">"<span class="hljs-subst">#{_variable.call(<span class="hljs-keyword">this</span>, a)}</span><span class="hljs-subst">#{k}</span>"</span> <span class="hljs-keyword">else</span> <span class="hljs-string">"<span class="hljs-subst">#{k}</span><span class="hljs-subst">#{_variable.call(<span class="hljs-keyword">this</span>, a)}</span>"</span>
+        <span class="hljs-attribute">evaluate</span>: <span class="hljs-keyword">do</span> -&gt;
+          i = <span class="hljs-keyword">if</span> key <span class="hljs-keyword">is</span> <span class="hljs-string">"++"</span> <span class="hljs-keyword">then</span> +<span class="hljs-number">1</span> <span class="hljs-keyword">else</span> -<span class="hljs-number">1</span>
+          (a,b) -&gt;
+            c = Number(_resolve.call(<span class="hljs-keyword">this</span>, a))
+            _assignment.call(<span class="hljs-keyword">this</span>, a, c + i)
+            <span class="hljs-keyword">if</span> b <span class="hljs-keyword">then</span> c <span class="hljs-keyword">else</span> c + i
 
-    <span class="k">for</span> <span class="nx">key</span> <span class="k">in</span> <span class="nx">_single</span>
-      <span class="nx">_operations</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span> <span class="o">=</span>
-        <span class="nv">constant: </span><span class="kc">true</span>
-        <span class="nv">evaluate: </span><span class="nb">Function</span><span class="p">(</span><span class="s">&quot;return function(a) { return </span><span class="si">#{</span><span class="nx">key</span><span class="si">}</span><span class="s"> a ; };&quot;</span><span class="p">)()</span>
+    <span class="hljs-keyword">for</span> key <span class="hljs-keyword">in</span> _single
+      _operations[key] =
+        <span class="hljs-attribute">constant</span>: <span class="hljs-literal">true</span>
+        <span class="hljs-attribute">evaluate</span>: Function(<span class="hljs-string">"return function(a) { return <span class="hljs-subst">#{key}</span> a ; };"</span>)()
 
-    <span class="k">for</span> <span class="nx">key</span> <span class="k">in</span> <span class="nx">_pairs</span><span class="p">.</span><span class="nx">concat</span><span class="p">(</span><span class="nx">_bools</span><span class="p">).</span><span class="nx">concat</span><span class="p">(</span><span class="nx">_raws</span><span class="p">)</span>
-      <span class="nx">_operations</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span> <span class="o">=</span>
-        <span class="nv">constant: </span><span class="kc">true</span>
-        <span class="nv">evaluate: </span><span class="nb">Function</span><span class="p">(</span><span class="s">&quot;return function(a,b) { return a </span><span class="si">#{</span><span class="nx">key</span><span class="si">}</span><span class="s"> b ; };&quot;</span><span class="p">)()</span>
+    <span class="hljs-keyword">for</span> key <span class="hljs-keyword">in</span> _pairs.concat(_bools).concat(_raws)
+      _operations[key] =
+        <span class="hljs-attribute">constant</span>: <span class="hljs-literal">true</span>
+        <span class="hljs-attribute">evaluate</span>: Function(<span class="hljs-string">"return function(a,b) { return a <span class="hljs-subst">#{key}</span> b ; };"</span>)()
 
-    <span class="k">for</span> <span class="nx">key</span> <span class="k">in</span> <span class="nx">_bools</span>
-      <span class="nv">value = </span><span class="nx">_operations</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span>
-      <span class="nv">value.vector = </span><span class="kc">false</span>
+    <span class="hljs-keyword">for</span> key <span class="hljs-keyword">in</span> _bools
+      value = _operations[key]
+      value.vector = <span class="hljs-literal">false</span>
 
-    <span class="k">for</span> <span class="nx">key</span> <span class="k">in</span> <span class="nx">_raws</span>
-      <span class="nv">value = </span><span class="nx">_operations</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span>
-      <span class="nv">value.raw = </span><span class="kc">true</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>process assigments and equality</p></div></div><div class="code"><div class="wrapper">    <span class="k">for</span> <span class="nx">key</span> <span class="k">in</span> <span class="nx">_assign</span>
-      <span class="nv">value = </span><span class="k">if</span> <span class="nx">_operations</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span><span class="o">?</span> <span class="k">then</span> <span class="nx">_operations</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span> <span class="k">else</span> <span class="nx">_operations</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
-      <span class="nx">value</span><span class="p">.</span><span class="nx">format</span>   <span class="o">?=</span> <span class="nx">do</span> <span class="nf">-&gt;</span>
-        <span class="nv">k = </span><span class="nx">key</span>
-        <span class="nf">(a,b) -&gt;</span> <span class="s">&quot;</span><span class="si">#{</span><span class="nx">_variable</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">a</span><span class="p">)</span><span class="si">}#{</span><span class="nx">k</span><span class="si">}#{</span><span class="nx">_stringify</span><span class="p">(</span><span class="nx">b</span><span class="p">)</span><span class="si">}</span><span class="s">&quot;</span>
-      <span class="nx">value</span><span class="p">.</span><span class="nx">evaluate</span> <span class="o">?=</span> <span class="nx">do</span> <span class="nf">-&gt;</span>
-        <span class="nv">_op = </span><span class="nx">_operations</span><span class="p">[</span><span class="nx">key</span><span class="p">.</span><span class="nx">substring</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">key</span><span class="p">.</span><span class="nx">length</span> <span class="o">-</span> <span class="mi">1</span><span class="p">].</span><span class="nx">evaluate</span>
-        <span class="nf">(a,b) -&gt;</span> <span class="nx">_assignment</span><span class="p">.</span><span class="nx">call</span> <span class="k">this</span><span class="p">,</span> <span class="nx">a</span><span class="p">,</span> <span class="nx">_op</span><span class="p">(</span><span class="nx">_resolve</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">a</span><span class="p">),</span> <span class="nx">b</span><span class="p">)</span>
+    <span class="hljs-keyword">for</span> key <span class="hljs-keyword">in</span> _raws
+      value = _operations[key]
+      value.raw = <span class="hljs-literal">true</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>process assigments and equality</p></div></div><div class="code"><div class="wrapper">    <span class="hljs-keyword">for</span> key <span class="hljs-keyword">in</span> _assign
+      value = <span class="hljs-keyword">if</span> _operations[key]? <span class="hljs-keyword">then</span> _operations[key] <span class="hljs-keyword">else</span> _operations[key] = {}
+      value.format   ?= <span class="hljs-keyword">do</span> -&gt;
+        k = key
+        (a,b) -&gt; <span class="hljs-string">"<span class="hljs-subst">#{_variable.call(<span class="hljs-keyword">this</span>, a)}</span><span class="hljs-subst">#{k}</span><span class="hljs-subst">#{_stringify(b)}</span>"</span>
+      value.evaluate ?= <span class="hljs-keyword">do</span> -&gt;
+        _op = _operations[key.substring <span class="hljs-number">0</span>, key.length - <span class="hljs-number">1</span>].evaluate
+        (a,b) -&gt; _assignment.call <span class="hljs-keyword">this</span>, a, _op(_resolve.call(<span class="hljs-keyword">this</span>, a), b)
 
-    <span class="k">for</span> <span class="nx">key</span><span class="p">,</span> <span class="nx">value</span> <span class="k">of</span> <span class="nx">_operations</span>
-      <span class="nv">value.name       = </span><span class="nx">key</span>
-      <span class="nv">value.toString   = </span><span class="nx">do</span> <span class="nf">-&gt;</span> <span class="nv">k = </span><span class="nx">key</span><span class="p">;</span> <span class="nf">-&gt;</span> <span class="nx">k</span>
-      <span class="nv">value.toJSON     = </span><span class="nf">-&gt;</span> <span class="nx">@name</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>process assigments and equality</p></div></div><div class="code"><div class="wrapper">      <span class="k">if</span> <span class="nx">value</span><span class="p">.</span><span class="nx">alias</span><span class="o">?</span> <span class="o">and</span> <span class="o">not</span> <span class="nx">_operations</span><span class="p">[</span><span class="nx">value</span><span class="p">.</span><span class="nx">alias</span><span class="p">]</span><span class="o">?</span>
-        <span class="nx">_operations</span><span class="p">[</span><span class="nx">value</span><span class="p">.</span><span class="nx">alias</span><span class="p">]</span> <span class="o">=</span> <span class="nx">key</span>
+    <span class="hljs-keyword">for</span> key, value <span class="hljs-keyword">of</span> _operations
+      value.name       = key
+      value.toString   = <span class="hljs-keyword">do</span> -&gt; k = key; -&gt; k
+      value.toJSON     = <span class="hljs-function">-&gt;</span> <span class="hljs-property">@name</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>process assigments and equality</p></div></div><div class="code"><div class="wrapper">      <span class="hljs-keyword">if</span> value.alias? <span class="hljs-keyword">and</span> <span class="hljs-keyword">not</span> _operations[value.alias]?
+        _operations[value.alias] = key
 
-    <span class="nv">_scalar    = </span><span class="nx">_operations</span><span class="p">.</span><span class="nx">scalar</span><span class="p">.</span><span class="nx">name</span>
-    <span class="nv">_property  = </span><span class="nx">_operations</span><span class="p">[</span><span class="s">&#39;.&#39;</span><span class="p">].</span><span class="nx">name</span>
+    _scalar    = _operations.scalar.name
+    _property  = _operations[<span class="hljs-string">'.'</span>].name
 
-    <span class="k">return</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p>#
-Lookup an operation by its name (~ key in <code>Expression.operations</code>)</p>
-
+    <span class="hljs-keyword">return</span></div></div></div><div class="segment"><div class="comments doc-section doc-section-static"><div class="wrapper"><p><span class='doc-section-header'>Static method operator</span></p>
+<hr>
+<p>Lookup an operation by its name (~ key in <code>Expression.operations</code>)</p>
 <p>Parameters:</p>
-
 <ul>
 <li><strong>name must be a String.</strong></li>
 </ul>
-
-<p><strong>Returns an Object</strong><br/><strong>and</strong> <strong>Can throw an Error</strong></p></div></div><div class="code"><div class="wrapper">  <span class="nv">Expression.operator = _operator = </span><span class="nf">(name) -&gt;</span>
-    <span class="k">if</span> <span class="p">(</span><span class="nv">op = </span><span class="nx">_operations</span><span class="p">[</span><span class="nx">name</span><span class="p">])</span><span class="o">?</span>
-      <span class="k">return</span> <span class="k">if</span> <span class="nx">op</span><span class="p">.</span><span class="nx">name</span><span class="o">?</span> <span class="k">then</span> <span class="nx">op</span> <span class="k">else</span> <span class="nx">_operator</span> <span class="nx">op</span>
-    <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&quot;operation not found: </span><span class="si">#{</span><span class="nx">name</span><span class="si">}</span><span class="s">&quot;</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'>Constructor</span></p>
-
-<p>#
-The expressions constructor.  Depending on the operations' constant and
+<p><strong>Returns an Object</strong><br/><strong>and</strong> <strong>Can throw an Error</strong></p></div></div><div class="code"><div class="wrapper">  Expression.operator = _operator = <span class="hljs-function"><span class="hljs-params">(name)</span> -&gt;</span>
+    <span class="hljs-keyword">if</span> (op = _operations[name])?
+      <span class="hljs-keyword">return</span> <span class="hljs-keyword">if</span> op.name? <span class="hljs-keyword">then</span> op <span class="hljs-keyword">else</span> _operator op
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> Error <span class="hljs-string">"operation not found: <span class="hljs-subst">#{name}</span>"</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'>Constructor</span></p>
+<hr>
+<p>The expressions constructor.  Depending on the operations&#39; constant and
 vector the given paramters might get evaluated here, to save nesting depth.</p>
-
 <p>Parameters:</p>
-
 <ul>
-<li><p><strong>op must be a String.</strong><br/>(expression's operation name)</p></li>
-<li><p><strong>parameters must be an Array.</strong><br/>(expression's parameters)</p></li>
+<li><p><strong>op must be a String.</strong><br/>(expression&#39;s operation name)</p>
+</li>
+<li><p><strong>parameters is optional and must be an Array.</strong><br/>(optional array of parameters)</p>
+</li>
 </ul>
-
-<p><strong>Returns an Expression or a void</strong><br/>(expression or an early resolved new instance)</p></div></div><div class="code"><div class="wrapper">  <span class="nv">constructor: </span><span class="nf">(op, @parameters=[]) -&gt;</span>
-    <span class="vi">@operator   = </span><span class="nx">_operator</span><span class="p">(</span><span class="nx">op</span><span class="p">)</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>is this expression a constant?</p></div></div><div class="code"><div class="wrapper">    <span class="vi">@constant = </span><span class="nx">@operator</span><span class="p">.</span><span class="nx">constant</span> <span class="o">is</span> <span class="kc">true</span>
-    <span class="k">if</span> <span class="nx">@constant</span>
-      <span class="k">for</span> <span class="nx">parameter</span> <span class="k">in</span> <span class="nx">parameters</span>
-        <span class="k">if</span> <span class="nx">isExpression</span><span class="p">(</span><span class="nx">parameter</span><span class="p">)</span> <span class="o">and</span> <span class="o">not</span> <span class="nx">parameter</span><span class="p">.</span><span class="nx">constant</span>
-          <span class="vi">@constant = </span><span class="kc">false</span>
-          <span class="k">break</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>does this expression yield a vector result?</p></div></div><div class="code"><div class="wrapper">    <span class="vi">@vector = </span><span class="nx">@operator</span><span class="p">.</span><span class="nx">vector</span>
-    <span class="k">if</span> <span class="nx">@vector</span> <span class="o">is</span> <span class="kc">undefined</span>
-      <span class="vi">@vector = </span><span class="kc">false</span>     <span class="c1">#   assume false</span>
-      <span class="k">for</span> <span class="nx">parameter</span> <span class="k">in</span> <span class="nx">parameters</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>if the parameter has a vector quantity
-then the result is a vector result</p></div></div><div class="code"><div class="wrapper">        <span class="k">if</span> <span class="nx">isExpression</span><span class="p">(</span><span class="nx">parameter</span><span class="p">)</span> <span class="o">and</span> <span class="nx">parameter</span><span class="p">.</span><span class="nx">vector</span>
-          <span class="vi">@vector = </span><span class="kc">true</span>
-          <span class="k">break</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>if this expression is a constant then we pre-evaluate it now
- and just return a scalar expression with the result</p></div></div><div class="code"><div class="wrapper">    <span class="k">if</span> <span class="nx">@constant</span> <span class="o">and</span> <span class="nx">@operator</span><span class="p">.</span><span class="nx">name</span> <span class="o">isnt</span> <span class="nx">_scalar</span>
-      <span class="k">return</span> <span class="k">new</span> <span class="nx">Expression</span> <span class="s">&#39;scalar&#39;</span><span class="p">,</span> <span class="p">[</span> <span class="nx">@evaluate</span> <span class="nx">_global</span> <span class="p">]</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>otherwise return this expression</p></div></div><div class="code"><div class="wrapper">    <span class="k">return</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p>#
-Allows expressions to be turned into strings</p>
-
-<p><strong>Returns a String</strong></p></div></div><div class="code"><div class="wrapper">  <span class="nv">toString: </span><span class="nf">-&gt;</span>
-    <span class="k">return</span> <span class="nx">@text</span> <span class="k">unless</span> <span class="nx">@text</span> <span class="o">is</span> <span class="kc">undefined</span>
-    <span class="vi">@text = </span><span class="nx">_stringify</span> <span class="k">this</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p>#
-Allows expression to be turned into a kind of json-ast.  See
+<p><strong>Returns an Expression or a void</strong><br/>(expression or an early resolved new instance)</p></div></div><div class="code"><div class="wrapper">  <span class="hljs-attribute">constructor</span>: <span class="hljs-function"><span class="hljs-params">(op, <span class="hljs-property">@parameters</span>=[])</span> -&gt;</span>
+    <span class="hljs-property">@operator</span>   = _operator(op)</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p> is this expression a constant?</p></div></div><div class="code"><div class="wrapper">    <span class="hljs-property">@constant</span> = <span class="hljs-property">@operator</span>.constant <span class="hljs-keyword">is</span> <span class="hljs-literal">true</span>
+    <span class="hljs-keyword">if</span> <span class="hljs-property">@constant</span>
+      <span class="hljs-keyword">for</span> parameter <span class="hljs-keyword">in</span> <span class="hljs-property">@parameters</span>
+        <span class="hljs-keyword">if</span> isExpression(parameter) <span class="hljs-keyword">and</span> <span class="hljs-keyword">not</span> parameter.constant
+          <span class="hljs-property">@constant</span> = <span class="hljs-literal">false</span>
+          <span class="hljs-keyword">break</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p> does this expression yield a vector result?</p></div></div><div class="code"><div class="wrapper">    <span class="hljs-property">@vector</span> = <span class="hljs-property">@operator</span>.vector
+    <span class="hljs-keyword">if</span> <span class="hljs-property">@vector</span> <span class="hljs-keyword">is</span> <span class="hljs-literal">undefined</span>
+      <span class="hljs-property">@vector</span> = <span class="hljs-literal">false</span>     <span class="hljs-comment">#   assume false</span>
+      <span class="hljs-keyword">for</span> parameter <span class="hljs-keyword">in</span> <span class="hljs-property">@parameters</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>if the parameter has a vector quantity
+then the result is a vector result</p></div></div><div class="code"><div class="wrapper">        <span class="hljs-keyword">if</span> isExpression(parameter) <span class="hljs-keyword">and</span> parameter.vector
+          <span class="hljs-property">@vector</span> = <span class="hljs-literal">true</span>
+          <span class="hljs-keyword">break</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p> if this expression is a constant then we pre-evaluate it now
+ and just return a scalar expression with the result</p></div></div><div class="code"><div class="wrapper">    <span class="hljs-keyword">if</span> <span class="hljs-property">@constant</span> <span class="hljs-keyword">and</span> <span class="hljs-property">@operator</span>.name <span class="hljs-keyword">isnt</span> _scalar
+      <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Expression <span class="hljs-string">'scalar'</span>, [ <span class="hljs-property">@evaluate</span> _global ]</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p> otherwise return this expression</p></div></div><div class="code"><div class="wrapper">    <span class="hljs-keyword">return</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'>Method toString</span></p>
+<hr>
+<p>Allows expressions to be turned into strings</p>
+<p><strong>Returns a String</strong></p></div></div><div class="code"><div class="wrapper">  <span class="hljs-attribute">toString</span>: <span class="hljs-function">-&gt;</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-property">@text</span> <span class="hljs-keyword">unless</span> <span class="hljs-property">@text</span> <span class="hljs-keyword">is</span> <span class="hljs-literal">undefined</span>
+    <span class="hljs-property">@text</span> = _stringify <span class="hljs-keyword">this</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'>Method toJSON</span></p>
+<hr>
+<p>Allows expression to be turned into a kind of json-ast.  See
 <code>Compiler.coffee</code> for a complete ast-implementation</p>
-
-<p><strong>Returns an Object.<String:op,Array:parameters></strong></p></div></div><div class="code"><div class="wrapper">  <span class="nv">toJSON: </span><span class="nf">(callback) -&gt;</span>
-    <span class="k">return</span> <span class="nx">callback</span> <span class="k">this</span> <span class="k">if</span> <span class="nx">callback</span>
-    <span class="k">if</span> <span class="nx">@operator</span><span class="p">.</span><span class="nx">name</span> <span class="o">is</span> <span class="s">&#39;scalar&#39;</span>
-      <span class="nv">parameters = </span><span class="nx">@parameters</span>
-    <span class="k">else</span>
-      <span class="nv">parameters = </span><span class="k">for</span> <span class="nx">parameter</span> <span class="k">in</span> <span class="nx">@parameters</span>
-        <span class="k">if</span> <span class="nx">parameter</span><span class="p">.</span><span class="nx">toJSON</span><span class="o">?</span> <span class="k">then</span> <span class="nx">parameter</span><span class="p">.</span><span class="nx">toJSON</span><span class="p">()</span> <span class="k">else</span> <span class="nx">parameter</span>
-    <span class="p">[</span><span class="nx">@operator</span><span class="p">.</span><span class="nx">name</span><span class="p">].</span><span class="nx">concat</span> <span class="nx">parameters</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p>#
-Evaluate this expressions value</p>
-
+<p><strong>Returns an Object.<String:op,Array:parameters></strong></p></div></div><div class="code"><div class="wrapper">  <span class="hljs-attribute">toJSON</span>: <span class="hljs-function"><span class="hljs-params">(callback)</span> -&gt;</span>
+    <span class="hljs-keyword">return</span> callback <span class="hljs-keyword">this</span> <span class="hljs-keyword">if</span> callback
+    <span class="hljs-keyword">if</span> <span class="hljs-property">@operator</span>.name <span class="hljs-keyword">is</span> <span class="hljs-string">'scalar'</span>
+      parameters = <span class="hljs-property">@parameters</span>
+    <span class="hljs-keyword">else</span>
+      parameters = <span class="hljs-keyword">for</span> parameter <span class="hljs-keyword">in</span> <span class="hljs-property">@parameters</span>
+        <span class="hljs-keyword">if</span> parameter.toJSON? <span class="hljs-keyword">then</span> parameter.toJSON() <span class="hljs-keyword">else</span> parameter
+    [<span class="hljs-property">@operator</span>.name].concat parameters</div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'>Method evaluate</span></p>
+<hr>
+<p>Evaluate this expressions value</p>
 <p>Parameters:</p>
-
 <ul>
-<li><p><strong>context must be an Object.</strong><br/>((optional))</p></li>
-<li><p><strong>variables must be an Object.</strong><br/>((optional))</p></li>
-<li><p><strong>scope must be an Array.</strong><br/>((optional))</p></li>
-<li><p><strong>stack must be an Array.</strong><br/>((optional))</p></li>
+<li><p><strong>context is optional and must be an Object.</strong></p>
+</li>
+<li><p><strong>variables is optional and must be an Object.</strong></p>
+</li>
+<li><p><strong>scope is optional and must be an Array.</strong></p>
+</li>
+<li><p><strong>stack is optional and must be an Array.</strong></p>
+</li>
 </ul>
-
-<p><strong>Returns a mixed</strong></p></div></div><div class="code"><div class="wrapper">  <span class="nv">evaluate: </span><span class="nf">(context, variables, scope, stack) -&gt;</span>
-    <span class="nx">_evaluate</span> <span class="nx">context</span><span class="p">,</span> <span class="k">this</span><span class="p">,</span> <span class="nx">variables</span><span class="p">,</span> <span class="nx">scope</span><span class="p">,</span> <span class="nx">stack</span></div></div></div></div></body></html>
+<p><strong>Returns a mixed</strong></p></div></div><div class="code"><div class="wrapper">  <span class="hljs-attribute">evaluate</span>: <span class="hljs-function"><span class="hljs-params">(context, variables, scope, stack)</span> -&gt;</span>
+    _evaluate context, <span class="hljs-keyword">this</span>, variables, scope, stack</div></div></div></div></body></html>

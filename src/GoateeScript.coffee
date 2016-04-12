@@ -1,5 +1,5 @@
 ###
-© Copyright 2013-2014 Stephan Jorek <stephan.jorek@gmail.com>  
+© Copyright 2013-2016 Stephan Jorek <stephan.jorek@gmail.com>
 
 Permission is hereby granted, free of charge, to any person
 obtaining a copy of this software and associated documentation
@@ -25,7 +25,12 @@ OTHER DEALINGS IN THE SOFTWARE.
 
 exports = module?.exports ? this
 
-##
+## GoateeScript's …
+# -------------
+# … main entry-point.
+
+
+# -------------
 # @class
 # @namespace GoateeScript
 exports.GoateeScript = class GoateeScript
@@ -35,54 +40,72 @@ exports.GoateeScript = class GoateeScript
 
   _compiler = null
 
-  ##
+  # -------------
+  # @method parse
+  # @namespace GoateeScript
   # @param {String} code
   # @return {Expression}
+  # @static
   GoateeScript.parse = (code) ->
     _compiler ?= new (require('./Compiler').Compiler)
     _compiler.parse(code)
 
-  ##
+  # -------------
+  # @method evaluate
+  # @namespace GoateeScript
   # @param {String} code
-  # @param {Object} context (optional)
-  # @param {Object} variables (optional)
-  # @param {Array}  scope (optional)
-  # @param {Array}  stack (optional)
+  # @param {Object} [context]
+  # @param {Object} [variables]
+  # @param {Array}  [scope]
+  # @param {Array}  [stack]
   # @return {mixed}
+  # @static
   GoateeScript.evaluate = (code, context, variables, scope, stack) ->
     _compiler ?= new (require('./Compiler').Compiler)
     _compiler.evaluate(code, context, variables, scope, stack)
 
-  ##
+  # -------------
+  # @method render
+  # @namespace GoateeScript
   # @param {String} code
   # @return {String}
+  # @static
   GoateeScript.render = (code) ->
     _compiler ?= new (require('./Compiler').Compiler)
     _compiler.render(code)
 
-  ##
-  # @param  {String|Expression} code, a String or an Expression
-  # @param  {Function}          callback (optional)
-  # @param  {Boolean}           compress, default is true
+  # -------------
+  # @method ast
+  # @namespace GoateeScript
+  # @param  {String|Expression} code
+  # @param  {Function}          [callback]
+  # @param  {Boolean}           [compress=true]
   # @return {Array|String|Number|true|false|null}
+  # @static
   GoateeScript.ast = (data, callback, compress) ->
     _compiler ?= new (require('./Compiler').Compiler)
     _compiler.ast(data, callback, compress)
 
-  ##
+  # -------------
+  # @method stringify
+  # @namespace GoateeScript
   # @param  {String|Expression} data
-  # @param  {Function}          callback (optional)
-  # @param  {Boolean}           compress, default is true
+  # @param  {Function}          [callback]
+  # @param  {Boolean}           [compress=true]
   # @return {String}
+  # @static
   GoateeScript.stringify = (data, callback, compress) ->
     _compiler ?= new (require('./Compiler').Compiler)
     _compiler.stringify(data, callback, compress)
 
-  ##
-  # @param  {String|Array} data, code-String or opcode-Array
-  # @param  {Function}     callback (optional)
-  # @param  {Boolean}      compress, default = true
+  # -------------
+  # @method compile
+  # @namespace GoateeScript
+  # @param  {String|Array}      data
+  # @param  {Function}          [callback]
+  # @param  {Boolean}           [compress=true]
   # @return {String}
+  # @static
   GoateeScript.compile = (data, callback, compress) ->
     _compiler ?= new (require('./Compiler').Compiler)
     _compiler.compile(data, callback, compress)

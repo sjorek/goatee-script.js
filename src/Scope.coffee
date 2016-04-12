@@ -1,5 +1,5 @@
 ###
-© Copyright 2013-2014 Stephan Jorek <stephan.jorek@gmail.com>  
+© Copyright 2013-2016 Stephan Jorek <stephan.jorek@gmail.com>
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -18,31 +18,40 @@ permissions and limitations under the License.
 
 exports = module?.exports ? this
 
-##
+## Scope
+#  -------------
+
+
+#  -------------
+# @class Scope
 # @namespace GoateeScript
 exports.Scope = class Scope
 
-  ##
+  # -------------
   # Create a new **Expression** instance
   #
+  # @method create
   # @param  {String}      operator
   # @param  {Array}       parameters
   # @return {Expression}
   create  : (operator, parameters) ->
     new Expression(operator, parameters)
 
-  ##
+  #  -------------
   # Remove leading and trailing single- or double-quotes
   #
-  # @param {String} s
+  # @method escape
+  # @param {String} s … string
   # @return {String}
   escape  : (s) ->
     if s.length < 3 then "" else s.slice(1, s.length-1) # .replace(/\\\n/,'').replace(/\\([^xubfnvrt0])/g, '$1')
 
-  ##
+  #  -------------
   # Add an “else”-Statement **e** to given “if”-Expression **i**
   #
-  # @param {String} s
+  # @method addElse
+  # @param {Expression} i … if
+  # @param {Expression} e … else
   # @return {String}
   addElse : do ->
     a = (i, e) ->

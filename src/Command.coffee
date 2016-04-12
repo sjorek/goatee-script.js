@@ -1,5 +1,5 @@
 ###
-© Copyright 2013-2014 Stephan Jorek <stephan.jorek@gmail.com>  
+© Copyright 2013-2016 Stephan Jorek <stephan.jorek@gmail.com>
 © Copyright 2009-2013 Jeremy Ashkenas <https://github.com/jashkenas>
 
 Permission is hereby granted, free of charge, to any person
@@ -24,39 +24,61 @@ FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 OTHER DEALINGS IN THE SOFTWARE.
 ###
 
-# The `goatee-script` utility. Handles evaluation of statements or launch an
-# interactive REPL.
-
 # External dependencies.
 nomnom         = require 'nomnom'
 {spawn}        = require 'child_process'
 
 exports = module?.exports ? this
 
-##
-# @class
+## Commandline …
+# -------------
+#
+# … of the `goatee-script` utility. Handles evaluation of
+# statements or launches an interactive REPL.
+
+# -------------
+# @class Command
 # @namespace GoateeScript
 exports.Command = class Command
 
-  # Top-level objects shared by all the functions.
+  # @property opts
+  # @type {Object}
+  # @private
   opts        = null
+
+  # @property statements
+  # @type {Array}
+  # @private
   statements  = null
 
+  # -------------
+  # @constructor
+  # @param {Function} [command=GoateeScript.GoateeScript] class function
   constructor : (@command = require('./GoateeScript').GoateeScript) ->
 
+  # -------------
+  # @method printLine
+  # @param {String} line
   printLine   : (line) ->
     process.stdout.write line + '\n'
 
+  # -------------
+  # @method printWarn
+  # @param {String} line
   printWarn   : (line) ->
     process.stderr.write line + '\n'
 
-  # Use the [nomnom](http://github.com/harthur/nomnom.git) to extract
-  # all options from `process.argv` that are specified here.
+  # -------------
+  # @method parseOptions
+  # @return {Array}
   parseOptions: ->
-    # The list of all the valid options that `goatee-script` knows.
+
     shift_line = "\n                                  "
+    # Use the [nomnom](http://github.com/harthur/nomnom.git) to extract
+    # all options from `process.argv` that are specified here.
     opts = nomnom
       .script(@command.NAME)
+      # The list of all the valid options that `goatee-script` knows.
       .option('statements', {
         list: true,
         type: 'string'
@@ -118,19 +140,29 @@ exports.Command = class Command
 
     statements = statements.join(';')
 
+  # -------------
   # Start up a new Node.js instance with the arguments in `--nodejs` passed to
   # the `node` binary, preserving the other options.
+  #
+  # @method forkNode
   forkNode    : ->
     spawn process.execPath, opts.nodejs,
       cwd:        process.cwd()
       env:        process.env
       customFds:  [0, 1, 2]
 
+  # -------------
   # Print the `--version` message and exit.
+  #
+  # @method version
+  # @return {String}
   version     : ->
     "#{@command.NAME} version #{@command.VERSION}"
 
+  # -------------
   # Execute the given statements
+  #
+  # @method execute
   execute     : ->
     switch opts.mode
       when 'compile'  , 'c' then @command.compile    statements, null, opts.compress
@@ -142,13 +174,22 @@ exports.Command = class Command
            'eval'     , 'e' then @command.evaluate statements
       else throw new Error 'Unknown execution-mode given.'
 
+  # -------------
   # Run the interactive read-execute-print-loop
+  # Execute the given statements
+  #
+  # @method interactive
+  # @param  {Function}             [repl=GoateeScript.Repl]
   interactive : (repl = require('./Repl').Repl) ->
     repl.start(@command, opts)
 
+  # -------------
   # Run `goatee-script` by parsing passed options and determining what action to
   # take. Flags passed after `--` will be passed verbatim to your script as
   # arguments in `process.argv`
+  # Execute the given statements
+  #
+  # @method run
   run         : ->
     @parseOptions()
     return @forkNode()            if opts.nodejs

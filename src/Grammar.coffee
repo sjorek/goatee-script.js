@@ -1,5 +1,5 @@
 ###
-© Copyright 2013-2014 Stephan Jorek <stephan.jorek@gmail.com>  
+© Copyright 2013-2016 Stephan Jorek <stephan.jorek@gmail.com>
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -22,10 +22,15 @@ permissions and limitations under the License.
 
 exports     = module?.exports ? this
 
-##
-# The `goatee-script` grammar definition
+## Grammar …
+# -------------
+# … is always useful.
+
+# -------------
+# Implements the `goatee-script` grammar definitions.
 #
-# @class
+# @class Grammary
+# @namepace GoateeScript
 exports.Grammar = class Grammar
 
   # Actually this is not needed, but it looks nicer ;-)
@@ -33,15 +38,17 @@ exports.Grammar = class Grammar
 
   yy = new Scope
 
-  ##
+  # -------------
   # Initializes the **Parser** with our **Grammar**
   #
-  # @param  {Grammar} grammar
-  # @param  {Scope}   scope
+  # @method createParser
+  # @param  {Grammar} [grammar]
+  # @param  {Scope}   [scope]
   # @return {Parser}
+  # @static
   Grammar.createParser = (grammar = new Grammar, scope = yy) ->
       parser = new Parser grammar
-      parser.yy = scope
+      parser.yy.goatee = scope
 #      lexer = parser.lexer
 #      lex   = lexer.lex
 #      set   = lexer.setInput
@@ -53,15 +60,23 @@ exports.Grammar = class Grammar
 #        set.apply(lexer,args)
       parser
 
-  #  assignment operation shortcut
+  # -------------
+  # assignment operation shortcut
+  #
+  # @method aop
+  # @static
   Grammar.aop = aop = (op) -> o "REFERENCE #{op} Expression", ->
-    yy.create $2, [$1, $3]
+    yy.goatee.create $2, [$1, $3]
 
+  # -------------
   #  binary operation shortcut
+  #
+  # @method bop
+  # @static
   Grammar.bop = bop = (op) -> o "Expression #{op} Expression", ->
-    yy.create $2, [$1, $3]
+    yy.goatee.create $2, [$1, $3]
 
-  ##
+  # -------------
   # Now that we have our **Grammar.bnf** and our **Grammar.operators**, so
   # we can create our **Jison.Parser**.  We do this by processing all of our
   # rules, recording all terminals (every symbol which does not appear as the
@@ -84,26 +99,32 @@ exports.Grammar = class Grammar
       bnf[name] = tokenize(name, alternatives)
     @tokens = tokens.join ' '
 
-  ##
   # Space-seperated list of grammar tokens, produced by this class' constructor
   #
   # @type {String}
+  # @property
   tokens : null
 
-  ##
+  # -------------
   # Create and return the parsers source code wrapped into a closure, still
   # keeping the value of `this`.
   #
+  # @method create
+  # @param  {String} [comment]
+  # @param  {String} [prefix]
+  # @param  {String} [scope]
+  # @param  {String} [suffix]
   # @return {String}
-  create: (comment = '/* Goatee Script Parser */', \
-           prefix  = '(function() {', \
-           scope   = ';parser.yy = new (require("./Scope").Scope);', \
-           suffix  = '}).call(this);') ->
-    """
-    #{comment}#{prefix}#{Grammar.createParser(this).generate()}#{scope}#{suffix}
-    """
+  create: (comment = ['/* Goatee Script Parser */',''].join "\n", \
+           prefix  = ['(function() {',''].join "\n", \
+           scope   = [';','parser.yy.goatee = new (require("./Scope").Scope)'].join "\n", \
+           suffix  = [';','}).call(this);'].join "\n") ->
+    [comment, prefix, Grammar.createParser(this).generate(), scope, suffix].join ''
 
+  # -------------
   # Use the default jison-lexer
+  # @type {Object}
+  # @property
   lex:
 
     # Declare all lexer tokens
@@ -131,7 +152,10 @@ exports.Grammar = class Grammar
       r /if\b/                    , -> 'IF'
       r /then\b/                  , -> 'THEN'
       r /else\b/                  , -> 'ELSE'
-      #r /for\b/                   , -> 'FOR'
+      # not yet implemented:
+      #
+      #      r /for\b/                   , -> 'FOR'
+      #
 
       # the following reserved word are not allowed and
       # raise exceptions if used in the wrong place
@@ -149,24 +173,30 @@ exports.Grammar = class Grammar
       r /this\b/                  , -> 'THIS'       # root context
       r /[@]/                     , -> 'SELF'       # current context
 
-      # context or variable from scope
+      # access context or variable from …
       #
-      #   $$ ~ SELF ~ current context
-      #   $_        ~ current context's local variables
-      #   _$        ~ current context's chain of scopes
-      #   __        ~ current context's expression stack
+      # … current scope:
       #
-      #   _0        ~ current - 1 level (parent) context
-      #   _1        ~ current - 2 levels (grand-parent) context
-      #   _2        ~ current - 3 levels context
-      #   …
-      #   _9        ~ current - 10 levels context
+      #     $$ ~ SELF ~ current context
+      #     $_        ~ current context's local variables
+      #     _$        ~ current context's chain of scopes
+      #     __        ~ current context's expression stack
       #
-      #   $9        ~ root + 9 levels context
-      #   …
-      #   $2        ~ root + 2 levels (grand-child) context
-      #   $1        ~ root + 1 level (child) context
-      #   $0 ~ THIS ~ root context
+      # … parent contexts:
+      #
+      #     _0        ~ current - 1 level (parent) context
+      #     _1        ~ current - 2 levels (grand-parent) context
+      #     _2        ~ current - 3 levels context
+      #     …
+      #     _9        ~ current - 10 levels context
+      #
+      # … child contexts:
+      #
+      #     $9        ~ root + 9 levels context
+      #     …
+      #     $2        ~ root + 2 levels (grand-child) context
+      #     $1        ~ root + 1 level (child) context
+      #     $0 ~ THIS ~ root context
       #
       r /[$_][$_0-9]/             , -> 'CONTEXT'
 
@@ -272,8 +302,13 @@ exports.Grammar = class Grammar
       r '$'                       , -> 'EOF'
     ]
 
-  # declare operator precedence from highest to lowest
-  # @see https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Operators/Operator_Precedence
+  ### Operator Precedence
+  -------------
+
+  Declare operator precedence from highest to lowest,
+  see [Operator Precedence](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Operators/Operator_Precedence).
+
+  ###
   operators: [
     ['left', '.', '[', ']']                  #  1 member
     ['right', 'NEW']                         #    new
@@ -299,23 +334,25 @@ exports.Grammar = class Grammar
               '>>>=', '&=', '^=',  '|=']
     ['left', ',']                            # 18 comma
 
-  # Reverse the operators because jison orders precedence from low to high,
-  # and we have it high to low
-  #
-  # @see ([Yacc] (http://dinosaur.compilertools.net/yacc/index.html)).
+  # Reverse the operators because jison orders precedence
+  # from low to high, and we have it high to low,
+  # see [Yacc](http://dinosaur.compilertools.net/yacc/index.html).
   ].reverse()
 
   # The **Script** is the top-level node in the syntax tree.
   startSymbol : 'Script'
 
-  ##
-  # The syntax description notated in Backus-Naur-Format
-  # ----------------------------------------------------
+  ### Syntax description …
+  -------------
+
+  … notated in Backus-Naur-Format.
+
+  ###
   bnf:
 
     # Since we parse bottom-up, all parsing must end here.
     Script: [
-      r 'End'                       , -> yy.create 'scalar', [undefined]
+      r 'End'                       , -> yy.goatee.create 'scalar', [undefined]
       r 'Statements End'            , -> $1
       r 'Seperator Statements End'  , -> $2
     ]
@@ -327,7 +364,7 @@ exports.Grammar = class Grammar
           $1.parameters.push $3
           $1
         else
-          yy.create 'block', [$1, $3]
+          yy.goatee.create 'block', [$1, $3]
     ]
 
     End: [
@@ -368,8 +405,8 @@ exports.Grammar = class Grammar
     ]
 
     Object: [
-      o '{ }'                       , -> yy.create 'object', []
-      o '{ KeyValues }'             , -> yy.create 'object', $2
+      o '{ }'                       , -> yy.goatee.create 'object', []
+      o '{ KeyValues }'             , -> yy.goatee.create 'object', $2
     ]
 
     Elements: [
@@ -380,25 +417,25 @@ exports.Grammar = class Grammar
     ]
 
     Array: [
-      o '[ Elements ]'              , -> yy.create 'array', $2
+      o '[ Elements ]'              , -> yy.goatee.create 'array', $2
     ]
 
     Block: [
-      o '{ Seperator }'             , -> yy.create 'scalar', [undefined]
+      o '{ Seperator }'             , -> yy.goatee.create 'scalar', [undefined]
       o '{ Statements }'            , -> $2
       o '{ Statements Seperator }'  , -> $2
     ]
 
     If: [
       o 'IF Group Block'            , ->
-        yy.create 'if',  [$2,$3]
+        yy.goatee.create 'if',  [$2,$3]
       o 'If ELSE IF Group Block'    , ->
-        yy.addElse $1, yy.create('if', [$4,$5])
+        yy.goatee.addElse $1, yy.goatee.create('if', [$4,$5])
     ]
 
     Conditional: [
       o 'If'
-      o 'If ELSE Block'             , -> yy.addElse $1, $3
+      o 'If ELSE Block'             , -> yy.goatee.addElse $1, $3
     ]
 
     IncDec: [
@@ -407,8 +444,8 @@ exports.Grammar = class Grammar
     ]
 
     Assignment: [
-      o "IncDec Identifier"         , -> yy.create $1, [$2, 0]
-      o "Identifier IncDec"         , -> yy.create $2, [$1, 1]
+      o "IncDec Identifier"         , -> yy.goatee.create $1, [$2, 0]
+      o "Identifier IncDec"         , -> yy.goatee.create $2, [$1, 1]
       aop '-='
       aop '+='
       aop '*='
@@ -427,7 +464,7 @@ exports.Grammar = class Grammar
       o 'NUMBER'                    , -> Number($1)
       o '+ NUMBER'                  , -> + Number($2)
       o '- NUMBER'                  , -> - Number($2)
-      o 'STRING'                    , -> yy.escape($1)
+      o 'STRING'                    , -> yy.goatee.escape($1)
     ]
 
     Primitive: [
@@ -445,7 +482,7 @@ exports.Grammar = class Grammar
       bop '-'
       # Boolean operations
       o '! Expression'              , ->                # logical not
-        yy.create '!' , [$2]
+        yy.goatee.create '!' , [$2]
       bop '<='
       bop '>='
       bop '<'
@@ -458,7 +495,7 @@ exports.Grammar = class Grammar
       bop '||'
       # Bitwise operations
       o '~ Expression'              , ->                # bitwise not
-         yy.create '~' , [$2]
+         yy.goatee.create '~' , [$2]
       bop '>>>'
       bop '>>'
       bop '<<'
@@ -471,23 +508,23 @@ exports.Grammar = class Grammar
       o 'Object'                                        # object literal
       o 'Array'                                         # array literal
       o 'Primitive'                 , ->                # boolean, null
-        yy.create 'scalar',  [$1]
+        yy.goatee.create 'scalar',  [$1]
       o 'Scalar'                    , ->                # number, string
-        yy.create 'scalar',  [$1]
+        yy.goatee.create 'scalar',  [$1]
     ]
 
     Scope: [
       o 'CONTEXT'                   , ->                # context reference
-        yy.create 'context', [$1]
+        yy.goatee.create 'context', [$1]
       o 'SELF'                      , ->                # this reference ≠ this
-        yy.create 'context', [$1]
+        yy.goatee.create 'context', [$1]
     ]
 
     Reference: [
       o 'Identifier'              , ->
-        yy.create 'reference', [$1]
+        yy.goatee.create 'reference', [$1]
       o 'Scope Property'          , ->                  # shorthand dot operator
-        yy.create '.', [$1, yy.create('property', [$2])]
+        yy.goatee.create '.', [$1, yy.goatee.create('property', [$2])]
       o 'Scope'
     ]
 
@@ -514,9 +551,9 @@ exports.Grammar = class Grammar
 
     Chain: [
       o 'Expression . Primitive'  , ->
-        yy.create '.', [$1, yy.create('property', [$3])]
+        yy.goatee.create '.', [$1, yy.goatee.create('property', [$3])]
       o 'Expression . Property'   , ->
-        yy.create '.', [$1, yy.create('property', [$3])]
+        yy.goatee.create '.', [$1, yy.goatee.create('property', [$3])]
     ]
 
     List: [
@@ -526,20 +563,20 @@ exports.Grammar = class Grammar
           $1.parameters.push $3
           $1
         else
-          yy.create 'list', [$1, $3]
+          yy.goatee.create 'list', [$1, $3]
     ]
 
     Group: [
-      o '( List )'                , -> yy.create 'group', [$2]
+      o '( List )'                , -> yy.goatee.create 'group', [$2]
     ]
 
     Expression: [
       o 'Expression ? Expression : Expression', ->      # ternary conditional
-        yy.create '?:', [$1, $3, $5]
+        yy.goatee.create '?:', [$1, $3, $5]
       o 'Expression ( Parameters )', ->                 # function call
-        yy.create '()', [$1].concat $3
+        yy.goatee.create '()', [$1].concat $3
       o 'Expression [ Expression ]', ->                 # indexer
-        yy.create '[]', [$1, $3]
+        yy.goatee.create '[]', [$1, $3]
       o 'Assignment'
       o 'Reference'
       o 'Literal'

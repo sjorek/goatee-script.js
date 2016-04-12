@@ -1,5 +1,5 @@
 ###
-© Copyright 2013-2014 Stephan Jorek <stephan.jorek@gmail.com>  
+© Copyright 2013-2016 Stephan Jorek <stephan.jorek@gmail.com>
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -18,12 +18,30 @@ permissions and limitations under the License.
 
 exports = module?.exports ? this
 
-##
-# Compatibillity layer for the “on-the-fly” generated parser
+## Parser
+#  -------------
+# A thin compatibillity layer for the “on-the-fly” generated goatee-script parser.
+
+#  -------------
+# @property parser
 # @type {Parser}
+# @static
 exports.parser = parser = Grammar.createParser()
+
+#  -------------
+# @class Parser
+# @namespace GoateeScript
 exports.Parser = parser.Parser;
+
+#  -------------
+# @function parse
+# @static
 exports.parse  = () -> parser.parse.apply(parser, arguments)
+
+#  -------------
+# @function main
+# @param {Array} args
+# @static
 exports.main   = (args) ->
     if !args[1]
       console.log "Usage: #{args[0]} FILE"
@@ -33,6 +51,6 @@ exports.main   = (args) ->
     )
     parser.parse(source)
 
+# excute main automatically
 if (module isnt undefined && require.main is module)
   exports.main process.argv.slice(1)
-

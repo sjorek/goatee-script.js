@@ -32,18 +32,28 @@ clean = (root) ->
 
 option '-v', '--verbose [LEVEL]', 'set groc\'s verbosity level during documentation generation. [0=silent,1,2,3]'
 
-groc = (verbose = 1, options = []) ->
+groc = (options = {}) ->
   pkg = require './package.json'
-  options.push '--title'
-  options.push "#{pkg.name} [ version #{pkg.version} ]"
-  options.push '--languages'
-  options.push process.cwd() + '/misc/groc_languages'
-  if verbose? and 0 < verbose
-    options.push '--verbose' if 1 < verbose
-    options.push '--very-verbose' if 2 < verbose
+  args = ['--title']
+  if options.title?
+    args.push options.title
   else
-    options.push '--silent'
-  spawn 'groc', options, stdio: 'inherit', cwd: '.'
+    args.push "#{pkg.name} [ version #{pkg.version} ]"
+  if options.languages? and not (1 > options.languages)
+    args.push '--languages'
+    if 0 < options.languages
+      options['languages'] = (process.cwd() + '/misc/groc_languages')
+    args.push options.languages
+  if options.github? and not (1 > options.github)
+    args.push '--github'
+  if options.verbose? and not (1 > options.verbose)
+    args.push '--verbose'
+    if 1 < options.verbose
+      args.push '--very-verbose'
+      console.log "running groc #{args.join ' '}"
+  else
+    args.push '--silent'
+  spawn 'groc', args, stdio: 'inherit', cwd: '.'
 
 rebuild = false
 
@@ -54,13 +64,13 @@ render = (template, data) ->
     value = value[key] for key in path
     value ? ""
 
-task 'all', 'invokes “clean”, “build” and “test” in given order', ->
+task 'all', 'invokes “clean”, “build”, “test” and “doc:source” in given order', ->
   console.log 'all'
   rebuild = true
   invoke 'clean'
   invoke 'build'
   invoke 'test'
-  invoke 'doc'
+  invoke 'doc:source'
 
 task 'build', 'invokes “build:once” and “build:parser” in given order', ->
   console.log 'build'
@@ -108,19 +118,25 @@ task 'test', 'run “build” task and tests in “tests/” afterwards', ->
   invoke 'build' if rebuild is false
   spawn 'npm', ['test'], stdio: 'inherit', cwd: '.'
 
-task 'doc', 'invokes “doc:source” and “doc:github” in given order', ->
+
+option '-t', '--title [TITLE]', 'override  groc\'s title argument for `cake doc:*`'
+option '-l', '--languages [FILE]', 'override groc\'s language-definition file-path for `cake doc:*`'
+
+task 'doc', 'invokes “doc:source” and “doc:github” in given order', (options) ->
   console.log 'doc'
   invoke 'doc:source'
-  #invoke 'doc:github'
+  invoke 'doc:github'
 
 task 'doc:source', 'rebuild the internal documentation', (options) ->
   console.log 'doc:source'
   clean 'doc'
-  groc options['verbose']
+  options['github'] = 0
+  groc options
 
 task 'doc:github', 'rebuild the github documentation', (options) ->
   console.log 'doc:github'
-  groc options['verbose'], ['--github']
+  options['github'] = 1
+  groc options
 
 option '-p', '--prefix [DIR]', 'set the installation prefix for `cake install`'
 

@@ -1,54 +1,50 @@
-<!DOCTYPE html><html lang="en"><head><title>Scope</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content=""><meta name="groc-document-path" content="Scope"><meta name="groc-project-path" content="src/Scope.coffee"><link rel="stylesheet" type="text/css" media="all" href="assets/style.css"><script type="text/javascript" src="assets/behavior.js"></script><body><div id="meta"><div class="file-path">src/Scope.coffee</div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><p>© Copyright 2013-2014 Stephan Jorek <a href="&#109;a&#x69;&#108;t&#111;:&#x73;t&#101;&#112;&#x68;&#97;&#x6e;&#46;&#106;&#x6f;&#114;&#101;k&#64;&#x67;&#x6d;&#97;&#105;&#x6c;&#46;&#99;&#x6f;&#109;">&#x73;t&#101;&#112;&#x68;&#97;&#x6e;&#46;&#106;&#x6f;&#114;&#101;k&#64;&#x67;&#x6d;&#97;&#105;&#x6c;&#46;&#99;&#x6f;&#109;</a>  </p>
-
-<p>Licensed under the Apache License, Version 2.0 (the "License");
+<!DOCTYPE html><html lang="en"><head><title>Scope</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content=""><meta name="groc-document-path" content="Scope"><meta name="groc-project-path" content="src/Scope.coffee"><link rel="stylesheet" type="text/css" media="all" href="assets/style.css"><script type="text/javascript" src="assets/behavior.js"></script><body><div id="meta"><div class="file-path">src/Scope.coffee</div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><p>© Copyright 2013-2016 Stephan Jorek <a href="&#x6d;&#x61;&#x69;&#x6c;&#x74;&#x6f;&#x3a;&#115;&#x74;&#x65;&#112;&#104;&#x61;&#110;&#x2e;&#106;&#x6f;&#114;&#101;&#107;&#64;&#x67;&#x6d;&#x61;&#105;&#108;&#x2e;&#99;&#111;&#109;">&#115;&#x74;&#x65;&#112;&#104;&#x61;&#110;&#x2e;&#106;&#x6f;&#114;&#101;&#107;&#64;&#x67;&#x6d;&#x61;&#105;&#108;&#x2e;&#99;&#111;&#109;</a></p>
+<p>Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at</p>
-
 <p><a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a></p>
-
 <p>Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
+distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
 implied. See the License for the specific language governing
-permissions and limitations under the License.</p></div></div><div class="code"><div class="wrapper"><span class="p">{</span><span class="nx">Expression</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span> <span class="s">&#39;./Expression&#39;</span>
+permissions and limitations under the License.</p></div></div><div class="code"><div class="wrapper">{Expression} = <span class="hljs-built_in">require</span> <span class="hljs-string">'./Expression'</span>
 
-<span class="nv">exports = </span><span class="nx">module</span><span class="o">?</span><span class="p">.</span><span class="nx">exports</span> <span class="o">?</span> <span class="k">this</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'> namespace GoateeScript</span></p>
-
-<p>#</p></div></div><div class="code"><div class="wrapper"><span class="nv">exports.Scope = </span><span class="k">class</span> <span class="nx">Scope</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p>#
-Create a new <strong>Expression</strong> instance</p>
-
+exports = <span class="hljs-built_in">module</span>?.exports ? <span class="hljs-keyword">this</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h1 id="scope">Scope</h1>
+<hr></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'> class Scope and namespace GoateeScript</span></p>
+<hr></div></div><div class="code"><div class="wrapper">exports.Scope = <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Scope</span></span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'>Method create</span></p>
+<hr>
+<p>Create a new <strong>Expression</strong> instance</p>
 <p>Parameters:</p>
-
 <ul>
-<li><p><strong>operator must be a String.</strong></p></li>
-<li><p><strong>parameters must be an Array.</strong></p></li>
+<li><p><strong>operator must be a String.</strong></p>
+</li>
+<li><p><strong>parameters must be an Array.</strong></p>
+</li>
 </ul>
-
-<p><strong>Returns an Expression</strong></p></div></div><div class="code"><div class="wrapper">  <span class="nv">create  : </span><span class="nf">(operator, parameters) -&gt;</span>
-    <span class="k">new</span> <span class="nx">Expression</span><span class="p">(</span><span class="nx">operator</span><span class="p">,</span> <span class="nx">parameters</span><span class="p">)</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p>#
-Remove leading and trailing single- or double-quotes</p>
-
+<p><strong>Returns an Expression</strong></p></div></div><div class="code"><div class="wrapper">  create  : <span class="hljs-function"><span class="hljs-params">(operator, parameters)</span> -&gt;</span>
+    <span class="hljs-keyword">new</span> Expression(operator, parameters)</div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'>Method escape</span></p>
+<hr>
+<p>Remove leading and trailing single- or double-quotes</p>
 <p>Parameters:</p>
-
 <ul>
-<li><strong>s must be a String.</strong></li>
+<li><strong>s must be a String.</strong><br/>(… string)</li>
 </ul>
-
-<p><strong>Returns a String</strong></p></div></div><div class="code"><div class="wrapper">  <span class="nv">escape  : </span><span class="nf">(s) -&gt;</span>
-    <span class="k">if</span> <span class="nx">s</span><span class="p">.</span><span class="nx">length</span> <span class="o">&lt;</span> <span class="mi">3</span> <span class="k">then</span> <span class="s">&quot;&quot;</span> <span class="k">else</span> <span class="nx">s</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nx">s</span><span class="p">.</span><span class="nx">length</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># .replace(/\\\n/,&#39;&#39;).replace(/\\([^xubfnvrt0])/g, &#39;$1&#39;)</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p>#
-Add an “else”-Statement <strong>e</strong> to given “if”-Expression <strong>i</strong></p>
-
+<p><strong>Returns a String</strong></p></div></div><div class="code"><div class="wrapper">  escape  : <span class="hljs-function"><span class="hljs-params">(s)</span> -&gt;</span>
+    <span class="hljs-keyword">if</span> s.length &lt; <span class="hljs-number">3</span> <span class="hljs-keyword">then</span> <span class="hljs-string">""</span> <span class="hljs-keyword">else</span> s.slice(<span class="hljs-number">1</span>, s.length-<span class="hljs-number">1</span>) <span class="hljs-comment"># .replace(/\\\n/,'').replace(/\\([^xubfnvrt0])/g, '$1')</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'>Method addElse</span></p>
+<hr>
+<p>Add an “else”-Statement <strong>e</strong> to given “if”-Expression <strong>i</strong></p>
 <p>Parameters:</p>
-
 <ul>
-<li><strong>s must be a String.</strong></li>
+<li><p><strong>i must be an Expression.</strong><br/>(… if)</p>
+</li>
+<li><p><strong>e must be an Expression.</strong><br/>(… else)</p>
+</li>
 </ul>
-
-<p><strong>Returns a String</strong></p></div></div><div class="code"><div class="wrapper">  <span class="nv">addElse : </span><span class="nx">do</span> <span class="nf">-&gt;</span>
-    <span class="nv">a = </span><span class="nf">(i, e) -&gt;</span>
-      <span class="k">if</span> <span class="nx">i</span><span class="p">.</span><span class="nx">parameters</span><span class="p">.</span><span class="nx">length</span> <span class="o">is</span> <span class="mi">3</span>
-        <span class="nx">a</span><span class="p">(</span><span class="nx">i</span><span class="p">.</span><span class="nx">parameters</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="nx">e</span><span class="p">)</span>
-      <span class="k">else</span>
-        <span class="nx">i</span><span class="p">.</span><span class="nx">parameters</span><span class="p">.</span><span class="nx">push</span> <span class="nx">e</span>
-      <span class="nx">i</span>
-    <span class="nx">a</span></div></div></div></div></body></html>
+<p><strong>Returns a String</strong></p></div></div><div class="code"><div class="wrapper">  addElse : <span class="hljs-keyword">do</span> -&gt;
+<span class="hljs-function">    <span class="hljs-title">a</span> = <span class="hljs-params">(i, e)</span> -&gt;</span>
+      <span class="hljs-keyword">if</span> i.parameters.length <span class="hljs-keyword">is</span> <span class="hljs-number">3</span>
+        a(i.parameters[<span class="hljs-number">2</span>], e)
+      <span class="hljs-keyword">else</span>
+        i.parameters.push e
+      i
+    a</div></div></div></div></body></html>

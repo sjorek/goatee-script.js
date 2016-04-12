@@ -1,5 +1,5 @@
 ###
-© Copyright 2013-2014 Stephan Jorek <stephan.jorek@gmail.com>  
+© Copyright 2013-2016 Stephan Jorek <stephan.jorek@gmail.com>
 © Copyright 2009-2013 Jeremy Ashkenas <https://github.com/jashkenas>
 
 Permission is hereby granted, free of charge, to any person
@@ -44,14 +44,25 @@ NodeRepl        = require 'repl'
 
 exports = module?.exports ? this
 
-##
-# @class
+## **R**ead, **E**xcute and **P**rint **L**oop
+#  -------------
+
+#  -------------
+# @class Repl
 # @namespace GoateeScript
 exports.Repl = class Repl
 
+  #  -------------
   # Creates a nice error message like, following the "standard" format
   # <filename>:<line>:<col>: <message> plus the line with the error and a marker
   # showing where the error is.
+  #
+  # @function _prettyErrorMessage
+  # @param {Boolean|Array|Error} [error]
+  # @param {String}              [filename]
+  # @param {Number}              [code]
+  # @param {Boolean|Function}    [colorize]
+  # @private
   _prettyErrorMessage = (error, filename, code, colorize) ->
 
     if not error? or error is false or ( isArray(error) and error.length is 0 )
@@ -77,13 +88,20 @@ exports.Repl = class Repl
     #{filename}: #{message}
     """
 
+  #  -------------
+  # @function _addMultilineHandler
+  # @param {Repl} [repl]
+  # @private
   _addMultilineHandler = (repl) ->
     {rli, inputStream, outputStream} = repl
 
+    # Node 0.11.12 changed API, prompt is now _prompt.
+    origPrompt = repl._prompt ? repl.prompt
+
     multiline =
       enabled: off
-      initialPrompt: repl.prompt.replace(/^[^> ]*/, (x) -> x.replace(/./g, '-'))
-      prompt: repl.prompt.replace(/^[^> ]*>?/, (x) -> x.replace(/./g, '.'))
+      initialPrompt: origPrompt.replace(/^[^> ]*/, (x) -> x.replace(/./g, '-'))
+      prompt: origPrompt.replace(/^[^> ]*>?/, (x) -> x.replace(/./g, '.'))
       buffer: ''
 
     # Proxy node's line listener
@@ -105,7 +123,7 @@ exports.Repl = class Repl
         # allow arbitrarily switching between modes any time before multiple lines are entered
         unless multiline.buffer.match /\n/
           multiline.enabled = not multiline.enabled
-          rli.setPrompt repl.prompt
+          rli.setPrompt origPrompt
           rli.prompt true
           return
         # no-op unless the current line is empty
@@ -126,7 +144,14 @@ exports.Repl = class Repl
         rli.prompt true
       return
 
+  #  -------------
   # Store and load command history from a file
+  #
+  # @function _addHistory
+  # @param {Repl}    [repl]
+  # @param {String}  [filename]
+  # @param {Number}  [maxSize]
+  # @private
   _addHistory = (repl, filename, maxSize) ->
     lastLine = null
     try
@@ -163,10 +188,19 @@ exports.Repl = class Repl
         repl.outputStream.write "#{repl.rli.history[..].reverse().join '\n'}\n"
         repl.displayPrompt()
 
+  #  -------------
+  # @property defaults
+  # @type {Object}
   Repl.defaults = _options =
     command: {}
     context: {}
     variables: {}
+    #  -------------
+    # @function defaults.eval
+    # @param {String}      input
+    # @param {Object}      [context]
+    # @param {Number}      [code]
+    # @param {Function}    [callback]
     eval: (input, context, filename, callback) ->
       # XXX: multiline hack.
       input = input.replace /\uFF00/g, '\n'
@@ -210,6 +244,13 @@ exports.Repl = class Repl
         callback _prettyErrorMessage(error, filename, input, yes)
       return
 
+  #  -------------
+  # @method start
+  # @param {Object} command
+  # @param {Object} [flags={}]
+  # @param {Object} [options=defaults.options]
+  # @param {Boolean|Function}    [colorize]
+  # @static
   Repl.start = (command, flags = {}, options = _options) ->
     [
       major, minor #, build

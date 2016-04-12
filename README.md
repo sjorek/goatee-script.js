@@ -137,29 +137,41 @@ line. The last expression's value is always returned to the invoking context.
 
 Read the [annotated sources](http://sjorek.github.io/goatee-script/).
 
-## Development
+## Installation
 
-Install dependencies:
+### “Production”
 
-- [git-scm](http://git-scm.com)
-- [node.js *(≥ 0.10)*](http://nodejs.org)
-- [pygments](http://pygments.org)
+     $ npm install goatee-script --save
 
-Install project:
+### Install development version:
 
     $ git clone https://github.com/sjorek/goatee-script
     $ cd goatee-script
     $ npm install
 
-Run build in *nix-like environments:
+## Development
+
+### Install dependencies:
+
+- [git-scm](http://git-scm.com)
+- [node.js *(≥ 0.10)*](http://nodejs.org)
+- optional:
+  - [pygments](http://pygments.org)
+
+### Run build …
+
+#### … in *nix-like environments:
 
     $ PATH=$PATH:./node_modules/.bin cake all
 
-Run build in Windows environments (**not tested**):
+#### … in Windows environments:
 
     $ set path=%PATH%;.\node_modules\.bin
     $ setx path "%PATH%"
     $ cake all
+
+_(not tested yet)_
+
 
 ## Credits go to …
 
@@ -168,7 +180,4 @@ Run build in Windows environments (**not tested**):
 
 - … Jeremy Ashkenas and all contributors of
   [Coffee-Script](http://coffeescript.org/)
-  as a source of inspiration
-
-- … Kris Nye for his [Glass-Script](https://github.com/krisnye/glass-script/)
   as a source of inspiration
