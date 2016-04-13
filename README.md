@@ -110,7 +110,7 @@ line. The last expression's value is always returned to the invoking context.
 
 ## Installation
 
-    $ npm install -g goatee-script
+    $ npm install -g goatee-script.js
 
 ## Usage
 
