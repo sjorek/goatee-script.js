@@ -1,6 +1,6 @@
 
-[goatee-script](http://sjorek.github.io/goatee-script/)
-=======================================================
+[goatee-script.js](http://sjorek.github.io/goatee-script.js/)
+=============================================================
 
          _______  _______  _______  _______  _______  _______
         |    ___||       ||       ||_     _||    ___||    ___|
@@ -58,14 +58,16 @@ Goateescript:
 
 All three examples are equivalent and return the number **7**.
 
-As “[goatee-js](http://sjorek.github.io/goatee-js)” provides attributes to
+As [goatee.js](http://sjorek.github.io/goatee.js) provides attributes to
 map data into markup, I decided the best way to go would be a language that is
 compact, readable and (the most important feature) has a scope consisting of
 a chain of contexts.  Still confused ?  Believe me, the haze will be lifted,
 once the framework has reached a state where it is useable.  For the time
 beeing there is a command-line interpreter to prove my concept.
 
-Also see “[goatee-rules](http://sjorek.github.io/goatee-rules)”.
+See:
+- [goatee-rules.js](http://sjorek.github.io/goatee-rules.js).
+- [goatee-sheet.js](http://sjorek.github.io/goatee-sheet.js).
 
 ### Javascript – the source and destination
 
@@ -135,7 +137,7 @@ line. The last expression's value is always returned to the invoking context.
 
 ## Documentation
 
-Read the [annotated sources](http://sjorek.github.io/goatee-script/).
+Read the [annotated sources](http://sjorek.github.io/goatee-script.js/).
 
 ## Development
 
@@ -148,12 +150,12 @@ Read the [annotated sources](http://sjorek.github.io/goatee-script/).
 
   ### … for production version:
 
-       $ npm install goatee-script --save
+       $ npm install goatee-script.js --save
 
   ### … for development version:
 
-      $ git clone https://github.com/sjorek/goatee-script
-      $ cd goatee-script
+      $ git clone https://github.com/sjorek/goatee-script.js
+      $ cd goatee-script.js
       $ npm install
 
 ### Run build …
@@ -166,7 +168,7 @@ Read the [annotated sources](http://sjorek.github.io/goatee-script/).
 
     $ set path=%PATH%;.\node_modules\.bin
     $ setx path "%PATH%"
-    $ cake all
+    $ cake atl
 
 _(not tested yet)_
 
