@@ -1,0 +1,93 @@
+<!DOCTYPE html><html lang="en"><head><title>misc/gulp/gulp-taskqueue</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../../"><meta name="groc-document-path" content="misc/gulp/gulp-taskqueue"><meta name="groc-project-path" content="src/misc/gulp/gulp-taskqueue.coffee"><link rel="stylesheet" type="text/css" media="all" href="../../assets/style.css"><script type="text/javascript" src="../../assets/behavior.js"></script><body><div id="meta"><div class="file-path">src/misc/gulp/gulp-taskqueue.coffee</div></div><div id="document"><div class="segment"><div class="code"><div class="wrapper">gulp = <span class="hljs-built_in">require</span> <span class="hljs-string">'gulp'</span>
+
+del = <span class="hljs-built_in">require</span> <span class="hljs-string">'del'</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>logger = require &#39;gulp-logger&#39;</p></div></div><div class="code"><div class="wrapper">util = <span class="hljs-built_in">require</span> <span class="hljs-string">'gulp-util'</span>
+
+exports = exports ? <span class="hljs-keyword">this</span>
+
+exports.createDependencyLog = <span class="hljs-function"><span class="hljs-params">()</span> -&gt;</span>
+  {
+    <span class="hljs-attribute">clean</span>: []
+    <span class="hljs-attribute">transpile</span>: []
+    <span class="hljs-attribute">doc</span>: []
+    <span class="hljs-attribute">publish</span>: []
+    <span class="hljs-attribute">watch</span>: []
+  }
+
+exports.cloneObject = _cloneObject = <span class="hljs-function"><span class="hljs-params">(obj)</span> -&gt;</span>
+  <span class="hljs-keyword">return</span> obj <span class="hljs-keyword">if</span> obj <span class="hljs-keyword">is</span> <span class="hljs-literal">null</span> <span class="hljs-keyword">or</span> <span class="hljs-keyword">typeof</span> (obj) <span class="hljs-keyword">isnt</span> <span class="hljs-string">"object"</span>
+  temp = <span class="hljs-keyword">new</span> obj.constructor()
+  <span class="hljs-keyword">for</span> own key, val <span class="hljs-keyword">of</span> obj
+    temp[key] = _cloneObject(val)
+  temp</div></div></div><div class="segment"><div class="comments doc-section doc-section-private"><div class="wrapper"><p><span class='doc-section-header'>Private function buildQueue</span></p>
+<hr>
+<p>create task queue definitions</p>
+<p>Parameters:</p>
+<ul>
+<li><p><strong>name must be a String.</strong></p>
+</li>
+<li><p><strong>deps must be an Object<queue:Array,clean:Array,watch:Array>.</strong></p>
+</li>
+<li><p><strong>load must be a Function.</strong></p>
+</li>
+<li><p><strong>worker must be a Function.</strong></p>
+</li>
+</ul>
+<p><strong>Returns an Object</strong><br/>(a dependency log object)</p></div></div><div class="code"><div class="wrapper">exports.build = <span class="hljs-function"><span class="hljs-params">(name, deps, load, worker)</span> -&gt;</span>
+  filename = <span class="hljs-string">"<span class="hljs-subst">#{name.replace(<span class="hljs-regexp">/:/</span>,<span class="hljs-string">'-'</span>)}</span>"</span>
+  queue = load filename
+  cleandeps = []
+  watchdeps = []
+  deps.queue = []
+
+  <span class="hljs-keyword">for</span> own suffix, config <span class="hljs-keyword">of</span> queue
+    <span class="hljs-keyword">do</span> -&gt;
+      taskconfig = _cloneObject config
+      taskname = <span class="hljs-string">"<span class="hljs-subst">#{name}</span>:<span class="hljs-subst">#{suffix}</span>"</span>
+      taskdeps = taskconfig.deps ? []
+      taskcleandeps = []
+      taskwatchdeps = []
+
+      deps[taskconfig.queue ? <span class="hljs-string">'queue'</span>].push taskname
+
+      <span class="hljs-keyword">for</span> assets, index <span class="hljs-keyword">in</span> taskconfig.assets
+        <span class="hljs-keyword">for</span> own destination, source <span class="hljs-keyword">of</span> assets
+          subtaskname = <span class="hljs-string">"<span class="hljs-subst">#{taskname}</span>:<span class="hljs-subst">#{index}</span>"</span>
+          taskdeps.push subtaskname
+
+          <span class="hljs-keyword">if</span> taskconfig.watch?
+            watch = <span class="hljs-string">"<span class="hljs-subst">#{subtaskname}</span>:watch"</span>
+            taskwatchdeps.push watch
+            gulp.task watch, <span class="hljs-function">-&gt;</span>
+              util.log watch, source
+              gulp.watch source, [subtaskname]
+
+          gulp.task subtaskname, \
+            worker(source, destination, taskname, taskconfig)
+
+      gulp.task taskname, taskdeps, <span class="hljs-function">-&gt;</span> util.log taskconfig.title
+
+      <span class="hljs-keyword">if</span> taskconfig.clean?
+        clean = <span class="hljs-string">"<span class="hljs-subst">#{taskname}</span>:clean"</span>
+        taskcleandeps.push clean
+        gulp.task clean, <span class="hljs-function">-&gt;</span>
+          util.log clean, taskconfig.clean
+          del taskconfig.clean
+
+      cleandeps.push clean <span class="hljs-keyword">for</span> clean <span class="hljs-keyword">in</span> taskcleandeps
+
+      <span class="hljs-keyword">if</span> <span class="hljs-number">0</span> &lt; taskwatchdeps.length
+        watch = <span class="hljs-string">"<span class="hljs-subst">#{taskname}</span>:watch"</span>
+        watchdeps.push watch
+        gulp.task watch, taskwatchdeps
+
+  <span class="hljs-keyword">if</span> <span class="hljs-number">0</span> &lt; cleandeps.length
+    clean = <span class="hljs-string">"<span class="hljs-subst">#{name}</span>:clean"</span>
+    deps.clean.push clean
+    gulp.task clean, cleandeps
+
+  <span class="hljs-keyword">if</span> <span class="hljs-number">0</span> &lt; watchdeps.length
+    watch = <span class="hljs-string">"<span class="hljs-subst">#{name}</span>:watch"</span>
+    deps.watch.push watch
+    gulp.task watch, watchdeps
+
+  deps</div></div></div></div></body></html>

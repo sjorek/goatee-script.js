@@ -1,0 +1,71 @@
+# Documenation: groc
+# ------------------
+
+default:
+
+  title: 'Documentation of “src” files'
+
+  defaults :
+    out: 'doc'
+    #silent: true
+    #verbose: true
+    languages: './src/misc/groc/languages'
+
+  assets : [
+    'doc': [
+      [
+        'src/**/*.coffee'
+        'src/**/*.cson'
+        # 'Cakefile'
+        'gulpfile.coffee'
+        'README.md'
+      ]
+    ]
+  ]
+
+  clean: [
+    'doc/**/*'
+  ]
+
+  # watch: true
+
+  logger:
+    before: 'Start creating documentation of source files …'
+    after: 'Documentation of source files created.'
+    extname: '.html'
+    showChange: true
+
+github:
+
+  title: 'Publish documentation of “src” files to github'
+
+  defaults :
+    out: 'doc'
+    #silent: true
+    #verbose: true
+    languages: './src/misc/groc/languages'
+    github: true
+
+  assets : [
+    'doc': [
+      [
+        'src/**/*.coffee'
+        'src/**/*.cson'
+        'README.md'
+      ]
+    ]
+  ]
+
+  # clean: [
+  #   'doc/**/*'
+  # ]
+
+  # watch: true
+
+  logger:
+    before: 'Start publishing documentation of source files to github …'
+    after: 'Published documentation of source files to github.'
+    extname: '.html'
+    showChange: true
+
+  queue: 'publish'

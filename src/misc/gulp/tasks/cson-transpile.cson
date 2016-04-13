@@ -1,0 +1,63 @@
+# Transpile: cson
+# ----------------
+
+default:
+
+  title: 'Transpiling cson files'
+
+  defaults :
+    indent: true
+
+  assets : [
+    'lib/': [
+      [
+        'src/**/*.cson'
+        '!src/misc/groc/config.cson'
+      ]
+    ]
+  ]
+
+  replace : [
+    [
+      'src/misc/groc/languages'
+      'lib/misc/groc/languages'
+    ]
+  ]
+
+  clean: [
+    'lib/**/*.json'
+  ]
+
+  watch: true
+
+  logger:
+    before: 'Start transpiling cson files …'
+    after: 'Transpiling cson files complete.'
+    extname: '.json'
+    showChange: true
+
+
+groc :
+
+  title: 'Transpiling “src/misc/groc/config.cson” to “.groc.json”'
+
+  defaults :
+    indention: true
+
+  assets : [
+    '.' : ['src/misc/groc/config.cson']
+  ]
+
+  rename : '.groc.json'
+
+  clean: [
+    '.groc.json'
+  ]
+
+  watch: true
+
+  logger:
+    before: 'Start transpiling groc configuration …'
+    after: 'Transpiling groc configuration complete.'
+    extname: '.json'
+    showChange: true

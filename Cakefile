@@ -98,7 +98,7 @@ task 'build:parser', 'rebuild the goatee-script parser; run at least “build:on
 
   js  = './lib/Parser.js'
   cs  = './src/Grammar.coffee'
-  map = js.replace(/\.js$/, '.map')
+  map = js.replace(/\.js$/, '.js.map')
 
   mapStat = fs.existsSync map
   jsStat  = if fs.existsSync js then fs.statSync js else false

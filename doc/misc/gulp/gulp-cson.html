@@ -1,0 +1,44 @@
+<!DOCTYPE html><html lang="en"><head><title>misc/gulp/gulp-cson</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../../"><meta name="groc-document-path" content="misc/gulp/gulp-cson"><meta name="groc-project-path" content="src/misc/gulp/gulp-cson.coffee"><link rel="stylesheet" type="text/css" media="all" href="../../assets/style.css"><script type="text/javascript" src="../../assets/behavior.js"></script><body><div id="meta"><div class="file-path">src/misc/gulp/gulp-cson.coffee</div></div><div id="document"><div class="segment"><div class="code"><div class="wrapper">map = <span class="hljs-built_in">require</span> <span class="hljs-string">'map-stream'</span>
+coffee = <span class="hljs-built_in">require</span> <span class="hljs-string">'coffee-script'</span>
+rext = <span class="hljs-built_in">require</span> <span class="hljs-string">'replace-ext'</span>
+cson = <span class="hljs-built_in">require</span> <span class="hljs-string">'cson'</span>
+
+<span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-params">(options)</span> -&gt;</span>
+<span class="hljs-function">
+  <span class="hljs-title">format2ext</span> = <span class="hljs-params">(format)</span> -&gt;</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">switch</span> format
+      <span class="hljs-keyword">when</span> <span class="hljs-string">'coffeescript'</span> <span class="hljs-keyword">then</span> <span class="hljs-string">'.cs'</span>
+      <span class="hljs-keyword">when</span> <span class="hljs-string">'javascript'</span> <span class="hljs-keyword">then</span> <span class="hljs-string">'.js'</span>
+      <span class="hljs-keyword">else</span> <span class="hljs-string">".<span class="hljs-subst">#{format}</span>"</span>
+<span class="hljs-function">
+  <span class="hljs-title">swap</span> = <span class="hljs-params">(format)</span> -&gt;</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">switch</span> format
+      <span class="hljs-keyword">when</span> <span class="hljs-string">'json'</span> <span class="hljs-keyword">then</span> <span class="hljs-string">'cson'</span>
+      <span class="hljs-keyword">when</span> <span class="hljs-string">'cson'</span> <span class="hljs-keyword">then</span> <span class="hljs-string">'json'</span>
+      <span class="hljs-keyword">when</span> <span class="hljs-string">'coffeescript'</span> <span class="hljs-keyword">then</span> <span class="hljs-string">'javascript'</span>
+      <span class="hljs-keyword">when</span> <span class="hljs-string">'javascript'</span> <span class="hljs-keyword">then</span> <span class="hljs-string">'coffeescript'</span>
+<span class="hljs-function">
+  <span class="hljs-title">gcson</span> = <span class="hljs-params">(file, cb)</span> -&gt;</span>
+
+    opts = {}
+    opts[key] = value <span class="hljs-keyword">for</span> own key, value <span class="hljs-keyword">of</span> options <span class="hljs-keyword">if</span> options?
+
+
+    opts.filename = file.path
+    opts.format = <span class="hljs-string">'cson'</span> <span class="hljs-keyword">unless</span> opts.filename? <span class="hljs-keyword">or</span> opts.format?
+
+    data = cson.parseString(file.contents.toString(), opts)
+    <span class="hljs-keyword">return</span> cb data <span class="hljs-keyword">if</span> data <span class="hljs-keyword">instanceof</span> Error
+
+    opts.format = swap(opts.format)
+    opts.filename = rext opts.filename, format2ext(opts.format) <span class="hljs-keyword">if</span> opts.filename?
+
+    data = cson.createString data, opts
+    <span class="hljs-keyword">return</span> cb data <span class="hljs-keyword">if</span> data <span class="hljs-keyword">instanceof</span> Error
+
+    file.contents = <span class="hljs-keyword">new</span> Buffer data
+    file.path = opts.filename
+
+    cb <span class="hljs-literal">null</span>, file
+
+  <span class="hljs-keyword">return</span> map gcson</div></div></div></div></body></html>

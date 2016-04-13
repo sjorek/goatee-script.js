@@ -47,18 +47,32 @@ exports.Grammar = class Grammar
   # @return {Parser}
   # @static
   Grammar.createParser = (grammar = new Grammar, scope = yy) ->
-      parser = new Parser grammar
-      parser.yy.goatee = scope
-#      lexer = parser.lexer
-#      lex   = lexer.lex
-#      set   = lexer.setInput
-#      lexer.lex = (args...) ->
-#        console.log 'lex', [lexer.match, lexer.matched]
-#        lex.apply(lexer,args)
-#      lexer.setInput = (args...) ->
-#        console.log 'set', args
-#        set.apply(lexer,args)
-      parser
+    parser = new Parser grammar
+    parser.yy.goatee = scope
+    parser
+
+  # -------------
+  # Initializes the **Parser** with our **Grammar**
+  #
+  # @method createParser
+  # @param  {Parser}    [grammar]
+  # @param  {Function}  [log]
+  # @return {Parser}
+  # @static
+  Grammar.addLoggingToParser = ( \
+    parser, \
+    log = (args...)-> console.log.apply(null, args)) ->
+
+    lexer = parser.lexer
+    lex   = lexer.lex
+    set   = lexer.setInput
+    lexer.lex = (args...) ->
+      log 'lex', [lexer.match, lexer.matched]
+      lex.apply(lexer,args)
+    lexer.setInput = (args...) ->
+      log 'set', args
+      set.apply(lexer,args)
+    parser
 
   # -------------
   # assignment operation shortcut
@@ -112,14 +126,66 @@ exports.Grammar = class Grammar
   # @method create
   # @param  {String} [comment]
   # @param  {String} [prefix]
-  # @param  {String} [scope]
   # @param  {String} [suffix]
+  # @param  {String} [parser]
+  # @param  {String} [scope]
   # @return {String}
-  create: (comment = ['/* Goatee Script Parser */',''].join "\n", \
-           prefix  = ['(function() {',''].join "\n", \
-           scope   = [';','parser.yy.goatee = new (require("./Scope").Scope)'].join "\n", \
-           suffix  = [';','}).call(this);'].join "\n") ->
-    [comment, prefix, Grammar.createParser(this).generate(), scope, suffix].join ''
+  create: (comment = '''
+                     /* Goatee Script Parser */
+
+                     ''',
+           prefix  = '''
+                     (function() {
+
+                     ''',
+           suffix  = '''
+                     ;
+                     parser.yy.goatee = new (require("./Scope").Scope);
+                     }).call(this);
+                     ''',
+           parser,
+           scope = yy) ->
+
+    parser = Grammar.createParser(this, scope) unless parser?
+
+    [comment, prefix, parser.generate(), suffix].join ''
+
+
+  # -------------
+  # Create and return an object representing the parser's grammar
+  #
+  # @method _exportGrammar
+  # @return {Object}
+  # @private
+  _exportGrammar : () ->
+    {
+      lex: this.lex
+      operators: this.operators
+      startSymbol: this.startSymbol
+      bnf: this.bnf
+    }
+
+  # -------------
+  # Create and return the parsers grammar as json string.
+  #
+  # @method exportJSONString
+  # @param  {Boolean|String|null} [indent]
+  # @return {String}
+  exportJSONString : (indent = null) ->
+    if indent?
+      if indent is true
+        indent = '    '
+      else if indent is false
+        indent = null
+    JSON.stringify @_exportGrammar, null, indent
+
+  # -------------
+  # Create and return the parsers grammar as json object.
+  #
+  # @method exportJSON
+  # @return {Object}
+  exportJSON : () ->
+    JSON.parse @exportJSONString()
 
   # -------------
   # Use the default jison-lexer

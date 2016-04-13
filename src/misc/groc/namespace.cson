@@ -1,0 +1,18 @@
+{
+  "goatee.Script.": [
+    "http://sjorek.github.io/goatee-script.js/"
+    "goatee."
+  ]
+  "goatee.Rules.": [
+    "http://sjorek.github.io/goatee-rules.js/"
+    "goatee."
+  ]
+  "goatee.Rulesheet.": [
+    "http://sjorek.github.io/goatee-rulesheet.js/"
+    "goatee."
+  ]
+  "goatee.": [
+    "http://sjorek.github.io/goatee.js/"
+    "goatee."
+  ]
+}

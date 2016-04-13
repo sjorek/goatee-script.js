@@ -1,0 +1,64 @@
+# Parser: jison
+# -------------
+
+default:
+
+  title: 'Creating “goatee-script” parser'
+
+  defaults : {}
+
+  assets : [
+    'lib': [
+      [
+        'lib/misc/grammar.json'
+      ]
+    ]
+  ]
+
+  clean: [
+    'lib/Parser.js'
+    'lib/Parser.js.map'
+  ]
+
+  watch: true
+
+  logger:
+    before: 'Start creating the “goatee-script” parser …'
+    after: 'The “goatee-script” parser has been created.'
+    extname: '.js'
+    showChange: true
+
+github:
+
+  title: 'Publish documentation of “src” files to github'
+
+  defaults :
+    out: 'doc'
+    # silent: true
+    # verbose: true
+    languages: './src/misc/groc/languages'
+    github: true
+
+  assets : [
+    'doc': [
+      [
+        'src/**/*.coffee'
+        'src/**/*.cson'
+        'README.md'
+      ]
+    ]
+  ]
+
+  # clean: [
+  #   'doc/**/*'
+  # ]
+
+  # watch: true
+
+  logger:
+    before: 'Start publishing documentation of source files to github …'
+    after: 'Published documentation of source files to github.'
+    extname: '.html'
+    showChange: true
+
+  queue: 'publish'
