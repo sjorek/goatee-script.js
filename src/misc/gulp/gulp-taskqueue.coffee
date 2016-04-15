@@ -1,4 +1,18 @@
+###
+© Copyright 2013-2016 Stephan Jorek <stephan.jorek@gmail.com>
 
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+<http://www.apache.org/licenses/LICENSE-2.0>
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
+implied. See the License for the specific language governing
+permissions and limitations under the License.
+###
 
 gulp = require 'gulp'
 
@@ -8,8 +22,20 @@ util = require 'gulp-util'
 
 exports = exports ? this
 
+###
+# # Gulp Taskqueue
+# ----------------
+#
+###
+
+exports.skip = skip = (pipe) -> pipe
+
+exports.if = cond = (condition, thenPipe, elsePipe = skip) ->
+  if condition then thenPipe else elsePipe
+
 exports.createDependencyLog = () ->
   {
+    build: []
     clean: []
     transpile: []
     doc: []
@@ -25,16 +51,17 @@ exports.cloneObject = _cloneObject = (obj) ->
   temp
 
 
-### ---------
-create task queue definitions
-
-@function buildQueue
-@param {String} name
-@param {Object<queue:Array,clean:Array,watch:Array>} deps
-@param {Function} load
-@param {Function} worker
-@return {Object} a dependency log object
-@private
+###*
+# ------------------------
+# create task queue definitions
+#
+# @function build
+# @param {String} name
+# @param {Object<queue:Array,clean:Array,watch:Array>} deps
+# @param {Function} load
+# @param {Function} worker
+# @return {Object} a dependency log object
+# @private
 ###
 exports.build = (name, deps, load, worker) ->
   filename = "#{name.replace(/:/,'-')}"
@@ -47,12 +74,13 @@ exports.build = (name, deps, load, worker) ->
     do ->
       taskconfig = _cloneObject config
       taskname = "#{name}:#{suffix}"
-      taskdeps = taskconfig.deps ? []
+      taskdeps = []
       taskcleandeps = []
       taskwatchdeps = []
 
       deps[taskconfig.queue ? 'queue'].push taskname
 
+      subtaskdeps = taskconfig.deps ? []
       for assets, index in taskconfig.assets
         for own destination, source of assets
           subtaskname = "#{taskname}:#{index}"
@@ -65,7 +93,7 @@ exports.build = (name, deps, load, worker) ->
               util.log watch, source
               gulp.watch source, [subtaskname]
 
-          gulp.task subtaskname, \
+          gulp.task subtaskname, subtaskdeps, \
             worker(source, destination, taskname, taskconfig)
 
       gulp.task taskname, taskdeps, -> util.log taskconfig.title

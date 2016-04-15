@@ -16,8 +16,8 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
         "sourcePath": "/Users/sjorek/Documents/Projects/Goatee/Workspace/goatee-script.js/README.md",
         "projectPath": "README.md",
         "targetPath": "index",
-        "pageTitle": "index",
-        "title": "index"
+        "pageTitle": "goatee-script.js",
+        "title": "goatee-script.js"
       },
       "depth": 1,
       "outline": [
@@ -166,358 +166,637 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
           "foldPrefix": "^",
           "name": "CoffeeScript"
         },
-        "sourcePath": "/Users/sjorek/Documents/Projects/Goatee/Workspace/goatee-script.js/src/Command.coffee",
-        "projectPath": "src/Command.coffee",
-        "targetPath": "Command",
-        "pageTitle": "Command",
-        "title": "Command"
+        "sourcePath": "/Users/sjorek/Documents/Projects/Goatee/Workspace/goatee-script.js/gulpfile.coffee",
+        "projectPath": "gulpfile.coffee",
+        "targetPath": "gulpfile.coffee",
+        "pageTitle": "gulpfile",
+        "title": "gulpfile.coffee"
       },
-      "depth": 1,
-      "outline": [
-        {
-          "type": "heading",
-          "data": {
-            "level": 1,
-            "title": "Commandline …",
-            "slug": "commandline-"
-          },
-          "depth": 1
-        }
-      ]
+      "depth": 1
     }, {
       "type": "file",
       "data": {
         "language": {
-          "nameMatchers": [".coffee", "Cakefile", "cson"],
-          "pygmentsLexer": "coffee-script",
-          "highlightJS": "coffeescript",
-          "multiLineComment": ["###*", " *", " ###", "###", "#", "###", "###*", "#", "###"],
-          "strictMultiLineEnd": false,
-          "singleLineComment": ["#"],
+          "nameMatchers": [".js"],
+          "pygmentsLexer": "javascript",
+          "multiLineComment": ["/*", "*", "*/"],
+          "singleLineComment": ["//"],
           "ignorePrefix": "}",
           "foldPrefix": "^",
-          "name": "CoffeeScript"
+          "name": "JavaScript"
         },
-        "sourcePath": "/Users/sjorek/Documents/Projects/Goatee/Workspace/goatee-script.js/src/Compiler.coffee",
-        "projectPath": "src/Compiler.coffee",
-        "targetPath": "Compiler",
-        "pageTitle": "Compiler",
-        "title": "Compiler"
+        "sourcePath": "/Users/sjorek/Documents/Projects/Goatee/Workspace/goatee-script.js/gulpfile.js",
+        "projectPath": "gulpfile.js",
+        "targetPath": "gulpfile.js",
+        "pageTitle": "gulpfile",
+        "title": "gulpfile.js"
       },
-      "depth": 1,
-      "outline": [
-        {
-          "type": "heading",
-          "data": {
-            "level": 1,
-            "title": "Compiling …",
-            "slug": "compiling-"
-          },
-          "depth": 1
-        }
-      ]
+      "depth": 1
     }, {
-      "type": "file",
+      "type": "folder",
       "data": {
-        "language": {
-          "nameMatchers": [".coffee", "Cakefile", "cson"],
-          "pygmentsLexer": "coffee-script",
-          "highlightJS": "coffeescript",
-          "multiLineComment": ["###*", " *", " ###", "###", "#", "###", "###*", "#", "###"],
-          "strictMultiLineEnd": false,
-          "singleLineComment": ["#"],
-          "ignorePrefix": "}",
-          "foldPrefix": "^",
-          "name": "CoffeeScript"
-        },
-        "sourcePath": "/Users/sjorek/Documents/Projects/Goatee/Workspace/goatee-script.js/src/Expression.coffee",
-        "projectPath": "src/Expression.coffee",
-        "targetPath": "Expression",
-        "pageTitle": "Expression",
-        "title": "Expression"
+        "path": "lib",
+        "title": "lib"
       },
       "depth": 1,
-      "outline": [
+      "children": [
         {
-          "type": "heading",
+          "type": "file",
           "data": {
-            "level": 1,
-            "title": "Expressions …",
-            "slug": "expressions-"
+            "language": {
+              "nameMatchers": [".js"],
+              "pygmentsLexer": "javascript",
+              "multiLineComment": ["/*", "*", "*/"],
+              "singleLineComment": ["//"],
+              "ignorePrefix": "}",
+              "foldPrefix": "^",
+              "name": "JavaScript"
+            },
+            "sourcePath": "/Users/sjorek/Documents/Projects/Goatee/Workspace/goatee-script.js/lib/Command.js",
+            "projectPath": "lib/Command.js",
+            "targetPath": "lib/Command.js",
+            "pageTitle": "lib/Command",
+            "title": "Command.js"
           },
-          "depth": 1
-        }
-      ]
-    }, {
-      "type": "file",
-      "data": {
-        "language": {
-          "nameMatchers": [".coffee", "Cakefile", "cson"],
-          "pygmentsLexer": "coffee-script",
-          "highlightJS": "coffeescript",
-          "multiLineComment": ["###*", " *", " ###", "###", "#", "###", "###*", "#", "###"],
-          "strictMultiLineEnd": false,
-          "singleLineComment": ["#"],
-          "ignorePrefix": "}",
-          "foldPrefix": "^",
-          "name": "CoffeeScript"
-        },
-        "sourcePath": "/Users/sjorek/Documents/Projects/Goatee/Workspace/goatee-script.js/src/GoateeScript.coffee",
-        "projectPath": "src/GoateeScript.coffee",
-        "targetPath": "GoateeScript",
-        "pageTitle": "GoateeScript",
-        "title": "GoateeScript"
-      },
-      "depth": 1,
-      "outline": [
-        {
-          "type": "heading",
+          "depth": 2
+        }, {
+          "type": "file",
           "data": {
-            "level": 1,
-            "title": "GoateeScript&#39;s …",
-            "slug": "goateescript39s-"
+            "language": {
+              "nameMatchers": [".js"],
+              "pygmentsLexer": "javascript",
+              "multiLineComment": ["/*", "*", "*/"],
+              "singleLineComment": ["//"],
+              "ignorePrefix": "}",
+              "foldPrefix": "^",
+              "name": "JavaScript"
+            },
+            "sourcePath": "/Users/sjorek/Documents/Projects/Goatee/Workspace/goatee-script.js/lib/Compiler.js",
+            "projectPath": "lib/Compiler.js",
+            "targetPath": "lib/Compiler.js",
+            "pageTitle": "lib/Compiler",
+            "title": "Compiler.js"
           },
-          "depth": 1
-        }
-      ]
-    }, {
-      "type": "file",
-      "data": {
-        "language": {
-          "nameMatchers": [".coffee", "Cakefile", "cson"],
-          "pygmentsLexer": "coffee-script",
-          "highlightJS": "coffeescript",
-          "multiLineComment": ["###*", " *", " ###", "###", "#", "###", "###*", "#", "###"],
-          "strictMultiLineEnd": false,
-          "singleLineComment": ["#"],
-          "ignorePrefix": "}",
-          "foldPrefix": "^",
-          "name": "CoffeeScript"
-        },
-        "sourcePath": "/Users/sjorek/Documents/Projects/Goatee/Workspace/goatee-script.js/src/Grammar.coffee",
-        "projectPath": "src/Grammar.coffee",
-        "targetPath": "Grammar",
-        "pageTitle": "Grammar",
-        "title": "Grammar"
-      },
-      "depth": 1,
-      "outline": [
-        {
-          "type": "heading",
+          "depth": 2
+        }, {
+          "type": "file",
           "data": {
-            "level": 1,
-            "title": "Grammar …",
-            "slug": "grammar-"
+            "language": {
+              "nameMatchers": [".js"],
+              "pygmentsLexer": "javascript",
+              "multiLineComment": ["/*", "*", "*/"],
+              "singleLineComment": ["//"],
+              "ignorePrefix": "}",
+              "foldPrefix": "^",
+              "name": "JavaScript"
+            },
+            "sourcePath": "/Users/sjorek/Documents/Projects/Goatee/Workspace/goatee-script.js/lib/Expression.js",
+            "projectPath": "lib/Expression.js",
+            "targetPath": "lib/Expression.js",
+            "pageTitle": "lib/Expression",
+            "title": "Expression.js"
           },
-          "depth": 1,
+          "depth": 2
+        }, {
+          "type": "file",
+          "data": {
+            "language": {
+              "nameMatchers": [".js"],
+              "pygmentsLexer": "javascript",
+              "multiLineComment": ["/*", "*", "*/"],
+              "singleLineComment": ["//"],
+              "ignorePrefix": "}",
+              "foldPrefix": "^",
+              "name": "JavaScript"
+            },
+            "sourcePath": "/Users/sjorek/Documents/Projects/Goatee/Workspace/goatee-script.js/lib/GoateeScript.js",
+            "projectPath": "lib/GoateeScript.js",
+            "targetPath": "lib/GoateeScript.js",
+            "pageTitle": "lib/GoateeScript",
+            "title": "GoateeScript.js"
+          },
+          "depth": 2
+        }, {
+          "type": "file",
+          "data": {
+            "language": {
+              "nameMatchers": [".js"],
+              "pygmentsLexer": "javascript",
+              "multiLineComment": ["/*", "*", "*/"],
+              "singleLineComment": ["//"],
+              "ignorePrefix": "}",
+              "foldPrefix": "^",
+              "name": "JavaScript"
+            },
+            "sourcePath": "/Users/sjorek/Documents/Projects/Goatee/Workspace/goatee-script.js/lib/Grammar.js",
+            "projectPath": "lib/Grammar.js",
+            "targetPath": "lib/Grammar.js",
+            "pageTitle": "lib/Grammar",
+            "title": "Grammar.js"
+          },
+          "depth": 2
+        }, {
+          "type": "file",
+          "data": {
+            "language": {
+              "nameMatchers": [".js"],
+              "pygmentsLexer": "javascript",
+              "multiLineComment": ["/*", "*", "*/"],
+              "singleLineComment": ["//"],
+              "ignorePrefix": "}",
+              "foldPrefix": "^",
+              "name": "JavaScript"
+            },
+            "sourcePath": "/Users/sjorek/Documents/Projects/Goatee/Workspace/goatee-script.js/lib/Notator.js",
+            "projectPath": "lib/Notator.js",
+            "targetPath": "lib/Notator.js",
+            "pageTitle": "lib/Notator",
+            "title": "Notator.js"
+          },
+          "depth": 2
+        }, {
+          "type": "file",
+          "data": {
+            "language": {
+              "nameMatchers": [".js"],
+              "pygmentsLexer": "javascript",
+              "multiLineComment": ["/*", "*", "*/"],
+              "singleLineComment": ["//"],
+              "ignorePrefix": "}",
+              "foldPrefix": "^",
+              "name": "JavaScript"
+            },
+            "sourcePath": "/Users/sjorek/Documents/Projects/Goatee/Workspace/goatee-script.js/lib/Parser.js",
+            "projectPath": "lib/Parser.js",
+            "targetPath": "lib/Parser.js",
+            "pageTitle": "lib/Parser",
+            "title": "Parser.js"
+          },
+          "depth": 2
+        }, {
+          "type": "file",
+          "data": {
+            "language": {
+              "nameMatchers": [".js"],
+              "pygmentsLexer": "javascript",
+              "multiLineComment": ["/*", "*", "*/"],
+              "singleLineComment": ["//"],
+              "ignorePrefix": "}",
+              "foldPrefix": "^",
+              "name": "JavaScript"
+            },
+            "sourcePath": "/Users/sjorek/Documents/Projects/Goatee/Workspace/goatee-script.js/lib/ParserImpl.js",
+            "projectPath": "lib/ParserImpl.js",
+            "targetPath": "lib/ParserImpl.js",
+            "pageTitle": "lib/ParserImpl",
+            "title": "ParserImpl.js"
+          },
+          "depth": 2
+        }, {
+          "type": "file",
+          "data": {
+            "language": {
+              "nameMatchers": [".js"],
+              "pygmentsLexer": "javascript",
+              "multiLineComment": ["/*", "*", "*/"],
+              "singleLineComment": ["//"],
+              "ignorePrefix": "}",
+              "foldPrefix": "^",
+              "name": "JavaScript"
+            },
+            "sourcePath": "/Users/sjorek/Documents/Projects/Goatee/Workspace/goatee-script.js/lib/Repl.js",
+            "projectPath": "lib/Repl.js",
+            "targetPath": "lib/Repl.js",
+            "pageTitle": "lib/Repl",
+            "title": "Repl.js"
+          },
+          "depth": 2
+        }, {
+          "type": "file",
+          "data": {
+            "language": {
+              "nameMatchers": [".js"],
+              "pygmentsLexer": "javascript",
+              "multiLineComment": ["/*", "*", "*/"],
+              "singleLineComment": ["//"],
+              "ignorePrefix": "}",
+              "foldPrefix": "^",
+              "name": "JavaScript"
+            },
+            "sourcePath": "/Users/sjorek/Documents/Projects/Goatee/Workspace/goatee-script.js/lib/Runtime.js",
+            "projectPath": "lib/Runtime.js",
+            "targetPath": "lib/Runtime.js",
+            "pageTitle": "lib/Runtime",
+            "title": "Runtime.js"
+          },
+          "depth": 2
+        }, {
+          "type": "file",
+          "data": {
+            "language": {
+              "nameMatchers": [".js"],
+              "pygmentsLexer": "javascript",
+              "multiLineComment": ["/*", "*", "*/"],
+              "singleLineComment": ["//"],
+              "ignorePrefix": "}",
+              "foldPrefix": "^",
+              "name": "JavaScript"
+            },
+            "sourcePath": "/Users/sjorek/Documents/Projects/Goatee/Workspace/goatee-script.js/lib/Scope.js",
+            "projectPath": "lib/Scope.js",
+            "targetPath": "lib/Scope.js",
+            "pageTitle": "lib/Scope",
+            "title": "Scope.js"
+          },
+          "depth": 2
+        }, {
+          "type": "file",
+          "data": {
+            "language": {
+              "nameMatchers": [".js"],
+              "pygmentsLexer": "javascript",
+              "multiLineComment": ["/*", "*", "*/"],
+              "singleLineComment": ["//"],
+              "ignorePrefix": "}",
+              "foldPrefix": "^",
+              "name": "JavaScript"
+            },
+            "sourcePath": "/Users/sjorek/Documents/Projects/Goatee/Workspace/goatee-script.js/lib/Stack.js",
+            "projectPath": "lib/Stack.js",
+            "targetPath": "lib/Stack.js",
+            "pageTitle": "lib/Stack",
+            "title": "Stack.js"
+          },
+          "depth": 2
+        }, {
+          "type": "folder",
+          "data": {
+            "path": "lib/Tests",
+            "title": "Tests"
+          },
+          "depth": 2,
           "children": [
             {
-              "type": "heading",
+              "type": "file",
               "data": {
-                "level": 2,
-                "title": "Operator Precedence",
-                "slug": "operator-precedence"
+                "language": {
+                  "nameMatchers": [".js"],
+                  "pygmentsLexer": "javascript",
+                  "multiLineComment": ["/*", "*", "*/"],
+                  "singleLineComment": ["//"],
+                  "ignorePrefix": "}",
+                  "foldPrefix": "^",
+                  "name": "JavaScript"
+                },
+                "sourcePath": "/Users/sjorek/Documents/Projects/Goatee/Workspace/goatee-script.js/lib/Tests/GoateeScriptTestSpec.js",
+                "projectPath": "lib/Tests/GoateeScriptTestSpec.js",
+                "targetPath": "lib/Tests/GoateeScriptTestSpec.js",
+                "pageTitle": "lib/Tests/GoateeScriptTestSpec",
+                "title": "GoateeScriptTestSpec.js"
               },
-              "depth": 2
+              "depth": 3
+            }
+          ]
+        }, {
+          "type": "file",
+          "data": {
+            "language": {
+              "nameMatchers": [".js"],
+              "pygmentsLexer": "javascript",
+              "multiLineComment": ["/*", "*", "*/"],
+              "singleLineComment": ["//"],
+              "ignorePrefix": "}",
+              "foldPrefix": "^",
+              "name": "JavaScript"
+            },
+            "sourcePath": "/Users/sjorek/Documents/Projects/Goatee/Workspace/goatee-script.js/lib/Utility.js",
+            "projectPath": "lib/Utility.js",
+            "targetPath": "lib/Utility.js",
+            "pageTitle": "lib/Utility",
+            "title": "Utility.js"
+          },
+          "depth": 2
+        }, {
+          "type": "folder",
+          "data": {
+            "path": "lib/misc",
+            "title": "misc"
+          },
+          "depth": 2,
+          "children": [
+            {
+              "type": "folder",
+              "data": {
+                "path": "lib/misc/grammar",
+                "title": "grammar"
+              },
+              "depth": 3,
+              "children": [
+                {
+                  "type": "file",
+                  "data": {
+                    "language": {
+                      "nameMatchers": [".js"],
+                      "pygmentsLexer": "javascript",
+                      "multiLineComment": ["/*", "*", "*/"],
+                      "singleLineComment": ["//"],
+                      "ignorePrefix": "}",
+                      "foldPrefix": "^",
+                      "name": "JavaScript"
+                    },
+                    "sourcePath": "/Users/sjorek/Documents/Projects/Goatee/Workspace/goatee-script.js/lib/misc/grammar/jison.js",
+                    "projectPath": "lib/misc/grammar/jison.js",
+                    "targetPath": "lib/misc/grammar/jison.js",
+                    "pageTitle": "lib/misc/grammar/jison",
+                    "title": "jison.js"
+                  },
+                  "depth": 4
+                }, {
+                  "type": "file",
+                  "data": {
+                    "language": {
+                      "nameMatchers": [".json"],
+                      "pygmentsLexer": "json",
+                      "codeOnly": true,
+                      "name": "JSON"
+                    },
+                    "sourcePath": "/Users/sjorek/Documents/Projects/Goatee/Workspace/goatee-script.js/lib/misc/grammar/jison.json",
+                    "projectPath": "lib/misc/grammar/jison.json",
+                    "targetPath": "lib/misc/grammar/jison.json",
+                    "pageTitle": "lib/misc/grammar/jison",
+                    "title": "jison.json"
+                  },
+                  "depth": 4
+                }
+              ]
             }, {
-              "type": "heading",
+              "type": "folder",
               "data": {
-                "level": 2,
-                "title": "Syntax description …",
-                "slug": "syntax-description-"
+                "path": "lib/misc/groc",
+                "title": "groc"
               },
-              "depth": 2
+              "depth": 3,
+              "children": [
+                {
+                  "type": "file",
+                  "data": {
+                    "language": {
+                      "nameMatchers": [".js"],
+                      "pygmentsLexer": "javascript",
+                      "multiLineComment": ["/*", "*", "*/"],
+                      "singleLineComment": ["//"],
+                      "ignorePrefix": "}",
+                      "foldPrefix": "^",
+                      "name": "JavaScript"
+                    },
+                    "sourcePath": "/Users/sjorek/Documents/Projects/Goatee/Workspace/goatee-script.js/lib/misc/groc/languages.js",
+                    "projectPath": "lib/misc/groc/languages.js",
+                    "targetPath": "lib/misc/groc/languages.js",
+                    "pageTitle": "lib/misc/groc/languages",
+                    "title": "languages.js"
+                  },
+                  "depth": 4
+                }, {
+                  "type": "file",
+                  "data": {
+                    "language": {
+                      "nameMatchers": [".json"],
+                      "pygmentsLexer": "json",
+                      "codeOnly": true,
+                      "name": "JSON"
+                    },
+                    "sourcePath": "/Users/sjorek/Documents/Projects/Goatee/Workspace/goatee-script.js/lib/misc/groc/namespace.json",
+                    "projectPath": "lib/misc/groc/namespace.json",
+                    "targetPath": "lib/misc/groc/namespace.json",
+                    "pageTitle": "lib/misc/groc/namespace",
+                    "title": "namespace.json"
+                  },
+                  "depth": 4
+                }, {
+                  "type": "file",
+                  "data": {
+                    "language": {
+                      "nameMatchers": [".js"],
+                      "pygmentsLexer": "javascript",
+                      "multiLineComment": ["/*", "*", "*/"],
+                      "singleLineComment": ["//"],
+                      "ignorePrefix": "}",
+                      "foldPrefix": "^",
+                      "name": "JavaScript"
+                    },
+                    "sourcePath": "/Users/sjorek/Documents/Projects/Goatee/Workspace/goatee-script.js/lib/misc/groc/style.js",
+                    "projectPath": "lib/misc/groc/style.js",
+                    "targetPath": "lib/misc/groc/style.js",
+                    "pageTitle": "lib/misc/groc/style",
+                    "title": "style.js"
+                  },
+                  "depth": 4
+                }
+              ]
+            }, {
+              "type": "folder",
+              "data": {
+                "path": "lib/misc/gulp",
+                "title": "gulp"
+              },
+              "depth": 3,
+              "children": [
+                {
+                  "type": "file",
+                  "data": {
+                    "language": {
+                      "nameMatchers": [".js"],
+                      "pygmentsLexer": "javascript",
+                      "multiLineComment": ["/*", "*", "*/"],
+                      "singleLineComment": ["//"],
+                      "ignorePrefix": "}",
+                      "foldPrefix": "^",
+                      "name": "JavaScript"
+                    },
+                    "sourcePath": "/Users/sjorek/Documents/Projects/Goatee/Workspace/goatee-script.js/lib/misc/gulp/gulp-cson.js",
+                    "projectPath": "lib/misc/gulp/gulp-cson.js",
+                    "targetPath": "lib/misc/gulp/gulp-cson.js",
+                    "pageTitle": "lib/misc/gulp/gulp-cson",
+                    "title": "gulp-cson.js"
+                  },
+                  "depth": 4
+                }, {
+                  "type": "file",
+                  "data": {
+                    "language": {
+                      "nameMatchers": [".js"],
+                      "pygmentsLexer": "javascript",
+                      "multiLineComment": ["/*", "*", "*/"],
+                      "singleLineComment": ["//"],
+                      "ignorePrefix": "}",
+                      "foldPrefix": "^",
+                      "name": "JavaScript"
+                    },
+                    "sourcePath": "/Users/sjorek/Documents/Projects/Goatee/Workspace/goatee-script.js/lib/misc/gulp/gulp-jison-grammar.js",
+                    "projectPath": "lib/misc/gulp/gulp-jison-grammar.js",
+                    "targetPath": "lib/misc/gulp/gulp-jison-grammar.js",
+                    "pageTitle": "lib/misc/gulp/gulp-jison-grammar",
+                    "title": "gulp-jison-grammar.js"
+                  },
+                  "depth": 4
+                }, {
+                  "type": "file",
+                  "data": {
+                    "language": {
+                      "nameMatchers": [".js"],
+                      "pygmentsLexer": "javascript",
+                      "multiLineComment": ["/*", "*", "*/"],
+                      "singleLineComment": ["//"],
+                      "ignorePrefix": "}",
+                      "foldPrefix": "^",
+                      "name": "JavaScript"
+                    },
+                    "sourcePath": "/Users/sjorek/Documents/Projects/Goatee/Workspace/goatee-script.js/lib/misc/gulp/gulp-jison-parser.js",
+                    "projectPath": "lib/misc/gulp/gulp-jison-parser.js",
+                    "targetPath": "lib/misc/gulp/gulp-jison-parser.js",
+                    "pageTitle": "lib/misc/gulp/gulp-jison-parser",
+                    "title": "gulp-jison-parser.js"
+                  },
+                  "depth": 4
+                }, {
+                  "type": "file",
+                  "data": {
+                    "language": {
+                      "nameMatchers": [".js"],
+                      "pygmentsLexer": "javascript",
+                      "multiLineComment": ["/*", "*", "*/"],
+                      "singleLineComment": ["//"],
+                      "ignorePrefix": "}",
+                      "foldPrefix": "^",
+                      "name": "JavaScript"
+                    },
+                    "sourcePath": "/Users/sjorek/Documents/Projects/Goatee/Workspace/goatee-script.js/lib/misc/gulp/gulp-jison.js",
+                    "projectPath": "lib/misc/gulp/gulp-jison.js",
+                    "targetPath": "lib/misc/gulp/gulp-jison.js",
+                    "pageTitle": "lib/misc/gulp/gulp-jison",
+                    "title": "gulp-jison.js"
+                  },
+                  "depth": 4
+                }, {
+                  "type": "file",
+                  "data": {
+                    "language": {
+                      "nameMatchers": [".js"],
+                      "pygmentsLexer": "javascript",
+                      "multiLineComment": ["/*", "*", "*/"],
+                      "singleLineComment": ["//"],
+                      "ignorePrefix": "}",
+                      "foldPrefix": "^",
+                      "name": "JavaScript"
+                    },
+                    "sourcePath": "/Users/sjorek/Documents/Projects/Goatee/Workspace/goatee-script.js/lib/misc/gulp/gulp-taskqueue.js",
+                    "projectPath": "lib/misc/gulp/gulp-taskqueue.js",
+                    "targetPath": "lib/misc/gulp/gulp-taskqueue.js",
+                    "pageTitle": "lib/misc/gulp/gulp-taskqueue",
+                    "title": "gulp-taskqueue.js"
+                  },
+                  "depth": 4
+                }, {
+                  "type": "folder",
+                  "data": {
+                    "path": "lib/misc/gulp/tasks",
+                    "title": "tasks"
+                  },
+                  "depth": 4,
+                  "children": [
+                    {
+                      "type": "file",
+                      "data": {
+                        "language": {
+                          "nameMatchers": [".json"],
+                          "pygmentsLexer": "json",
+                          "codeOnly": true,
+                          "name": "JSON"
+                        },
+                        "sourcePath": "/Users/sjorek/Documents/Projects/Goatee/Workspace/goatee-script.js/lib/misc/gulp/tasks/coffee-transpile.json",
+                        "projectPath": "lib/misc/gulp/tasks/coffee-transpile.json",
+                        "targetPath": "lib/misc/gulp/tasks/coffee-transpile.json",
+                        "pageTitle": "lib/misc/gulp/tasks/coffee-transpile",
+                        "title": "coffee-transpile.json"
+                      },
+                      "depth": 5
+                    }, {
+                      "type": "file",
+                      "data": {
+                        "language": {
+                          "nameMatchers": [".json"],
+                          "pygmentsLexer": "json",
+                          "codeOnly": true,
+                          "name": "JSON"
+                        },
+                        "sourcePath": "/Users/sjorek/Documents/Projects/Goatee/Workspace/goatee-script.js/lib/misc/gulp/tasks/cson-transpile.json",
+                        "projectPath": "lib/misc/gulp/tasks/cson-transpile.json",
+                        "targetPath": "lib/misc/gulp/tasks/cson-transpile.json",
+                        "pageTitle": "lib/misc/gulp/tasks/cson-transpile",
+                        "title": "cson-transpile.json"
+                      },
+                      "depth": 5
+                    }, {
+                      "type": "file",
+                      "data": {
+                        "language": {
+                          "nameMatchers": [".json"],
+                          "pygmentsLexer": "json",
+                          "codeOnly": true,
+                          "name": "JSON"
+                        },
+                        "sourcePath": "/Users/sjorek/Documents/Projects/Goatee/Workspace/goatee-script.js/lib/misc/gulp/tasks/groc-doc.json",
+                        "projectPath": "lib/misc/gulp/tasks/groc-doc.json",
+                        "targetPath": "lib/misc/gulp/tasks/groc-doc.json",
+                        "pageTitle": "lib/misc/gulp/tasks/groc-doc",
+                        "title": "groc-doc.json"
+                      },
+                      "depth": 5
+                    }, {
+                      "type": "file",
+                      "data": {
+                        "language": {
+                          "nameMatchers": [".json"],
+                          "pygmentsLexer": "json",
+                          "codeOnly": true,
+                          "name": "JSON"
+                        },
+                        "sourcePath": "/Users/sjorek/Documents/Projects/Goatee/Workspace/goatee-script.js/lib/misc/gulp/tasks/jison-grammar.json",
+                        "projectPath": "lib/misc/gulp/tasks/jison-grammar.json",
+                        "targetPath": "lib/misc/gulp/tasks/jison-grammar.json",
+                        "pageTitle": "lib/misc/gulp/tasks/jison-grammar",
+                        "title": "jison-grammar.json"
+                      },
+                      "depth": 5
+                    }, {
+                      "type": "file",
+                      "data": {
+                        "language": {
+                          "nameMatchers": [".json"],
+                          "pygmentsLexer": "json",
+                          "codeOnly": true,
+                          "name": "JSON"
+                        },
+                        "sourcePath": "/Users/sjorek/Documents/Projects/Goatee/Workspace/goatee-script.js/lib/misc/gulp/tasks/jison-parser.json",
+                        "projectPath": "lib/misc/gulp/tasks/jison-parser.json",
+                        "targetPath": "lib/misc/gulp/tasks/jison-parser.json",
+                        "pageTitle": "lib/misc/gulp/tasks/jison-parser",
+                        "title": "jison-parser.json"
+                      },
+                      "depth": 5
+                    }
+                  ]
+                }
+              ]
             }
           ]
         }
       ]
     }, {
-      "type": "file",
-      "data": {
-        "language": {
-          "nameMatchers": [".coffee", "Cakefile", "cson"],
-          "pygmentsLexer": "coffee-script",
-          "highlightJS": "coffeescript",
-          "multiLineComment": ["###*", " *", " ###", "###", "#", "###", "###*", "#", "###"],
-          "strictMultiLineEnd": false,
-          "singleLineComment": ["#"],
-          "ignorePrefix": "}",
-          "foldPrefix": "^",
-          "name": "CoffeeScript"
-        },
-        "sourcePath": "/Users/sjorek/Documents/Projects/Goatee/Workspace/goatee-script.js/src/Notator.coffee",
-        "projectPath": "src/Notator.coffee",
-        "targetPath": "Notator",
-        "pageTitle": "Notator",
-        "title": "Notator"
-      },
-      "depth": 1,
-      "outline": [
-        {
-          "type": "heading",
-          "data": {
-            "level": 1,
-            "title": "The Notator",
-            "slug": "the-notator"
-          },
-          "depth": 1
-        }
-      ]
-    }, {
-      "type": "file",
-      "data": {
-        "language": {
-          "nameMatchers": [".coffee", "Cakefile", "cson"],
-          "pygmentsLexer": "coffee-script",
-          "highlightJS": "coffeescript",
-          "multiLineComment": ["###*", " *", " ###", "###", "#", "###", "###*", "#", "###"],
-          "strictMultiLineEnd": false,
-          "singleLineComment": ["#"],
-          "ignorePrefix": "}",
-          "foldPrefix": "^",
-          "name": "CoffeeScript"
-        },
-        "sourcePath": "/Users/sjorek/Documents/Projects/Goatee/Workspace/goatee-script.js/src/Parser.coffee",
-        "projectPath": "src/Parser.coffee",
-        "targetPath": "Parser",
-        "pageTitle": "Parser",
-        "title": "Parser"
-      },
-      "depth": 1,
-      "outline": [
-        {
-          "type": "heading",
-          "data": {
-            "level": 1,
-            "title": "Parser",
-            "slug": "parser"
-          },
-          "depth": 1
-        }
-      ]
-    }, {
-      "type": "file",
-      "data": {
-        "language": {
-          "nameMatchers": [".coffee", "Cakefile", "cson"],
-          "pygmentsLexer": "coffee-script",
-          "highlightJS": "coffeescript",
-          "multiLineComment": ["###*", " *", " ###", "###", "#", "###", "###*", "#", "###"],
-          "strictMultiLineEnd": false,
-          "singleLineComment": ["#"],
-          "ignorePrefix": "}",
-          "foldPrefix": "^",
-          "name": "CoffeeScript"
-        },
-        "sourcePath": "/Users/sjorek/Documents/Projects/Goatee/Workspace/goatee-script.js/src/Repl.coffee",
-        "projectPath": "src/Repl.coffee",
-        "targetPath": "Repl",
-        "pageTitle": "Repl",
-        "title": "Repl"
-      },
-      "depth": 1,
-      "outline": []
-    }, {
-      "type": "file",
-      "data": {
-        "language": {
-          "nameMatchers": [".coffee", "Cakefile", "cson"],
-          "pygmentsLexer": "coffee-script",
-          "highlightJS": "coffeescript",
-          "multiLineComment": ["###*", " *", " ###", "###", "#", "###", "###*", "#", "###"],
-          "strictMultiLineEnd": false,
-          "singleLineComment": ["#"],
-          "ignorePrefix": "}",
-          "foldPrefix": "^",
-          "name": "CoffeeScript"
-        },
-        "sourcePath": "/Users/sjorek/Documents/Projects/Goatee/Workspace/goatee-script.js/src/Runtime.coffee",
-        "projectPath": "src/Runtime.coffee",
-        "targetPath": "Runtime",
-        "pageTitle": "Runtime",
-        "title": "Runtime"
-      },
-      "depth": 1,
-      "outline": [
-        {
-          "type": "heading",
-          "data": {
-            "level": 1,
-            "title": "Runtime",
-            "slug": "runtime"
-          },
-          "depth": 1
-        }
-      ]
-    }, {
-      "type": "file",
-      "data": {
-        "language": {
-          "nameMatchers": [".coffee", "Cakefile", "cson"],
-          "pygmentsLexer": "coffee-script",
-          "highlightJS": "coffeescript",
-          "multiLineComment": ["###*", " *", " ###", "###", "#", "###", "###*", "#", "###"],
-          "strictMultiLineEnd": false,
-          "singleLineComment": ["#"],
-          "ignorePrefix": "}",
-          "foldPrefix": "^",
-          "name": "CoffeeScript"
-        },
-        "sourcePath": "/Users/sjorek/Documents/Projects/Goatee/Workspace/goatee-script.js/src/Scope.coffee",
-        "projectPath": "src/Scope.coffee",
-        "targetPath": "Scope",
-        "pageTitle": "Scope",
-        "title": "Scope"
-      },
-      "depth": 1,
-      "outline": [
-        {
-          "type": "heading",
-          "data": {
-            "level": 1,
-            "title": "Scope",
-            "slug": "scope"
-          },
-          "depth": 1
-        }
-      ]
-    }, {
-      "type": "file",
-      "data": {
-        "language": {
-          "nameMatchers": [".coffee", "Cakefile", "cson"],
-          "pygmentsLexer": "coffee-script",
-          "highlightJS": "coffeescript",
-          "multiLineComment": ["###*", " *", " ###", "###", "#", "###", "###*", "#", "###"],
-          "strictMultiLineEnd": false,
-          "singleLineComment": ["#"],
-          "ignorePrefix": "}",
-          "foldPrefix": "^",
-          "name": "CoffeeScript"
-        },
-        "sourcePath": "/Users/sjorek/Documents/Projects/Goatee/Workspace/goatee-script.js/src/Stack.coffee",
-        "projectPath": "src/Stack.coffee",
-        "targetPath": "Stack",
-        "pageTitle": "Stack",
-        "title": "Stack"
-      },
-      "depth": 1,
-      "outline": [
-        {
-          "type": "heading",
-          "data": {
-            "level": 1,
-            "title": "Stack",
-            "slug": "stack"
-          },
-          "depth": 1
-        }
-      ]
-    }, {
       "type": "folder",
       "data": {
-        "path": "Tests",
-        "title": "Tests"
+        "path": "src",
+        "title": "src"
       },
       "depth": 1,
       "children": [
@@ -535,169 +814,228 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
               "foldPrefix": "^",
               "name": "CoffeeScript"
             },
-            "sourcePath": "/Users/sjorek/Documents/Projects/Goatee/Workspace/goatee-script.js/src/Tests/GoateeScriptTestSpec.coffee",
-            "projectPath": "src/Tests/GoateeScriptTestSpec.coffee",
-            "targetPath": "Tests/GoateeScriptTestSpec",
-            "pageTitle": "Tests/GoateeScriptTestSpec",
-            "title": "GoateeScriptTestSpec"
+            "sourcePath": "/Users/sjorek/Documents/Projects/Goatee/Workspace/goatee-script.js/src/Command.coffee",
+            "projectPath": "src/Command.coffee",
+            "targetPath": "src/Command.coffee",
+            "pageTitle": "src/Command",
+            "title": "Command.coffee"
           },
-          "depth": 2,
-          "outline": []
-        }
-      ]
-    }, {
-      "type": "file",
-      "data": {
-        "language": {
-          "nameMatchers": [".coffee", "Cakefile", "cson"],
-          "pygmentsLexer": "coffee-script",
-          "highlightJS": "coffeescript",
-          "multiLineComment": ["###*", " *", " ###", "###", "#", "###", "###*", "#", "###"],
-          "strictMultiLineEnd": false,
-          "singleLineComment": ["#"],
-          "ignorePrefix": "}",
-          "foldPrefix": "^",
-          "name": "CoffeeScript"
-        },
-        "sourcePath": "/Users/sjorek/Documents/Projects/Goatee/Workspace/goatee-script.js/src/Utility.coffee",
-        "projectPath": "src/Utility.coffee",
-        "targetPath": "Utility",
-        "pageTitle": "Utility",
-        "title": "Utility"
-      },
-      "depth": 1,
-      "outline": [
-        {
-          "type": "heading",
+          "depth": 2
+        }, {
+          "type": "file",
           "data": {
-            "level": 1,
-            "title": "Utilities",
-            "slug": "utilities"
+            "language": {
+              "nameMatchers": [".coffee", "Cakefile", "cson"],
+              "pygmentsLexer": "coffee-script",
+              "highlightJS": "coffeescript",
+              "multiLineComment": ["###*", " *", " ###", "###", "#", "###", "###*", "#", "###"],
+              "strictMultiLineEnd": false,
+              "singleLineComment": ["#"],
+              "ignorePrefix": "}",
+              "foldPrefix": "^",
+              "name": "CoffeeScript"
+            },
+            "sourcePath": "/Users/sjorek/Documents/Projects/Goatee/Workspace/goatee-script.js/src/Compiler.coffee",
+            "projectPath": "src/Compiler.coffee",
+            "targetPath": "src/Compiler.coffee",
+            "pageTitle": "src/Compiler",
+            "title": "Compiler.coffee"
           },
-          "depth": 1
-        }
-      ]
-    }, {
-      "type": "file",
-      "data": {
-        "language": {
-          "nameMatchers": [".coffee", "Cakefile", "cson"],
-          "pygmentsLexer": "coffee-script",
-          "highlightJS": "coffeescript",
-          "multiLineComment": ["###*", " *", " ###", "###", "#", "###", "###*", "#", "###"],
-          "strictMultiLineEnd": false,
-          "singleLineComment": ["#"],
-          "ignorePrefix": "}",
-          "foldPrefix": "^",
-          "name": "CoffeeScript"
-        },
-        "sourcePath": "/Users/sjorek/Documents/Projects/Goatee/Workspace/goatee-script.js/gulpfile.coffee",
-        "projectPath": "gulpfile.coffee",
-        "targetPath": "gulpfile",
-        "pageTitle": "gulpfile",
-        "title": "gulpfile"
-      },
-      "depth": 1,
-      "outline": []
-    }, {
-      "type": "folder",
-      "data": {
-        "path": "misc",
-        "title": "misc"
-      },
-      "depth": 1,
-      "children": [
-        {
-          "type": "folder",
+          "depth": 2
+        }, {
+          "type": "file",
           "data": {
-            "path": "misc/groc",
-            "title": "groc"
+            "language": {
+              "nameMatchers": [".coffee", "Cakefile", "cson"],
+              "pygmentsLexer": "coffee-script",
+              "highlightJS": "coffeescript",
+              "multiLineComment": ["###*", " *", " ###", "###", "#", "###", "###*", "#", "###"],
+              "strictMultiLineEnd": false,
+              "singleLineComment": ["#"],
+              "ignorePrefix": "}",
+              "foldPrefix": "^",
+              "name": "CoffeeScript"
+            },
+            "sourcePath": "/Users/sjorek/Documents/Projects/Goatee/Workspace/goatee-script.js/src/Expression.coffee",
+            "projectPath": "src/Expression.coffee",
+            "targetPath": "src/Expression.coffee",
+            "pageTitle": "src/Expression",
+            "title": "Expression.coffee"
           },
-          "depth": 2,
-          "children": [
-            {
-              "type": "file",
-              "data": {
-                "language": {
-                  "nameMatchers": [".coffee", "Cakefile", "cson"],
-                  "pygmentsLexer": "coffee-script",
-                  "highlightJS": "coffeescript",
-                  "multiLineComment": ["###*", " *", " ###", "###", "#", "###", "###*", "#", "###"],
-                  "strictMultiLineEnd": false,
-                  "singleLineComment": ["#"],
-                  "ignorePrefix": "}",
-                  "foldPrefix": "^",
-                  "name": "CoffeeScript"
-                },
-                "sourcePath": "/Users/sjorek/Documents/Projects/Goatee/Workspace/goatee-script.js/src/misc/groc/config.cson",
-                "projectPath": "src/misc/groc/config.cson",
-                "targetPath": "misc/groc/config",
-                "pageTitle": "misc/groc/config",
-                "title": "config"
-              },
-              "depth": 3,
-              "outline": []
-            }, {
-              "type": "file",
-              "data": {
-                "language": {
-                  "nameMatchers": [".coffee", "Cakefile", "cson"],
-                  "pygmentsLexer": "coffee-script",
-                  "highlightJS": "coffeescript",
-                  "multiLineComment": ["###*", " *", " ###", "###", "#", "###", "###*", "#", "###"],
-                  "strictMultiLineEnd": false,
-                  "singleLineComment": ["#"],
-                  "ignorePrefix": "}",
-                  "foldPrefix": "^",
-                  "name": "CoffeeScript"
-                },
-                "sourcePath": "/Users/sjorek/Documents/Projects/Goatee/Workspace/goatee-script.js/src/misc/groc/languages.coffee",
-                "projectPath": "src/misc/groc/languages.coffee",
-                "targetPath": "misc/groc/languages",
-                "pageTitle": "misc/groc/languages",
-                "firstHeader": {
-                  "type": "heading",
-                  "data": {
-                    "level": 1,
-                    "title": "Supported Languages",
-                    "slug": "supported-languages",
-                    "isFileHeader": true
-                  },
-                  "depth": 1
-                },
-                "title": "Supported Languages"
-              },
-              "depth": 3,
-              "outline": []
-            }, {
-              "type": "file",
-              "data": {
-                "language": {
-                  "nameMatchers": [".coffee", "Cakefile", "cson"],
-                  "pygmentsLexer": "coffee-script",
-                  "highlightJS": "coffeescript",
-                  "multiLineComment": ["###*", " *", " ###", "###", "#", "###", "###*", "#", "###"],
-                  "strictMultiLineEnd": false,
-                  "singleLineComment": ["#"],
-                  "ignorePrefix": "}",
-                  "foldPrefix": "^",
-                  "name": "CoffeeScript"
-                },
-                "sourcePath": "/Users/sjorek/Documents/Projects/Goatee/Workspace/goatee-script.js/src/misc/groc/namespace.cson",
-                "projectPath": "src/misc/groc/namespace.cson",
-                "targetPath": "misc/groc/namespace",
-                "pageTitle": "misc/groc/namespace",
-                "title": "namespace"
-              },
-              "depth": 3,
-              "outline": []
-            }
-          ]
+          "depth": 2
+        }, {
+          "type": "file",
+          "data": {
+            "language": {
+              "nameMatchers": [".coffee", "Cakefile", "cson"],
+              "pygmentsLexer": "coffee-script",
+              "highlightJS": "coffeescript",
+              "multiLineComment": ["###*", " *", " ###", "###", "#", "###", "###*", "#", "###"],
+              "strictMultiLineEnd": false,
+              "singleLineComment": ["#"],
+              "ignorePrefix": "}",
+              "foldPrefix": "^",
+              "name": "CoffeeScript"
+            },
+            "sourcePath": "/Users/sjorek/Documents/Projects/Goatee/Workspace/goatee-script.js/src/GoateeScript.coffee",
+            "projectPath": "src/GoateeScript.coffee",
+            "targetPath": "src/GoateeScript.coffee",
+            "pageTitle": "src/GoateeScript",
+            "title": "GoateeScript.coffee"
+          },
+          "depth": 2
+        }, {
+          "type": "file",
+          "data": {
+            "language": {
+              "nameMatchers": [".coffee", "Cakefile", "cson"],
+              "pygmentsLexer": "coffee-script",
+              "highlightJS": "coffeescript",
+              "multiLineComment": ["###*", " *", " ###", "###", "#", "###", "###*", "#", "###"],
+              "strictMultiLineEnd": false,
+              "singleLineComment": ["#"],
+              "ignorePrefix": "}",
+              "foldPrefix": "^",
+              "name": "CoffeeScript"
+            },
+            "sourcePath": "/Users/sjorek/Documents/Projects/Goatee/Workspace/goatee-script.js/src/Grammar.coffee",
+            "projectPath": "src/Grammar.coffee",
+            "targetPath": "src/Grammar.coffee",
+            "pageTitle": "src/Grammar",
+            "title": "Grammar.coffee"
+          },
+          "depth": 2
+        }, {
+          "type": "file",
+          "data": {
+            "language": {
+              "nameMatchers": [".coffee", "Cakefile", "cson"],
+              "pygmentsLexer": "coffee-script",
+              "highlightJS": "coffeescript",
+              "multiLineComment": ["###*", " *", " ###", "###", "#", "###", "###*", "#", "###"],
+              "strictMultiLineEnd": false,
+              "singleLineComment": ["#"],
+              "ignorePrefix": "}",
+              "foldPrefix": "^",
+              "name": "CoffeeScript"
+            },
+            "sourcePath": "/Users/sjorek/Documents/Projects/Goatee/Workspace/goatee-script.js/src/Notator.coffee",
+            "projectPath": "src/Notator.coffee",
+            "targetPath": "src/Notator.coffee",
+            "pageTitle": "src/Notator",
+            "title": "Notator.coffee"
+          },
+          "depth": 2
+        }, {
+          "type": "file",
+          "data": {
+            "language": {
+              "nameMatchers": [".coffee", "Cakefile", "cson"],
+              "pygmentsLexer": "coffee-script",
+              "highlightJS": "coffeescript",
+              "multiLineComment": ["###*", " *", " ###", "###", "#", "###", "###*", "#", "###"],
+              "strictMultiLineEnd": false,
+              "singleLineComment": ["#"],
+              "ignorePrefix": "}",
+              "foldPrefix": "^",
+              "name": "CoffeeScript"
+            },
+            "sourcePath": "/Users/sjorek/Documents/Projects/Goatee/Workspace/goatee-script.js/src/Parser.coffee",
+            "projectPath": "src/Parser.coffee",
+            "targetPath": "src/Parser.coffee",
+            "pageTitle": "src/Parser",
+            "title": "Parser.coffee"
+          },
+          "depth": 2
+        }, {
+          "type": "file",
+          "data": {
+            "language": {
+              "nameMatchers": [".coffee", "Cakefile", "cson"],
+              "pygmentsLexer": "coffee-script",
+              "highlightJS": "coffeescript",
+              "multiLineComment": ["###*", " *", " ###", "###", "#", "###", "###*", "#", "###"],
+              "strictMultiLineEnd": false,
+              "singleLineComment": ["#"],
+              "ignorePrefix": "}",
+              "foldPrefix": "^",
+              "name": "CoffeeScript"
+            },
+            "sourcePath": "/Users/sjorek/Documents/Projects/Goatee/Workspace/goatee-script.js/src/Repl.coffee",
+            "projectPath": "src/Repl.coffee",
+            "targetPath": "src/Repl.coffee",
+            "pageTitle": "src/Repl",
+            "title": "Repl.coffee"
+          },
+          "depth": 2
+        }, {
+          "type": "file",
+          "data": {
+            "language": {
+              "nameMatchers": [".coffee", "Cakefile", "cson"],
+              "pygmentsLexer": "coffee-script",
+              "highlightJS": "coffeescript",
+              "multiLineComment": ["###*", " *", " ###", "###", "#", "###", "###*", "#", "###"],
+              "strictMultiLineEnd": false,
+              "singleLineComment": ["#"],
+              "ignorePrefix": "}",
+              "foldPrefix": "^",
+              "name": "CoffeeScript"
+            },
+            "sourcePath": "/Users/sjorek/Documents/Projects/Goatee/Workspace/goatee-script.js/src/Runtime.coffee",
+            "projectPath": "src/Runtime.coffee",
+            "targetPath": "src/Runtime.coffee",
+            "pageTitle": "src/Runtime",
+            "title": "Runtime.coffee"
+          },
+          "depth": 2
+        }, {
+          "type": "file",
+          "data": {
+            "language": {
+              "nameMatchers": [".coffee", "Cakefile", "cson"],
+              "pygmentsLexer": "coffee-script",
+              "highlightJS": "coffeescript",
+              "multiLineComment": ["###*", " *", " ###", "###", "#", "###", "###*", "#", "###"],
+              "strictMultiLineEnd": false,
+              "singleLineComment": ["#"],
+              "ignorePrefix": "}",
+              "foldPrefix": "^",
+              "name": "CoffeeScript"
+            },
+            "sourcePath": "/Users/sjorek/Documents/Projects/Goatee/Workspace/goatee-script.js/src/Scope.coffee",
+            "projectPath": "src/Scope.coffee",
+            "targetPath": "src/Scope.coffee",
+            "pageTitle": "src/Scope",
+            "title": "Scope.coffee"
+          },
+          "depth": 2
+        }, {
+          "type": "file",
+          "data": {
+            "language": {
+              "nameMatchers": [".coffee", "Cakefile", "cson"],
+              "pygmentsLexer": "coffee-script",
+              "highlightJS": "coffeescript",
+              "multiLineComment": ["###*", " *", " ###", "###", "#", "###", "###*", "#", "###"],
+              "strictMultiLineEnd": false,
+              "singleLineComment": ["#"],
+              "ignorePrefix": "}",
+              "foldPrefix": "^",
+              "name": "CoffeeScript"
+            },
+            "sourcePath": "/Users/sjorek/Documents/Projects/Goatee/Workspace/goatee-script.js/src/Stack.coffee",
+            "projectPath": "src/Stack.coffee",
+            "targetPath": "src/Stack.coffee",
+            "pageTitle": "src/Stack",
+            "title": "Stack.coffee"
+          },
+          "depth": 2
         }, {
           "type": "folder",
           "data": {
-            "path": "misc/gulp",
-            "title": "gulp"
+            "path": "src/Tests",
+            "title": "Tests"
           },
           "depth": 2,
           "children": [
@@ -715,41 +1053,49 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                   "foldPrefix": "^",
                   "name": "CoffeeScript"
                 },
-                "sourcePath": "/Users/sjorek/Documents/Projects/Goatee/Workspace/goatee-script.js/src/misc/gulp/gulp-cson.coffee",
-                "projectPath": "src/misc/gulp/gulp-cson.coffee",
-                "targetPath": "misc/gulp/gulp-cson",
-                "pageTitle": "misc/gulp/gulp-cson",
-                "title": "gulp-cson"
+                "sourcePath": "/Users/sjorek/Documents/Projects/Goatee/Workspace/goatee-script.js/src/Tests/GoateeScriptTestSpec.coffee",
+                "projectPath": "src/Tests/GoateeScriptTestSpec.coffee",
+                "targetPath": "src/Tests/GoateeScriptTestSpec.coffee",
+                "pageTitle": "src/Tests/GoateeScriptTestSpec",
+                "title": "GoateeScriptTestSpec.coffee"
               },
-              "depth": 3,
-              "outline": []
-            }, {
-              "type": "file",
-              "data": {
-                "language": {
-                  "nameMatchers": [".coffee", "Cakefile", "cson"],
-                  "pygmentsLexer": "coffee-script",
-                  "highlightJS": "coffeescript",
-                  "multiLineComment": ["###*", " *", " ###", "###", "#", "###", "###*", "#", "###"],
-                  "strictMultiLineEnd": false,
-                  "singleLineComment": ["#"],
-                  "ignorePrefix": "}",
-                  "foldPrefix": "^",
-                  "name": "CoffeeScript"
-                },
-                "sourcePath": "/Users/sjorek/Documents/Projects/Goatee/Workspace/goatee-script.js/src/misc/gulp/gulp-taskqueue.coffee",
-                "projectPath": "src/misc/gulp/gulp-taskqueue.coffee",
-                "targetPath": "misc/gulp/gulp-taskqueue",
-                "pageTitle": "misc/gulp/gulp-taskqueue",
-                "title": "gulp-taskqueue"
-              },
-              "depth": 3,
-              "outline": []
-            }, {
+              "depth": 3
+            }
+          ]
+        }, {
+          "type": "file",
+          "data": {
+            "language": {
+              "nameMatchers": [".coffee", "Cakefile", "cson"],
+              "pygmentsLexer": "coffee-script",
+              "highlightJS": "coffeescript",
+              "multiLineComment": ["###*", " *", " ###", "###", "#", "###", "###*", "#", "###"],
+              "strictMultiLineEnd": false,
+              "singleLineComment": ["#"],
+              "ignorePrefix": "}",
+              "foldPrefix": "^",
+              "name": "CoffeeScript"
+            },
+            "sourcePath": "/Users/sjorek/Documents/Projects/Goatee/Workspace/goatee-script.js/src/Utility.coffee",
+            "projectPath": "src/Utility.coffee",
+            "targetPath": "src/Utility.coffee",
+            "pageTitle": "src/Utility",
+            "title": "Utility.coffee"
+          },
+          "depth": 2
+        }, {
+          "type": "folder",
+          "data": {
+            "path": "src/misc",
+            "title": "misc"
+          },
+          "depth": 2,
+          "children": [
+            {
               "type": "folder",
               "data": {
-                "path": "misc/gulp/tasks",
-                "title": "tasks"
+                "path": "src/misc/grammar",
+                "title": "grammar"
               },
               "depth": 3,
               "children": [
@@ -767,24 +1113,13 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                       "foldPrefix": "^",
                       "name": "CoffeeScript"
                     },
-                    "sourcePath": "/Users/sjorek/Documents/Projects/Goatee/Workspace/goatee-script.js/src/misc/gulp/tasks/coffee-transpile.cson",
-                    "projectPath": "src/misc/gulp/tasks/coffee-transpile.cson",
-                    "targetPath": "misc/gulp/tasks/coffee-transpile",
-                    "pageTitle": "misc/gulp/tasks/coffee-transpile",
-                    "firstHeader": {
-                      "type": "heading",
-                      "data": {
-                        "level": 1,
-                        "title": "Transpile: coffee-script",
-                        "slug": "transpile-coffee-script",
-                        "isFileHeader": true
-                      },
-                      "depth": 1
-                    },
-                    "title": "Transpile: coffee-script"
+                    "sourcePath": "/Users/sjorek/Documents/Projects/Goatee/Workspace/goatee-script.js/src/misc/grammar/jison.coffee",
+                    "projectPath": "src/misc/grammar/jison.coffee",
+                    "targetPath": "src/misc/grammar/jison.coffee",
+                    "pageTitle": "src/misc/grammar/jison",
+                    "title": "jison.coffee"
                   },
-                  "depth": 4,
-                  "outline": []
+                  "depth": 4
                 }, {
                   "type": "file",
                   "data": {
@@ -799,24 +1134,44 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                       "foldPrefix": "^",
                       "name": "CoffeeScript"
                     },
-                    "sourcePath": "/Users/sjorek/Documents/Projects/Goatee/Workspace/goatee-script.js/src/misc/gulp/tasks/cson-transpile.cson",
-                    "projectPath": "src/misc/gulp/tasks/cson-transpile.cson",
-                    "targetPath": "misc/gulp/tasks/cson-transpile",
-                    "pageTitle": "misc/gulp/tasks/cson-transpile",
-                    "title": "cson-transpile"
+                    "sourcePath": "/Users/sjorek/Documents/Projects/Goatee/Workspace/goatee-script.js/src/misc/grammar/jison.cson",
+                    "projectPath": "src/misc/grammar/jison.cson",
+                    "targetPath": "src/misc/grammar/jison.cson",
+                    "pageTitle": "src/misc/grammar/jison",
+                    "title": "jison.cson"
                   },
-                  "depth": 4,
-                  "outline": [
-                    {
-                      "type": "heading",
-                      "data": {
-                        "level": 2,
-                        "title": "Transpile: cson",
-                        "slug": "transpile-cson"
-                      },
-                      "depth": 2
-                    }
-                  ]
+                  "depth": 4
+                }
+              ]
+            }, {
+              "type": "folder",
+              "data": {
+                "path": "src/misc/groc",
+                "title": "groc"
+              },
+              "depth": 3,
+              "children": [
+                {
+                  "type": "file",
+                  "data": {
+                    "language": {
+                      "nameMatchers": [".coffee", "Cakefile", "cson"],
+                      "pygmentsLexer": "coffee-script",
+                      "highlightJS": "coffeescript",
+                      "multiLineComment": ["###*", " *", " ###", "###", "#", "###", "###*", "#", "###"],
+                      "strictMultiLineEnd": false,
+                      "singleLineComment": ["#"],
+                      "ignorePrefix": "}",
+                      "foldPrefix": "^",
+                      "name": "CoffeeScript"
+                    },
+                    "sourcePath": "/Users/sjorek/Documents/Projects/Goatee/Workspace/goatee-script.js/src/misc/groc/config.cson",
+                    "projectPath": "src/misc/groc/config.cson",
+                    "targetPath": "src/misc/groc/config.cson",
+                    "pageTitle": "src/misc/groc/config",
+                    "title": "config.cson"
+                  },
+                  "depth": 4
                 }, {
                   "type": "file",
                   "data": {
@@ -831,24 +1186,13 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                       "foldPrefix": "^",
                       "name": "CoffeeScript"
                     },
-                    "sourcePath": "/Users/sjorek/Documents/Projects/Goatee/Workspace/goatee-script.js/src/misc/gulp/tasks/groc-doc.cson",
-                    "projectPath": "src/misc/gulp/tasks/groc-doc.cson",
-                    "targetPath": "misc/gulp/tasks/groc-doc",
-                    "pageTitle": "misc/gulp/tasks/groc-doc",
-                    "title": "groc-doc"
+                    "sourcePath": "/Users/sjorek/Documents/Projects/Goatee/Workspace/goatee-script.js/src/misc/groc/languages.coffee",
+                    "projectPath": "src/misc/groc/languages.coffee",
+                    "targetPath": "src/misc/groc/languages.coffee",
+                    "pageTitle": "src/misc/groc/languages",
+                    "title": "languages.coffee"
                   },
-                  "depth": 4,
-                  "outline": [
-                    {
-                      "type": "heading",
-                      "data": {
-                        "level": 2,
-                        "title": "Documenation: groc",
-                        "slug": "documenation-groc"
-                      },
-                      "depth": 2
-                    }
-                  ]
+                  "depth": 4
                 }, {
                   "type": "file",
                   "data": {
@@ -863,22 +1207,262 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                       "foldPrefix": "^",
                       "name": "CoffeeScript"
                     },
-                    "sourcePath": "/Users/sjorek/Documents/Projects/Goatee/Workspace/goatee-script.js/src/misc/gulp/tasks/jison-parser.cson",
-                    "projectPath": "src/misc/gulp/tasks/jison-parser.cson",
-                    "targetPath": "misc/gulp/tasks/jison-parser",
-                    "pageTitle": "misc/gulp/tasks/jison-parser",
-                    "title": "jison-parser"
+                    "sourcePath": "/Users/sjorek/Documents/Projects/Goatee/Workspace/goatee-script.js/src/misc/groc/namespace.cson",
+                    "projectPath": "src/misc/groc/namespace.cson",
+                    "targetPath": "src/misc/groc/namespace.cson",
+                    "pageTitle": "src/misc/groc/namespace",
+                    "title": "namespace.cson"
+                  },
+                  "depth": 4
+                }, {
+                  "type": "file",
+                  "data": {
+                    "language": {
+                      "nameMatchers": [".coffee", "Cakefile", "cson"],
+                      "pygmentsLexer": "coffee-script",
+                      "highlightJS": "coffeescript",
+                      "multiLineComment": ["###*", " *", " ###", "###", "#", "###", "###*", "#", "###"],
+                      "strictMultiLineEnd": false,
+                      "singleLineComment": ["#"],
+                      "ignorePrefix": "}",
+                      "foldPrefix": "^",
+                      "name": "CoffeeScript"
+                    },
+                    "sourcePath": "/Users/sjorek/Documents/Projects/Goatee/Workspace/goatee-script.js/src/misc/groc/style.coffee",
+                    "projectPath": "src/misc/groc/style.coffee",
+                    "targetPath": "src/misc/groc/style.coffee",
+                    "pageTitle": "src/misc/groc/style",
+                    "title": "style.coffee"
+                  },
+                  "depth": 4
+                }
+              ]
+            }, {
+              "type": "folder",
+              "data": {
+                "path": "src/misc/gulp",
+                "title": "gulp"
+              },
+              "depth": 3,
+              "children": [
+                {
+                  "type": "file",
+                  "data": {
+                    "language": {
+                      "nameMatchers": [".coffee", "Cakefile", "cson"],
+                      "pygmentsLexer": "coffee-script",
+                      "highlightJS": "coffeescript",
+                      "multiLineComment": ["###*", " *", " ###", "###", "#", "###", "###*", "#", "###"],
+                      "strictMultiLineEnd": false,
+                      "singleLineComment": ["#"],
+                      "ignorePrefix": "}",
+                      "foldPrefix": "^",
+                      "name": "CoffeeScript"
+                    },
+                    "sourcePath": "/Users/sjorek/Documents/Projects/Goatee/Workspace/goatee-script.js/src/misc/gulp/gulp-cson.coffee",
+                    "projectPath": "src/misc/gulp/gulp-cson.coffee",
+                    "targetPath": "src/misc/gulp/gulp-cson.coffee",
+                    "pageTitle": "src/misc/gulp/gulp-cson",
+                    "title": "gulp-cson.coffee"
+                  },
+                  "depth": 4
+                }, {
+                  "type": "file",
+                  "data": {
+                    "language": {
+                      "nameMatchers": [".coffee", "Cakefile", "cson"],
+                      "pygmentsLexer": "coffee-script",
+                      "highlightJS": "coffeescript",
+                      "multiLineComment": ["###*", " *", " ###", "###", "#", "###", "###*", "#", "###"],
+                      "strictMultiLineEnd": false,
+                      "singleLineComment": ["#"],
+                      "ignorePrefix": "}",
+                      "foldPrefix": "^",
+                      "name": "CoffeeScript"
+                    },
+                    "sourcePath": "/Users/sjorek/Documents/Projects/Goatee/Workspace/goatee-script.js/src/misc/gulp/gulp-jison-grammar.coffee",
+                    "projectPath": "src/misc/gulp/gulp-jison-grammar.coffee",
+                    "targetPath": "src/misc/gulp/gulp-jison-grammar.coffee",
+                    "pageTitle": "src/misc/gulp/gulp-jison-grammar",
+                    "title": "gulp-jison-grammar.coffee"
+                  },
+                  "depth": 4
+                }, {
+                  "type": "file",
+                  "data": {
+                    "language": {
+                      "nameMatchers": [".coffee", "Cakefile", "cson"],
+                      "pygmentsLexer": "coffee-script",
+                      "highlightJS": "coffeescript",
+                      "multiLineComment": ["###*", " *", " ###", "###", "#", "###", "###*", "#", "###"],
+                      "strictMultiLineEnd": false,
+                      "singleLineComment": ["#"],
+                      "ignorePrefix": "}",
+                      "foldPrefix": "^",
+                      "name": "CoffeeScript"
+                    },
+                    "sourcePath": "/Users/sjorek/Documents/Projects/Goatee/Workspace/goatee-script.js/src/misc/gulp/gulp-jison-parser.coffee",
+                    "projectPath": "src/misc/gulp/gulp-jison-parser.coffee",
+                    "targetPath": "src/misc/gulp/gulp-jison-parser.coffee",
+                    "pageTitle": "src/misc/gulp/gulp-jison-parser",
+                    "title": "gulp-jison-parser.coffee"
+                  },
+                  "depth": 4
+                }, {
+                  "type": "file",
+                  "data": {
+                    "language": {
+                      "nameMatchers": [".coffee", "Cakefile", "cson"],
+                      "pygmentsLexer": "coffee-script",
+                      "highlightJS": "coffeescript",
+                      "multiLineComment": ["###*", " *", " ###", "###", "#", "###", "###*", "#", "###"],
+                      "strictMultiLineEnd": false,
+                      "singleLineComment": ["#"],
+                      "ignorePrefix": "}",
+                      "foldPrefix": "^",
+                      "name": "CoffeeScript"
+                    },
+                    "sourcePath": "/Users/sjorek/Documents/Projects/Goatee/Workspace/goatee-script.js/src/misc/gulp/gulp-jison.coffee",
+                    "projectPath": "src/misc/gulp/gulp-jison.coffee",
+                    "targetPath": "src/misc/gulp/gulp-jison.coffee",
+                    "pageTitle": "src/misc/gulp/gulp-jison",
+                    "title": "gulp-jison.coffee"
+                  },
+                  "depth": 4
+                }, {
+                  "type": "file",
+                  "data": {
+                    "language": {
+                      "nameMatchers": [".coffee", "Cakefile", "cson"],
+                      "pygmentsLexer": "coffee-script",
+                      "highlightJS": "coffeescript",
+                      "multiLineComment": ["###*", " *", " ###", "###", "#", "###", "###*", "#", "###"],
+                      "strictMultiLineEnd": false,
+                      "singleLineComment": ["#"],
+                      "ignorePrefix": "}",
+                      "foldPrefix": "^",
+                      "name": "CoffeeScript"
+                    },
+                    "sourcePath": "/Users/sjorek/Documents/Projects/Goatee/Workspace/goatee-script.js/src/misc/gulp/gulp-taskqueue.coffee",
+                    "projectPath": "src/misc/gulp/gulp-taskqueue.coffee",
+                    "targetPath": "src/misc/gulp/gulp-taskqueue.coffee",
+                    "pageTitle": "src/misc/gulp/gulp-taskqueue",
+                    "title": "gulp-taskqueue.coffee"
+                  },
+                  "depth": 4
+                }, {
+                  "type": "folder",
+                  "data": {
+                    "path": "src/misc/gulp/tasks",
+                    "title": "tasks"
                   },
                   "depth": 4,
-                  "outline": [
+                  "children": [
                     {
-                      "type": "heading",
+                      "type": "file",
                       "data": {
-                        "level": 2,
-                        "title": "Parser: jison",
-                        "slug": "parser-jison"
+                        "language": {
+                          "nameMatchers": [".coffee", "Cakefile", "cson"],
+                          "pygmentsLexer": "coffee-script",
+                          "highlightJS": "coffeescript",
+                          "multiLineComment": ["###*", " *", " ###", "###", "#", "###", "###*", "#", "###"],
+                          "strictMultiLineEnd": false,
+                          "singleLineComment": ["#"],
+                          "ignorePrefix": "}",
+                          "foldPrefix": "^",
+                          "name": "CoffeeScript"
+                        },
+                        "sourcePath": "/Users/sjorek/Documents/Projects/Goatee/Workspace/goatee-script.js/src/misc/gulp/tasks/coffee-transpile.cson",
+                        "projectPath": "src/misc/gulp/tasks/coffee-transpile.cson",
+                        "targetPath": "src/misc/gulp/tasks/coffee-transpile.cson",
+                        "pageTitle": "src/misc/gulp/tasks/coffee-transpile",
+                        "title": "coffee-transpile.cson"
                       },
-                      "depth": 2
+                      "depth": 5
+                    }, {
+                      "type": "file",
+                      "data": {
+                        "language": {
+                          "nameMatchers": [".coffee", "Cakefile", "cson"],
+                          "pygmentsLexer": "coffee-script",
+                          "highlightJS": "coffeescript",
+                          "multiLineComment": ["###*", " *", " ###", "###", "#", "###", "###*", "#", "###"],
+                          "strictMultiLineEnd": false,
+                          "singleLineComment": ["#"],
+                          "ignorePrefix": "}",
+                          "foldPrefix": "^",
+                          "name": "CoffeeScript"
+                        },
+                        "sourcePath": "/Users/sjorek/Documents/Projects/Goatee/Workspace/goatee-script.js/src/misc/gulp/tasks/cson-transpile.cson",
+                        "projectPath": "src/misc/gulp/tasks/cson-transpile.cson",
+                        "targetPath": "src/misc/gulp/tasks/cson-transpile.cson",
+                        "pageTitle": "src/misc/gulp/tasks/cson-transpile",
+                        "title": "cson-transpile.cson"
+                      },
+                      "depth": 5
+                    }, {
+                      "type": "file",
+                      "data": {
+                        "language": {
+                          "nameMatchers": [".coffee", "Cakefile", "cson"],
+                          "pygmentsLexer": "coffee-script",
+                          "highlightJS": "coffeescript",
+                          "multiLineComment": ["###*", " *", " ###", "###", "#", "###", "###*", "#", "###"],
+                          "strictMultiLineEnd": false,
+                          "singleLineComment": ["#"],
+                          "ignorePrefix": "}",
+                          "foldPrefix": "^",
+                          "name": "CoffeeScript"
+                        },
+                        "sourcePath": "/Users/sjorek/Documents/Projects/Goatee/Workspace/goatee-script.js/src/misc/gulp/tasks/groc-doc.cson",
+                        "projectPath": "src/misc/gulp/tasks/groc-doc.cson",
+                        "targetPath": "src/misc/gulp/tasks/groc-doc.cson",
+                        "pageTitle": "src/misc/gulp/tasks/groc-doc",
+                        "title": "groc-doc.cson"
+                      },
+                      "depth": 5
+                    }, {
+                      "type": "file",
+                      "data": {
+                        "language": {
+                          "nameMatchers": [".coffee", "Cakefile", "cson"],
+                          "pygmentsLexer": "coffee-script",
+                          "highlightJS": "coffeescript",
+                          "multiLineComment": ["###*", " *", " ###", "###", "#", "###", "###*", "#", "###"],
+                          "strictMultiLineEnd": false,
+                          "singleLineComment": ["#"],
+                          "ignorePrefix": "}",
+                          "foldPrefix": "^",
+                          "name": "CoffeeScript"
+                        },
+                        "sourcePath": "/Users/sjorek/Documents/Projects/Goatee/Workspace/goatee-script.js/src/misc/gulp/tasks/jison-grammar.cson",
+                        "projectPath": "src/misc/gulp/tasks/jison-grammar.cson",
+                        "targetPath": "src/misc/gulp/tasks/jison-grammar.cson",
+                        "pageTitle": "src/misc/gulp/tasks/jison-grammar",
+                        "title": "jison-grammar.cson"
+                      },
+                      "depth": 5
+                    }, {
+                      "type": "file",
+                      "data": {
+                        "language": {
+                          "nameMatchers": [".coffee", "Cakefile", "cson"],
+                          "pygmentsLexer": "coffee-script",
+                          "highlightJS": "coffeescript",
+                          "multiLineComment": ["###*", " *", " ###", "###", "#", "###", "###*", "#", "###"],
+                          "strictMultiLineEnd": false,
+                          "singleLineComment": ["#"],
+                          "ignorePrefix": "}",
+                          "foldPrefix": "^",
+                          "name": "CoffeeScript"
+                        },
+                        "sourcePath": "/Users/sjorek/Documents/Projects/Goatee/Workspace/goatee-script.js/src/misc/gulp/tasks/jison-parser.cson",
+                        "projectPath": "src/misc/gulp/tasks/jison-parser.cson",
+                        "targetPath": "src/misc/gulp/tasks/jison-parser.cson",
+                        "pageTitle": "src/misc/gulp/tasks/jison-parser",
+                        "title": "jison-parser.cson"
+                      },
+                      "depth": 5
                     }
                   ]
                 }

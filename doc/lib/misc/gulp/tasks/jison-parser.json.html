@@ -1,0 +1,126 @@
+<!DOCTYPE html><html lang="en"><head><title>lib/misc/gulp/tasks/jison-parser</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../../../../"><meta name="groc-document-path" content="lib/misc/gulp/tasks/jison-parser.json"><meta name="groc-project-path" content="lib/misc/gulp/tasks/jison-parser.json"><link rel="stylesheet" type="text/css" media="all" href="../../../../assets/style.css"><script type="text/javascript" src="../../../../assets/behavior.js"></script><body><div id="meta"><div class="file-path">lib/misc/gulp/tasks/jison-parser.json</div></div><div id="document"><div class="segment"><div class="code"><div class="wrapper">{
+  "<span class="hljs-attribute">default</span>": <span class="hljs-value">{
+    "<span class="hljs-attribute">deps</span>": <span class="hljs-value">[
+      <span class="hljs-string">"cson:transpile:jison:grammar:default:cson"</span>
+    ]</span>,
+    "<span class="hljs-attribute">title</span>": <span class="hljs-value"><span class="hljs-string">"Creating “goatee-script” default jison parser"</span></span>,
+    "<span class="hljs-attribute">defaults</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">goatee</span>": <span class="hljs-value"><span class="hljs-literal">true</span></span>,
+      "<span class="hljs-attribute">moduleType</span>": <span class="hljs-value"><span class="hljs-string">"commonjs"</span>
+    </span>}</span>,
+    "<span class="hljs-attribute">beautify</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">indentSize</span>": <span class="hljs-value"><span class="hljs-number">2</span></span>,
+      "<span class="hljs-attribute">jslintHappy</span>": <span class="hljs-value"><span class="hljs-literal">true</span>
+    </span>}</span>,
+    "<span class="hljs-attribute">assets</span>": <span class="hljs-value">[
+      {
+        "<span class="hljs-attribute">lib/</span>": <span class="hljs-value">[
+          [
+            <span class="hljs-string">"lib/misc/grammar/jison.json"</span>
+          ]
+        ]
+      </span>}
+    ]</span>,
+    "<span class="hljs-attribute">rename</span>": <span class="hljs-value"><span class="hljs-string">"ParserImpl.js"</span></span>,
+    "<span class="hljs-attribute">clean</span>": <span class="hljs-value">[
+      <span class="hljs-string">"lib/ParserImpl.js"</span>
+    ]</span>,
+    "<span class="hljs-attribute">watch</span>": <span class="hljs-value"><span class="hljs-literal">true</span></span>,
+    "<span class="hljs-attribute">logger</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">before</span>": <span class="hljs-value"><span class="hljs-string">"Start creating the “goatee-script” default parser …"</span></span>,
+      "<span class="hljs-attribute">after</span>": <span class="hljs-value"><span class="hljs-string">"The “goatee-script” default parser has been created."</span></span>,
+      "<span class="hljs-attribute">extname</span>": <span class="hljs-value"><span class="hljs-string">".js"</span></span>,
+      "<span class="hljs-attribute">showChange</span>": <span class="hljs-value"><span class="hljs-literal">true</span>
+    </span>}
+  </span>}</span>,
+  "<span class="hljs-attribute">commonjs</span>": <span class="hljs-value">{
+    "<span class="hljs-attribute">deps</span>": <span class="hljs-value">[
+      <span class="hljs-string">"cson:transpile:jison:grammar:default:cson"</span>
+    ]</span>,
+    "<span class="hljs-attribute">title</span>": <span class="hljs-value"><span class="hljs-string">"Creating “goatee-script” jison parser for commonjs"</span></span>,
+    "<span class="hljs-attribute">defaults</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">moduleType</span>": <span class="hljs-value"><span class="hljs-string">"commonjs"</span>
+    </span>}</span>,
+    "<span class="hljs-attribute">assets</span>": <span class="hljs-value">[
+      {
+        "<span class="hljs-attribute">lib/misc/parser</span>": <span class="hljs-value">[
+          [
+            <span class="hljs-string">"lib/misc/grammar/jison.json"</span>
+          ]
+        ]
+      </span>}
+    ]</span>,
+    "<span class="hljs-attribute">rename</span>": <span class="hljs-value"><span class="hljs-string">"commonjs.js"</span></span>,
+    "<span class="hljs-attribute">clean</span>": <span class="hljs-value">[
+      <span class="hljs-string">"lib/misc/parser/commonjs.js"</span>
+    ]</span>,
+    "<span class="hljs-attribute">watch</span>": <span class="hljs-value"><span class="hljs-literal">true</span></span>,
+    "<span class="hljs-attribute">logger</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">before</span>": <span class="hljs-value"><span class="hljs-string">"Start creating the “goatee-script” parser for commonjs …"</span></span>,
+      "<span class="hljs-attribute">after</span>": <span class="hljs-value"><span class="hljs-string">"The “goatee-script” parser for commonjs has been created."</span></span>,
+      "<span class="hljs-attribute">extname</span>": <span class="hljs-value"><span class="hljs-string">".js"</span></span>,
+      "<span class="hljs-attribute">showChange</span>": <span class="hljs-value"><span class="hljs-literal">true</span>
+    </span>}</span>,
+    "<span class="hljs-attribute">queue</span>": <span class="hljs-value"><span class="hljs-string">"publish"</span>
+  </span>}</span>,
+  "<span class="hljs-attribute">amd</span>": <span class="hljs-value">{
+    "<span class="hljs-attribute">deps</span>": <span class="hljs-value">[
+      <span class="hljs-string">"cson:transpile:jison:grammar:default:cson"</span>
+    ]</span>,
+    "<span class="hljs-attribute">title</span>": <span class="hljs-value"><span class="hljs-string">"Creating “goatee-script” jison parser for amd"</span></span>,
+    "<span class="hljs-attribute">defaults</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">moduleType</span>": <span class="hljs-value"><span class="hljs-string">"amd"</span>
+    </span>}</span>,
+    "<span class="hljs-attribute">assets</span>": <span class="hljs-value">[
+      {
+        "<span class="hljs-attribute">lib/misc/parser</span>": <span class="hljs-value">[
+          [
+            <span class="hljs-string">"lib/misc/grammar/jison.json"</span>
+          ]
+        ]
+      </span>}
+    ]</span>,
+    "<span class="hljs-attribute">rename</span>": <span class="hljs-value"><span class="hljs-string">"amd.js"</span></span>,
+    "<span class="hljs-attribute">clean</span>": <span class="hljs-value">[
+      <span class="hljs-string">"lib/misc/parser/amd.js"</span>
+    ]</span>,
+    "<span class="hljs-attribute">watch</span>": <span class="hljs-value"><span class="hljs-literal">true</span></span>,
+    "<span class="hljs-attribute">logger</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">before</span>": <span class="hljs-value"><span class="hljs-string">"Start creating the “goatee-script” parser for amd …"</span></span>,
+      "<span class="hljs-attribute">after</span>": <span class="hljs-value"><span class="hljs-string">"The “goatee-script” parser for amd has been created."</span></span>,
+      "<span class="hljs-attribute">extname</span>": <span class="hljs-value"><span class="hljs-string">".js"</span></span>,
+      "<span class="hljs-attribute">showChange</span>": <span class="hljs-value"><span class="hljs-literal">true</span>
+    </span>}</span>,
+    "<span class="hljs-attribute">queue</span>": <span class="hljs-value"><span class="hljs-string">"publish"</span>
+  </span>}</span>,
+  "<span class="hljs-attribute">javascript</span>": <span class="hljs-value">{
+    "<span class="hljs-attribute">deps</span>": <span class="hljs-value">[
+      <span class="hljs-string">"cson:transpile:jison:grammar:default:cson"</span>
+    ]</span>,
+    "<span class="hljs-attribute">title</span>": <span class="hljs-value"><span class="hljs-string">"Creating “goatee-script” jison parser for javascript"</span></span>,
+    "<span class="hljs-attribute">defaults</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">moduleType</span>": <span class="hljs-value"><span class="hljs-string">"js"</span>
+    </span>}</span>,
+    "<span class="hljs-attribute">assets</span>": <span class="hljs-value">[
+      {
+        "<span class="hljs-attribute">lib/misc/parser</span>": <span class="hljs-value">[
+          [
+            <span class="hljs-string">"lib/misc/grammar/jison.json"</span>
+          ]
+        ]
+      </span>}
+    ]</span>,
+    "<span class="hljs-attribute">rename</span>": <span class="hljs-value"><span class="hljs-string">"plain.js"</span></span>,
+    "<span class="hljs-attribute">clean</span>": <span class="hljs-value">[
+      <span class="hljs-string">"lib/misc/parser/plain.js"</span>
+    ]</span>,
+    "<span class="hljs-attribute">watch</span>": <span class="hljs-value"><span class="hljs-literal">true</span></span>,
+    "<span class="hljs-attribute">logger</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">before</span>": <span class="hljs-value"><span class="hljs-string">"Start creating the “goatee-script” parser for plain javascript …"</span></span>,
+      "<span class="hljs-attribute">after</span>": <span class="hljs-value"><span class="hljs-string">"The “goatee-script” parser for plain javascript has been created."</span></span>,
+      "<span class="hljs-attribute">extname</span>": <span class="hljs-value"><span class="hljs-string">".js"</span></span>,
+      "<span class="hljs-attribute">showChange</span>": <span class="hljs-value"><span class="hljs-literal">true</span>
+    </span>}</span>,
+    "<span class="hljs-attribute">queue</span>": <span class="hljs-value"><span class="hljs-string">"publish"</span>
+  </span>}
+</span>}</div></div></div></div></body></html>

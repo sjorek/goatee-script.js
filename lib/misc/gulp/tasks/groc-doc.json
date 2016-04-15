@@ -1,1 +1,44 @@
-{"default":{"title":"Documentation of “src” files","defaults":{"out":"doc","languages":"./lib/misc/groc/languages"},"assets":[{"doc":[["src/**/*.coffee","src/**/*.cson","gulpfile.coffee","README.md"]]}],"clean":["doc/**/*"],"logger":{"before":"Start creating documentation of source files …","after":"Documentation of source files created.","extname":".html","showChange":true}},"github":{"title":"Publish documentation of “src” files to github","defaults":{"out":"doc","languages":"./lib/misc/groc/languages","github":true},"assets":[{"doc":[["src/**/*.coffee","src/**/*.cson","README.md"]]}],"logger":{"before":"Start publishing documentation of source files to github …","after":"Published documentation of source files to github.","extname":".html","showChange":true},"queue":"publish"}}
+{
+  "default": {
+    "deps": [
+      "cson:transpile:groc:config"
+    ],
+    "title": "Documentation of “src” files",
+    "defaults": {
+      "_": "./.groc.json"
+    },
+    "assets": [
+      {
+        "doc": []
+      }
+    ],
+    "clean": [
+      "doc/**/*"
+    ],
+    "logger": {
+      "before": "Start creating documentation of source files …",
+      "after": "Documentation of source files created.",
+      "extname": ".html",
+      "showChange": true
+    }
+  },
+  "github": {
+    "title": "Publish documentation of “src” files to github",
+    "defaults": {
+      "_": "./.groc.json",
+      "github": true
+    },
+    "assets": [
+      {
+        "doc": []
+      }
+    ],
+    "logger": {
+      "before": "Start publishing documentation of source files to github …",
+      "after": "Published documentation of source files to github.",
+      "extname": ".html",
+      "showChange": true
+    },
+    "queue": "publish"
+  }
+}

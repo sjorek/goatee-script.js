@@ -3,16 +3,19 @@
 
 default:
 
+  # deps: ['cson:transpile:jison:grammar:default']
+
   title: 'Transpiling cson files'
 
   defaults :
-    indent: true
+    indention: true
 
   assets : [
     'lib/': [
       [
         'src/**/*.cson'
         '!src/misc/groc/config.cson'
+        '!src/misc/grammar/jison*.cson'
       ]
     ]
   ]
@@ -36,8 +39,65 @@ default:
     extname: '.json'
     showChange: true
 
+'jison:grammar:default:json':
 
-groc :
+  deps: ['jison:grammar:default']
+
+  title: 'Transpiling “src/misc/grammar/jison*.json” to cson'
+
+  defaults :
+    indent: '  '
+
+  assets : [
+    'src/misc/grammar/' : [
+      'src/misc/grammar/jison*.json'
+    ]
+  ]
+
+  clean: [
+    'src/misc/grammar/jison*.cson'
+  ]
+
+  watch: true
+
+  logger:
+    before: 'Start transpiling jison grammar to cson …'
+    after: 'Transpiling transpiling jison grammar to cson complete.'
+    extname: '.cson'
+    showChange: true
+
+'jison:grammar:default:cson':
+
+  deps: ['cson:transpile:jison:grammar:default:json']
+
+  title: 'Transpiling “src/misc/grammar/jison*.cson” to json'
+
+  defaults :
+    indention: true
+
+  assets : [
+    'lib/misc/grammar': [
+      [
+        'src/misc/grammar/jison*.cson'
+      ]
+    ]
+  ]
+
+  clean: [
+    'lib/misc/grammar/jison*.json'
+  ]
+
+  watch: true
+
+  logger:
+    before: 'Start transpiling jison grammar to json …'
+    after: 'Transpiling transpiling jison grammar to json complete.'
+    extname: '.json'
+    showChange: true
+
+  # replace : []
+
+'groc:config' :
 
   title: 'Transpiling “src/misc/groc/config.cson” to “.groc.json”'
 
@@ -49,6 +109,17 @@ groc :
   ]
 
   rename : '.groc.json'
+
+  replace : [
+    [
+      'src/misc/groc'
+      'lib/misc/groc'
+    ]
+    [
+      './'
+      '<%= __dirname %>/'
+    ]
+  ]
 
   clean: [
     '.groc.json'

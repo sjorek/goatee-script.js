@@ -29,31 +29,41 @@ permissions and limitations under the License.
 
 exports = module?.exports ? this
 
-## Runtime
-# -------------
+###
+# Runtime
+# -------
+#
 # Implements several expression-runtime related methods.
+#
+###
 
+###*
 #  -------------
 # @class Runtime
 # @namepace GoateeScript
+###
 exports.Runtime = class Runtime
 
   _operations = Expression.operations
 
+  ###*
   #  -------------
   # @method aliases
   # @return {Array}
   # @static
+  ###
   Runtime.aliases  = _aliases = do ->
     index = null
     () ->
       index ? index = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ$_'.split('')
 
+  ###*
   #  -------------
   # @method generate
   # @param  {Boolean} [compress=true]
   # @return {String}
   # @static
+  ###
   Runtime.generate = do ->
 
     aliases     = []

@@ -1,27 +1,17 @@
 ###
 © Copyright 2013-2016 Stephan Jorek <stephan.jorek@gmail.com>
-© Copyright 2009-2013 Jeremy Ashkenas <https://github.com/jashkenas>
 
-Permission is hereby granted, free of charge, to any person
-obtaining a copy of this software and associated documentation
-files (the "Software"), to deal in the Software without
-restriction, including without limitation the rights to use,
-copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the
-Software is furnished to do so, subject to the following
-conditions:
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
 
-The above copyright notice and this permission notice shall be
-included in all copies or substantial portions of the Software.
+<http://www.apache.org/licenses/LICENSE-2.0>
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
-OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
-NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
-HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-OTHER DEALINGS IN THE SOFTWARE.
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
+implied. See the License for the specific language governing
+permissions and limitations under the License.
 ###
 
 fs              = require 'fs'
@@ -44,14 +34,22 @@ NodeRepl        = require 'repl'
 
 exports = module?.exports ? this
 
-## **R**ead, **E**xcute and **P**rint **L**oop
-#  -------------
+###
+# # REPL …
+# -------------
+#
+# … **R**ead → **E**xecute → **P**rint → **L**oop !
+#
+####
 
+###*
 #  -------------
 # @class Repl
 # @namespace GoateeScript
+###
 exports.Repl = class Repl
 
+  ###*
   #  -------------
   # Creates a nice error message like, following the "standard" format
   # <filename>:<line>:<col>: <message> plus the line with the error and a marker
@@ -63,6 +61,7 @@ exports.Repl = class Repl
   # @param {Number}              [code]
   # @param {Boolean|Function}    [colorize]
   # @private
+  ###
   _prettyErrorMessage = (error, filename, code, colorize) ->
 
     if not error? or error is false or ( isArray(error) and error.length is 0 )
@@ -81,17 +80,19 @@ exports.Repl = class Repl
 
     if colorize?
       if colorize is yes
-        colorize = (str) -> `"\x1B[1;31m" + str +"\x1B[0m"`
+        colorize = (str) -> "\x1B[1;31m#{str}\x1B[0m"
       message  = colorize message
 
     """
     #{filename}: #{message}
     """
 
+  ###*
   #  -------------
   # @function _addMultilineHandler
   # @param {Repl} [repl]
   # @private
+  ###
   _addMultilineHandler = (repl) ->
     {rli, inputStream, outputStream} = repl
 
@@ -120,7 +121,8 @@ exports.Repl = class Repl
     inputStream.on 'keypress', (char, key) ->
       return unless key and key.ctrl and not key.meta and not key.shift and key.name is 'v'
       if multiline.enabled
-        # allow arbitrarily switching between modes any time before multiple lines are entered
+        # allow arbitrarily switching between modes
+        # any time before multiple lines are entered
         unless multiline.buffer.match /\n/
           multiline.enabled = not multiline.enabled
           rli.setPrompt origPrompt
@@ -144,6 +146,7 @@ exports.Repl = class Repl
         rli.prompt true
       return
 
+  ###*
   #  -------------
   # Store and load command history from a file
   #
@@ -152,6 +155,7 @@ exports.Repl = class Repl
   # @param {String}  [filename]
   # @param {Number}  [maxSize]
   # @private
+  ###
   _addHistory = (repl, filename, maxSize) ->
     lastLine = null
     try
@@ -164,7 +168,8 @@ exports.Repl = class Repl
       fs.readSync readFd, buffer, 0, size, stat.size - size
       # Set the history on the interpreter
       repl.rli.history = buffer.toString().split('\n').reverse()
-      # If the history file was truncated we should pop off a potential partial line
+      # If the history file was truncated we
+      # should pop off a potential partial line
       repl.rli.history.pop() if stat.size > maxSize
       # Shift off the final blank newline
       repl.rli.history.shift() if repl.rli.history[0] is ''
@@ -188,19 +193,23 @@ exports.Repl = class Repl
         repl.outputStream.write "#{repl.rli.history[..].reverse().join '\n'}\n"
         repl.displayPrompt()
 
+  ###*
   #  -------------
   # @property defaults
   # @type {Object}
+  ###
   Repl.defaults = _options =
     command: {}
     context: {}
     variables: {}
+    ###*
     #  -------------
     # @function defaults.eval
     # @param {String}      input
     # @param {Object}      [context]
     # @param {Number}      [code]
     # @param {Function}    [callback]
+    ###
     eval: (input, context, filename, callback) ->
       # XXX: multiline hack.
       input = input.replace /\uFF00/g, '\n'
@@ -244,6 +253,7 @@ exports.Repl = class Repl
         callback _prettyErrorMessage(error, filename, input, yes)
       return
 
+  ###*
   #  -------------
   # @method start
   # @param {Object} command
@@ -251,6 +261,7 @@ exports.Repl = class Repl
   # @param {Object} [options=defaults.options]
   # @param {Boolean|Function}    [colorize]
   # @static
+  ###
   Repl.start = (command, flags = {}, options = _options) ->
     [
       major, minor #, build

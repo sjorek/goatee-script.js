@@ -1,0 +1,117 @@
+<!DOCTYPE html><html lang="en"><head><title>src/Utility</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../"><meta name="groc-document-path" content="src/Utility.coffee"><meta name="groc-project-path" content="src/Utility.coffee"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="meta"><div class="file-path">src/Utility.coffee</div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><p>© Copyright 2013-2016 Stephan Jorek <a href="&#x6d;&#97;&#x69;&#108;&#116;&#111;&#58;&#115;&#x74;&#x65;&#112;&#x68;&#x61;&#x6e;&#x2e;&#x6a;&#x6f;&#x72;&#x65;&#x6b;&#x40;&#103;&#109;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#111;&#x6d;">&#115;&#x74;&#x65;&#112;&#x68;&#x61;&#x6e;&#x2e;&#x6a;&#x6f;&#x72;&#x65;&#x6b;&#x40;&#103;&#109;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#111;&#x6d;</a></p>
+<p>Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at</p>
+<p><a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a></p>
+<p>Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
+implied. See the License for the specific language governing
+permissions and limitations under the License.</p></div></div><div class="code"><div class="wrapper">exports = <span class="hljs-built_in">module</span>?.exports ? <span class="hljs-keyword">this</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h1 id="utilities">Utilities</h1>
+<hr></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'> class Utility and namespace GoateeScript</span></p>
+<hr></div></div><div class="code"><div class="wrapper">exports.Utility = <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Utility</span></span>
+
+  _parser = <span class="hljs-literal">null</span>
+
+  _toString = <span class="hljs-attribute">Object</span>::toString
+  _call     = <span class="hljs-attribute">Function</span>::call
+  _slice    = <span class="hljs-attribute">Array</span>::slice</div></div></div><div class="segment"><div class="comments doc-section doc-section-static"><div class="wrapper"><p><span class='doc-section-header'>Static method bindFunction</span></p>
+<hr>
+<p>This is still needed by Safari.</p>
+<p>See:</p>
+<ul>
+<li><a href="http://webreflection.blogspot.com/2010/02/functionprototypebind.html">Function.prototype.bind in EcmaScript ≥ 1.5</a></li>
+</ul></div></div><div class="code"><div class="wrapper">  Utility.bindFunction = <span class="hljs-keyword">do</span> -&gt;
+    _bind = <span class="hljs-attribute">Function</span>::bind
+    <span class="hljs-keyword">if</span> _bind? <span class="hljs-keyword">and</span> <span class="hljs-literal">false</span>
+      (args...) -&gt;
+        -&gt; _bind.apply args
+    <span class="hljs-keyword">else</span>
+      (fn, context, args...) -&gt;
+        <span class="hljs-keyword">if</span> args.length <span class="hljs-keyword">is</span> <span class="hljs-number">0</span>
+          -&gt; fn.call(context)
+        <span class="hljs-keyword">else</span>
+          -&gt; fn.apply context, args</div></div></div><div class="segment"><div class="comments doc-section doc-section-static"><div class="wrapper"><p><span class='doc-section-header'>Static method arraySlice</span></p>
+<hr>
+<p>Finds a slice of an array.</p>
+<p>Parameters:</p>
+<ul>
+<li><p><strong>array must be an Array.</strong><br/>(Array to be sliced.)</p>
+</li>
+<li><p><strong>start must be a Number.</strong><br/>(The start of the slice.)</p>
+</li>
+<li><p><strong>end is optional and must be a Number.</strong><br/>(The end of the slice.)</p>
+</li>
+</ul>
+<p><strong>Returns an Array</strong><br/>(array The slice of the array from start to end.)</p></div></div><div class="code"><div class="wrapper">  Utility.arraySlice = <span class="hljs-function"><span class="hljs-params">(array, start, end)</span> -&gt;</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Use …</p>
+<pre><code> return Function.prototype.call.apply(Array.prototype.slice, arguments);</code></pre>
+<p>… instead of the simpler …</p>
+<pre><code> return Array.prototype.slice.call(array, start, opt_end);</code></pre>
+<p>… here because of a bug in the FF and IE implementations of
+Array.prototype.slice which causes this function to return an empty list
+if end is not provided.</p></div></div><div class="code"><div class="wrapper">    _call.apply _slice, arguments</div></div></div><div class="segment"><div class="comments doc-section doc-section-static"><div class="wrapper"><p><span class='doc-section-header'>Static method isString</span></p>
+<hr>
+<p>Modified version using String::substring instead of String::substr</p>
+<p>See:</p>
+<ul>
+<li><a href="http://coffeescript.org/documentation/docs/underscore.html">underscore.coffee</a></li>
+</ul>
+<p>Parameters:</p>
+<ul>
+<li><strong>obj must be a mixed.</strong></li>
+</ul>
+<p><strong>Returns a Boolean</strong></p></div></div><div class="code"><div class="wrapper">  Utility.isString = <span class="hljs-function"><span class="hljs-params">(obj)</span> -&gt;</span>
+    !!(obj <span class="hljs-keyword">is</span> <span class="hljs-string">''</span> <span class="hljs-keyword">or</span> (obj <span class="hljs-keyword">and</span> obj.charCodeAt <span class="hljs-keyword">and</span> obj.substring))</div></div></div><div class="segment"><div class="comments doc-section doc-section-static"><div class="wrapper"><p><span class='doc-section-header'>Static method isArray</span></p>
+<hr>
+<p>See:</p>
+<ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/isArray">Array.isArray</a></li>
+</ul>
+<p>Parameters:</p>
+<ul>
+<li><strong>obj must be a mixed.</strong></li>
+</ul>
+<p><strong>Returns a Boolean</strong></p></div></div><div class="code"><div class="wrapper">  Utility.isArray = <span class="hljs-keyword">if</span> Array.isArray? <span class="hljs-keyword">and</span> <span class="hljs-literal">false</span> <span class="hljs-keyword">then</span> Array.isArray <span class="hljs-keyword">else</span> (obj) -&gt;
+    _toString.call(obj) <span class="hljs-keyword">is</span> <span class="hljs-string">'[object Array]'</span></div></div></div><div class="segment"><div class="comments doc-section doc-section-static"><div class="wrapper"><p><span class='doc-section-header'>Static method isNumber</span></p>
+<hr>
+<p>See:</p>
+<ul>
+<li><a href="http://coffeescript.org/documentation/docs/underscore.html">underscore.coffee</a></li>
+</ul>
+<p>Parameters:</p>
+<ul>
+<li><strong>obj must be a mixed.</strong></li>
+</ul>
+<p><strong>Returns a Boolean</strong></p></div></div><div class="code"><div class="wrapper">  Utility.isNumber = <span class="hljs-function"><span class="hljs-params">(obj)</span> -&gt;</span>
+    (obj <span class="hljs-keyword">is</span> +obj) <span class="hljs-keyword">or</span> _toString.call(obj) <span class="hljs-keyword">is</span> <span class="hljs-string">'[object Number]'</span></div></div></div><div class="segment"><div class="comments doc-section doc-section-static"><div class="wrapper"><p><span class='doc-section-header'>Static method isFunction</span></p>
+<hr>
+<p>See:</p>
+<ul>
+<li><a href="http://coffeescript.org/documentation/docs/underscore.html">underscore.coffee</a></li>
+</ul>
+<p>Parameters:</p>
+<ul>
+<li><strong>obj must be a mixed.</strong></li>
+</ul>
+<p><strong>Returns a Boolean</strong></p></div></div><div class="code"><div class="wrapper">  Utility.isFunction = _isFunction = <span class="hljs-function"><span class="hljs-params">(obj)</span> -&gt;</span>
+    !!(obj <span class="hljs-keyword">and</span> obj.constructor <span class="hljs-keyword">and</span> obj.call <span class="hljs-keyword">and</span> obj.apply)</div></div></div><div class="segment"><div class="comments doc-section doc-section-static"><div class="wrapper"><p><span class='doc-section-header'>Static method isExpression</span></p>
+<hr>
+<p>Parameters:</p>
+<ul>
+<li><strong>obj must be a mixed.</strong></li>
+</ul>
+<p><strong>Returns a Boolean</strong></p></div></div><div class="code"><div class="wrapper">  Utility.isExpression = <span class="hljs-function"><span class="hljs-params">(obj)</span> -&gt;</span>
+    _isFunction obj?.evaluate</div></div></div><div class="segment"><div class="comments doc-section doc-section-static"><div class="wrapper"><p><span class='doc-section-header'>Static method parseScript is aliased as parse</span></p>
+<hr>
+<p>Parameters:</p>
+<ul>
+<li><strong>code must be a String.</strong></li>
+</ul>
+<p><strong>Returns an Expression</strong></p></div></div><div class="code"><div class="wrapper">  Utility.parse = \
+  Utility.parseScript = <span class="hljs-keyword">do</span> -&gt;
+    cache  = {}
+    (code) -&gt;
+      <span class="hljs-keyword">return</span> cache[code] <span class="hljs-keyword">if</span> cache.hasOwnProperty(code)
+      _parser ?= <span class="hljs-built_in">require</span> <span class="hljs-string">'./Parser'</span>
+      expression = _parser.parse code
+      cache[code] = cache[<span class="hljs-string">''</span> + expression] = expression</div></div></div></div></body></html>

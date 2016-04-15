@@ -28,16 +28,20 @@ permissions and limitations under the License.
 
 exports = module?.exports ? this
 
-## Expressions …
-# -------------
+###
+# # Expressions …
+# ---------------
 #
 # … are the glue between runtime-evaluation, -interpretation and
 # -compilation.  The parser emits these expressions, whereas the
 # compiler consumes them.
+###
 
+###*
 # -------------
 # @class Expression
 # @namespace GoateeScript
+###
 exports.Expression = class Expression
 
   # Shortcuts to ease access to otherwise deeply nested properties
@@ -70,6 +74,7 @@ exports.Expression = class Expression
   # reference to `Expression.operations['='].evaluate`
   _assignment   = null
 
+  ###*
   # -------------
   # Determine if the current state resolves to a property.  Used by
   # `Expression.operations.reference.evaluate`
@@ -77,15 +82,19 @@ exports.Expression = class Expression
   # @function _isProperty
   # @return {Boolean}
   # @private
+  ###
   _isProperty   = () ->
     p = _stack.previous()
     p? and p.operator.name is _property and p.parameters[1] is _stack.current()
 
+  ###*
   # -------------
   # @method execute
   # @param {Object}           context
   # @param {Expression|mixed} expression
   # @return {mixed}
+  # @static
+  ###
   Expression.execute = _execute = (context, expression) ->
     return expression unless isExpression expression
     _stack.push context, expression
@@ -96,6 +105,7 @@ exports.Expression = class Expression
     _stack.pop()
     return result
 
+  ###*
   # -------------
   # Set a static callback, to be invoked after an expression has been
   # evaluated, but before the stack gets cleared.  Implemented as:
@@ -104,20 +114,26 @@ exports.Expression = class Expression
   #
   # @method callback
   # @param  {Function}  A callback-function (closure) to invoke
+  # @static
+  ###
   Expression.callback = (callback) ->
     _callback = callback
     return
 
+  ###*
   # -------------
   # Get an array of all errors caught and collected during evaluation or
   # `false` if none of them occured.
   #
   # @method errors
   # @return {Boolean|Array<Error>}
+  # @static
+  ###
   Expression.errors = () ->
     _errors if _errors? and _errors.length isnt 0
     false
 
+  ###*
   # -------------
   # This is the start and finish of evaluations.  Resets the environment before
   # and after any execution.  This implementation avoids self-recursion as it
@@ -130,6 +146,8 @@ exports.Expression = class Expression
   # @param {Array}            [scope]
   # @param {Array}            [stack]
   # @return {mixed}
+  # @static
+  ###
   Expression.evaluate = \
   _evaluate = (context={}, expression, variables, scope, stack) ->
     return expression unless isExpression expression
@@ -156,6 +174,7 @@ exports.Expression = class Expression
 
     result
 
+  ###*
   # -------------
   # Process the expression and evaluate its result. Chained (sub-)expressions
   # and vector operations are resolved here.
@@ -165,6 +184,7 @@ exports.Expression = class Expression
   # @param {Expression} expression
   # @return {mixed}
   # @private
+  ###
   _process = (context, expression) ->
     {operator,parameters} = expression
     if operator.chain
@@ -197,6 +217,7 @@ exports.Expression = class Expression
     values.push _execute(context, rightValue) for rightValue in parameters
     operator.evaluate.apply context, values
 
+  ###*
   # -------------
   # Determine the expression's boolean value, as defined in Ecmascript 3/5/6.
   # Therefor arrays are processed recursivly item by item and if one of them
@@ -206,6 +227,7 @@ exports.Expression = class Expression
   # @param  {mixed}   value
   # @return {Booelan}
   # @static
+  ###
   Expression.booleanize = _booleanize = (value) ->
     if isArray value
       for item in value
@@ -214,6 +236,7 @@ exports.Expression = class Expression
       return false
     return Boolean value
 
+  ###*
   # -------------
   # Returns the given value as string.  If the given value is not an expression
   # `JSON.stringify` will be called to deliver the result.  If the expression's
@@ -225,6 +248,7 @@ exports.Expression = class Expression
   # @param  {mixed}   value
   # @return {String}
   # @static
+  ###
   Expression.stringify = _stringify = (value) ->
     if not isExpression value
       return JSON.stringify value
@@ -243,6 +267,7 @@ exports.Expression = class Expression
       format.push _stringify(parameter) for parameter in parameters
       format.join ' '
 
+  ###*
   # -------------
   # A dictionary of all known operations an expression might perform.
   # Used during runtime interpretation, stringification and compilation.
@@ -250,6 +275,7 @@ exports.Expression = class Expression
   # @property operations
   # @type {Object}
   # @static
+  ###
   Expression.operations = _operations =
 
     # An assignment, filled below
@@ -448,7 +474,8 @@ exports.Expression = class Expression
       vector: false
       format: (a,b) -> "#{a}[#{b}]"
       evaluate: (a,b) ->
-        #  support negative indexers, if you literally want "-1" then use a string literal
+        #  support negative indexers, if you literally
+        #  want "-1" then use a string literal
         if isNumber(b) and b < 0
           a[(if a.length? then a.length else 0) + b]
         else
@@ -625,11 +652,13 @@ exports.Expression = class Expression
         o[k] = arguments[i+1] for k,i in arguments by 2
         o
 
+  ###*
   # -------------
   # Fill and add missing `Expression.operations`
   #
   # @function
   # @private
+  ###
   do ->
 
     _reference  = _operations.reference.format
@@ -699,6 +728,7 @@ exports.Expression = class Expression
 
     return
 
+  ###*
   # -------------
   # Lookup an operation by its name (~ key in `Expression.operations`)
   #
@@ -707,19 +737,22 @@ exports.Expression = class Expression
   # @return {Object}
   # @throws {Error}
   # @static
+  ###
   Expression.operator = _operator = (name) ->
     if (op = _operations[name])?
       return if op.name? then op else _operator op
     throw new Error "operation not found: #{name}"
 
+  ###*
   # -------------
   # The expressions constructor.  Depending on the operations' constant and
   # vector the given paramters might get evaluated here, to save nesting depth.
   #
-  # @param  {String} op               expression's operation name
-  # @param  {Array}  [parameters]     optional array of parameters
-  # @return {Expression|void}         expression or an early resolved new instance
+  # @param  {String} op             expression's operation name
+  # @param  {Array}  [parameters]   optional array of parameters
+  # @return {Expression|void}       expression or an early resolved new instance
   # @constructor
+  ###
   constructor: (op, @parameters=[]) ->
     @operator   = _operator(op)
 
@@ -750,21 +783,25 @@ exports.Expression = class Expression
     #  otherwise return this expression
     return
 
+  ###*
   # -------------
   # Allows expressions to be turned into strings
   #
   # @method toString
   # @return {String}
+  ###
   toString: ->
     return @text unless @text is undefined
     @text = _stringify this
 
+  ###*
   # -------------
   # Allows expression to be turned into a kind of json-ast.  See
   # `Compiler.coffee` for a complete ast-implementation
   #
   # @method toJSON
   # @return {Object.<String:op,Array:parameters>}
+  ###
   toJSON: (callback) ->
     return callback this if callback
     if @operator.name is 'scalar'
@@ -774,6 +811,7 @@ exports.Expression = class Expression
         if parameter.toJSON? then parameter.toJSON() else parameter
     [@operator.name].concat parameters
 
+  ###*
   # -------------
   # Evaluate this expressions value
   #
@@ -783,5 +821,6 @@ exports.Expression = class Expression
   # @param {Array}  [scope]
   # @param {Array}  [stack]
   # @return {mixed}
+  ###
   evaluate: (context, variables, scope, stack) ->
     _evaluate context, this, variables, scope, stack

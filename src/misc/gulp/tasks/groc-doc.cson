@@ -3,24 +3,31 @@
 
 default:
 
+  deps: ['cson:transpile:groc:config']
+
   title: 'Documentation of “src” files'
 
   defaults :
-    out: 'doc'
-    #silent: true
-    #verbose: true
-    languages: './src/misc/groc/languages'
+    _ : './.groc.json'
+    #out: 'doc'
+    ##silent: false
+    ##verbose: true
+    #languages: './src/misc/groc/languages'
 
   assets : [
-    'doc': [
-      [
-        'src/**/*.coffee'
-        'src/**/*.cson'
-        # 'Cakefile'
-        'gulpfile.coffee'
-        'README.md'
-      ]
-    ]
+    ## doc: [
+    ##   [
+    ##     'src/**/*.coffee'
+    ##     'src/**/*.cson'
+    ##     'lib/**/*.js'
+    ##     'lib/**/*.json'
+    ##     # 'Cakefile'
+    ##     'gulpfile.coffee'
+    ##     'gulpfile.js'
+    ##     'README.md'
+    ##   ]
+    ## ]
+    'doc': []
   ]
 
   clean: [
@@ -40,21 +47,24 @@ github:
   title: 'Publish documentation of “src” files to github'
 
   defaults :
-    out: 'doc'
-    #silent: true
-    #verbose: true
-    languages: './src/misc/groc/languages'
+    _ : './.groc.json'
+    #out: 'doc'
+    ##silent: true
+    ##verbose: true
+    #languages: './src/misc/groc/languages'
     github: true
 
   assets : [
-    'doc': [
-      [
-        'src/**/*.coffee'
-        'src/**/*.cson'
-        'README.md'
-      ]
-    ]
+    ## 'doc': [
+    ##   [
+    ##     'src/**/*.coffee'
+    ##     'src/**/*.cson'
+    ##     'README.md'
+    ##   ]
+    ## ]
+    'doc': []
   ]
+
 
   # clean: [
   #   'doc/**/*'

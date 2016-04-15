@@ -1,0 +1,79 @@
+<!DOCTYPE html><html lang="en"><head><title>lib/misc/gulp/gulp-cson</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../../../"><meta name="groc-document-path" content="lib/misc/gulp/gulp-cson.js"><meta name="groc-project-path" content="lib/misc/gulp/gulp-cson.js"><link rel="stylesheet" type="text/css" media="all" href="../../../assets/style.css"><script type="text/javascript" src="../../../assets/behavior.js"></script><body><div id="meta"><div class="file-path">lib/misc/gulp/gulp-cson.js</div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><p>© Copyright 2013-2016 Stephan Jorek <a href="&#x6d;&#x61;&#x69;&#x6c;&#116;&#x6f;&#x3a;&#115;&#116;&#101;&#112;&#x68;&#97;&#110;&#x2e;&#x6a;&#x6f;&#114;&#x65;&#x6b;&#x40;&#x67;&#109;&#x61;&#105;&#108;&#x2e;&#x63;&#x6f;&#x6d;">&#115;&#116;&#101;&#112;&#x68;&#97;&#110;&#x2e;&#x6a;&#x6f;&#114;&#x65;&#x6b;&#x40;&#x67;&#109;&#x61;&#105;&#108;&#x2e;&#x63;&#x6f;&#x6d;</a></p>
+<p>Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at</p>
+<p><a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a></p>
+<p>Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
+implied. See the License for the specific language governing
+permissions and limitations under the License.</p></div></div><div class="code"><div class="wrapper">(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">var</span> coffee, cson, map, util,
+        hasProp = {}.hasOwnProperty;
+
+    map = <span class="hljs-built_in">require</span>(<span class="hljs-string">'map-stream'</span>);
+
+    coffee = <span class="hljs-built_in">require</span>(<span class="hljs-string">'coffee-script'</span>);
+
+    util = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp-util'</span>);
+
+    cson = <span class="hljs-built_in">require</span>(<span class="hljs-string">'cson'</span>);</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h1 id="gulp-cson">Gulp CSON</h1>
+<hr></div></div><div class="code"><div class="wrapper">    <span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">options</span>) </span>{
+        <span class="hljs-keyword">var</span> format2ext, gcson, swap;
+        format2ext = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">format</span>) </span>{
+            <span class="hljs-keyword">switch</span> (format) {
+                <span class="hljs-keyword">case</span> <span class="hljs-string">'coffeescript'</span>:
+                    <span class="hljs-keyword">return</span> <span class="hljs-string">'.cs'</span>;
+                <span class="hljs-keyword">case</span> <span class="hljs-string">'javascript'</span>:
+                    <span class="hljs-keyword">return</span> <span class="hljs-string">'.js'</span>;
+                <span class="hljs-keyword">default</span>:
+                    <span class="hljs-keyword">return</span> <span class="hljs-string">"."</span> + format;
+            }
+        };
+        swap = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">format</span>) </span>{
+            <span class="hljs-keyword">switch</span> (format) {
+                <span class="hljs-keyword">case</span> <span class="hljs-string">'json'</span>:
+                    <span class="hljs-keyword">return</span> <span class="hljs-string">'cson'</span>;
+                <span class="hljs-keyword">case</span> <span class="hljs-string">'cson'</span>:
+                    <span class="hljs-keyword">return</span> <span class="hljs-string">'json'</span>;
+                <span class="hljs-keyword">case</span> <span class="hljs-string">'coffeescript'</span>:
+                    <span class="hljs-keyword">return</span> <span class="hljs-string">'javascript'</span>;
+                <span class="hljs-keyword">case</span> <span class="hljs-string">'javascript'</span>:
+                    <span class="hljs-keyword">return</span> <span class="hljs-string">'coffeescript'</span>;
+            }
+        };
+        gcson = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">file, cb</span>) </span>{
+            <span class="hljs-keyword">var</span> data, key, opts, value;
+            opts = {};
+            <span class="hljs-keyword">if</span> (options != <span class="hljs-literal">null</span>) {
+                <span class="hljs-keyword">for</span> (key <span class="hljs-keyword">in</span> options) {
+                    <span class="hljs-keyword">if</span> (!hasProp.call(options, key)) <span class="hljs-keyword">continue</span>;
+                    value = options[key];
+                    opts[key] = value;
+                }
+            }
+            opts.filename = file.path;
+            <span class="hljs-keyword">if</span> (!((opts.filename != <span class="hljs-literal">null</span>) || (opts.format != <span class="hljs-literal">null</span>))) {
+                opts.format = <span class="hljs-string">'cson'</span>;
+            }
+            data = cson.parseString(file.contents.toString(), opts);
+            <span class="hljs-keyword">if</span> (data <span class="hljs-keyword">instanceof</span> <span class="hljs-built_in">Error</span>) {
+                <span class="hljs-keyword">return</span> cb(data);
+            }
+            opts.format = swap(opts.format);
+            <span class="hljs-keyword">if</span> (opts.filename != <span class="hljs-literal">null</span>) {
+                opts.filename = util.replaceExtension(opts.filename, format2ext(opts.format));
+            }
+            data = cson.createString(data, opts);
+            <span class="hljs-keyword">if</span> (data <span class="hljs-keyword">instanceof</span> <span class="hljs-built_in">Error</span>) {
+                <span class="hljs-keyword">return</span> cb(data);
+            }
+            file.contents = <span class="hljs-keyword">new</span> Buffer(data);
+            file.path = opts.filename;
+            <span class="hljs-keyword">return</span> cb(<span class="hljs-literal">null</span>, file);
+        };
+        <span class="hljs-keyword">return</span> map(gcson);
+    };
+
+}).call(<span class="hljs-keyword">this</span>);
+<span class="hljs-comment">//# sourceMappingURL=gulp-cson.js.map</span></div></div></div></div></body></html>

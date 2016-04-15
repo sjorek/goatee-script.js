@@ -18,15 +18,20 @@ permissions and limitations under the License.
 
 exports = module?.exports ? this
 
-## Scope
-#  -------------
+###
+# # Scope
+# -------
+#
+###
 
-
+###*
 #  -------------
 # @class Scope
 # @namespace GoateeScript
+###
 exports.Scope = class Scope
 
+  ###*
   # -------------
   # Create a new **Expression** instance
   #
@@ -34,18 +39,23 @@ exports.Scope = class Scope
   # @param  {String}      operator
   # @param  {Array}       parameters
   # @return {Expression}
+  ###
   create  : (operator, parameters) ->
     new Expression(operator, parameters)
 
+  ###*
   #  -------------
   # Remove leading and trailing single- or double-quotes
   #
   # @method escape
   # @param {String} s … string
   # @return {String}
+  ###
   escape  : (s) ->
-    if s.length < 3 then "" else s.slice(1, s.length-1) # .replace(/\\\n/,'').replace(/\\([^xubfnvrt0])/g, '$1')
+    # was formerly … `.replace(/\\\n/,'').replace(/\\([^xubfnvrt0])/g, '$1')`
+    if s.length < 3 then "" else s.slice(1, s.length-1)
 
+  ###*
   #  -------------
   # Add an “else”-Statement **e** to given “if”-Expression **i**
   #
@@ -53,6 +63,7 @@ exports.Scope = class Scope
   # @param {Expression} i … if
   # @param {Expression} e … else
   # @return {String}
+  ###
   addElse : do ->
     a = (i, e) ->
       if i.parameters.length is 3

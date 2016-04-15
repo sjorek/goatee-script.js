@@ -14,42 +14,63 @@ implied. See the License for the specific language governing
 permissions and limitations under the License.
 ###
 
-{Grammar}  = require './Grammar'
+try
+  exports = require './ParserImpl'
+catch
+  exports = null
 
-exports = module?.exports ? this
+if exports is null
 
-## Parser
-#  -------------
-# A thin compatibillity layer for the “on-the-fly” generated goatee-script parser.
+  {Grammar}  = require './Grammar'
 
-#  -------------
-# @property parser
-# @type {Parser}
-# @static
-exports.parser = parser = Grammar.createParser()
+  exports = module?.exports ? this
 
-#  -------------
-# @class Parser
-# @namespace GoateeScript
-exports.Parser = parser.Parser;
+  ###
+  # #Parser
+  # -------------
+  #
+  # A thin compatibillity layer providing an
+  # “on-the-fly” generated goatee-script parser.
+  ###
 
-#  -------------
-# @function parse
-# @static
-exports.parse  = () -> parser.parse.apply(parser, arguments)
+  ###*
+  #  -------------
+  # @property parser
+  # @type {Parser}
+  # @static
+  ###
+  exports.parser = parser = Grammar.createParser()
 
-#  -------------
-# @function main
-# @param {Array} args
-# @static
-exports.main   = (args) ->
-    if !args[1]
+  ###*
+  #  -------------
+  # @class Parser
+  # @namespace GoateeScript
+  ###
+  exports.Parser = parser.Parser;
+
+  ###*
+  #  -------------
+  # @function parse
+  # @static
+  ###
+  exports.parse  = () -> parser.parse.apply(parser, arguments)
+
+  ###*
+  #  -------------
+  # @function main
+  # @param {Array} args
+  # @static
+  ###
+  exports.main   = (args) ->
+    if not args[1]
       console.log "Usage: #{args[0]} FILE"
       process.exit 1
     source = require('fs').readFileSync(
       require('path').normalize(args[1]), "utf8"
     )
     parser.parse(source)
+
+module?.exports = exports
 
 # excute main automatically
 if (module isnt undefined && require.main is module)

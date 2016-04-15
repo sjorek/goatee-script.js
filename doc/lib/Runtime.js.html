@@ -1,0 +1,200 @@
+<!DOCTYPE html><html lang="en"><head><title>lib/Runtime</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../"><meta name="groc-document-path" content="lib/Runtime.js"><meta name="groc-project-path" content="lib/Runtime.js"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="meta"><div class="file-path">lib/Runtime.js</div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><p>© Copyright 2013-2016 Stephan Jorek <a href="&#109;&#97;&#x69;&#108;&#116;&#x6f;&#58;&#115;&#116;&#101;&#112;&#104;&#x61;&#110;&#46;&#x6a;&#111;&#114;&#101;&#107;&#x40;&#103;&#109;&#97;&#105;&#108;&#x2e;&#99;&#x6f;&#109;">&#115;&#116;&#101;&#112;&#104;&#x61;&#110;&#46;&#x6a;&#111;&#114;&#101;&#107;&#x40;&#103;&#109;&#97;&#105;&#108;&#x2e;&#99;&#x6f;&#109;</a></p>
+<p>Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at</p>
+<p><a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a></p>
+<p>Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
+implied. See the License for the specific language governing
+permissions and limitations under the License.</p></div></div><div class="code"><div class="wrapper">(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">var</span> Expression, Runtime, arraySlice, bindFunction, exports, isArray, isExpression, isFunction, isNumber, isString, parse, ref, ref1;
+
+    Expression = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./Expression'</span>).Expression;
+
+    ref = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./Utility'</span>).Utility, arraySlice = ref.arraySlice, bindFunction = ref.bindFunction, isString = ref.isString, isArray = ref.isArray, isNumber = ref.isNumber, isFunction = ref.isFunction, isExpression = ref.isExpression, parse = ref.parse;
+
+    exports = (ref1 = <span class="hljs-keyword">typeof</span> <span class="hljs-built_in">module</span> !== <span class="hljs-string">"undefined"</span> &amp;&amp; <span class="hljs-built_in">module</span> !== <span class="hljs-literal">null</span> ? <span class="hljs-built_in">module</span>.exports : <span class="hljs-keyword">void</span> <span class="hljs-number">0</span>) != <span class="hljs-literal">null</span> ? ref1 : <span class="hljs-keyword">this</span>;</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h2 id="runtime">Runtime</h2>
+<p>Implements several expression-runtime related methods.</p></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'> class Runtime and namepace GoateeScript</span></p>
+<hr></div></div><div class="code"><div class="wrapper">    exports.Runtime = Runtime = (<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+        <span class="hljs-keyword">var</span> _aliases, _operations;
+
+        <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Runtime</span>(<span class="hljs-params"></span>) </span>{}
+
+        _operations = Expression.operations;</div></div></div><div class="segment"><div class="comments doc-section doc-section-static"><div class="wrapper"><p><span class='doc-section-header'>Static method aliases</span></p>
+<hr>
+<p><strong>Returns an Array</strong></p></div></div><div class="code"><div class="wrapper">        Runtime.aliases = _aliases = (<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+            <span class="hljs-keyword">var</span> index;
+            index = <span class="hljs-literal">null</span>;
+            <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+                <span class="hljs-keyword">return</span> index != <span class="hljs-literal">null</span> ? index : index = <span class="hljs-string">'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ$_'</span>.split(<span class="hljs-string">''</span>);
+            };
+        })();</div></div></div><div class="segment"><div class="comments doc-section doc-section-static"><div class="wrapper"><p><span class='doc-section-header'>Static method generate</span></p>
+<hr>
+<p>Parameters:</p>
+<ul>
+<li><strong>compress is optional, must be a Boolean, and has a default value of true.</strong></li>
+</ul>
+<p><strong>Returns a String</strong></p></div></div><div class="code"><div class="wrapper">        Runtime.generate = (<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+            <span class="hljs-keyword">var</span> alias, aliases, assemble, body, clean, code, i, index, js, key, len, pattern, ref2, runtime, unwrap, value, vars;
+            aliases = [];
+            ref2 = _aliases().reverse();
+            <span class="hljs-keyword">for</span> (i = <span class="hljs-number">0</span>, len = ref2.length; i &lt; len; i++) {
+                alias = ref2[i];
+                <span class="hljs-keyword">if</span> (_operations[alias] == <span class="hljs-literal">null</span>) {
+                    aliases.push(alias);
+                }
+            }
+            index = aliases.length;
+            <span class="hljs-keyword">if</span> (index === <span class="hljs-number">0</span>) {
+                <span class="hljs-keyword">return</span>;
+            }
+            <span class="hljs-keyword">for</span> (key <span class="hljs-keyword">in</span> _operations) {
+                value = _operations[key];
+                <span class="hljs-keyword">if</span> (!((value.name != <span class="hljs-literal">null</span>) &amp;&amp; (value.alias == <span class="hljs-literal">null</span>))) {
+                    <span class="hljs-keyword">continue</span>;
+                }
+                _operations[value.alias = aliases[--index]] = key;
+                <span class="hljs-keyword">if</span> (index === <span class="hljs-number">0</span>) {
+                    <span class="hljs-keyword">break</span>;
+                }
+            }
+            _operations[<span class="hljs-string">'()'</span>].code = <span class="hljs-string">"function(){\n  var a,f;\n  f=arguments[0],a=2&lt;=arguments.length?aS(arguments,1):[];\n  return f.apply(this,a);\n}"</span>;
+            runtime = {
+                global: {
+                    name: <span class="hljs-string">'global'</span>,
+                    alias: index === <span class="hljs-number">0</span> ? <span class="hljs-string">'_g'</span> : aliases[--index],
+                    code: <span class="hljs-string">'null'</span>
+                },
+                local: {
+                    name: <span class="hljs-string">'local'</span>,
+                    alias: index === <span class="hljs-number">0</span> ? <span class="hljs-string">'_l'</span> : aliases[--index],
+                    code: <span class="hljs-string">'null'</span>
+                },
+                stack: {
+                    name: <span class="hljs-string">'stack'</span>,
+                    alias: index === <span class="hljs-number">0</span> ? <span class="hljs-string">'st'</span> : aliases[--index],
+                    code: <span class="hljs-string">'[]'</span>
+                },
+                scope: {
+                    name: <span class="hljs-string">'scope'</span>,
+                    alias: index === <span class="hljs-number">0</span> ? <span class="hljs-string">'sc'</span> : aliases[--index],
+                    code: <span class="hljs-string">'[]'</span>
+                },
+                evaluate: {
+                    name: <span class="hljs-string">'evaluate'</span>,
+                    alias: index === <span class="hljs-number">0</span> ? <span class="hljs-string">'_e'</span> : aliases[--index],
+                    code: <span class="hljs-string">"function(c,e,v,_,$) {\n  var g,r;\n  if(!(isFunction(e) &amp;&amp; e.name)){return e;}\n  g = _global === null ? _evaluate : false;\n  if (g) {\n    _global   = c||{};\n    _local    = v||{};\n    _scope    = _||_scope.length = 0||_scope;\n    _stack    = $||_stack.length = 0||_stack;\n    _evaluate = _execute;\n  };\n  r = _execute(c,e);\n  if (g) {\n    _global   = null;\n    _evaluate = g;\n  };\n  return r;\n}"</span>,
+                    evaluate: Expression.evaluate
+                },
+                execute: {
+                    name: <span class="hljs-string">'execute'</span>,
+                    alias: index === <span class="hljs-number">0</span> ? <span class="hljs-string">'_x'</span> : aliases[--index],
+                    code: <span class="hljs-string">"function(c,e) {\n  var r,f;\n  if(!(isFunction(e) &amp;&amp; e.name)){return e;};\n  _scope.push(c);\n  _stack.push(e);\n  try {\n    r = _process(c,e); /* ?!?!?!?! */\n  } catch(f) {};\n  _scope.pop();\n  _stack.pop();\n  return r;\n}"</span>,
+                    evaluate: Expression.execute
+                },
+                call: {
+                    name: <span class="hljs-string">'call'</span>,
+                    alias: index === <span class="hljs-number">0</span> ? <span class="hljs-string">'ca'</span> : aliases[--index],
+                    code: <span class="hljs-string">'Function.prototype.call'</span>
+                },
+                slice: {
+                    name: <span class="hljs-string">'slice'</span>,
+                    alias: index === <span class="hljs-number">0</span> ? <span class="hljs-string">'sl'</span> : aliases[--index],
+                    code: <span class="hljs-string">'Array.prototype.slice'</span>
+                },
+                toString: {
+                    name: <span class="hljs-string">'toString'</span>,
+                    alias: index === <span class="hljs-number">0</span> ? <span class="hljs-string">'tS'</span> : aliases[--index],
+                    code: <span class="hljs-string">'Object.prototype.toString'</span>
+                },
+                booleanize: {
+                    name: <span class="hljs-string">'booleanize'</span>,
+                    alias: index === <span class="hljs-number">0</span> ? <span class="hljs-string">'_b'</span> : aliases[--index],
+                    evaluate: Expression.booleanize
+                },
+                isFunction: {
+                    name: <span class="hljs-string">'isFunction'</span>,
+                    alias: index === <span class="hljs-number">0</span> ? <span class="hljs-string">'iF'</span> : aliases[--index],
+                    evaluate: isFunction
+                },
+                bindFunction: {
+                    name: <span class="hljs-string">'bindFunction'</span>,
+                    alias: index === <span class="hljs-number">0</span> ? <span class="hljs-string">'bF'</span> : aliases[--index],
+                    code: <span class="hljs-string">"(function(bindFunction) {\n  return bindFunction ? function() {\n      return bindFunction.apply(arguments);\n    } : function() {\n      var f, c, a;\n      f = arguments[0];\n      c = arguments[1];\n      a = 3 &lt;= arguments.length ? arraySlice(arguments, 2) : [];\n      return a.length === 0\n        ? function() { return f.call(c); }\n        : function() { return f.apply(c, a); };\n    }\n})(Function.prototype.bind)"</span>,
+                    evaluate: bindFunction
+                },
+                isArray: {
+                    name: <span class="hljs-string">'isArray'</span>,
+                    alias: index === <span class="hljs-number">0</span> ? <span class="hljs-string">'iA'</span> : aliases[--index],
+                    code: <span class="hljs-string">"(function(isArray) {\n  return isArray || function(o){return _toString.call(o)==='[object Array]';};\n})(Array.isArray)"</span>,
+                    evaluate: isArray
+                },
+                arraySlice: {
+                    name: <span class="hljs-string">'arraySlice'</span>,
+                    alias: index === <span class="hljs-number">0</span> ? <span class="hljs-string">'aS'</span> : aliases[--index],
+                    evaluate: arraySlice
+                },
+                hasProperty: {
+                    name: <span class="hljs-string">'hasProperty'</span>,
+                    alias: index === <span class="hljs-number">0</span> ? <span class="hljs-string">'hP'</span> : aliases[--index],
+                    code: <span class="hljs-string">"(function(hasProperty) {\n  return function() {\n    hasProperty.apply(arguments);\n  };\n})({}.hasOwnProperty)"</span>
+                },
+                isProperty: {
+                    name: <span class="hljs-string">'isProperty'</span>,
+                    alias: index === <span class="hljs-number">0</span> ? <span class="hljs-string">'iP'</span> : aliases[--index],
+                    code: <span class="hljs-string">"function() {\n  if(_stack.length &lt; 2){return false;}\n  var p = _stack.length &gt; 1 ? _stack[_stack.length-2] : void(0),\n      c = _stack.length &gt; 0 ? _stack[_stack.length-1] : void(0);\n  return p.toString() === '"</span> + _operations[<span class="hljs-string">'.'</span>].alias + <span class="hljs-string">"' &amp;&amp; p[1] === c;\n}"</span>
+                }
+            };
+            unwrap = <span class="hljs-regexp">/^function\s*\(([^\)]*)\)\s*\{\s*(\S[\s\S]*[;|\}])\s*\}$/</span>;
+            pattern = [<span class="hljs-regexp">/(\s|\n)+/g</span>, <span class="hljs-string">' '</span>, <span class="hljs-regexp">/_assignment/g</span>, _operations[<span class="hljs-string">'='</span>].alias, <span class="hljs-regexp">/_reference/g</span>, _operations.reference.alias, <span class="hljs-regexp">/_global/g</span>, runtime.global.alias, <span class="hljs-regexp">/_local/g</span>, runtime.local.alias, <span class="hljs-regexp">/_scope/g</span>, runtime.scope.alias, <span class="hljs-regexp">/_stack/g</span>, runtime.stack.alias, <span class="hljs-regexp">/_evaluate/g</span>, runtime.evaluate.alias, <span class="hljs-regexp">/_execute/g</span>, runtime.execute.alias, <span class="hljs-regexp">/_booleanize/g</span>, runtime.booleanize.alias, <span class="hljs-regexp">/__slice\.call|arraySlice/g</span>, runtime.arraySlice.alias, <span class="hljs-regexp">/_slice/g</span>, runtime.slice.alias, <span class="hljs-regexp">/_call/g</span>, runtime.call.alias, <span class="hljs-regexp">/([^\.])isArray/g</span>, <span class="hljs-string">"$1"</span> + runtime.isArray.alias, <span class="hljs-regexp">/_toString/g</span>, runtime.toString.alias, <span class="hljs-regexp">/isNumber/g</span>, runtime.global.alias, <span class="hljs-regexp">/isFunction/g</span>, runtime.isFunction.alias, <span class="hljs-regexp">/bindFunction/g</span>, runtime.bindFunction.alias, <span class="hljs-regexp">/_isProperty/g</span>, runtime.isProperty.alias, <span class="hljs-regexp">/hasProperty/g</span>, runtime.hasProperty.alias, <span class="hljs-regexp">/([a-zA-Z]+)\.hasOwnProperty\(/g</span>, runtime.hasProperty.alias + <span class="hljs-string">"($1,"</span>, <span class="hljs-regexp">/(_l)en/g</span>, index === <span class="hljs-number">0</span> ? <span class="hljs-string">"$1"</span> : aliases[--index], <span class="hljs-regexp">/obj([^e])|item/g</span>, <span class="hljs-string">'o$1'</span>, <span class="hljs-regexp">/value/g</span>, <span class="hljs-string">'v'</span>, <span class="hljs-regexp">/\(array,start,end\)/g</span>, <span class="hljs-string">'()'</span>, <span class="hljs-regexp">/([a-z0-9])\s([^a-z0-9])/gi</span>, <span class="hljs-string">'$1$2'</span>, <span class="hljs-regexp">/([^a-z0-9])\s([a-z0-9])/gi</span>, <span class="hljs-string">'$1$2'</span>, <span class="hljs-regexp">/([^a-z0-9])\s([^a-z0-9])/gi</span>, <span class="hljs-string">'$1$2'</span>, <span class="hljs-regexp">/([a-z0-9])\s([^a-z0-9])/gi</span>, <span class="hljs-string">'$1$2'</span>, <span class="hljs-regexp">/([^a-z0-9])\s([a-z0-9])/gi</span>, <span class="hljs-string">'$1$2'</span>, <span class="hljs-regexp">/([^a-z0-9])\s([^a-z0-9])/gi</span>, <span class="hljs-string">'$1$2'</span>, <span class="hljs-regexp">/return(\S)/gi</span>, <span class="hljs-string">'return $1'</span>];
+            clean = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">key, value, code</span>) </span>{
+                <span class="hljs-keyword">var</span> j, len1, search;
+                <span class="hljs-keyword">for</span> (index = j = <span class="hljs-number">0</span>, len1 = pattern.length; j &lt; len1; index = j += <span class="hljs-number">2</span>) {
+                    search = pattern[index];
+                    code = code.replace(search, pattern[index + <span class="hljs-number">1</span>]);
+                }
+                <span class="hljs-keyword">if</span> (key.length &gt; <span class="hljs-number">1</span> &amp;&amp; key[key.length - <span class="hljs-number">1</span>] === <span class="hljs-string">'='</span>) {
+                    alias = _operations[key.substring(<span class="hljs-number">0</span>, key.length - <span class="hljs-number">1</span>)].alias;
+                    code = code.replace(<span class="hljs-string">'_op'</span>, alias);
+                }
+                <span class="hljs-keyword">return</span> code;
+            };
+            vars = [];
+            body = [];
+            assemble = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">object</span>) </span>{
+                <span class="hljs-keyword">var</span> code, results;
+                results = [];
+                <span class="hljs-keyword">for</span> (key <span class="hljs-keyword">in</span> object) {
+                    value = object[key];
+                    <span class="hljs-keyword">if</span> (!(value.name != <span class="hljs-literal">null</span>)) {
+                        <span class="hljs-keyword">continue</span>;
+                    }
+                    code = clean(key, value, value.code != <span class="hljs-literal">null</span> ? value.code : value.evaluate.toString());
+                    vars.push([<span class="hljs-string">'/* '</span>, key, <span class="hljs-string">' */ '</span>, value.alias].join(<span class="hljs-string">''</span>));
+                    results.push(body.push([<span class="hljs-string">'/* '</span>, key, <span class="hljs-string">' */ '</span>, value.alias, <span class="hljs-string">'='</span>, code].join(<span class="hljs-string">''</span>)));
+                }
+                <span class="hljs-keyword">return</span> results;
+            };
+            assemble(runtime);
+            assemble(_operations);
+            code = <span class="hljs-string">"var "</span> + (vars.join(<span class="hljs-string">',\n'</span>)) + <span class="hljs-string">";\n"</span> + (body.join(<span class="hljs-string">';\n'</span>)) + <span class="hljs-string">";"</span>;
+            js = code.replace(<span class="hljs-regexp">/\/\*(?:.|[\r\n])*?\*\/\s*|/g</span>, <span class="hljs-string">''</span>).replace(<span class="hljs-regexp">/\s*[;]\s*[\}]/g</span>, <span class="hljs-string">'}'</span>).replace(<span class="hljs-regexp">/([,;])[\r\n]/g</span>, <span class="hljs-string">'$1'</span>);
+            <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">compress</span>) </span>{
+                <span class="hljs-keyword">if</span> (compress == <span class="hljs-literal">null</span>) {
+                    compress = <span class="hljs-literal">true</span>;
+                }
+                <span class="hljs-keyword">if</span> (compress === <span class="hljs-literal">true</span>) {
+                    <span class="hljs-keyword">return</span> js;
+                } <span class="hljs-keyword">else</span> {
+                    <span class="hljs-keyword">return</span> code;
+                }
+            };
+        })();
+
+        <span class="hljs-keyword">return</span> Runtime;
+
+    })();
+
+}).call(<span class="hljs-keyword">this</span>);
+<span class="hljs-comment">//# sourceMappingURL=Runtime.js.map</span></div></div></div></div></body></html>

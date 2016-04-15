@@ -1,17 +1,23 @@
 {
   "glob": [
-    "src/**/*.cson",
     "src/**/*.coffee",
+    "src/**/*.cson",
+    "lib/**/*.js",
+    "lib/**/*.json",
     "gulpfile.coffee",
+    "gulpfile.js",
     "README.md"
   ],
+  "out": "doc",
   "strip": [
-    "src/"
+    ""
   ],
   "index": "README.md",
-  "title": "goatee-script",
+  "index-page-title": "goatee-script.js",
+  "style": "/Users/sjorek/Documents/Projects/Goatee/Workspace/goatee-script.js/lib/misc/groc/style",
+  "languages": "/Users/sjorek/Documents/Projects/Goatee/Workspace/goatee-script.js/lib/misc/groc/languages",
   "showdown": [
     "table"
   ],
-  "whitespace-after-token": false
+  "whitespace-after-token": true
 }

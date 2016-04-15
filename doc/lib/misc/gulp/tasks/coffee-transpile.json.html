@@ -1,0 +1,127 @@
+<!DOCTYPE html><html lang="en"><head><title>lib/misc/gulp/tasks/coffee-transpile</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../../../../"><meta name="groc-document-path" content="lib/misc/gulp/tasks/coffee-transpile.json"><meta name="groc-project-path" content="lib/misc/gulp/tasks/coffee-transpile.json"><link rel="stylesheet" type="text/css" media="all" href="../../../../assets/style.css"><script type="text/javascript" src="../../../../assets/behavior.js"></script><body><div id="meta"><div class="file-path">lib/misc/gulp/tasks/coffee-transpile.json</div></div><div id="document"><div class="segment"><div class="code"><div class="wrapper">{
+  "<span class="hljs-attribute">default</span>": <span class="hljs-value">{
+    "<span class="hljs-attribute">title</span>": <span class="hljs-value"><span class="hljs-string">"Transpiling all coffee-script files."</span></span>,
+    "<span class="hljs-attribute">defaults</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">bare</span>": <span class="hljs-value"><span class="hljs-literal">false</span></span>,
+      "<span class="hljs-attribute">map</span>": <span class="hljs-value"><span class="hljs-literal">true</span>
+    </span>}</span>,
+    "<span class="hljs-attribute">beautify</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">indentSize</span>": <span class="hljs-value"><span class="hljs-number">2</span></span>,
+      "<span class="hljs-attribute">jslintHappy</span>": <span class="hljs-value"><span class="hljs-literal">true</span>
+    </span>}</span>,
+    "<span class="hljs-attribute">assets</span>": <span class="hljs-value">[
+      {
+        "<span class="hljs-attribute">lib/</span>": <span class="hljs-value">[
+          [
+            <span class="hljs-string">"src/**/*.coffee"</span>,
+            <span class="hljs-string">"!src/misc/gulp/gulpfile.coffee"</span>,
+            <span class="hljs-string">"!src/misc/grammar/jison*.coffee"</span>
+          ]
+        ]
+      </span>}
+    ]</span>,
+    "<span class="hljs-attribute">sourcemaps</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">init</span>": <span class="hljs-value">[]</span>,
+      "<span class="hljs-attribute">write</span>": <span class="hljs-value">[
+        <span class="hljs-string">"."</span>
+      ]
+    </span>}</span>,
+    "<span class="hljs-attribute">clean</span>": <span class="hljs-value">[
+      <span class="hljs-string">"lib/**/*.js"</span>,
+      <span class="hljs-string">"lib/**/*.js.map"</span>,
+      <span class="hljs-string">"!lib/misc/gulp/gulpfile.js"</span>,
+      <span class="hljs-string">"!lib/misc/gulp/gulpfile.js.map"</span>,
+      <span class="hljs-string">"!lib/misc/grammar/jison*.js"</span>,
+      <span class="hljs-string">"!lib/misc/grammar/jison*.js.map"</span>
+    ]</span>,
+    "<span class="hljs-attribute">watch</span>": <span class="hljs-value"><span class="hljs-literal">true</span></span>,
+    "<span class="hljs-attribute">logger</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">before</span>": <span class="hljs-value"><span class="hljs-string">"Start transpiling all coffee-script files …"</span></span>,
+      "<span class="hljs-attribute">after</span>": <span class="hljs-value"><span class="hljs-string">"Transpiling all coffee-script files complete."</span></span>,
+      "<span class="hljs-attribute">extname</span>": <span class="hljs-value"><span class="hljs-string">".js"</span></span>,
+      "<span class="hljs-attribute">showChange</span>": <span class="hljs-value"><span class="hljs-literal">true</span>
+    </span>}
+  </span>}</span>,
+  "<span class="hljs-attribute">jison:grammar:default</span>": <span class="hljs-value">{
+    "<span class="hljs-attribute">title</span>": <span class="hljs-value"><span class="hljs-string">"Transpiling grammar coffee-script files"</span></span>,
+    "<span class="hljs-attribute">defaults</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">bare</span>": <span class="hljs-value"><span class="hljs-literal">false</span></span>,
+      "<span class="hljs-attribute">map</span>": <span class="hljs-value"><span class="hljs-literal">true</span>
+    </span>}</span>,
+    "<span class="hljs-attribute">assets</span>": <span class="hljs-value">[
+      {
+        "<span class="hljs-attribute">lib/misc/grammar/</span>": <span class="hljs-value">[
+          [
+            <span class="hljs-string">"src/misc/grammar/jison*.coffee"</span>
+          ]
+        ]
+      </span>}
+    ]</span>,
+    "<span class="hljs-attribute">sourcemaps</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">init</span>": <span class="hljs-value">[]</span>,
+      "<span class="hljs-attribute">write</span>": <span class="hljs-value">[
+        <span class="hljs-string">"."</span>
+      ]
+    </span>}</span>,
+    "<span class="hljs-attribute">clean</span>": <span class="hljs-value">[
+      <span class="hljs-string">"lib/misc/grammar/jison*.js"</span>,
+      <span class="hljs-string">"lib/misc/grammar/jison*.js.map"</span>
+    ]</span>,
+    "<span class="hljs-attribute">watch</span>": <span class="hljs-value"><span class="hljs-literal">true</span></span>,
+    "<span class="hljs-attribute">logger</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">before</span>": <span class="hljs-value"><span class="hljs-string">"Start transpiling coffee-script files …"</span></span>,
+      "<span class="hljs-attribute">after</span>": <span class="hljs-value"><span class="hljs-string">"Transpiling coffee-script complete."</span></span>,
+      "<span class="hljs-attribute">extname</span>": <span class="hljs-value"><span class="hljs-string">".js"</span></span>,
+      "<span class="hljs-attribute">showChange</span>": <span class="hljs-value"><span class="hljs-literal">true</span>
+    </span>}
+  </span>}</span>,
+  "<span class="hljs-attribute">gulpfile</span>": <span class="hljs-value">{
+    "<span class="hljs-attribute">title</span>": <span class="hljs-value"><span class="hljs-string">"Transpiling “src/misc/gulp/gulpfile.coffee” to “gulpfile.js”"</span></span>,
+    "<span class="hljs-attribute">defaults</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">bare</span>": <span class="hljs-value"><span class="hljs-literal">true</span></span>,
+      "<span class="hljs-attribute">map</span>": <span class="hljs-value"><span class="hljs-literal">true</span>
+    </span>}</span>,
+    "<span class="hljs-attribute">assets</span>": <span class="hljs-value">[
+      {
+        "<span class="hljs-attribute">.</span>": <span class="hljs-value">[
+          <span class="hljs-string">"gulpfile.coffee"</span>
+        ]
+      </span>}
+    ]</span>,
+    "<span class="hljs-attribute">replace</span>": <span class="hljs-value">[
+      [
+        <span class="hljs-string">"#{__dirname}/src/"</span>,
+        <span class="hljs-string">"#{__dirname}/lib/"</span>
+      ],
+      [
+        <span class="hljs-string">"tasks/#{filename}.cson"</span>,
+        <span class="hljs-string">"tasks/#{filename}.json"</span>
+      ],
+      [
+        <span class="hljs-string">"require 'require-cson'"</span>,
+        <span class="hljs-string">"#require 'require-cson'"</span>
+      ],
+      [
+        <span class="hljs-string">"#require 'coffee-script/register'"</span>,
+        <span class="hljs-string">"require 'coffee-script/register'"</span>
+      ]
+    ]</span>,
+    "<span class="hljs-attribute">sourcemaps</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">init</span>": <span class="hljs-value">[]</span>,
+      "<span class="hljs-attribute">write</span>": <span class="hljs-value">[
+        <span class="hljs-string">"."</span>
+      ]
+    </span>}</span>,
+    "<span class="hljs-attribute">clean</span>": <span class="hljs-value">[
+      <span class="hljs-string">"gulpfile.js"</span>,
+      <span class="hljs-string">"gulpfile.js.map"</span>
+    ]</span>,
+    "<span class="hljs-attribute">watch</span>": <span class="hljs-value"><span class="hljs-literal">true</span></span>,
+    "<span class="hljs-attribute">logger</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">before</span>": <span class="hljs-value"><span class="hljs-string">"Start transpiling gulpfile …"</span></span>,
+      "<span class="hljs-attribute">after</span>": <span class="hljs-value"><span class="hljs-string">"Transpiling gulpfile complete."</span></span>,
+      "<span class="hljs-attribute">extname</span>": <span class="hljs-value"><span class="hljs-string">".js"</span></span>,
+      "<span class="hljs-attribute">showChange</span>": <span class="hljs-value"><span class="hljs-literal">true</span>
+    </span>}
+  </span>}
+</span>}</div></div></div></div></body></html>

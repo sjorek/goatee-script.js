@@ -30,47 +30,63 @@ nomnom         = require 'nomnom'
 
 exports = module?.exports ? this
 
-## Commandline …
-# -------------
+###
+# # Commandline …
+# ---------------
 #
 # … of the `goatee-script` utility. Handles evaluation of
 # statements or launches an interactive REPL.
+###
 
+###*
 # -------------
 # @class Command
 # @namespace GoateeScript
+###
 exports.Command = class Command
 
+  ###*
   # @property opts
   # @type {Object}
   # @private
+  ###
   opts        = null
 
+  ###*
   # @property statements
   # @type {Array}
   # @private
+  ###
   statements  = null
 
+  ###*
   # -------------
   # @constructor
   # @param {Function} [command=GoateeScript.GoateeScript] class function
+  ###
   constructor : (@command = require('./GoateeScript').GoateeScript) ->
 
+  ###*
   # -------------
   # @method printLine
   # @param {String} line
+  ###
   printLine   : (line) ->
     process.stdout.write line + '\n'
 
+  ###*
   # -------------
   # @method printWarn
   # @param {String} line
+  ###
   printWarn   : (line) ->
     process.stderr.write line + '\n'
 
+  ###*
   # -------------
   # @method parseOptions
   # @return {Array}
+  ###
   parseOptions: ->
 
     shift_line = "\n                                  "
@@ -140,29 +156,35 @@ exports.Command = class Command
 
     statements = statements.join(';')
 
+  ###*
   # -------------
   # Start up a new Node.js instance with the arguments in `--nodejs` passed to
   # the `node` binary, preserving the other options.
   #
   # @method forkNode
+  ###
   forkNode    : ->
     spawn process.execPath, opts.nodejs,
       cwd:        process.cwd()
       env:        process.env
       customFds:  [0, 1, 2]
 
+  ###*
   # -------------
   # Print the `--version` message and exit.
   #
   # @method version
   # @return {String}
+  ###
   version     : ->
     "#{@command.NAME} version #{@command.VERSION}"
 
+  ###*
   # -------------
   # Execute the given statements
   #
   # @method execute
+  ###
   execute     : ->
     switch opts.mode
       when 'compile'  , 'c' then @command.compile    statements, null, opts.compress
@@ -174,15 +196,18 @@ exports.Command = class Command
            'eval'     , 'e' then @command.evaluate statements
       else throw new Error 'Unknown execution-mode given.'
 
+  ###*
   # -------------
   # Run the interactive read-execute-print-loop
   # Execute the given statements
   #
   # @method interactive
   # @param  {Function}             [repl=GoateeScript.Repl]
+  ###
   interactive : (repl = require('./Repl').Repl) ->
     repl.start(@command, opts)
 
+  ###*
   # -------------
   # Run `goatee-script` by parsing passed options and determining what action to
   # take. Flags passed after `--` will be passed verbatim to your script as
@@ -190,6 +215,7 @@ exports.Command = class Command
   # Execute the given statements
   #
   # @method run
+  ###
   run         : ->
     @parseOptions()
     return @forkNode()            if opts.nodejs

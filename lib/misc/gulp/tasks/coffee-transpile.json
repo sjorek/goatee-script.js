@@ -1,1 +1,127 @@
-{"default":{"title":"Transpiling coffee-script files","defaults":{"bare":false,"map":true},"assets":[{"lib/":[["src/**/*.coffee","!src/misc/gulp/gulpfile.coffee"]]}],"sourcemaps":{"init":[],"write":["."]},"clean":["lib/**/*.js","lib/**/*.js.map"],"watch":true,"logger":{"before":"Start transpiling coffee-script files …","after":"Transpiling coffee-script complete.","extname":".js","showChange":true}},"gulpfile":{"title":"Transpiling “src/misc/gulp/gulpfile.coffee” to “gulfile.js”","defaults":{"bare":true,"map":true},"assets":[{".":["gulpfile.coffee"]}],"replace":[["#{__dirname}/src/misc/gulp","#{__dirname}/lib/misc/gulp"],["tasks/#{filename}.cson","tasks/#{filename}.json"],["require 'require-cson' # only needed for coffee-script execution",""]],"sourcemaps":{"init":[],"write":["."]},"clean":["gulpfile.js","gulpfile.js.map"],"watch":true,"logger":{"before":"Start transpiling gulpfile …","after":"Transpiling gulpfile complete.","extname":".js","showChange":true}}}
+{
+  "default": {
+    "title": "Transpiling all coffee-script files.",
+    "defaults": {
+      "bare": false,
+      "map": true
+    },
+    "beautify": {
+      "indentSize": 2,
+      "jslintHappy": true
+    },
+    "assets": [
+      {
+        "lib/": [
+          [
+            "src/**/*.coffee",
+            "!src/misc/gulp/gulpfile.coffee",
+            "!src/misc/grammar/jison*.coffee"
+          ]
+        ]
+      }
+    ],
+    "sourcemaps": {
+      "init": [],
+      "write": [
+        "."
+      ]
+    },
+    "clean": [
+      "lib/**/*.js",
+      "lib/**/*.js.map",
+      "!lib/misc/gulp/gulpfile.js",
+      "!lib/misc/gulp/gulpfile.js.map",
+      "!lib/misc/grammar/jison*.js",
+      "!lib/misc/grammar/jison*.js.map"
+    ],
+    "watch": true,
+    "logger": {
+      "before": "Start transpiling all coffee-script files …",
+      "after": "Transpiling all coffee-script files complete.",
+      "extname": ".js",
+      "showChange": true
+    }
+  },
+  "jison:grammar:default": {
+    "title": "Transpiling grammar coffee-script files",
+    "defaults": {
+      "bare": false,
+      "map": true
+    },
+    "assets": [
+      {
+        "lib/misc/grammar/": [
+          [
+            "src/misc/grammar/jison*.coffee"
+          ]
+        ]
+      }
+    ],
+    "sourcemaps": {
+      "init": [],
+      "write": [
+        "."
+      ]
+    },
+    "clean": [
+      "lib/misc/grammar/jison*.js",
+      "lib/misc/grammar/jison*.js.map"
+    ],
+    "watch": true,
+    "logger": {
+      "before": "Start transpiling coffee-script files …",
+      "after": "Transpiling coffee-script complete.",
+      "extname": ".js",
+      "showChange": true
+    }
+  },
+  "gulpfile": {
+    "title": "Transpiling “src/misc/gulp/gulpfile.coffee” to “gulpfile.js”",
+    "defaults": {
+      "bare": true,
+      "map": true
+    },
+    "assets": [
+      {
+        ".": [
+          "gulpfile.coffee"
+        ]
+      }
+    ],
+    "replace": [
+      [
+        "#{__dirname}/src/",
+        "#{__dirname}/lib/"
+      ],
+      [
+        "tasks/#{filename}.cson",
+        "tasks/#{filename}.json"
+      ],
+      [
+        "require 'require-cson'",
+        "#require 'require-cson'"
+      ],
+      [
+        "#require 'coffee-script/register'",
+        "require 'coffee-script/register'"
+      ]
+    ],
+    "sourcemaps": {
+      "init": [],
+      "write": [
+        "."
+      ]
+    },
+    "clean": [
+      "gulpfile.js",
+      "gulpfile.js.map"
+    ],
+    "watch": true,
+    "logger": {
+      "before": "Start transpiling gulpfile …",
+      "after": "Transpiling gulpfile complete.",
+      "extname": ".js",
+      "showChange": true
+    }
+  }
+}

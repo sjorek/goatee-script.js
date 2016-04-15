@@ -26,26 +26,35 @@ OTHER DEALINGS IN THE SOFTWARE.
 
 exports = module?.exports ? this
 
-## The Notator
-#  -------------
+###
+# # The Notator
+# -------------
+#
 # Provides static methods to declare jison-Grammars as json.
+#
+###
 
-#  -------------
-# @class
+###*
+# -------------
+# @class Notator
 # @namespace GoateeScript
+###
 exports.Notator = class Notator
 
-  #  -------------
+  ###*
+  # -------------
   # Pattern to match a single-statement-function's return value.
   #
   # Lifted from [coffeescript's garmmar](http://jashkenas.github.com/coffee-script/documentation/docs/grammar.html)
   #
-  # @type {RegExp}
   # @property unwrap
+  # @type {RegExp}
   # @static
+  ###
   Notator.unwrap = unwrap = /^function\s*\(\)\s*\{\s*return\s*([\s\S]*);\s*\}/
 
-  #  -------------
+  ###*
+  # -------------
   # Wraps a multi-statement action into a closure call onto `this`.
   #
   # @method wrap
@@ -53,28 +62,32 @@ exports.Notator = class Notator
   #                                       `object.toString`-capabillity
   # @return {String}
   # @static
+  ###
   Notator.wrap = wrap = (action) ->
     "(#{action}.call(this))"
 
-  #  -------------
+  ###*
+  # -------------
   # Produce an operation
   #
   # Lifted from [coffeescript's grammar](http://jashkenas.github.com/coffee-script/documentation/docs/grammar.html)
   #
   # @method operation
   # @alias  o
-  # @param  {String}            pattern   suitable for jison's regexp-parser
-  # @param  {Function|mixed}    [action]  function or object with
-  #                                       `object.toString`-capabillity
-  # @param  {mixed}             options   passed trough if an `action` is present
+  # @param  {String}          pattern   suitable for jison's regexp-parser
+  # @param  {Function|mixed}  [action]  function or object with
+  #                                     `object.toString`-capabillity
+  # @param  {mixed}           options   passed trough if an `action` is present
   # @return {Array}
   # @static
+  ###
   Notator.operation = Notator.o = (pattern, action, options) ->
-      return [pattern, '$$ = $1;', options] unless action
-      action = if match = unwrap.exec action then match[1] else wrap action
-      [pattern, "$$ = #{action};", options]
+    return [pattern, '$$ = $1;', options] unless action
+    action = if match = unwrap.exec action then match[1] else wrap action
+    [pattern, "$$ = #{action};", options]
 
-  #  -------------
+  ###*
+  # -------------
   # Resolve and return an operation value.  Usually used to declare lexer tokens
   # and root operations.
   #
@@ -85,14 +98,16 @@ exports.Notator = class Notator
   #                                       `object.toString`-capabillity
   # @return {Array}
   # @static
+  ###
   Notator.resolve = Notator.r = (pattern, action) ->
-      if pattern.source?
-          pattern = pattern.source
-      return [pattern, 'return;'] unless action
-      action = if match = unwrap.exec action then match[1] else wrap action
-      [pattern, "return #{action};"]
+    if pattern.source?
+      pattern = pattern.source
+    return [pattern, 'return;'] unless action
+    action = if match = unwrap.exec action then match[1] else wrap action
+    [pattern, "return #{action};"]
 
-  #  -------------
+  ###*
+  # -------------
   # Resolve and return an operation value with start conditions, eg. to declare
   # lexer tokens for sub-languages like regular expressions in javascript.
   #
@@ -108,5 +123,6 @@ exports.Notator = class Notator
   #                                     `object.toString`-capabillity
   # @return {Array}
   # @static
+  ###
   Notator.conditional = Notator.c = (conditions, pattern, action) ->
     [conditions].concat Notator.resolve pattern, action

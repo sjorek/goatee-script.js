@@ -1,18 +1,22 @@
 {
   glob: [
-    'src/**/*.cson'
     'src/**/*.coffee'
+    'src/**/*.cson'
+    'lib/**/*.js'
+    'lib/**/*.json'
     # 'Cakefile'
     'gulpfile.coffee'
+    'gulpfile.js'
     'README.md'
   ]
-  strip: [
-    'src/'
-  ]
+  out: 'doc'
+  strip: ['']
   index: 'README.md'
-  title: 'goatee-script'
+  'index-page-title': 'goatee-script.js'
+  style: './src/misc/groc/style'
+  languages: './src/misc/groc/languages'
   showdown: [
     'table'
   ]
-  'whitespace-after-token': false
+  'whitespace-after-token': true
 }

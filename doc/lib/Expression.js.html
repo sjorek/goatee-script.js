@@ -1,0 +1,801 @@
+<!DOCTYPE html><html lang="en"><head><title>lib/Expression</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../"><meta name="groc-document-path" content="lib/Expression.js"><meta name="groc-project-path" content="lib/Expression.js"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="meta"><div class="file-path">lib/Expression.js</div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><p>© Copyright 2013-2016 Stephan Jorek <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#x73;&#x74;&#101;&#x70;&#x68;&#x61;&#110;&#x2e;&#106;&#x6f;&#114;&#101;&#107;&#64;&#x67;&#x6d;&#97;&#105;&#x6c;&#x2e;&#99;&#x6f;&#109;">&#x73;&#x74;&#101;&#x70;&#x68;&#x61;&#110;&#x2e;&#106;&#x6f;&#114;&#101;&#107;&#64;&#x67;&#x6d;&#97;&#105;&#x6c;&#x2e;&#99;&#x6f;&#109;</a></p>
+<p>Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at</p>
+<p><a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a></p>
+<p>Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
+implied. See the License for the specific language governing
+permissions and limitations under the License.</p></div></div><div class="code"><div class="wrapper">(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">var</span> Expression, Stack, bindFunction, exports, isArray, isExpression, isFunction, isNumber, isString, ref, ref1, toString,
+        slice = [].slice;
+
+    Stack = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./Stack'</span>).Stack;
+
+    ref = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./Utility'</span>).Utility, bindFunction = ref.bindFunction, toString = ref.toString, isString = ref.isString, isArray = ref.isArray, isNumber = ref.isNumber, isFunction = ref.isFunction, isExpression = ref.isExpression;
+
+    exports = (ref1 = <span class="hljs-keyword">typeof</span> <span class="hljs-built_in">module</span> !== <span class="hljs-string">"undefined"</span> &amp;&amp; <span class="hljs-built_in">module</span> !== <span class="hljs-literal">null</span> ? <span class="hljs-built_in">module</span>.exports : <span class="hljs-keyword">void</span> <span class="hljs-number">0</span>) != <span class="hljs-literal">null</span> ? ref1 : <span class="hljs-keyword">this</span>;</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h1 id="expressions-">Expressions …</h1>
+<hr>
+<p>… are the glue between runtime-evaluation, -interpretation and
+-compilation.  The parser emits these expressions, whereas the
+compiler consumes them.</p></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'> class Expression and namespace GoateeScript</span></p>
+<hr></div></div><div class="code"><div class="wrapper">    exports.Expression = Expression = (<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+        <span class="hljs-keyword">var</span> _assignment, _booleanize, _callback, _errors, _evaluate, _execute, _global, _isProperty, _local, _operations, _operator, _parser, _process, _property, _reference, _resolve, _scalar, _scope, _stack, _stringify, _variable;
+
+        _stack = <span class="hljs-literal">null</span>;
+
+        _scope = <span class="hljs-literal">null</span>;
+
+        _errors = <span class="hljs-literal">null</span>;
+
+        _global = <span class="hljs-literal">null</span>;
+
+        _local = <span class="hljs-literal">null</span>;
+
+        _operations = <span class="hljs-literal">null</span>;
+
+        _parser = <span class="hljs-literal">null</span>;
+
+        _scalar = <span class="hljs-literal">null</span>;
+
+        _property = <span class="hljs-literal">null</span>;
+
+        _callback = <span class="hljs-literal">null</span>;
+
+        _reference = <span class="hljs-literal">null</span>;
+
+        _variable = <span class="hljs-literal">null</span>;
+
+        _resolve = <span class="hljs-literal">null</span>;
+
+        _assignment = <span class="hljs-literal">null</span>;</div></div></div><div class="segment"><div class="comments doc-section doc-section-private"><div class="wrapper"><p><span class='doc-section-header'>Private function _isProperty</span></p>
+<hr>
+<p>Determine if the current state resolves to a property.  Used by
+<code>Expression.operations.reference.evaluate</code></p>
+<p><strong>Returns a Boolean</strong></p></div></div><div class="code"><div class="wrapper">        _isProperty = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+            <span class="hljs-keyword">var</span> p;
+            p = _stack.previous();
+            <span class="hljs-keyword">return</span> (p != <span class="hljs-literal">null</span>) &amp;&amp; p.operator.name === _property &amp;&amp; p.parameters[<span class="hljs-number">1</span>] === _stack.current();
+        };</div></div></div><div class="segment"><div class="comments doc-section doc-section-static"><div class="wrapper"><p><span class='doc-section-header'>Static method execute</span></p>
+<hr>
+<p>Parameters:</p>
+<ul>
+<li><p><strong>context must be an Object.</strong></p>
+</li>
+<li><p><strong>expression can be an Expression or a mixed.</strong></p>
+</li>
+</ul>
+<p><strong>Returns a mixed</strong></p></div></div><div class="code"><div class="wrapper">        Expression.execute = _execute = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">context, expression</span>) </span>{
+            <span class="hljs-keyword">var</span> e, error, result;
+            <span class="hljs-keyword">if</span> (!isExpression(expression)) {
+                <span class="hljs-keyword">return</span> expression;
+            }
+            _stack.push(context, expression);
+            <span class="hljs-keyword">try</span> {
+                result = _process(context, expression);
+            } <span class="hljs-keyword">catch</span> (error) {
+                e = error;
+                (_errors != <span class="hljs-literal">null</span> ? _errors : _errors = []).push(e);
+            }
+            _stack.pop();
+            <span class="hljs-keyword">return</span> result;
+        };</div></div></div><div class="segment"><div class="comments doc-section doc-section-static"><div class="wrapper"><p><span class='doc-section-header'>Static method callback</span></p>
+<hr>
+<p>Set a static callback, to be invoked after an expression has been
+evaluated, but before the stack gets cleared.  Implemented as:</p>
+<pre><code> callback(expression, result, _stack, _errors)</code></pre>
+<p>Parameters:</p>
+<ul>
+<li><strong>A must be a Function.</strong><br/>(callback-function (closure) to invoke)</li>
+</ul></div></div><div class="code"><div class="wrapper">        Expression.callback = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">callback</span>) </span>{
+            _callback = callback;
+        };</div></div></div><div class="segment"><div class="comments doc-section doc-section-static"><div class="wrapper"><p><span class='doc-section-header'>Static method errors</span></p>
+<hr>
+<p>Get an array of all errors caught and collected during evaluation or
+<code>false</code> if none of them occured.</p>
+<p><strong>Returns a Boolean or an Array<Error></strong></p></div></div><div class="code"><div class="wrapper">        Expression.errors = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+            <span class="hljs-keyword">if</span> ((_errors != <span class="hljs-literal">null</span>) &amp;&amp; _errors.length !== <span class="hljs-number">0</span>) {
+                _errors;
+            }
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+        };</div></div></div><div class="segment"><div class="comments doc-section doc-section-static"><div class="wrapper"><p><span class='doc-section-header'>Static method evaluate</span></p>
+<hr>
+<p>This is the start and finish of evaluations.  Resets the environment before
+and after any execution.  This implementation avoids self-recursion as it
+reassigns the evaluation function.</p>
+<p>Parameters:</p>
+<ul>
+<li><p><strong>context is optional and must be an Object.</strong></p>
+</li>
+<li><p><strong>expression is optional and can be an Expression or a mixed.</strong></p>
+</li>
+<li><p><strong>variables is optional and must be an Object.</strong></p>
+</li>
+<li><p><strong>scope is optional and must be an Array.</strong></p>
+</li>
+<li><p><strong>stack is optional and must be an Array.</strong></p>
+</li>
+</ul>
+<p><strong>Returns a mixed</strong></p></div></div><div class="code"><div class="wrapper">        Expression.evaluate = _evaluate = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">context, expression, variables, scope, stack</span>) </span>{
+            <span class="hljs-keyword">var</span> isGlobalScope, result;
+            <span class="hljs-keyword">if</span> (context == <span class="hljs-literal">null</span>) {
+                context = {};
+            }
+            <span class="hljs-keyword">if</span> (!isExpression(expression)) {
+                <span class="hljs-keyword">return</span> expression;
+            }
+            isGlobalScope = _stack == <span class="hljs-literal">null</span>;
+            <span class="hljs-keyword">if</span> (isGlobalScope) {
+                _stack = <span class="hljs-keyword">new</span> Stack(context, variables, scope, stack);
+                _scope = _stack.scope;
+                _errors = <span class="hljs-literal">null</span>;
+                _global = _stack.global;
+                _local = _stack.local;
+                _evaluate = _execute;
+            }
+            result = _execute(context, expression);
+            <span class="hljs-keyword">if</span> (isGlobalScope) {
+                <span class="hljs-keyword">if</span> (_callback != <span class="hljs-literal">null</span>) {
+                    _callback(expression, result, _stack, _errors);
+                }
+                _stack.destructor();
+                _stack = <span class="hljs-literal">null</span>;
+                _scope = <span class="hljs-literal">null</span>;
+                _global = <span class="hljs-literal">null</span>;
+                _local = <span class="hljs-literal">null</span>;
+                _evaluate = Expression.evaluate;
+            }
+            <span class="hljs-keyword">return</span> result;
+        };</div></div></div><div class="segment"><div class="comments doc-section doc-section-private"><div class="wrapper"><p><span class='doc-section-header'>Private function _process</span></p>
+<hr>
+<p>Process the expression and evaluate its result. Chained (sub-)expressions
+and vector operations are resolved here.</p>
+<p>Parameters:</p>
+<ul>
+<li><p><strong>context must be an Object.</strong></p>
+</li>
+<li><p><strong>expression must be an Expression.</strong></p>
+</li>
+</ul>
+<p><strong>Returns a mixed</strong></p></div></div><div class="code"><div class="wrapper">        _process = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">context, expression</span>) </span>{
+            <span class="hljs-keyword">var</span> j, left, leftValue, len, len1, m, operator, parameters, right, rightValue, value, values;
+            operator = expression.operator, parameters = expression.parameters;
+            <span class="hljs-keyword">if</span> (operator.chain) {
+                <span class="hljs-keyword">if</span> (parameters.length !== <span class="hljs-number">2</span>) {
+                    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">"chain only supports 2 parameters"</span>);
+                }
+                left = parameters[<span class="hljs-number">0</span>], right = parameters[<span class="hljs-number">1</span>];
+                context = _execute(context, left);
+                <span class="hljs-keyword">if</span> (left.vector) {
+                    values = [];
+                    <span class="hljs-keyword">for</span> (j = <span class="hljs-number">0</span>, len = context.length; j &lt; len; j++) {
+                        leftValue = context[j];
+                        rightValue = _execute(leftValue, right);
+                        value = operator.evaluate.call(leftValue, leftValue, rightValue);
+                        <span class="hljs-keyword">if</span> (right.vector) {
+                            <span class="hljs-keyword">if</span> (!isArray(value)) {
+                                <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">"vector operation did not return an array as expected: "</span> + (<span class="hljs-built_in">JSON</span>.stringify(operator)));
+                            }
+                            values.push.apply(values, value);
+                        } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (value != <span class="hljs-literal">null</span>) {
+                            values.push(value);
+                        }
+                    }
+                    <span class="hljs-keyword">return</span> values;
+                }
+                rightValue = _execute(context, right);
+                <span class="hljs-keyword">return</span> operator.evaluate.call(context, context, rightValue);
+            }
+            <span class="hljs-keyword">if</span> (operator.raw) {
+                <span class="hljs-keyword">return</span> operator.evaluate.apply(context, parameters);
+            }
+            values = [];
+            <span class="hljs-keyword">for</span> (m = <span class="hljs-number">0</span>, len1 = parameters.length; m &lt; len1; m++) {
+                rightValue = parameters[m];
+                values.push(_execute(context, rightValue));
+            }
+            <span class="hljs-keyword">return</span> operator.evaluate.apply(context, values);
+        };</div></div></div><div class="segment"><div class="comments doc-section doc-section-static"><div class="wrapper"><p><span class='doc-section-header'>Static method booleanize</span></p>
+<hr>
+<p>Determine the expression&#39;s boolean value, as defined in Ecmascript 3/5/6.
+Therefor arrays are processed recursivly item by item and if one of them
+resolves to a false value, this function returns false immediatly.</p>
+<p>Parameters:</p>
+<ul>
+<li><strong>value must be a mixed.</strong></li>
+</ul>
+<p><strong>Returns a Booelan</strong></p></div></div><div class="code"><div class="wrapper">        Expression.booleanize = _booleanize = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">value</span>) </span>{
+            <span class="hljs-keyword">var</span> item, j, len;
+            <span class="hljs-keyword">if</span> (isArray(value)) {
+                <span class="hljs-keyword">for</span> (j = <span class="hljs-number">0</span>, len = value.length; j &lt; len; j++) {
+                    item = value[j];
+                    <span class="hljs-keyword">if</span> (_booleanize(item)) {
+                        <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+                    }
+                }
+                <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+            }
+            <span class="hljs-keyword">return</span> <span class="hljs-built_in">Boolean</span>(value);
+        };</div></div></div><div class="segment"><div class="comments doc-section doc-section-static"><div class="wrapper"><p><span class='doc-section-header'>Static method stringify</span></p>
+<hr>
+<p>Returns the given value as string.  If the given value is not an expression
+<code>JSON.stringify</code> will be called to deliver the result.  If the expression&#39;s
+operator has a <code>format</code> function (see Èxpression.operations` below) it will
+be called with the expression parameters, otherwise a string will be build
+from those parameters.</p>
+<p>Parameters:</p>
+<ul>
+<li><strong>value must be a mixed.</strong></li>
+</ul>
+<p><strong>Returns a String</strong></p></div></div><div class="code"><div class="wrapper">        Expression.stringify = _stringify = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">value</span>) </span>{
+            <span class="hljs-keyword">var</span> format, j, len, operator, parameter, parameters;
+            <span class="hljs-keyword">if</span> (!isExpression(value)) {
+                <span class="hljs-keyword">return</span> <span class="hljs-built_in">JSON</span>.stringify(value);
+            }
+            operator = value.operator, parameters = value.parameters;
+            format = operator.format;
+            <span class="hljs-keyword">if</span> (format != <span class="hljs-literal">null</span>) {
+                <span class="hljs-keyword">return</span> format.apply(<span class="hljs-keyword">this</span>, parameters);
+            } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (parameters.length === <span class="hljs-number">2</span>) {
+                <span class="hljs-keyword">return</span> <span class="hljs-string">""</span> + (_stringify(parameters[<span class="hljs-number">0</span>])) + operator + (_stringify(parameters[<span class="hljs-number">1</span>]));
+            } <span class="hljs-keyword">else</span> {
+                format = [];
+                <span class="hljs-keyword">for</span> (j = <span class="hljs-number">0</span>, len = parameters.length; j &lt; len; j++) {
+                    parameter = parameters[j];
+                    format.push(_stringify(parameter));
+                }
+                <span class="hljs-keyword">return</span> format.join(<span class="hljs-string">' '</span>);
+            }
+        };</div></div></div><div class="segment"><div class="comments doc-section doc-section-static"><div class="wrapper"><p><span class='doc-section-header'>Static property operations of type <em>Object</em></span></p>
+<hr>
+<p>A dictionary of all known operations an expression might perform.
+Used during runtime interpretation, stringification and compilation.</p></div></div><div class="code"><div class="wrapper">        Expression.operations = _operations = {
+            <span class="hljs-string">'='</span>: {
+                evaluate: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">a, b</span>) </span>{
+                    <span class="hljs-keyword">return</span> _local[a] = b;
+                }
+            },
+            <span class="hljs-string">'.'</span>: {
+                chain: <span class="hljs-literal">true</span>,
+                evaluate: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">a, b</span>) </span>{
+                    <span class="hljs-keyword">if</span> (a !== _global &amp;&amp; isFunction(b)) {
+                        <span class="hljs-keyword">return</span> bindFunction(b, a);
+                    } <span class="hljs-keyword">else</span> {
+                        <span class="hljs-keyword">return</span> b;
+                    }
+                }
+            },
+            <span class="hljs-string">'&amp;&amp;'</span>: {
+                raw: <span class="hljs-literal">true</span>,
+                constant: <span class="hljs-literal">true</span>,
+                evaluate: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">a, b</span>) </span>{
+                    a = _execute(<span class="hljs-keyword">this</span>, a);
+                    <span class="hljs-keyword">if</span> (!a) {
+                        <span class="hljs-keyword">return</span> a;
+                    }
+                    b = _execute(<span class="hljs-keyword">this</span>, b);
+                    <span class="hljs-keyword">return</span> b;
+                }
+            },
+            <span class="hljs-string">'||'</span>: {
+                raw: <span class="hljs-literal">true</span>,
+                constant: <span class="hljs-literal">true</span>,
+                evaluate: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">a, b</span>) </span>{
+                    a = _execute(<span class="hljs-keyword">this</span>, a);
+                    <span class="hljs-keyword">if</span> (a) {
+                        <span class="hljs-keyword">return</span> a;
+                    }
+                    b = _execute(<span class="hljs-keyword">this</span>, b);
+                    <span class="hljs-keyword">return</span> b;
+                }
+            },
+            <span class="hljs-string">'?:'</span>: {
+                constant: <span class="hljs-literal">true</span>,
+                raw: <span class="hljs-literal">true</span>,
+                vector: <span class="hljs-literal">false</span>,
+                format: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">a, b, c</span>) </span>{
+                    <span class="hljs-keyword">return</span> <span class="hljs-string">"("</span> + (_stringify(a)) + <span class="hljs-string">"?"</span> + (_stringify(b)) + <span class="hljs-string">":"</span> + (_stringify(c)) + <span class="hljs-string">")"</span>;
+                },
+                evaluate: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">a, b, c</span>) </span>{
+                    a = _execute(<span class="hljs-keyword">this</span>, a);
+                    <span class="hljs-keyword">return</span> _execute(<span class="hljs-keyword">this</span>, _booleanize(a) ? b : c);
+                }
+            },
+            <span class="hljs-string">'()'</span>: {
+                vector: <span class="hljs-literal">false</span>,
+                format: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+                    <span class="hljs-keyword">var</span> a, f;
+                    f = <span class="hljs-built_in">arguments</span>[<span class="hljs-number">0</span>], a = <span class="hljs-number">2</span> &lt;= <span class="hljs-built_in">arguments</span>.length ? slice.call(<span class="hljs-built_in">arguments</span>, <span class="hljs-number">1</span>) : [];
+                    <span class="hljs-keyword">return</span> f + <span class="hljs-string">'('</span> + a.join(<span class="hljs-string">','</span>) + <span class="hljs-string">')'</span>;
+                },
+                evaluate: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+                    <span class="hljs-keyword">var</span> a, f;
+                    f = <span class="hljs-built_in">arguments</span>[<span class="hljs-number">0</span>], a = <span class="hljs-number">2</span> &lt;= <span class="hljs-built_in">arguments</span>.length ? slice.call(<span class="hljs-built_in">arguments</span>, <span class="hljs-number">1</span>) : [];
+                    <span class="hljs-keyword">if</span> (f == <span class="hljs-literal">null</span>) {
+                        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">"Missing argument to call."</span>);
+                    }
+                    <span class="hljs-keyword">if</span> (!isFunction(f)) {
+                        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">"Given argument is not callable."</span>);
+                    }
+                    <span class="hljs-keyword">return</span> f.apply(<span class="hljs-keyword">this</span>, a);
+                }
+            },
+            <span class="hljs-string">'[]'</span>: {
+                chain: <span class="hljs-literal">false</span>,
+                vector: <span class="hljs-literal">false</span>,
+                format: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">a, b</span>) </span>{
+                    <span class="hljs-keyword">return</span> a + <span class="hljs-string">"["</span> + b + <span class="hljs-string">"]"</span>;
+                },
+                evaluate: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">a, b</span>) </span>{
+                    <span class="hljs-keyword">if</span> (isNumber(b) &amp;&amp; b &lt; <span class="hljs-number">0</span>) {
+                        <span class="hljs-keyword">return</span> a[(a.length != <span class="hljs-literal">null</span> ? a.length : <span class="hljs-number">0</span>) + b];
+                    } <span class="hljs-keyword">else</span> {
+                        <span class="hljs-keyword">return</span> a[b];
+                    }
+                }
+            },
+            context: {
+                alias: <span class="hljs-string">'c'</span>,
+                format: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">c</span>) </span>{
+                    <span class="hljs-keyword">switch</span> (c) {
+                        <span class="hljs-keyword">case</span> <span class="hljs-string">"@"</span>:
+                            <span class="hljs-keyword">return</span> <span class="hljs-string">"this"</span>;
+                        <span class="hljs-keyword">case</span> <span class="hljs-string">"$$"</span>:
+                            <span class="hljs-keyword">return</span> <span class="hljs-string">"_global"</span>;
+                        <span class="hljs-keyword">case</span> <span class="hljs-string">"$_"</span>:
+                            <span class="hljs-keyword">return</span> <span class="hljs-string">"_local"</span>;
+                        <span class="hljs-keyword">case</span> <span class="hljs-string">"_$"</span>:
+                            <span class="hljs-keyword">return</span> <span class="hljs-string">"_scope"</span>;
+                        <span class="hljs-keyword">case</span> <span class="hljs-string">"__"</span>:
+                            <span class="hljs-keyword">return</span> <span class="hljs-string">"_stack"</span>;
+                        <span class="hljs-keyword">case</span> <span class="hljs-string">"$0"</span>:
+                        <span class="hljs-keyword">case</span> <span class="hljs-string">"$1"</span>:
+                        <span class="hljs-keyword">case</span> <span class="hljs-string">"$2"</span>:
+                        <span class="hljs-keyword">case</span> <span class="hljs-string">"$3"</span>:
+                        <span class="hljs-keyword">case</span> <span class="hljs-string">"$4"</span>:
+                        <span class="hljs-keyword">case</span> <span class="hljs-string">"$5"</span>:
+                        <span class="hljs-keyword">case</span> <span class="hljs-string">"$6"</span>:
+                        <span class="hljs-keyword">case</span> <span class="hljs-string">"$7"</span>:
+                        <span class="hljs-keyword">case</span> <span class="hljs-string">"$8"</span>:
+                        <span class="hljs-keyword">case</span> <span class="hljs-string">"$9"</span>:
+                            <span class="hljs-keyword">return</span> <span class="hljs-string">"_scope["</span> + c[<span class="hljs-number">1</span>] + <span class="hljs-string">"]"</span>;
+                        <span class="hljs-keyword">case</span> <span class="hljs-string">"_0"</span>:
+                        <span class="hljs-keyword">case</span> <span class="hljs-string">"_1"</span>:
+                        <span class="hljs-keyword">case</span> <span class="hljs-string">"_2"</span>:
+                        <span class="hljs-keyword">case</span> <span class="hljs-string">"_3"</span>:
+                        <span class="hljs-keyword">case</span> <span class="hljs-string">"_4"</span>:
+                        <span class="hljs-keyword">case</span> <span class="hljs-string">"_5"</span>:
+                        <span class="hljs-keyword">case</span> <span class="hljs-string">"_6"</span>:
+                        <span class="hljs-keyword">case</span> <span class="hljs-string">"_7"</span>:
+                        <span class="hljs-keyword">case</span> <span class="hljs-string">"_8"</span>:
+                        <span class="hljs-keyword">case</span> <span class="hljs-string">"_9"</span>:
+                            <span class="hljs-keyword">return</span> <span class="hljs-string">"_scope[_scope.length-"</span> + (c[<span class="hljs-number">1</span>] + <span class="hljs-number">1</span>) + <span class="hljs-string">"]"</span>;
+                        <span class="hljs-keyword">default</span>:
+                            <span class="hljs-keyword">return</span> <span class="hljs-string">"undefined"</span>;
+                    }
+                },
+                vector: <span class="hljs-literal">false</span>,
+                evaluate: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">c</span>) </span>{
+                    <span class="hljs-keyword">switch</span> (c) {
+                        <span class="hljs-keyword">case</span> <span class="hljs-string">"@"</span>:
+                            <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
+                        <span class="hljs-keyword">case</span> <span class="hljs-string">"$$"</span>:
+                            <span class="hljs-keyword">return</span> _global;
+                        <span class="hljs-keyword">case</span> <span class="hljs-string">"$_"</span>:
+                            <span class="hljs-keyword">return</span> _local;
+                        <span class="hljs-keyword">case</span> <span class="hljs-string">"_$"</span>:
+                            <span class="hljs-keyword">return</span> _scope;
+                        <span class="hljs-keyword">case</span> <span class="hljs-string">"__"</span>:
+                            <span class="hljs-keyword">return</span> _stack.stack;
+                        <span class="hljs-keyword">case</span> <span class="hljs-string">"$0"</span>:
+                        <span class="hljs-keyword">case</span> <span class="hljs-string">"$1"</span>:
+                        <span class="hljs-keyword">case</span> <span class="hljs-string">"$2"</span>:
+                        <span class="hljs-keyword">case</span> <span class="hljs-string">"$3"</span>:
+                        <span class="hljs-keyword">case</span> <span class="hljs-string">"$4"</span>:
+                        <span class="hljs-keyword">case</span> <span class="hljs-string">"$5"</span>:
+                        <span class="hljs-keyword">case</span> <span class="hljs-string">"$6"</span>:
+                        <span class="hljs-keyword">case</span> <span class="hljs-string">"$7"</span>:
+                        <span class="hljs-keyword">case</span> <span class="hljs-string">"$8"</span>:
+                        <span class="hljs-keyword">case</span> <span class="hljs-string">"$9"</span>:
+                        <span class="hljs-keyword">case</span> <span class="hljs-string">"_0"</span>:
+                        <span class="hljs-keyword">case</span> <span class="hljs-string">"_1"</span>:
+                        <span class="hljs-keyword">case</span> <span class="hljs-string">"_2"</span>:
+                        <span class="hljs-keyword">case</span> <span class="hljs-string">"_3"</span>:
+                        <span class="hljs-keyword">case</span> <span class="hljs-string">"_4"</span>:
+                        <span class="hljs-keyword">case</span> <span class="hljs-string">"_5"</span>:
+                        <span class="hljs-keyword">case</span> <span class="hljs-string">"_6"</span>:
+                        <span class="hljs-keyword">case</span> <span class="hljs-string">"_7"</span>:
+                        <span class="hljs-keyword">case</span> <span class="hljs-string">"_8"</span>:
+                        <span class="hljs-keyword">case</span> <span class="hljs-string">"_9"</span>:
+                            <span class="hljs-keyword">return</span> _scope[c[<span class="hljs-number">0</span>] === <span class="hljs-string">"$"</span> ? c[<span class="hljs-number">1</span>] : _scope.length - c[<span class="hljs-number">1</span>] - <span class="hljs-number">1</span>];
+                        <span class="hljs-keyword">default</span>:
+                            <span class="hljs-keyword">return</span> <span class="hljs-keyword">void</span> <span class="hljs-number">0</span>;
+                    }
+                }
+            },
+            property: {
+                alias: <span class="hljs-string">'p'</span>,
+                format: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">a</span>) </span>{
+                    <span class="hljs-keyword">return</span> a;
+                },
+                vector: <span class="hljs-literal">false</span>,
+                evaluate: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">a</span>) </span>{
+                    <span class="hljs-keyword">if</span> (a === <span class="hljs-string">"constructor"</span> || a === <span class="hljs-string">"__proto__"</span> || a === <span class="hljs-string">"prototype"</span>) {
+                        <span class="hljs-keyword">return</span> <span class="hljs-keyword">void</span> <span class="hljs-number">0</span>;
+                    } <span class="hljs-keyword">else</span> {
+                        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>[a];
+                    }
+                }
+            },
+            reference: {
+                alias: <span class="hljs-string">'r'</span>,
+                format: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">a</span>) </span>{
+                    <span class="hljs-keyword">if</span> (a === <span class="hljs-string">"this"</span>) {
+                        <span class="hljs-keyword">return</span> <span class="hljs-string">"this"</span>;
+                    } <span class="hljs-keyword">else</span> {
+                        <span class="hljs-keyword">return</span> <span class="hljs-string">"_resolve(this,"</span> + (<span class="hljs-built_in">JSON</span>.stringify(a)) + <span class="hljs-string">")."</span> + a;
+                    }
+                },
+                vector: <span class="hljs-literal">false</span>,
+                evaluate: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">a</span>) </span>{
+                    <span class="hljs-keyword">var</span> c, j, v;
+                    <span class="hljs-keyword">if</span> (a === <span class="hljs-string">"this"</span>) {
+                        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
+                    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (a === <span class="hljs-string">"constructor"</span> || a === <span class="hljs-string">"__proto__"</span> || a === <span class="hljs-string">"prototype"</span>) {
+                        <span class="hljs-keyword">return</span> <span class="hljs-keyword">void</span> <span class="hljs-number">0</span>;
+                    } <span class="hljs-keyword">else</span> {
+                        v = <span class="hljs-keyword">this</span>[a];
+                        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span> === _local) {
+                            <span class="hljs-keyword">return</span> v;
+                        }
+                        <span class="hljs-keyword">if</span> (_isProperty()) {
+                            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.hasOwnProperty(a)) {
+                                <span class="hljs-keyword">return</span> v;
+                            }
+                        } <span class="hljs-keyword">else</span> {
+                            <span class="hljs-keyword">if</span> (_local.hasOwnProperty(a)) {
+                                <span class="hljs-keyword">return</span> _local[a];
+                            }
+                            <span class="hljs-keyword">for</span> (j = _scope.length - <span class="hljs-number">1</span>; j &gt;= <span class="hljs-number">0</span>; j += -<span class="hljs-number">1</span>) {
+                                c = _scope[j];
+                                <span class="hljs-keyword">if</span> (c.hasOwnProperty(a)) {
+                                    <span class="hljs-keyword">return</span> c[a];
+                                }
+                            }
+                        }
+                        <span class="hljs-keyword">return</span> v;
+                    }
+                }
+            },
+            scalar: {
+                alias: <span class="hljs-string">'s'</span>,
+                constant: <span class="hljs-literal">true</span>,
+                vector: <span class="hljs-literal">false</span>,
+                format: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">a</span>) </span>{
+                    <span class="hljs-keyword">if</span> (a === <span class="hljs-keyword">void</span> <span class="hljs-number">0</span>) {
+                        <span class="hljs-keyword">return</span> <span class="hljs-string">''</span>;
+                    } <span class="hljs-keyword">else</span> {
+                        <span class="hljs-keyword">return</span> <span class="hljs-built_in">JSON</span>.stringify(a);
+                    }
+                },
+                evaluate: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">a</span>) </span>{
+                    <span class="hljs-keyword">return</span> a;
+                }
+            },
+            block: {
+                alias: <span class="hljs-string">'b'</span>,
+                format: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+                    <span class="hljs-keyword">var</span> s;
+                    s = <span class="hljs-number">1</span> &lt;= <span class="hljs-built_in">arguments</span>.length ? slice.call(<span class="hljs-built_in">arguments</span>, <span class="hljs-number">0</span>) : [];
+                    <span class="hljs-keyword">return</span> s.join(<span class="hljs-string">';'</span>);
+                },
+                evaluate: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+                    <span class="hljs-keyword">return</span> <span class="hljs-built_in">arguments</span>[<span class="hljs-built_in">arguments</span>.length - <span class="hljs-number">1</span>];
+                }
+            },
+            list: {
+                alias: <span class="hljs-string">'l'</span>,
+                format: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+                    <span class="hljs-keyword">var</span> s;
+                    s = <span class="hljs-number">1</span> &lt;= <span class="hljs-built_in">arguments</span>.length ? slice.call(<span class="hljs-built_in">arguments</span>, <span class="hljs-number">0</span>) : [];
+                    <span class="hljs-keyword">return</span> <span class="hljs-string">""</span> + (s.join(<span class="hljs-string">','</span>));
+                },
+                evaluate: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+                    <span class="hljs-keyword">return</span> <span class="hljs-built_in">arguments</span>[<span class="hljs-built_in">arguments</span>.length - <span class="hljs-number">1</span>];
+                }
+            },
+            group: {
+                alias: <span class="hljs-string">'g'</span>,
+                format: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">l</span>) </span>{
+                    <span class="hljs-keyword">return</span> <span class="hljs-string">"("</span> + l + <span class="hljs-string">")"</span>;
+                },
+                evaluate: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">l</span>) </span>{
+                    <span class="hljs-keyword">return</span> _execute(<span class="hljs-keyword">this</span>, l);
+                }
+            },
+            <span class="hljs-string">"if"</span>: {
+                alias: <span class="hljs-string">'i'</span>,
+                raw: <span class="hljs-literal">true</span>,
+                format: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">a, b, c</span>) </span>{
+                    <span class="hljs-keyword">if</span> (c != <span class="hljs-literal">null</span>) {
+                        <span class="hljs-keyword">return</span> <span class="hljs-string">"if "</span> + a + <span class="hljs-string">" {"</span> + b + <span class="hljs-string">"} else {"</span> + c + <span class="hljs-string">"}"</span>;
+                    } <span class="hljs-keyword">else</span> {
+                        <span class="hljs-keyword">return</span> <span class="hljs-string">"if "</span> + a + <span class="hljs-string">" {"</span> + b + <span class="hljs-string">"}"</span>;
+                    }
+                },
+                evaluate: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">a, b, c</span>) </span>{
+                    <span class="hljs-keyword">if</span> (_booleanize(_execute(<span class="hljs-keyword">this</span>, a))) {
+                        <span class="hljs-keyword">return</span> _execute(<span class="hljs-keyword">this</span>, b);
+                    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (c != <span class="hljs-literal">null</span>) {
+                        <span class="hljs-keyword">return</span> _execute(<span class="hljs-keyword">this</span>, c);
+                    } <span class="hljs-keyword">else</span> {
+                        <span class="hljs-keyword">return</span> <span class="hljs-keyword">void</span> <span class="hljs-number">0</span>;
+                    }
+                }
+            },
+            array: {
+                alias: <span class="hljs-string">'a'</span>,
+                format: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+                    <span class="hljs-keyword">var</span> e;
+                    e = <span class="hljs-number">1</span> &lt;= <span class="hljs-built_in">arguments</span>.length ? slice.call(<span class="hljs-built_in">arguments</span>, <span class="hljs-number">0</span>) : [];
+                    <span class="hljs-keyword">return</span> <span class="hljs-string">"["</span> + (e.join(<span class="hljs-string">','</span>)) + <span class="hljs-string">"]"</span>;
+                },
+                evaluate: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+                    <span class="hljs-keyword">var</span> e;
+                    e = <span class="hljs-number">1</span> &lt;= <span class="hljs-built_in">arguments</span>.length ? slice.call(<span class="hljs-built_in">arguments</span>, <span class="hljs-number">0</span>) : [];
+                    <span class="hljs-keyword">return</span> e;
+                }
+            },
+            object: {
+                alias: <span class="hljs-string">'o'</span>,
+                format: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+                    <span class="hljs-keyword">var</span> i, j, k, len, o;
+                    o = [];
+                    <span class="hljs-keyword">for</span> (i = j = <span class="hljs-number">0</span>, len = <span class="hljs-built_in">arguments</span>.length; j &lt; len; i = j += <span class="hljs-number">2</span>) {
+                        k = <span class="hljs-built_in">arguments</span>[i];
+                        o.push(k + <span class="hljs-string">":"</span> + <span class="hljs-built_in">arguments</span>[i + <span class="hljs-number">1</span>]);
+                    }
+                    <span class="hljs-keyword">return</span> <span class="hljs-string">"{"</span> + (o.join(<span class="hljs-string">','</span>)) + <span class="hljs-string">"}"</span>;
+                },
+                evaluate: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+                    <span class="hljs-keyword">var</span> i, j, k, len, o;
+                    o = {};
+                    <span class="hljs-keyword">for</span> (i = j = <span class="hljs-number">0</span>, len = <span class="hljs-built_in">arguments</span>.length; j &lt; len; i = j += <span class="hljs-number">2</span>) {
+                        k = <span class="hljs-built_in">arguments</span>[i];
+                        o[k] = <span class="hljs-built_in">arguments</span>[i + <span class="hljs-number">1</span>];
+                    }
+                    <span class="hljs-keyword">return</span> o;
+                }
+            }
+        };</div></div></div><div class="segment"><div class="comments doc-section doc-section-private"><div class="wrapper"><p><span class='doc-section-header'>Private function</span></p>
+<hr>
+<p>Fill and add missing <code>Expression.operations</code></p></div></div><div class="code"><div class="wrapper">        (<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+            <span class="hljs-keyword">var</span> _assign, _bools, _incdec, _pairs, _raws, _single, j, key, len, len1, len2, len3, len4, len5, m, n, q, r, ref2, t, value;
+            _reference = _operations.reference.format;
+            _variable = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">a</span>) </span>{
+                <span class="hljs-keyword">return</span> _reference.call(<span class="hljs-keyword">this</span>, a).replace(<span class="hljs-regexp">/^_resolve/</span>, <span class="hljs-string">'_variable'</span>);
+            };
+            _resolve = _operations.reference.evaluate;
+            _assignment = _operations[<span class="hljs-string">'='</span>].evaluate;
+            _incdec = [<span class="hljs-string">'++'</span>, <span class="hljs-string">'--'</span>];
+            _single = [<span class="hljs-string">'!'</span>, <span class="hljs-string">'~'</span>];
+            _pairs = [<span class="hljs-string">'+'</span>, <span class="hljs-string">'-'</span>, <span class="hljs-string">'*'</span>, <span class="hljs-string">'/'</span>, <span class="hljs-string">'%'</span>, <span class="hljs-string">'^'</span>, <span class="hljs-string">'&gt;&gt;&gt;'</span>, <span class="hljs-string">'&gt;&gt;'</span>, <span class="hljs-string">'&lt;&lt;'</span>, <span class="hljs-string">'&amp;'</span>, <span class="hljs-string">'|'</span>];
+            _bools = [<span class="hljs-string">'&lt;'</span>, <span class="hljs-string">'&gt;'</span>, <span class="hljs-string">'&lt;='</span>, <span class="hljs-string">'&gt;='</span>, <span class="hljs-string">'==='</span>, <span class="hljs-string">'!=='</span>];
+            _raws = [<span class="hljs-string">'=='</span>, <span class="hljs-string">'!='</span>];
+            _assign = [<span class="hljs-string">'='</span>, <span class="hljs-string">'-='</span>, <span class="hljs-string">'+='</span>, <span class="hljs-string">'*='</span>, <span class="hljs-string">'/='</span>, <span class="hljs-string">'%='</span>, <span class="hljs-string">'^='</span>, <span class="hljs-string">'&gt;&gt;&gt;='</span>, <span class="hljs-string">'&gt;&gt;='</span>, <span class="hljs-string">'&lt;&lt;='</span>, <span class="hljs-string">'&amp;='</span>, <span class="hljs-string">'|='</span>];
+            <span class="hljs-keyword">for</span> (j = <span class="hljs-number">0</span>, len = _incdec.length; j &lt; len; j++) {
+                key = _incdec[j];
+                _operations[key] = {
+                    format: (<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+                        <span class="hljs-keyword">var</span> k;
+                        k = key;
+                        <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">a, b</span>) </span>{
+                            <span class="hljs-keyword">if</span> (b) {
+                                <span class="hljs-keyword">return</span> <span class="hljs-string">""</span> + (_variable.call(<span class="hljs-keyword">this</span>, a)) + k;
+                            } <span class="hljs-keyword">else</span> {
+                                <span class="hljs-keyword">return</span> <span class="hljs-string">""</span> + k + (_variable.call(<span class="hljs-keyword">this</span>, a));
+                            }
+                        };
+                    })(),
+                    evaluate: (<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+                        <span class="hljs-keyword">var</span> i;
+                        i = key === <span class="hljs-string">"++"</span> ? +<span class="hljs-number">1</span> : -<span class="hljs-number">1</span>;
+                        <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">a, b</span>) </span>{
+                            <span class="hljs-keyword">var</span> c;
+                            c = <span class="hljs-built_in">Number</span>(_resolve.call(<span class="hljs-keyword">this</span>, a));
+                            _assignment.call(<span class="hljs-keyword">this</span>, a, c + i);
+                            <span class="hljs-keyword">if</span> (b) {
+                                <span class="hljs-keyword">return</span> c;
+                            } <span class="hljs-keyword">else</span> {
+                                <span class="hljs-keyword">return</span> c + i;
+                            }
+                        };
+                    })()
+                };
+            }
+            <span class="hljs-keyword">for</span> (m = <span class="hljs-number">0</span>, len1 = _single.length; m &lt; len1; m++) {
+                key = _single[m];
+                _operations[key] = {
+                    constant: <span class="hljs-literal">true</span>,
+                    evaluate: <span class="hljs-built_in">Function</span>(<span class="hljs-string">"return function(a) { return "</span> + key + <span class="hljs-string">" a ; };"</span>)()
+                };
+            }
+            ref2 = _pairs.concat(_bools).concat(_raws);
+            <span class="hljs-keyword">for</span> (n = <span class="hljs-number">0</span>, len2 = ref2.length; n &lt; len2; n++) {
+                key = ref2[n];
+                _operations[key] = {
+                    constant: <span class="hljs-literal">true</span>,
+                    evaluate: <span class="hljs-built_in">Function</span>(<span class="hljs-string">"return function(a,b) { return a "</span> + key + <span class="hljs-string">" b ; };"</span>)()
+                };
+            }
+            <span class="hljs-keyword">for</span> (q = <span class="hljs-number">0</span>, len3 = _bools.length; q &lt; len3; q++) {
+                key = _bools[q];
+                value = _operations[key];
+                value.vector = <span class="hljs-literal">false</span>;
+            }
+            <span class="hljs-keyword">for</span> (r = <span class="hljs-number">0</span>, len4 = _raws.length; r &lt; len4; r++) {
+                key = _raws[r];
+                value = _operations[key];
+                value.raw = <span class="hljs-literal">true</span>;
+            }
+            <span class="hljs-keyword">for</span> (t = <span class="hljs-number">0</span>, len5 = _assign.length; t &lt; len5; t++) {
+                key = _assign[t];
+                value = _operations[key] != <span class="hljs-literal">null</span> ? _operations[key] : _operations[key] = {};
+                <span class="hljs-keyword">if</span> (value.format == <span class="hljs-literal">null</span>) {
+                    value.format = (<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+                        <span class="hljs-keyword">var</span> k;
+                        k = key;
+                        <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">a, b</span>) </span>{
+                            <span class="hljs-keyword">return</span> <span class="hljs-string">""</span> + (_variable.call(<span class="hljs-keyword">this</span>, a)) + k + (_stringify(b));
+                        };
+                    })();
+                }
+                <span class="hljs-keyword">if</span> (value.evaluate == <span class="hljs-literal">null</span>) {
+                    value.evaluate = (<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+                        <span class="hljs-keyword">var</span> _op;
+                        _op = _operations[key.substring(<span class="hljs-number">0</span>, key.length - <span class="hljs-number">1</span>)].evaluate;
+                        <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">a, b</span>) </span>{
+                            <span class="hljs-keyword">return</span> _assignment.call(<span class="hljs-keyword">this</span>, a, _op(_resolve.call(<span class="hljs-keyword">this</span>, a), b));
+                        };
+                    })();
+                }
+            }
+            <span class="hljs-keyword">for</span> (key <span class="hljs-keyword">in</span> _operations) {
+                value = _operations[key];
+                value.name = key;
+                value.toString = (<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+                    <span class="hljs-keyword">var</span> k;
+                    k = key;
+                    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+                        <span class="hljs-keyword">return</span> k;
+                    };
+                })();
+                value.toJSON = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+                    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.name;
+                };
+                <span class="hljs-keyword">if</span> ((value.alias != <span class="hljs-literal">null</span>) &amp;&amp; (_operations[value.alias] == <span class="hljs-literal">null</span>)) {
+                    _operations[value.alias] = key;
+                }
+            }
+            _scalar = _operations.scalar.name;
+            _property = _operations[<span class="hljs-string">'.'</span>].name;
+        })();</div></div></div><div class="segment"><div class="comments doc-section doc-section-static"><div class="wrapper"><p><span class='doc-section-header'>Static method operator</span></p>
+<hr>
+<p>Lookup an operation by its name (~ key in <code>Expression.operations</code>)</p>
+<p>Parameters:</p>
+<ul>
+<li><strong>name must be a String.</strong></li>
+</ul>
+<p><strong>Returns an Object</strong><br/><strong>and</strong> <strong>Can throw an Error</strong></p></div></div><div class="code"><div class="wrapper">        Expression.operator = _operator = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">name</span>) </span>{
+            <span class="hljs-keyword">var</span> op;
+            <span class="hljs-keyword">if</span> ((op = _operations[name]) != <span class="hljs-literal">null</span>) {
+                <span class="hljs-keyword">if</span> (op.name != <span class="hljs-literal">null</span>) {
+                    <span class="hljs-keyword">return</span> op;
+                } <span class="hljs-keyword">else</span> {
+                    <span class="hljs-keyword">return</span> _operator(op);
+                }
+            }
+            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">"operation not found: "</span> + name);
+        };</div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'>Constructor</span></p>
+<hr>
+<p>The expressions constructor.  Depending on the operations&#39; constant and
+vector the given paramters might get evaluated here, to save nesting depth.</p>
+<p>Parameters:</p>
+<ul>
+<li><p><strong>op must be a String.</strong><br/>(expression&#39;s operation name)</p>
+</li>
+<li><p><strong>parameters is optional and must be an Array.</strong><br/>(optional array of parameters)</p>
+</li>
+</ul>
+<p><strong>Returns an Expression or a void</strong><br/>(expression or an early resolved new instance)</p></div></div><div class="code"><div class="wrapper">        <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Expression</span>(<span class="hljs-params">op, parameters1</span>) </span>{
+            <span class="hljs-keyword">var</span> j, len, len1, m, parameter, ref2, ref3;
+            <span class="hljs-keyword">this</span>.parameters = parameters1 != <span class="hljs-literal">null</span> ? parameters1 : [];
+            <span class="hljs-keyword">this</span>.operator = _operator(op);
+            <span class="hljs-keyword">this</span>.constant = <span class="hljs-keyword">this</span>.operator.constant === <span class="hljs-literal">true</span>;
+            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.constant) {
+                ref2 = <span class="hljs-keyword">this</span>.parameters;
+                <span class="hljs-keyword">for</span> (j = <span class="hljs-number">0</span>, len = ref2.length; j &lt; len; j++) {
+                    parameter = ref2[j];
+                    <span class="hljs-keyword">if</span> (isExpression(parameter) &amp;&amp; !parameter.constant) {
+                        <span class="hljs-keyword">this</span>.constant = <span class="hljs-literal">false</span>;
+                        <span class="hljs-keyword">break</span>;
+                    }
+                }
+            }
+            <span class="hljs-keyword">this</span>.vector = <span class="hljs-keyword">this</span>.operator.vector;
+            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.vector === <span class="hljs-keyword">void</span> <span class="hljs-number">0</span>) {
+                <span class="hljs-keyword">this</span>.vector = <span class="hljs-literal">false</span>;
+                ref3 = <span class="hljs-keyword">this</span>.parameters;
+                <span class="hljs-keyword">for</span> (m = <span class="hljs-number">0</span>, len1 = ref3.length; m &lt; len1; m++) {
+                    parameter = ref3[m];
+                    <span class="hljs-keyword">if</span> (isExpression(parameter) &amp;&amp; parameter.vector) {
+                        <span class="hljs-keyword">this</span>.vector = <span class="hljs-literal">true</span>;
+                        <span class="hljs-keyword">break</span>;
+                    }
+                }
+            }
+            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.constant &amp;&amp; <span class="hljs-keyword">this</span>.operator.name !== _scalar) {
+                <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Expression(<span class="hljs-string">'scalar'</span>, [<span class="hljs-keyword">this</span>.evaluate(_global)]);
+            }
+            <span class="hljs-keyword">return</span>;
+        }</div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'>Method toString</span></p>
+<hr>
+<p>Allows expressions to be turned into strings</p>
+<p><strong>Returns a String</strong></p></div></div><div class="code"><div class="wrapper">        Expression.prototype.toString = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.text !== <span class="hljs-keyword">void</span> <span class="hljs-number">0</span>) {
+                <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.text;
+            }
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.text = _stringify(<span class="hljs-keyword">this</span>);
+        };</div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'>Method toJSON</span></p>
+<hr>
+<p>Allows expression to be turned into a kind of json-ast.  See
+<code>Compiler.coffee</code> for a complete ast-implementation</p>
+<p><strong>Returns an Object.<String:op,Array:parameters></strong></p></div></div><div class="code"><div class="wrapper">        Expression.prototype.toJSON = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">callback</span>) </span>{
+            <span class="hljs-keyword">var</span> parameter, parameters;
+            <span class="hljs-keyword">if</span> (callback) {
+                <span class="hljs-keyword">return</span> callback(<span class="hljs-keyword">this</span>);
+            }
+            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.operator.name === <span class="hljs-string">'scalar'</span>) {
+                parameters = <span class="hljs-keyword">this</span>.parameters;
+            } <span class="hljs-keyword">else</span> {
+                parameters = (<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+                    <span class="hljs-keyword">var</span> j, len, ref2, results;
+                    ref2 = <span class="hljs-keyword">this</span>.parameters;
+                    results = [];
+                    <span class="hljs-keyword">for</span> (j = <span class="hljs-number">0</span>, len = ref2.length; j &lt; len; j++) {
+                        parameter = ref2[j];
+                        <span class="hljs-keyword">if</span> (parameter.toJSON != <span class="hljs-literal">null</span>) {
+                            results.push(parameter.toJSON());
+                        } <span class="hljs-keyword">else</span> {
+                            results.push(parameter);
+                        }
+                    }
+                    <span class="hljs-keyword">return</span> results;
+                }).call(<span class="hljs-keyword">this</span>);
+            }
+            <span class="hljs-keyword">return</span> [<span class="hljs-keyword">this</span>.operator.name].concat(parameters);
+        };</div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'>Method evaluate</span></p>
+<hr>
+<p>Evaluate this expressions value</p>
+<p>Parameters:</p>
+<ul>
+<li><p><strong>context is optional and must be an Object.</strong></p>
+</li>
+<li><p><strong>variables is optional and must be an Object.</strong></p>
+</li>
+<li><p><strong>scope is optional and must be an Array.</strong></p>
+</li>
+<li><p><strong>stack is optional and must be an Array.</strong></p>
+</li>
+</ul>
+<p><strong>Returns a mixed</strong></p></div></div><div class="code"><div class="wrapper">        Expression.prototype.evaluate = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">context, variables, scope, stack</span>) </span>{
+            <span class="hljs-keyword">return</span> _evaluate(context, <span class="hljs-keyword">this</span>, variables, scope, stack);
+        };
+
+        <span class="hljs-keyword">return</span> Expression;
+
+    })();
+
+}).call(<span class="hljs-keyword">this</span>);
+<span class="hljs-comment">//# sourceMappingURL=Expression.js.map</span></div></div></div></div></body></html>

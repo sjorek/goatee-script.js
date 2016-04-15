@@ -1,1 +1,126 @@
-{"default":{"title":"Creating “goatee-script” parser","defaults":{},"assets":[{"lib":[["lib/misc/grammar.json"]]}],"clean":["lib/Parser.js","lib/Parser.js.map"],"watch":true,"logger":{"before":"Start creating the “goatee-script” parser …","after":"The “goatee-script” parser has been created.","extname":".js","showChange":true}},"github":{"title":"Publish documentation of “src” files to github","defaults":{"out":"doc","languages":"./lib/misc/groc/languages","github":true},"assets":[{"doc":[["src/**/*.coffee","src/**/*.cson","README.md"]]}],"logger":{"before":"Start publishing documentation of source files to github …","after":"Published documentation of source files to github.","extname":".html","showChange":true},"queue":"publish"}}
+{
+  "default": {
+    "deps": [
+      "cson:transpile:jison:grammar:default:cson"
+    ],
+    "title": "Creating “goatee-script” default jison parser",
+    "defaults": {
+      "goatee": true,
+      "moduleType": "commonjs"
+    },
+    "beautify": {
+      "indentSize": 2,
+      "jslintHappy": true
+    },
+    "assets": [
+      {
+        "lib/": [
+          [
+            "lib/misc/grammar/jison.json"
+          ]
+        ]
+      }
+    ],
+    "rename": "ParserImpl.js",
+    "clean": [
+      "lib/ParserImpl.js"
+    ],
+    "watch": true,
+    "logger": {
+      "before": "Start creating the “goatee-script” default parser …",
+      "after": "The “goatee-script” default parser has been created.",
+      "extname": ".js",
+      "showChange": true
+    }
+  },
+  "commonjs": {
+    "deps": [
+      "cson:transpile:jison:grammar:default:cson"
+    ],
+    "title": "Creating “goatee-script” jison parser for commonjs",
+    "defaults": {
+      "moduleType": "commonjs"
+    },
+    "assets": [
+      {
+        "lib/misc/parser": [
+          [
+            "lib/misc/grammar/jison.json"
+          ]
+        ]
+      }
+    ],
+    "rename": "commonjs.js",
+    "clean": [
+      "lib/misc/parser/commonjs.js"
+    ],
+    "watch": true,
+    "logger": {
+      "before": "Start creating the “goatee-script” parser for commonjs …",
+      "after": "The “goatee-script” parser for commonjs has been created.",
+      "extname": ".js",
+      "showChange": true
+    },
+    "queue": "publish"
+  },
+  "amd": {
+    "deps": [
+      "cson:transpile:jison:grammar:default:cson"
+    ],
+    "title": "Creating “goatee-script” jison parser for amd",
+    "defaults": {
+      "moduleType": "amd"
+    },
+    "assets": [
+      {
+        "lib/misc/parser": [
+          [
+            "lib/misc/grammar/jison.json"
+          ]
+        ]
+      }
+    ],
+    "rename": "amd.js",
+    "clean": [
+      "lib/misc/parser/amd.js"
+    ],
+    "watch": true,
+    "logger": {
+      "before": "Start creating the “goatee-script” parser for amd …",
+      "after": "The “goatee-script” parser for amd has been created.",
+      "extname": ".js",
+      "showChange": true
+    },
+    "queue": "publish"
+  },
+  "javascript": {
+    "deps": [
+      "cson:transpile:jison:grammar:default:cson"
+    ],
+    "title": "Creating “goatee-script” jison parser for javascript",
+    "defaults": {
+      "moduleType": "js"
+    },
+    "assets": [
+      {
+        "lib/misc/parser": [
+          [
+            "lib/misc/grammar/jison.json"
+          ]
+        ]
+      }
+    ],
+    "rename": "plain.js",
+    "clean": [
+      "lib/misc/parser/plain.js"
+    ],
+    "watch": true,
+    "logger": {
+      "before": "Start creating the “goatee-script” parser for plain javascript …",
+      "after": "The “goatee-script” parser for plain javascript has been created.",
+      "extname": ".js",
+      "showChange": true
+    },
+    "queue": "publish"
+  }
+}

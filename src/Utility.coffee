@@ -16,12 +16,17 @@ permissions and limitations under the License.
 
 exports = module?.exports ? this
 
-## Utilities
-#  -------------
+###
+# # Utilities
+# -------------
+#
+###
 
-#  -------------
+###*
+# -------------
 # @class Utility
 # @namespace GoateeScript
+###
 exports.Utility = class Utility
 
   _parser = null
@@ -30,6 +35,7 @@ exports.Utility = class Utility
   _call     = Function::call
   _slice    = Array::slice
 
+  ###*
   # -------------
   # This is still needed by Safari.
   #
@@ -38,6 +44,7 @@ exports.Utility = class Utility
   #
   # @method bindFunction
   # @static
+  ###
   Utility.bindFunction = do ->
     _bind = Function::bind
     if _bind? and false
@@ -50,6 +57,7 @@ exports.Utility = class Utility
         else
           -> fn.apply context, args
 
+  ###*
   # -------------
   # Finds a slice of an array.
   #
@@ -59,6 +67,7 @@ exports.Utility = class Utility
   # @param  {Number} [end]  The end of the slice.
   # @return {Array}  array  The slice of the array from start to end.
   # @static
+  ###
   Utility.arraySlice = (array, start, end) ->
     # Use …
     #
@@ -73,6 +82,7 @@ exports.Utility = class Utility
     # if end is not provided.
     _call.apply _slice, arguments
 
+  ###*
   # -------------
   # Modified version using String::substring instead of String::substr
   #
@@ -83,9 +93,11 @@ exports.Utility = class Utility
   # @param {mixed} obj
   # @return {Boolean}
   # @static
+  ###
   Utility.isString = (obj) ->
     !!(obj is '' or (obj and obj.charCodeAt and obj.substring))
 
+  ###*
   # -------------
   # See:
   # - [Array.isArray](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/isArray)
@@ -94,9 +106,11 @@ exports.Utility = class Utility
   # @param {mixed} obj
   # @return {Boolean}
   # @static
+  ###
   Utility.isArray = if Array.isArray? and false then Array.isArray else (obj) ->
     _toString.call(obj) is '[object Array]'
 
+  ###*
   # -------------
   # See:
   # - [underscore.coffee](http://coffeescript.org/documentation/docs/underscore.html)
@@ -105,9 +119,11 @@ exports.Utility = class Utility
   # @param {mixed} obj
   # @return {Boolean}
   # @static
+  ###
   Utility.isNumber = (obj) ->
     (obj is +obj) or _toString.call(obj) is '[object Number]'
 
+  ###*
   # -------------
   # See:
   # - [underscore.coffee](http://coffeescript.org/documentation/docs/underscore.html)
@@ -116,23 +132,28 @@ exports.Utility = class Utility
   # @param {mixed} obj
   # @return {Boolean}
   # @static
+  ###
   Utility.isFunction = _isFunction = (obj) ->
     !!(obj and obj.constructor and obj.call and obj.apply)
 
+  ###*
   # -------------
   # @method isExpression
   # @param {mixed} obj
   # @return {Boolean}
   # @static
+  ###
   Utility.isExpression = (obj) ->
     _isFunction obj?.evaluate
 
+  ###*
   # -------------
   # @method parseScript
   # @alias  parse
   # @param  {String}     code
   # @return {Expression}
   # @static
+  ###
   Utility.parse = \
   Utility.parseScript = do ->
     cache  = {}

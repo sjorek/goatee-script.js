@@ -1,0 +1,39 @@
+# Grammar: jison
+# -------------
+
+default:
+
+  deps: ['coffee:transpile:jison:grammar:default']
+
+  title: 'Creating “goatee-script” jison grammar'
+
+  defaults :
+    indent : true
+    moduleName: './misc/grammar/jison'
+
+  assets : [
+    'src/misc/grammar': [
+      [
+        'src/misc/grammar/jison.coffee'
+      ]
+    ]
+  ]
+
+  replace : [
+    [
+      'misc/grammar/jison.coffee'
+      'misc/grammar/jison'
+    ]
+  ]
+
+  clean: [
+    'src/misc/grammar/jison.json'
+  ]
+
+  watch: true
+
+  logger:
+    before: 'Start creating the “goatee-script” grammar …'
+    after: 'The “goatee-script” grammar has been created.'
+    extname: '.json'
+    showChange: true

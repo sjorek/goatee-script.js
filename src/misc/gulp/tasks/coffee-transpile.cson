@@ -3,17 +3,23 @@
 
 # files with anonymous function wrapper
 default:
-  title: 'Transpiling coffee-script files'
+
+  title: 'Transpiling all coffee-script files.'
 
   defaults :
     bare : false
     map: true
+
+  beautify:
+    indentSize: 2
+    jslintHappy: true
 
   assets : [
     'lib/': [
       [
         'src/**/*.coffee'
         '!src/misc/gulp/gulpfile.coffee'
+        '!src/misc/grammar/jison*.coffee'
       ]
     ]
   ]
@@ -25,6 +31,43 @@ default:
   clean: [
     'lib/**/*.js'
     'lib/**/*.js.map'
+    '!lib/misc/gulp/gulpfile.js'
+    '!lib/misc/gulp/gulpfile.js.map'
+    '!lib/misc/grammar/jison*.js'
+    '!lib/misc/grammar/jison*.js.map'
+  ]
+
+  watch: true
+
+  logger:
+    before: 'Start transpiling all coffee-script files …'
+    after: 'Transpiling all coffee-script files complete.'
+    extname: '.js'
+    showChange: true
+
+'jison:grammar:default':
+
+  title: 'Transpiling grammar coffee-script files'
+
+  defaults :
+    bare : false
+    map: true
+
+  assets : [
+    'lib/misc/grammar/': [
+      [
+        'src/misc/grammar/jison*.coffee'
+      ]
+    ]
+  ]
+
+  sourcemaps:
+    init: []
+    write: ['.']
+
+  clean: [
+    'lib/misc/grammar/jison*.js'
+    'lib/misc/grammar/jison*.js.map'
   ]
 
   watch: true
@@ -35,10 +78,11 @@ default:
     extname: '.js'
     showChange: true
 
+
 # files without anonymous function wrapper, hence bare
 
 'gulpfile':
-  title: 'Transpiling “src/misc/gulp/gulpfile.coffee” to “gulfile.js”'
+  title: 'Transpiling “src/misc/gulp/gulpfile.coffee” to “gulpfile.js”'
 
   defaults :
     bare : true
@@ -50,16 +94,20 @@ default:
 
   replace : [
     [
-      '#{__dirname}/src/misc/gulp'
-      '#{__dirname}/lib/misc/gulp'
+      '#{__dirname}/src/'
+      '#{__dirname}/lib/'
     ]
     [
       'tasks/#{filename}.cson'
       'tasks/#{filename}.json'
     ]
     [
-      "require 'require-cson' # only needed for coffee-script execution"
-      ''
+      "require 'require-cson'"
+      "#require 'require-cson'"
+    ]
+    [
+      "#require 'coffee-script/register'"
+      "require 'coffee-script/register'"
     ]
   ]
   sourcemaps:

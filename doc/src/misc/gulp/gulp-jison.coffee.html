@@ -1,0 +1,50 @@
+<!DOCTYPE html><html lang="en"><head><title>src/misc/gulp/gulp-jison</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../../../"><meta name="groc-document-path" content="src/misc/gulp/gulp-jison.coffee"><meta name="groc-project-path" content="src/misc/gulp/gulp-jison.coffee"><link rel="stylesheet" type="text/css" media="all" href="../../../assets/style.css"><script type="text/javascript" src="../../../assets/behavior.js"></script><body><div id="meta"><div class="file-path">src/misc/gulp/gulp-jison.coffee</div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><p>© Copyright 2013-2016 Stephan Jorek <a href="&#x6d;&#x61;&#x69;&#x6c;&#x74;&#111;&#x3a;&#x73;&#x74;&#101;&#112;&#x68;&#x61;&#x6e;&#x2e;&#106;&#x6f;&#x72;&#101;&#107;&#x40;&#x67;&#x6d;&#97;&#105;&#x6c;&#x2e;&#99;&#x6f;&#x6d;">&#x73;&#x74;&#101;&#112;&#x68;&#x61;&#x6e;&#x2e;&#106;&#x6f;&#x72;&#101;&#107;&#x40;&#x67;&#x6d;&#97;&#105;&#x6c;&#x2e;&#99;&#x6f;&#x6d;</a></p>
+<p>Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at</p>
+<p><a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a></p>
+<p>Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
+implied. See the License for the specific language governing
+permissions and limitations under the License.</p></div></div><div class="code"><div class="wrapper">fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>)
+path = <span class="hljs-built_in">require</span>(<span class="hljs-string">'path'</span>)
+map = <span class="hljs-built_in">require</span> <span class="hljs-string">'map-stream'</span>
+util = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp-util'</span>)
+PluginError = util.PluginError
+cli = <span class="hljs-built_in">require</span>(<span class="hljs-string">'jison/lib/cli'</span>)</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h1 id="gulp-jison">Gulp Jison</h1>
+<hr></div></div><div class="code"><div class="wrapper">PLUGIN_NAME = <span class="hljs-string">'gulp-jison'</span>
+
+<span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-params">(options)</span> -&gt;</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>getting raw files</p></div></div><div class="code"><div class="wrapper">  lex = <span class="hljs-literal">null</span>
+  <span class="hljs-keyword">if</span> options.lexfile?
+    lex = fs.readFileSync path.normalize(options.lexfile), <span class="hljs-string">'utf8'</span>
+<span class="hljs-function">
+  <span class="hljs-title">processFile</span> = <span class="hljs-params">(file, options)</span> -&gt;</span>
+
+    opts = {}
+    opts[key] = value <span class="hljs-keyword">for</span> own key, value <span class="hljs-keyword">of</span> options <span class="hljs-keyword">if</span> options?
+
+    opts.file = file.path
+    raw = file.contents.toString()</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>making best guess at json mode</p></div></div><div class="code"><div class="wrapper">    opts.json = path.extname(opts.file) <span class="hljs-keyword">is</span> <span class="hljs-string">'.json'</span> <span class="hljs-keyword">unless</span> opts.json</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>setting output file name and module name based on input file name
+if they aren&#39;t specified.</p></div></div><div class="code"><div class="wrapper">    name = path.basename(opts.outfile ? opts.file).replace <span class="hljs-regexp">/\..*$/g</span>, <span class="hljs-string">''</span>
+
+    opts.outfile = <span class="hljs-string">"<span class="hljs-subst">#{name}</span>.js"</span> <span class="hljs-keyword">unless</span> opts.outfile?
+
+    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> opts.moduleName? <span class="hljs-keyword">and</span> name
+      opts.moduleName = name.replace <span class="hljs-regexp">/-\w/g</span>, <span class="hljs-function"><span class="hljs-params">(match)</span> -&gt;</span>
+        match.charAt(<span class="hljs-number">1</span>).toUpperCase()
+
+    grammar = cli.processGrammars raw, lex, opts.json
+    cli.generateParserString opts, grammar
+<span class="hljs-function">
+  <span class="hljs-title">jison</span> = <span class="hljs-params">(file, cb)</span> -&gt;</span>
+
+    contents = processFile(file, options)
+    <span class="hljs-keyword">return</span> cb contents <span class="hljs-keyword">if</span> contents <span class="hljs-keyword">instanceof</span> Error
+
+    file.contents = <span class="hljs-keyword">new</span> Buffer contents
+    file.path = util.replaceExtension <span class="hljs-string">'.js'</span>
+
+    callback <span class="hljs-literal">null</span>, file
+
+  map jison</div></div></div></div></body></html>

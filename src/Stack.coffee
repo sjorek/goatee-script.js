@@ -18,12 +18,17 @@ global = do -> this
 
 exports = module?.exports ? this
 
-## Stack
-#  -------------
+###
+# # Stack
+# -------
+#
+###
 
-#  -------------
+###*
+# -------------
 # @class Stack
 # @namespace GoateeScript
+###
 exports.Stack = class Stack
 
   global      : undefined
@@ -31,45 +36,57 @@ exports.Stack = class Stack
   stack       : null
   scope       : null
 
-  #  -------------
+  ###*
+  # -------------
   # @constructor
   # @param {Object} [global=undefined] … scope
   # @param {Object} [local={}]  … scope
   # @param {Array}  [scope]  … chain
   # @param {Array}  [stack]  … chain
+  ###
   constructor : (@global = global, @local = {}, @scope = [], @stack = []) ->
 
-  #  -------------
+  ###*
+  # -------------
   # @destructor
+  ###
   destructor  : () ->
     @global = undefined
     @local  = null
     @scope  = null
     @stack  = null
 
-  #  -------------
+  ###*
+  # -------------
   # @method current
   # @return {Stack|undefined}
+  ###
   current     : ->
     if @stack.length > 0 then @stack[@stack.length - 1] else undefined
 
-  #  -------------
+  ###*
+  # -------------
   # @method previous
   # @return {Stack|undefined}
+  ###
   previous    : ->
     if @stack.length > 1 then @stack[@stack.length - 2] else undefined
 
-  #  -------------
+  ###*
+  # -------------
   # @method push
   # @param {Object} context
   # @param {Expression} expression
+  ###
   push        : (context, expression) ->
     @scope.push context
     @stack.push expression
     return
 
-  #  -------------
+  ###*
+  # -------------
   # @method pop
+  ###
   pop         : () ->
     @scope.pop()
     @stack.pop()
