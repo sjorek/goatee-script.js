@@ -54,6 +54,10 @@ commonjs:
     # moduleType: 'amd'
     # moduleType: 'js'
 
+  beautify:
+    indentSize: 2
+    jslintHappy: true
+
   assets : [
     'lib/misc/parser': [
       [
@@ -92,6 +96,10 @@ amd:
     moduleType: 'amd'
     # moduleType: 'js'
 
+  beautify:
+    indentSize: 2
+    jslintHappy: true
+
   assets : [
     'lib/misc/parser': [
       [
@@ -129,6 +137,10 @@ javascript:
     # moduleType: 'commonjs'
     # moduleType: 'amd'
     moduleType: 'js'
+
+  beautify:
+    indentSize: 2
+    jslintHappy: true
 
   assets : [
     'lib/misc/parser': [

@@ -19,139 +19,7 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
         "pageTitle": "goatee-script.js",
         "title": "goatee-script.js"
       },
-      "depth": 1,
-      "outline": [
-        {
-          "type": "heading",
-          "data": {
-            "level": 2,
-            "title": "Objective",
-            "slug": "objective"
-          },
-          "depth": 2,
-          "children": [
-            {
-              "type": "heading",
-              "data": {
-                "level": 3,
-                "title": "Javascript – the source and destination",
-                "slug": "javascript--the-source-and-destination"
-              },
-              "depth": 3
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 3,
-                "title": "Similarities to javascript",
-                "slug": "similarities-to-javascript"
-              },
-              "depth": 3
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 3,
-                "title": "Differences to javascript",
-                "slug": "differences-to-javascript"
-              },
-              "depth": 3
-            }
-          ]
-        }, {
-          "type": "heading",
-          "data": {
-            "level": 2,
-            "title": "Installation",
-            "slug": "installation"
-          },
-          "depth": 2
-        }, {
-          "type": "heading",
-          "data": {
-            "level": 2,
-            "title": "Usage",
-            "slug": "usage"
-          },
-          "depth": 2
-        }, {
-          "type": "heading",
-          "data": {
-            "level": 2,
-            "title": "Documentation",
-            "slug": "documentation"
-          },
-          "depth": 2
-        }, {
-          "type": "heading",
-          "data": {
-            "level": 2,
-            "title": "Development",
-            "slug": "development"
-          },
-          "depth": 2,
-          "children": [
-            {
-              "type": "heading",
-              "data": {
-                "level": 3,
-                "title": "Install dependencies …",
-                "slug": "install-dependencies-"
-              },
-              "depth": 3
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 3,
-                "title": "… for production version:",
-                "slug": "-for-production-version"
-              },
-              "depth": 3
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 3,
-                "title": "… for development version:",
-                "slug": "-for-development-version"
-              },
-              "depth": 3
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 3,
-                "title": "Run build …",
-                "slug": "run-build-"
-              },
-              "depth": 3,
-              "children": [
-                {
-                  "type": "heading",
-                  "data": {
-                    "level": 4,
-                    "title": "… in *nix-like environments:",
-                    "slug": "-in-nix-like-environments"
-                  },
-                  "depth": 4
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 4,
-                    "title": "… in Windows environments:",
-                    "slug": "-in-windows-environments"
-                  },
-                  "depth": 4
-                }
-              ]
-            }
-          ]
-        }, {
-          "type": "heading",
-          "data": {
-            "level": 2,
-            "title": "Credits go to …",
-            "slug": "credits-go-to-"
-          },
-          "depth": 2
-        }
-      ]
+      "depth": 1
     }, {
       "type": "file",
       "data": {
@@ -786,6 +654,73 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                       "depth": 5
                     }
                   ]
+                }
+              ]
+            }, {
+              "type": "folder",
+              "data": {
+                "path": "lib/misc/parser",
+                "title": "parser"
+              },
+              "depth": 3,
+              "children": [
+                {
+                  "type": "file",
+                  "data": {
+                    "language": {
+                      "nameMatchers": [".js"],
+                      "pygmentsLexer": "javascript",
+                      "multiLineComment": ["/*", "*", "*/"],
+                      "singleLineComment": ["//"],
+                      "ignorePrefix": "}",
+                      "foldPrefix": "^",
+                      "name": "JavaScript"
+                    },
+                    "sourcePath": "/Users/sjorek/Documents/Projects/Goatee/Workspace/goatee-script.js/lib/misc/parser/amd.js",
+                    "projectPath": "lib/misc/parser/amd.js",
+                    "targetPath": "lib/misc/parser/amd.js",
+                    "pageTitle": "lib/misc/parser/amd",
+                    "title": "amd.js"
+                  },
+                  "depth": 4
+                }, {
+                  "type": "file",
+                  "data": {
+                    "language": {
+                      "nameMatchers": [".js"],
+                      "pygmentsLexer": "javascript",
+                      "multiLineComment": ["/*", "*", "*/"],
+                      "singleLineComment": ["//"],
+                      "ignorePrefix": "}",
+                      "foldPrefix": "^",
+                      "name": "JavaScript"
+                    },
+                    "sourcePath": "/Users/sjorek/Documents/Projects/Goatee/Workspace/goatee-script.js/lib/misc/parser/commonjs.js",
+                    "projectPath": "lib/misc/parser/commonjs.js",
+                    "targetPath": "lib/misc/parser/commonjs.js",
+                    "pageTitle": "lib/misc/parser/commonjs",
+                    "title": "commonjs.js"
+                  },
+                  "depth": 4
+                }, {
+                  "type": "file",
+                  "data": {
+                    "language": {
+                      "nameMatchers": [".js"],
+                      "pygmentsLexer": "javascript",
+                      "multiLineComment": ["/*", "*", "*/"],
+                      "singleLineComment": ["//"],
+                      "ignorePrefix": "}",
+                      "foldPrefix": "^",
+                      "name": "JavaScript"
+                    },
+                    "sourcePath": "/Users/sjorek/Documents/Projects/Goatee/Workspace/goatee-script.js/lib/misc/parser/plain.js",
+                    "projectPath": "lib/misc/parser/plain.js",
+                    "targetPath": "lib/misc/parser/plain.js",
+                    "pageTitle": "lib/misc/parser/plain",
+                    "title": "plain.js"
+                  },
+                  "depth": 4
                 }
               ]
             }

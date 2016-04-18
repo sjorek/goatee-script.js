@@ -41,6 +41,10 @@
     "defaults": {
       "moduleType": "commonjs"
     },
+    "beautify": {
+      "indentSize": 2,
+      "jslintHappy": true
+    },
     "assets": [
       {
         "lib/misc/parser": [
@@ -71,6 +75,10 @@
     "defaults": {
       "moduleType": "amd"
     },
+    "beautify": {
+      "indentSize": 2,
+      "jslintHappy": true
+    },
     "assets": [
       {
         "lib/misc/parser": [
@@ -100,6 +108,10 @@
     "title": "Creating “goatee-script” jison parser for javascript",
     "defaults": {
       "moduleType": "js"
+    },
+    "beautify": {
+      "indentSize": 2,
+      "jslintHappy": true
     },
     "assets": [
       {
