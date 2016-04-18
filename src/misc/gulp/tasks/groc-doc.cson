@@ -9,6 +9,7 @@ default:
 
   defaults :
     _ : './.groc.json'
+    'repository-url': 'https://github.com/sjorek/goatee-script.js'
     #out: 'doc'
     ##silent: false
     ##verbose: true

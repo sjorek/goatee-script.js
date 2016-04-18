@@ -5,7 +5,8 @@
     ],
     "title": "Documentation of “src” files",
     "defaults": {
-      "_": "./.groc.json"
+      "_": "./.groc.json",
+      "repository-url": "https://github.com/sjorek/goatee-script.js"
     },
     "assets": [
       {
