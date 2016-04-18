@@ -9,6 +9,7 @@ default:
 
   defaults :
     goatee: true
+    beautify: true
     # moduleName: 'JisonParser'
     moduleType: 'commonjs'
     # moduleType: 'amd'
@@ -49,6 +50,7 @@ commonjs:
   title: 'Creating “goatee-script” jison parser for commonjs'
 
   defaults :
+    beautify: true
     # moduleName: 'JisonParser'
     moduleType: 'commonjs'
     # moduleType: 'amd'
@@ -91,6 +93,7 @@ amd:
   title: 'Creating “goatee-script” jison parser for amd'
 
   defaults :
+    beautify: true
     # moduleName: 'JisonParser'
     # moduleType: 'commonjs'
     moduleType: 'amd'
@@ -133,6 +136,7 @@ javascript:
   title: 'Creating “goatee-script” jison parser for javascript'
 
   defaults :
+    beautify: true
     # moduleName: 'JisonParser'
     # moduleType: 'commonjs'
     # moduleType: 'amd'

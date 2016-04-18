@@ -6,6 +6,7 @@
     "title": "Creating “goatee-script” default jison parser",
     "defaults": {
       "goatee": true,
+      "beautify": true,
       "moduleType": "commonjs"
     },
     "beautify": {
@@ -39,6 +40,7 @@
     ],
     "title": "Creating “goatee-script” jison parser for commonjs",
     "defaults": {
+      "beautify": true,
       "moduleType": "commonjs"
     },
     "beautify": {
@@ -73,6 +75,7 @@
     ],
     "title": "Creating “goatee-script” jison parser for amd",
     "defaults": {
+      "beautify": true,
       "moduleType": "amd"
     },
     "beautify": {
@@ -107,6 +110,7 @@
     ],
     "title": "Creating “goatee-script” jison parser for javascript",
     "defaults": {
+      "beautify": true,
       "moduleType": "js"
     },
     "beautify": {

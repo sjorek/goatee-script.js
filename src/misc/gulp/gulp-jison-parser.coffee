@@ -42,6 +42,20 @@ module.exports = (options) ->
       data = p.generate(options)
     return cb data if data instanceof Error
 
+    if options.beautify?
+      comment = data.match /\/\*\s*(Returns a Parser object of the following structure:)[^\*]*(Parser:[^\*]*\})\s*\*\//
+      if comment
+        data = data.replace comment[0], """
+
+          /** ------------
+           *
+           * #{comment[1]}
+           *
+           *      #{comment[2].split('\n').join('\n *    ').replace /\*[ ]+\n/g, '*\n'}
+           *
+           */
+          """
+
     file.contents = new Buffer data
     file.path = util.replaceExtension file.path, '.js'
 

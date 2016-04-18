@@ -391,7 +391,7 @@ gulp.task('clean', deps.clean, function() {
  */
 
 gulp.task('build', deps.build, function(callback) {
-  sequence('clean', 'transpile', 'jison:parser:default', 'doc', function(error) {
+  sequence('clean', 'transpile', 'jison:parser', 'doc', function(error) {
     if (error != null) {
       util.log(error.message);
     }
