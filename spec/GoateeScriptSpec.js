@@ -354,4 +354,4 @@ OTHER DEALINGS IN THE SOFTWARE.
     });
 
 }).call(this);
-//# sourceMappingURL=GoateeScriptTestSpec.js.map
+//# sourceMappingURL=GoateeScriptSpec.js.map

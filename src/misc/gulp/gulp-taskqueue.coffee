@@ -38,6 +38,7 @@ exports.createDependencyLog = () ->
     build: []
     clean: []
     transpile: []
+    test:[]
     doc: []
     publish: []
     watch: []
@@ -81,9 +82,10 @@ exports.build = (name, deps, load, worker) ->
       deps[taskconfig.queue ? 'queue'].push taskname
 
       subtaskdeps = taskconfig.deps ? []
-      for assets, index in taskconfig.assets
+      index = 0
+      for assets in taskconfig.assets
         for own destination, source of assets
-          subtaskname = "#{taskname}:#{index}"
+          subtaskname = "#{taskname}:#{index++}"
           taskdeps.push subtaskname
 
           if taskconfig.watch?

@@ -51,7 +51,7 @@ exports.Grammar = class Grammar
   # @return {Parser}
   # @static
   ###
-  Grammar.load = (filename = "./misc/grammar/jison.coffee",
+  Grammar.load = (filename = "./grammar/jison.coffee",
                   scope = {},
                   notator = Notator)->
 

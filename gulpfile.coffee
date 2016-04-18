@@ -21,9 +21,11 @@ coffee = require 'gulp-coffee'
 #cson = require 'gulp-cson'
 cson = require "#{__dirname}/src/misc/gulp/gulp-cson"
 footer = require 'gulp-footer'
+fs = require 'fs'
 grammar = require "#{__dirname}/src/misc/gulp/gulp-jison-grammar"
 groc = require 'gulp-groc'
 header = require 'gulp-header'
+jasmine = require 'gulp-jasmine'
 #jison = require 'gulp-jison'
 parser = require "#{__dirname}/src/misc/gulp/gulp-jison-parser"
 rename = require 'gulp-rename'
@@ -53,6 +55,7 @@ require 'require-cson' # only needed for coffee-script execution
 
 deps = taskqueue.createDependencyLog()
 deps.jison = [] # ['transpile']
+deps.jasmine = [] # ['transpile']
 
 load = (filename) ->
   #require "goatee-script/misc/gulp/tasks/#{filename}.json"
@@ -68,6 +71,34 @@ load = (filename) ->
 task = 'coffee:transpile'
 deps = taskqueue.build task, deps, load, \
   (source, destination, name, config) ->
+    if name is 'coffee:transpile:gulpfile'
+      config.footer = [
+        """
+        /**
+         * Spit out the brand …
+         */
+        [
+          '<%= readme %>'
+        ].map(function(l){
+          util.log(l.replace(/(.)[0-9a-z]/g,function(r){
+            return r[0]
+              .repeat('0123456789abcdefghijklmnopqrstuvwxyz'.indexOf(r[1])+1)
+          }));
+        });
+        """
+        {
+          readme: fs.readFileSync('./README.md', 'utf8')
+            .split('\n')[4...36].map (line) ->
+              line
+                .replace(/^ {8}/, '')
+                .replace /(.)\1{0,35}/g, (c) ->
+                  c[0].replace(/(\\|')/,"\\$1") \
+                  + '0123456789abcdefghijklmnopqrstuvwxyz'.charAt(c.length - 1)
+
+            .join "',\n  '"
+        }
+      ]
+
     ->
       util.log name, source, destination
 
@@ -213,7 +244,54 @@ deps.jison.push task
 #
 ###
 
-gulp.task 'jison', deps.jison, -> 'Jison tasks done.'
+gulp.task 'jison', deps.jison, ->
+  util.log 'Jison tasks done.'
+
+###
+# # Task: build
+# ------------------------
+#
+# Run build steps in sequence
+#
+###
+gulp.task 'build', deps.build, (callback) ->
+  sequence 'clean', 'transpile', 'jison:parser:default', (error) ->
+    util.log error.message if error?
+    callback
+  util.log 'Build done'
+
+#deps.watch.push 'build'
+
+###
+# # Task: test
+# ------------------------
+#
+# Run the tests
+#
+###
+do ->
+  filename = 'test-jasmine'
+  config = require "#{__dirname}/src/misc/gulp/tasks/#{filename}.cson"
+
+  gulp.task 'test:jasmine', config.deps, ->
+    util.log config
+    gulp.src(config.assets).pipe jasmine()
+
+  if config.watch?
+    gulp.task 'test:jasmine:watch', ->
+      util.log config.title
+      gulp.watch config.assets, ['test:jasmine']
+    deps.watch.push 'test:jasmine:watch'
+
+###
+# # Task: test
+# ------------------------
+#
+# Run the tests
+#
+###
+gulp.task 'test', ['test:jasmine'].concat(deps.test), ->
+  util.log 'Tests done.'
 
 ###
 # # Task: groc:doc
@@ -263,7 +341,8 @@ deps.doc.push task
 # Run documentation tasks.
 #
 ###
-gulp.task 'doc', deps.doc, -> util.log 'Documentation updated'
+gulp.task 'doc', ['build'].concat(deps.doc), ->
+  util.log 'Documentation updated'
 
 #deps.doc.push 'build'
 #deps.publish.push 'doc'
@@ -278,28 +357,14 @@ gulp.task 'doc', deps.doc, -> util.log 'Documentation updated'
 gulp.task 'clean', deps.clean, -> util.log 'Everything clean'
 
 ###
-# # Task: build
-# ------------------------
-#
-# Run build steps in sequence
-#
-###
-gulp.task 'build', deps.build, (callback) ->
-  sequence 'clean', 'transpile', 'jison:parser:default', 'doc', (error) ->
-    util.log error.message if error?
-    callback
-  util.log 'Build done'
-
-#deps.watch.push 'build'
-
-###
 # # Task: publish
 # ------------------------
 #
 # Publish everything …
 #
 ###
-gulp.task 'publish', deps.publish, -> util.log 'Published'
+gulp.task 'publish', ['build', 'doc'].concat(deps.publish), ->
+  util.log 'Published'
 
 ###
 # # Task: watch

@@ -15,7 +15,12 @@
           [
             "src/**/*.coffee",
             "!src/misc/gulp/gulpfile.coffee",
-            "!src/misc/grammar/jison*.coffee"
+            "!src/grammar/jison*.coffee"
+          ]
+        ],
+        "spec/": [
+          [
+            "spec/**/*.coffee"
           ]
         ]
       }
@@ -29,10 +34,16 @@
     "clean": [
       "lib/**/*.js",
       "lib/**/*.js.map",
+      "spec/**/*.js",
+      "spec/**/*.js.map",
       "!lib/misc/gulp/gulpfile.js",
       "!lib/misc/gulp/gulpfile.js.map",
-      "!lib/misc/grammar/jison*.js",
-      "!lib/misc/grammar/jison*.js.map"
+      "!lib/grammar/jison*.js",
+      "!lib/grammar/jison*.js.map",
+      "!lib/ParserImpl.js",
+      "!lib/ParserImpl.js.map",
+      "!lib/parser/*.js",
+      "!lib/parser/*.js.map"
     ],
     "watch": true,
     "logger": {
@@ -50,9 +61,9 @@
     },
     "assets": [
       {
-        "lib/misc/grammar/": [
+        "lib/grammar/": [
           [
-            "src/misc/grammar/jison*.coffee"
+            "src/grammar/jison*.coffee"
           ]
         ]
       }
@@ -64,8 +75,8 @@
       ]
     },
     "clean": [
-      "lib/misc/grammar/jison*.js",
-      "lib/misc/grammar/jison*.js.map"
+      "lib/grammar/jison*.js",
+      "lib/grammar/jison*.js.map"
     ],
     "watch": true,
     "logger": {

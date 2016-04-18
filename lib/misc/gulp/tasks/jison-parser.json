@@ -17,7 +17,7 @@
       {
         "lib/": [
           [
-            "lib/misc/grammar/jison.json"
+            "lib/grammar/jison.json"
           ]
         ]
       }
@@ -49,16 +49,16 @@
     },
     "assets": [
       {
-        "lib/misc/parser": [
+        "lib/parser": [
           [
-            "lib/misc/grammar/jison.json"
+            "lib/grammar/jison.json"
           ]
         ]
       }
     ],
     "rename": "commonjs.js",
     "clean": [
-      "lib/misc/parser/commonjs.js"
+      "lib/parser/commonjs.js"
     ],
     "watch": true,
     "logger": {
@@ -84,16 +84,16 @@
     },
     "assets": [
       {
-        "lib/misc/parser": [
+        "lib/parser": [
           [
-            "lib/misc/grammar/jison.json"
+            "lib/grammar/jison.json"
           ]
         ]
       }
     ],
     "rename": "amd.js",
     "clean": [
-      "lib/misc/parser/amd.js"
+      "lib/parser/amd.js"
     ],
     "watch": true,
     "logger": {
@@ -119,16 +119,16 @@
     },
     "assets": [
       {
-        "lib/misc/parser": [
+        "lib/parser": [
           [
-            "lib/misc/grammar/jison.json"
+            "lib/grammar/jison.json"
           ]
         ]
       }
     ],
     "rename": "plain.js",
     "clean": [
-      "lib/misc/parser/plain.js"
+      "lib/parser/plain.js"
     ],
     "watch": true,
     "logger": {

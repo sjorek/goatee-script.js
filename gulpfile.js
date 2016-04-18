@@ -14,7 +14,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
 implied. See the License for the specific language governing
 permissions and limitations under the License.
  */
-var Grammar, beautify, coffee, cson, del, deps, footer, grammar, groc, gulp, header, isString, load, parser, rename, replace, sequence, sourcemaps, task, taskqueue, template, util,
+var Grammar, beautify, coffee, cson, del, deps, footer, fs, grammar, groc, gulp, header, isString, jasmine, load, parser, rename, replace, sequence, sourcemaps, task, taskqueue, template, util,
   hasProp = {}.hasOwnProperty;
 
 gulp = require('gulp');
@@ -27,11 +27,15 @@ cson = require(__dirname + "/lib/misc/gulp/gulp-cson");
 
 footer = require('gulp-footer');
 
+fs = require('fs');
+
 grammar = require(__dirname + "/lib/misc/gulp/gulp-jison-grammar");
 
 groc = require('gulp-groc');
 
 header = require('gulp-header');
+
+jasmine = require('gulp-jasmine');
 
 parser = require(__dirname + "/lib/misc/gulp/gulp-jison-parser");
 
@@ -67,6 +71,8 @@ deps = taskqueue.createDependencyLog();
 
 deps.jison = [];
 
+deps.jasmine = [];
+
 load = function(filename) {
   return require(__dirname + "/lib/misc/gulp/tasks/" + filename + ".json");
 };
@@ -83,6 +89,17 @@ load = function(filename) {
 task = 'coffee:transpile';
 
 deps = taskqueue.build(task, deps, load, function(source, destination, name, config) {
+  if (name === 'coffee:transpile:gulpfile') {
+    config.footer = [
+      "/**\n * Spit out the brand …\n */\n[\n  '<%= readme %>'\n].map(function(l){\n  util.log(l.replace(/(.)[0-9a-z]/g,function(r){\n    return r[0]\n      .repeat('0123456789abcdefghijklmnopqrstuvwxyz'.indexOf(r[1])+1)\n  }));\n});", {
+        readme: fs.readFileSync('./README.md', 'utf8').split('\n').slice(4, 36).map(function(line) {
+          return line.replace(/^ {8}/, '').replace(/(.)\1{0,35}/g, function(c) {
+            return c[0].replace(/(\\|')/, "\\$1") + '0123456789abcdefghijklmnopqrstuvwxyz'.charAt(c.length - 1);
+          });
+        }).join("',\n  '")
+      }
+    ];
+  }
   return function() {
     var i, len, pipe, ref, ref1, replacement, sm;
     util.log(name, source, destination);
@@ -298,7 +315,65 @@ deps.jison.push(task);
  */
 
 gulp.task('jison', deps.jison, function() {
-  return 'Jison tasks done.';
+  return util.log('Jison tasks done.');
+});
+
+
+/*
+ * # Task: build
+ * ------------------------
+ *
+ * Run build steps in sequence
+ *
+ */
+
+gulp.task('build', deps.build, function(callback) {
+  sequence('clean', 'transpile', 'jison:parser:default', function(error) {
+    if (error != null) {
+      util.log(error.message);
+    }
+    return callback;
+  });
+  return util.log('Build done');
+});
+
+
+/*
+ * # Task: test
+ * ------------------------
+ *
+ * Run the tests
+ *
+ */
+
+(function() {
+  var config, filename;
+  filename = 'test-jasmine';
+  config = require(__dirname + "/lib/misc/gulp/tasks/" + filename + ".json");
+  gulp.task('test:jasmine', config.deps, function() {
+    util.log(config);
+    return gulp.src(config.assets).pipe(jasmine());
+  });
+  if (config.watch != null) {
+    gulp.task('test:jasmine:watch', function() {
+      util.log(config.title);
+      return gulp.watch(config.assets, ['test:jasmine']);
+    });
+    return deps.watch.push('test:jasmine:watch');
+  }
+})();
+
+
+/*
+ * # Task: test
+ * ------------------------
+ *
+ * Run the tests
+ *
+ */
+
+gulp.task('test', ['test:jasmine'].concat(deps.test), function() {
+  return util.log('Tests done.');
 });
 
 
@@ -364,7 +439,7 @@ deps.doc.push(task);
  *
  */
 
-gulp.task('doc', deps.doc, function() {
+gulp.task('doc', ['build'].concat(deps.doc), function() {
   return util.log('Documentation updated');
 });
 
@@ -383,25 +458,6 @@ gulp.task('clean', deps.clean, function() {
 
 
 /*
- * # Task: build
- * ------------------------
- *
- * Run build steps in sequence
- *
- */
-
-gulp.task('build', deps.build, function(callback) {
-  sequence('clean', 'transpile', 'jison:parser:default', 'doc', function(error) {
-    if (error != null) {
-      util.log(error.message);
-    }
-    return callback;
-  });
-  return util.log('Build done');
-});
-
-
-/*
  * # Task: publish
  * ------------------------
  *
@@ -409,7 +465,7 @@ gulp.task('build', deps.build, function(callback) {
  *
  */
 
-gulp.task('publish', deps.publish, function() {
+gulp.task('publish', ['build', 'doc'].concat(deps.publish), function() {
   return util.log('Published');
 });
 
@@ -435,5 +491,46 @@ gulp.task('watch', deps.watch, function() {
  */
 
 gulp.task('default', ['build']);
-
+/**
+ * Spit out the brand …
+ */
+[
+  ' 0_6 1_6 1_6 1_6 1_6 1_6',
+  '|0 3_2|1 6|1 6|1_0 4_0|1 3_2|1 3_2|0',
+  '|0 2|0 0_1 0|0 2_0 2|1 2_0 2|0 1|0 2|0 1|0 2|0_2 0|0 2|0_2',
+  '|0 2|1 1|1 1|0_0|0 1|1 1|0_0|0 1|0 1|0 2|0 1|0 3_2|1 3_2|0',
+  '|0 2|0_0|0 0|1 6|1 2_0 2|0 1|0 2|0 1|0 2|0_2 0|0 2|0_2',
+  '|0_6|1_6|1_1|0 0|0_1|0 1|0_2|0 1|0_6|1_6|0',
+  ' w.0 0,0',
+  ' w(0\\1',
+  ' t.0-1,0 0\\1_1',
+  ' u`0-0.0 4*0`0-0.0_1',
+  ' w|0 9\'0)0',
+  ' v/0 0\\0_1.0-0\'0-0,0 0~0;0',
+  ' u/0 4|0 2{0 0/0',
+  ' f.0_0.1,0-0.0-0"0`1~0"0-0\'0 5;0 3(0',
+  ' c.0;0\'0 j;0\'0 3´0',
+  ' 7~0;0,0.0/0 l;0\'0',
+  ' a\'0;0 k;0\'0',
+  ' b\'0;0 g/0;0\'0|0',
+  ' c|0 3.0;0.0_0.0,0;0\'0;0\\0 2|0 1|0',
+  ' c\\0 2/0 1/0 6\\0 1|0\\0 0|0',
+  ' d\\0 0|1 0|0 8|0 0)0|0 0)0',
+  ' d|0 0|1 0|0 8|0 0|1 0|0',
+  ' 7~4 0|0 0\\0|0 0\\0 1~5 0|0 0\\0|0 0\\0 1~6',
+  ' 7"0\'1"0\'0 0`0#1`0#1\'0 0"0\'0"0\'1"0 0`0#1`0#1\'0 0\'0"0\'1"0\'0"0',
+  ' 7\'0"0\'0"0\'1"0\'0"0\'1"0\'1"0\'1"0\'0"0\'2"0\'0"0\'2"0\'1"0\'0"0\'0',
+  ' 7~z',
+  ' 2_6 1_6 1_5 3_2 1_6 1_6',
+  ' 1|0 1_4|1 4_1|1 3_0 0|0 1|0 2|1 3_0 1|1_0 4_0|0',
+  ' 1|0 0|0_4 0|0 3|0 2|0 2|0_0|1_0 0|0 2|1 2|0_0|0 0|0 1|0 2|0',
+  ' 1|0_4 1|1 3|0 2|0 3_1 1|1 2|1 3_2|0 1|0 2|0',
+  ' 2_4|0 0|1 3|0_1 0|0 2|0 1|0 0|1 2|1 2|0 5|0 2|0',
+  ' 1|0_6|1_6|1_2|0 1|0_0|1_2|1_2|0 5|0_2|0'
+].map(function(l){
+  util.log(l.replace(/(.)[0-9a-z]/g,function(r){
+    return r[0]
+      .repeat('0123456789abcdefghijklmnopqrstuvwxyz'.indexOf(r[1])+1)
+  }));
+});
 //# sourceMappingURL=gulpfile.js.map

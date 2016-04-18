@@ -1,0 +1,18 @@
+{
+  "deps": null,
+  "title": "Testing with jasmine",
+  "defaults": {},
+  "assets": [
+    "lib/misc/jasmine/*TestSpec.js"
+  ],
+  "watch": [
+    "lib/**/*.js",
+    "lib/**/*.json",
+    "!lib/misc/**/*.js",
+    "!lib/misc/**/*.json"
+  ],
+  "logger": {
+    "before": "Start testing with jasmine …",
+    "after": "Testing with jasmine finished."
+  }
+}

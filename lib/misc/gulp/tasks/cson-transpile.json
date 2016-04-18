@@ -10,14 +10,14 @@
           [
             "src/**/*.cson",
             "!src/misc/groc/config.cson",
-            "!src/misc/grammar/jison*.cson"
+            "!src/grammar/jison*.cson"
           ]
         ]
       }
     ],
     "replace": [
       [
-        "lib/misc/groc/languages",
+        "src/misc/groc/languages",
         "lib/misc/groc/languages"
       ]
     ],
@@ -36,19 +36,19 @@
     "deps": [
       "jison:grammar:default"
     ],
-    "title": "Transpiling “src/misc/grammar/jison*.json” to cson",
+    "title": "Transpiling “src/grammar/jison*.json” to cson",
     "defaults": {
       "indent": "  "
     },
     "assets": [
       {
-        "src/misc/grammar/": [
-          "src/misc/grammar/jison*.json"
+        "src/grammar/": [
+          "src/grammar/jison*.json"
         ]
       }
     ],
     "clean": [
-      "src/misc/grammar/jison*.cson"
+      "src/grammar/jison*.cson"
     ],
     "watch": true,
     "logger": {
@@ -62,21 +62,21 @@
     "deps": [
       "cson:transpile:jison:grammar:default:json"
     ],
-    "title": "Transpiling “src/misc/grammar/jison*.cson” to json",
+    "title": "Transpiling “src/grammar/jison*.cson” to json",
     "defaults": {
       "indention": true
     },
     "assets": [
       {
-        "lib/misc/grammar": [
+        "lib/grammar": [
           [
-            "src/misc/grammar/jison*.cson"
+            "src/grammar/jison*.cson"
           ]
         ]
       }
     ],
     "clean": [
-      "lib/misc/grammar/jison*.json"
+      "lib/grammar/jison*.json"
     ],
     "watch": true,
     "logger": {

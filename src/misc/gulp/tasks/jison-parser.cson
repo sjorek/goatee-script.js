@@ -22,7 +22,7 @@ default:
   assets : [
     'lib/': [
       [
-        'lib/misc/grammar/jison.json'
+        'lib/grammar/jison.json'
       ]
     ]
   ]
@@ -61,9 +61,9 @@ commonjs:
     jslintHappy: true
 
   assets : [
-    'lib/misc/parser': [
+    'lib/parser': [
       [
-        'lib/misc/grammar/jison.json'
+        'lib/grammar/jison.json'
       ]
     ]
   ]
@@ -73,7 +73,7 @@ commonjs:
   rename : 'commonjs.js'
 
   clean: [
-    'lib/misc/parser/commonjs.js'
+    'lib/parser/commonjs.js'
   ]
 
   watch: true
@@ -104,9 +104,9 @@ amd:
     jslintHappy: true
 
   assets : [
-    'lib/misc/parser': [
+    'lib/parser': [
       [
-        'lib/misc/grammar/jison.json'
+        'lib/grammar/jison.json'
       ]
     ]
   ]
@@ -116,7 +116,7 @@ amd:
   rename : 'amd.js'
 
   clean: [
-    'lib/misc/parser/amd.js'
+    'lib/parser/amd.js'
   ]
 
   watch: true
@@ -147,9 +147,9 @@ javascript:
     jslintHappy: true
 
   assets : [
-    'lib/misc/parser': [
+    'lib/parser': [
       [
-        'lib/misc/grammar/jison.json'
+        'lib/grammar/jison.json'
       ]
     ]
   ]
@@ -159,7 +159,7 @@ javascript:
   rename : 'plain.js'
 
   clean: [
-    'lib/misc/parser/plain.js'
+    'lib/parser/plain.js'
   ]
 
   watch: true

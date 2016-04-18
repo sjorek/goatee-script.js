@@ -9,25 +9,25 @@ default:
 
   defaults :
     indent : true
-    moduleName: './misc/grammar/jison'
+    moduleName: './grammar/jison'
 
   assets : [
-    'src/misc/grammar': [
+    'src/grammar': [
       [
-        'src/misc/grammar/jison.coffee'
+        'src/grammar/jison.coffee'
       ]
     ]
   ]
 
   replace : [
     [
-      'misc/grammar/jison.coffee'
-      'misc/grammar/jison'
+      'grammar/jison.coffee'
+      'grammar/jison'
     ]
   ]
 
   clean: [
-    'src/misc/grammar/jison.json'
+    'src/grammar/jison.json'
   ]
 
   watch: true

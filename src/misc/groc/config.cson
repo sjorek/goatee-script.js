@@ -2,6 +2,8 @@
   glob: [
     'src/**/*.coffee'
     'src/**/*.cson'
+    'spec/**/*.coffee'
+    'spec/**/*.js'
     'lib/**/*.js'
     'lib/**/*.json'
     # 'Cakefile'
