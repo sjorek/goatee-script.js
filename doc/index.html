@@ -125,12 +125,7 @@ If called without options, `goatee-script` will run interactive.</code></pre>
 <h2 id="development">Development</h2>
 <h3 id="install-dependencies-">Install dependencies …</h3>
 <ul>
-<li><a href="http://git-scm.com">git-scm</a></li>
-<li><a href="http://nodejs.org">node.js <em>(≥ 0.10)</em></a></li>
-<li><p>optional:</p>
-<ul>
-<li><a href="http://pygments.org">pygments</a></li>
-</ul>
+<li><p><a href="http://nodejs.org">node.js <em>(≥ 0.10)</em></a></p>
 <h3 id="-for-production-version">… for production version:</h3>
 <pre><code> $ npm install goatee-script.js --save</code></pre>
 <h3 id="-for-development-version">… for development version:</h3>
@@ -141,11 +136,11 @@ $ npm install</code></pre>
 </ul>
 <h3 id="run-build-">Run build …</h3>
 <h4 id="-in-nix-like-environments">… in *nix-like environments:</h4>
-<pre><code>$ PATH=$PATH:./node_modules/.bin cake all</code></pre>
+<pre><code>$ PATH=$PATH:./node_modules/.bin gulp</code></pre>
 <h4 id="-in-windows-environments">… in Windows environments:</h4>
 <pre><code>$ set path=%PATH%;.\node_modules\.bin
 $ setx path &quot;%PATH%&quot;
-$ cake atl</code></pre>
+$ gulp</code></pre>
 <p><em>(not tested yet)</em></p>
 <h2 id="credits-go-to-">Credits go to …</h2>
 <ul>

@@ -143,10 +143,7 @@ Read the [annotated sources](http://sjorek.github.io/goatee-script.js/).
 
 ### Install dependencies …
 
-- [git-scm](http://git-scm.com)
 - [node.js *(≥ 0.10)*](http://nodejs.org)
-- optional:
-  - [pygments](http://pygments.org)
 
   ### … for production version:
 
@@ -162,13 +159,13 @@ Read the [annotated sources](http://sjorek.github.io/goatee-script.js/).
 
 #### … in *nix-like environments:
 
-    $ PATH=$PATH:./node_modules/.bin cake all
+    $ PATH=$PATH:./node_modules/.bin gulp
 
 #### … in Windows environments:
 
     $ set path=%PATH%;.\node_modules\.bin
     $ setx path "%PATH%"
-    $ cake atl
+    $ gulp
 
 _(not tested yet)_
 
