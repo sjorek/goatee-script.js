@@ -299,7 +299,7 @@ gulp.task 'build', deps.build, (callback) ->
 # Publish everything …
 #
 ###
-gulp.task 'publish', deps.publish, ->  util.log 'Published'
+gulp.task 'publish', deps.publish, -> util.log 'Published'
 
 ###
 # # Task: watch
