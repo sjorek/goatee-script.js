@@ -143,7 +143,7 @@ Read the [annotated sources](http://sjorek.github.io/goatee-script.js/).
 
 ### Install dependencies …
 
-- [node.js *(≥ 0.10)*](http://nodejs.org)
+- [node.js](http://nodejs.org) _(≥ 0.10)_
 
   ### … for production version:
 
