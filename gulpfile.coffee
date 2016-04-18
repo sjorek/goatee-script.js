@@ -302,10 +302,10 @@ gulp.task 'build', deps.build, (callback) ->
 gulp.task 'publish', deps.publish, ->  util.log 'Published'
 
 ###
-# # Task: coffee:transpile
-# ------------------------
+# # Task: watch
+# -------------
 #
-# Watch everything …
+# The big brother is … ?
 ###
 gulp.task 'watch', deps.watch, -> util.log 'Watcher running'
 

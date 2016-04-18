@@ -415,10 +415,10 @@ gulp.task('publish', deps.publish, function() {
 
 
 /*
- * # Task: coffee:transpile
- * ------------------------
+ * # Task: watch
+ * -------------
  *
- * Watch everything …
+ * The big brother is … ?
  */
 
 gulp.task('watch', deps.watch, function() {
