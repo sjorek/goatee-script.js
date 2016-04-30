@@ -1,24 +1,52 @@
 # Test: jasmine
 # -------------
 
-#deps: ['build']
-deps: null
+coffee:
+  #deps: ['build']
+  deps: null
 
-title: 'Testing with jasmine'
+  title: 'Testing coffee with jasmine'
 
-defaults : {}
+  defaults : {}
 
-assets : [
-  'lib/misc/jasmine/*TestSpec.js'
-]
+  assets : [
+    'spec': [
+      'spec/*TestSpec.coffee'
+    ]
+  ]
 
-watch: [
-  'lib/**/*.js'
-  'lib/**/*.json'
-  '!lib/misc/**/*.js'
-  '!lib/misc/**/*.json'
-]
+  watch: [
+    'lib/**/*.coffee'
+    'lib/**/*.cson'
+    '!lib/misc/**/*.coffee'
+    '!lib/misc/**/*.cson'
+  ]
 
-logger:
-  before: 'Start testing with jasmine …'
-  after: 'Testing with jasmine finished.'
+  logger:
+    before: 'Start testing coffee with jasmine …'
+    after: 'Testing coffee with jasmine finished.'
+
+javascript:
+  #deps: ['build']
+  deps: null
+
+  title: 'Testing javascript with jasmine'
+
+  defaults : {}
+
+  assets : [
+    'spec' : [
+      'spec/*TestSpec.js'
+    ]
+  ]
+
+  watch: [
+    'lib/**/*.js'
+    'lib/**/*.json'
+    '!lib/misc/**/*.js'
+    '!lib/misc/**/*.json'
+  ]
+
+  logger:
+    before: 'Start testing coffee with jasmine …'
+    after: 'Testing coffee with jasmine finished.'

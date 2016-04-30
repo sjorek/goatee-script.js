@@ -346,22 +346,14 @@ gulp.task('build', deps.build, function(callback) {
  *
  */
 
-(function() {
-  var config, filename;
-  filename = 'test-jasmine';
-  config = require(__dirname + "/lib/misc/gulp/tasks/" + filename + ".json");
-  gulp.task('test:jasmine', config.deps, function() {
-    util.log(config);
+task = 'test:jasmine';
+
+deps = taskqueue.build(task, deps, load, function(source, destination, name, config) {
+  return function() {
+    util.log(name, source, destination);
     return gulp.src(config.assets).pipe(jasmine());
-  });
-  if (config.watch != null) {
-    gulp.task('test:jasmine:watch', function() {
-      util.log(config.title);
-      return gulp.watch(config.assets, ['test:jasmine']);
-    });
-    return deps.watch.push('test:jasmine:watch');
-  }
-})();
+  };
+});
 
 
 /*

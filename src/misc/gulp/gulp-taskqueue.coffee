@@ -20,6 +20,10 @@ del = require 'del'
 # logger = require 'gulp-logger'
 util = require 'gulp-util'
 
+{Utility: {
+  isArray
+}} = require '../../Utility'
+
 exports = exports ? this
 
 ###
@@ -91,9 +95,12 @@ exports.build = (name, deps, load, worker) ->
           if taskconfig.watch?
             watch = "#{subtaskname}:watch"
             taskwatchdeps.push watch
+            watchsources = [].concat(source)
+            if isArray taskconfig.watch
+              watchsources = watchsources.concat taskconfig.watch?
             gulp.task watch, ->
               util.log watch, source
-              gulp.watch source, [subtaskname]
+              gulp.watch watchsources, [subtaskname]
 
           gulp.task subtaskname, subtaskdeps, \
             worker(source, destination, taskname, taskconfig)

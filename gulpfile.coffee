@@ -269,19 +269,13 @@ gulp.task 'build', deps.build, (callback) ->
 # Run the tests
 #
 ###
-do ->
-  filename = 'test-jasmine'
-  config = require "#{__dirname}/src/misc/gulp/tasks/#{filename}.cson"
+task = 'test:jasmine'
+deps = taskqueue.build task, deps, load, \
+  (source, destination, name, config) ->
 
-  gulp.task 'test:jasmine', config.deps, ->
-    util.log config
-    gulp.src(config.assets).pipe jasmine()
-
-  if config.watch?
-    gulp.task 'test:jasmine:watch', ->
-      util.log config.title
-      gulp.watch config.assets, ['test:jasmine']
-    deps.watch.push 'test:jasmine:watch'
+    ->
+      util.log name, source, destination
+      gulp.src(source).pipe jasmine()
 
 ###
 # # Task: test
