@@ -24,8 +24,6 @@ FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 OTHER DEALINGS IN THE SOFTWARE.
 ###
 
-exports = module?.exports ? this
-
 ###
 # # The Notator
 # -------------
@@ -39,7 +37,7 @@ exports = module?.exports ? this
 # @class Notator
 # @namespace GoateeScript
 ###
-exports.Notator = class Notator
+class Notator
 
   ###*
   # -------------
@@ -126,3 +124,5 @@ exports.Notator = class Notator
   ###
   Notator.conditional = Notator.c = (conditions, pattern, action) ->
     [conditions].concat Notator.resolve pattern, action
+
+module.exports = Notator

@@ -55,9 +55,9 @@ template = require('gulp-template');
 
 util = require('gulp-util');
 
-isString = require(__dirname + "/lib/Utility").Utility.isString;
+isString = require(__dirname + "/lib/Utility").isString;
 
-Grammar = require(__dirname + "/lib/Grammar").Grammar;
+Grammar = require(__dirname + "/lib/Grammar");
 
 require('coffee-script/register');
 
@@ -332,7 +332,7 @@ gulp.task('build', deps.build, function(callback) {
     if (error != null) {
       util.log(error.message);
     }
-    return callback;
+    return callback();
   });
   return util.log('Build done');
 });
@@ -349,9 +349,10 @@ gulp.task('build', deps.build, function(callback) {
 task = 'test:jasmine';
 
 deps = taskqueue.build(task, deps, load, function(source, destination, name, config) {
-  return function() {
+  return function(callback) {
     util.log(name, source, destination);
-    return gulp.src(source).pipe(jasmine(config.defaults));
+    gulp.src(source).pipe(jasmine(config.defaults));
+    return callback();
   };
 });
 

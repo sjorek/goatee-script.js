@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><title>src/Expression</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../"><meta name="groc-document-path" content="src/Expression.coffee"><meta name="groc-project-path" content="src/Expression.coffee"><meta name="groc-github-url" content="https://github.com/sjorek/goatee-script.js"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="meta"><div class="file-path"><a href="https://github.com/sjorek/goatee-script.js/blob/master/src/Expression.coffee">src/Expression.coffee</a></div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><p>© Copyright 2013-2016 Stephan Jorek <a href="&#109;&#x61;&#x69;&#x6c;&#x74;&#x6f;&#58;&#115;&#116;&#101;&#112;&#104;&#x61;&#110;&#x2e;&#x6a;&#x6f;&#x72;&#x65;&#x6b;&#64;&#103;&#x6d;&#97;&#x69;&#108;&#x2e;&#x63;&#111;&#x6d;">&#115;&#116;&#101;&#112;&#104;&#x61;&#110;&#x2e;&#x6a;&#x6f;&#x72;&#x65;&#x6b;&#64;&#103;&#x6d;&#97;&#x69;&#108;&#x2e;&#x63;&#111;&#x6d;</a></p>
+<!DOCTYPE html><html lang="en"><head><title>src/Expression</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../"><meta name="groc-document-path" content="src/Expression.coffee"><meta name="groc-project-path" content="src/Expression.coffee"><meta name="groc-github-url" content="https://github.com/sjorek/goatee-script.js"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="meta"><div class="file-path"><a href="https://github.com/sjorek/goatee-script.js/blob/master/src/Expression.coffee">src/Expression.coffee</a></div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><p>© Copyright 2013-2016 Stephan Jorek <a href="&#x6d;&#97;&#105;&#108;&#116;&#x6f;&#58;&#115;&#x74;&#101;&#112;&#x68;&#x61;&#110;&#x2e;&#x6a;&#x6f;&#x72;&#101;&#107;&#x40;&#103;&#x6d;&#97;&#x69;&#108;&#46;&#x63;&#x6f;&#109;">&#115;&#x74;&#101;&#112;&#x68;&#x61;&#110;&#x2e;&#x6a;&#x6f;&#x72;&#101;&#107;&#x40;&#103;&#x6d;&#97;&#x69;&#108;&#46;&#x63;&#x6f;&#109;</a></p>
 <p>Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at</p>
@@ -7,9 +7,9 @@ You may obtain a copy of the License at</p>
 distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
 implied. See the License for the specific language governing
-permissions and limitations under the License.</p></div></div><div class="code"><div class="wrapper">{Stack}         = <span class="hljs-built_in">require</span> <span class="hljs-string">'./Stack'</span>
+permissions and limitations under the License.</p></div></div><div class="code"><div class="wrapper">Stack           = <span class="hljs-built_in">require</span> <span class="hljs-string">'./Stack'</span>
 
-{<span class="hljs-attribute">Utility</span>:{
+{
   bindFunction,
   toString,
   isString,
@@ -17,14 +17,12 @@ permissions and limitations under the License.</p></div></div><div class="code">
   isNumber,
   isFunction,
   isExpression
-}}              = <span class="hljs-built_in">require</span> <span class="hljs-string">'./Utility'</span>
-
-exports = <span class="hljs-built_in">module</span>?.exports ? <span class="hljs-keyword">this</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h1 id="expressions-">Expressions …</h1>
+}               = <span class="hljs-built_in">require</span> <span class="hljs-string">'./Utility'</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h1 id="expressions-">Expressions …</h1>
 <hr>
 <p>… are the glue between runtime-evaluation, -interpretation and
 -compilation.  The parser emits these expressions, whereas the
 compiler consumes them.</p></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'> class Expression and namespace GoateeScript</span></p>
-<hr></div></div><div class="code"><div class="wrapper">exports.Expression = <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Expression</span></span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Shortcuts to ease access to otherwise deeply nested properties</p></div></div><div class="code"><div class="wrapper">  _stack        = <span class="hljs-literal">null</span>
+<hr></div></div><div class="code"><div class="wrapper"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Expression</span></span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Shortcuts to ease access to otherwise deeply nested properties</p></div></div><div class="code"><div class="wrapper">  _stack        = <span class="hljs-literal">null</span>
   _scope        = <span class="hljs-literal">null</span>
   _errors       = <span class="hljs-literal">null</span>
   _global       = <span class="hljs-literal">null</span>
@@ -604,4 +602,6 @@ then the result is a vector result</p></div></div><div class="code"><div class="
 </li>
 </ul>
 <p><strong>Returns a mixed</strong></p></div></div><div class="code"><div class="wrapper">  <span class="hljs-attribute">evaluate</span>: <span class="hljs-function"><span class="hljs-params">(context, variables, scope, stack)</span> -&gt;</span>
-    _evaluate context, <span class="hljs-keyword">this</span>, variables, scope, stack</div></div></div></div></body></html>
+    _evaluate context, <span class="hljs-keyword">this</span>, variables, scope, stack
+
+<span class="hljs-built_in">module</span>.exports = Expression</div></div></div></div></body></html>

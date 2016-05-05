@@ -25,9 +25,6 @@
     }
   },
   "javascript": {
-    "deps": [
-      "test:jasmine:coffee"
-    ],
     "title": "Testing javascript with jasmine",
     "defaults": {
       "config": "spec/support/jasmine.json",

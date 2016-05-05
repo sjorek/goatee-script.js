@@ -14,8 +14,6 @@ implied. See the License for the specific language governing
 permissions and limitations under the License.
 ###
 
-exports = module?.exports ? this
-
 ###
 # # GoateeScript's …
 # ------------------
@@ -29,7 +27,7 @@ exports = module?.exports ? this
 # @class GoateeScript
 # @namespace GoateeScript
 ###
-exports.GoateeScript = class GoateeScript
+class GoateeScript
 
   GoateeScript.NAME      = require('../package.json').name
   GoateeScript.VERSION   = require('../package.json').version
@@ -45,7 +43,7 @@ exports.GoateeScript = class GoateeScript
   # @static
   ###
   GoateeScript.parse = (code) ->
-    _compiler ?= new (require('./Compiler').Compiler)
+    _compiler ?= new (require('./Compiler'))
     _compiler.parse(code)
 
   ###*
@@ -61,7 +59,7 @@ exports.GoateeScript = class GoateeScript
   # @static
   ###
   GoateeScript.evaluate = (code, context, variables, scope, stack) ->
-    _compiler ?= new (require('./Compiler').Compiler)
+    _compiler ?= new (require('./Compiler'))
     _compiler.evaluate(code, context, variables, scope, stack)
 
   ###*
@@ -73,7 +71,7 @@ exports.GoateeScript = class GoateeScript
   # @static
   ###
   GoateeScript.render = (code) ->
-    _compiler ?= new (require('./Compiler').Compiler)
+    _compiler ?= new (require('./Compiler'))
     _compiler.render(code)
 
   ###*
@@ -87,7 +85,7 @@ exports.GoateeScript = class GoateeScript
   # @static
   ###
   GoateeScript.ast = (data, callback, compress) ->
-    _compiler ?= new (require('./Compiler').Compiler)
+    _compiler ?= new (require('./Compiler'))
     _compiler.ast(data, callback, compress)
 
   ###*
@@ -101,7 +99,7 @@ exports.GoateeScript = class GoateeScript
   # @static
   ###
   GoateeScript.stringify = (data, callback, compress) ->
-    _compiler ?= new (require('./Compiler').Compiler)
+    _compiler ?= new (require('./Compiler'))
     _compiler.stringify(data, callback, compress)
 
   ###*
@@ -115,5 +113,7 @@ exports.GoateeScript = class GoateeScript
   # @static
   ###
   GoateeScript.compile = (data, callback, compress) ->
-    _compiler ?= new (require('./Compiler').Compiler)
+    _compiler ?= new (require('./Compiler'))
     _compiler.compile(data, callback, compress)
+
+module.exports = GoateeScript

@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><title>gulpfile</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content=""><meta name="groc-document-path" content="gulpfile.js"><meta name="groc-project-path" content="gulpfile.js"><meta name="groc-github-url" content="https://github.com/sjorek/goatee-script.js"><link rel="stylesheet" type="text/css" media="all" href="assets/style.css"><script type="text/javascript" src="assets/behavior.js"></script><body><div id="meta"><div class="file-path"><a href="https://github.com/sjorek/goatee-script.js/blob/master/gulpfile.js">gulpfile.js</a></div></div><div id="document"><div class="segment"></div><div class="segment"><div class="comments "><div class="wrapper"><p>© Copyright 2013-2016 Stephan Jorek <a href="&#x6d;&#x61;&#x69;&#x6c;&#x74;&#x6f;&#x3a;&#x73;&#x74;&#x65;&#x70;&#x68;&#97;&#x6e;&#x2e;&#x6a;&#x6f;&#114;&#101;&#107;&#64;&#x67;&#x6d;&#x61;&#x69;&#x6c;&#46;&#x63;&#x6f;&#x6d;">&#x73;&#x74;&#x65;&#x70;&#x68;&#97;&#x6e;&#x2e;&#x6a;&#x6f;&#114;&#101;&#107;&#64;&#x67;&#x6d;&#x61;&#x69;&#x6c;&#46;&#x63;&#x6f;&#x6d;</a></p>
+<!DOCTYPE html><html lang="en"><head><title>gulpfile</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content=""><meta name="groc-document-path" content="gulpfile.js"><meta name="groc-project-path" content="gulpfile.js"><meta name="groc-github-url" content="https://github.com/sjorek/goatee-script.js"><link rel="stylesheet" type="text/css" media="all" href="assets/style.css"><script type="text/javascript" src="assets/behavior.js"></script><body><div id="meta"><div class="file-path"><a href="https://github.com/sjorek/goatee-script.js/blob/master/gulpfile.js">gulpfile.js</a></div></div><div id="document"><div class="segment"></div><div class="segment"><div class="comments "><div class="wrapper"><p>© Copyright 2013-2016 Stephan Jorek <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#115;&#116;&#x65;&#x70;&#104;&#x61;&#x6e;&#46;&#x6a;&#111;&#114;&#x65;&#107;&#x40;&#x67;&#x6d;&#97;&#x69;&#108;&#46;&#99;&#111;&#109;">&#115;&#116;&#x65;&#x70;&#104;&#x61;&#x6e;&#46;&#x6a;&#111;&#114;&#x65;&#107;&#x40;&#x67;&#x6d;&#97;&#x69;&#108;&#46;&#99;&#111;&#109;</a></p>
 <p>Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at</p>
@@ -48,9 +48,9 @@ template = <span class="hljs-built_in">require</span>(<span class="hljs-string">
 
 util = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp-util'</span>);
 
-isString = <span class="hljs-built_in">require</span>(__dirname + <span class="hljs-string">"/lib/Utility"</span>).Utility.isString;
+isString = <span class="hljs-built_in">require</span>(__dirname + <span class="hljs-string">"/lib/Utility"</span>).isString;
 
-Grammar = <span class="hljs-built_in">require</span>(__dirname + <span class="hljs-string">"/lib/Grammar"</span>).Grammar;
+Grammar = <span class="hljs-built_in">require</span>(__dirname + <span class="hljs-string">"/lib/Grammar"</span>);
 
 <span class="hljs-built_in">require</span>(<span class="hljs-string">'coffee-script/register'</span>);</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h1 id="gulp-tasks">Gulp-Tasks</h1>
 <hr></div></div><div class="code"><div class="wrapper">deps = taskqueue.createDependencyLog();
@@ -255,7 +255,7 @@ deps.jison.push(task);</div></div></div><div class="segment"><div class="comment
     <span class="hljs-keyword">if</span> (error != <span class="hljs-literal">null</span>) {
       util.log(error.message);
     }
-    <span class="hljs-keyword">return</span> callback;
+    <span class="hljs-keyword">return</span> callback();
   });
   <span class="hljs-keyword">return</span> util.log(<span class="hljs-string">'Build done'</span>);
 });</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h1 id="task-test">Task: test</h1>
@@ -263,9 +263,10 @@ deps.jison.push(task);</div></div></div><div class="segment"><div class="comment
 <p>Run the tests</p></div></div><div class="code"><div class="wrapper">task = <span class="hljs-string">'test:jasmine'</span>;
 
 deps = taskqueue.build(task, deps, load, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">source, destination, name, config</span>) </span>{
-  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">callback</span>) </span>{
     util.log(name, source, destination);
-    <span class="hljs-keyword">return</span> gulp.src(source).pipe(jasmine(config.defaults));
+    gulp.src(source).pipe(jasmine(config.defaults));
+    <span class="hljs-keyword">return</span> callback();
   };
 });
 

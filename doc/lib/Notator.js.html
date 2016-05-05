@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><title>lib/Notator</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../"><meta name="groc-document-path" content="lib/Notator.js"><meta name="groc-project-path" content="lib/Notator.js"><meta name="groc-github-url" content="https://github.com/sjorek/goatee-script.js"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="meta"><div class="file-path"><a href="https://github.com/sjorek/goatee-script.js/blob/master/lib/Notator.js">lib/Notator.js</a></div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><p>© Copyright 2013-2016 Stephan Jorek <a href="&#x6d;&#97;&#x69;&#x6c;&#116;&#x6f;&#x3a;&#115;&#116;&#x65;&#112;&#x68;&#x61;&#110;&#x2e;&#106;&#x6f;&#114;&#101;&#107;&#64;&#103;&#109;&#97;&#105;&#108;&#x2e;&#99;&#111;&#109;">&#115;&#116;&#x65;&#112;&#x68;&#x61;&#110;&#x2e;&#106;&#x6f;&#114;&#101;&#107;&#64;&#103;&#109;&#97;&#105;&#108;&#x2e;&#99;&#111;&#109;</a>
+<!DOCTYPE html><html lang="en"><head><title>lib/Notator</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../"><meta name="groc-document-path" content="lib/Notator.js"><meta name="groc-project-path" content="lib/Notator.js"><meta name="groc-github-url" content="https://github.com/sjorek/goatee-script.js"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="meta"><div class="file-path"><a href="https://github.com/sjorek/goatee-script.js/blob/master/lib/Notator.js">lib/Notator.js</a></div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><p>© Copyright 2013-2016 Stephan Jorek <a href="&#x6d;&#97;&#105;&#x6c;&#116;&#x6f;&#58;&#115;&#116;&#x65;&#112;&#x68;&#x61;&#x6e;&#x2e;&#x6a;&#x6f;&#x72;&#101;&#107;&#64;&#x67;&#x6d;&#x61;&#105;&#108;&#x2e;&#x63;&#111;&#x6d;">&#115;&#116;&#x65;&#112;&#x68;&#x61;&#x6e;&#x2e;&#x6a;&#x6f;&#x72;&#101;&#107;&#64;&#x67;&#x6d;&#x61;&#105;&#108;&#x2e;&#x63;&#111;&#x6d;</a>
 © Copyright 2009-2013 Jeremy Ashkenas <a href="https://github.com/jashkenas">https://github.com/jashkenas</a></p>
 <p>Permission is hereby granted, free of charge, to any person
 obtaining a copy of this software and associated documentation
@@ -17,13 +17,13 @@ NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
 HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
 WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-OTHER DEALINGS IN THE SOFTWARE.</p></div></div><div class="code"><div class="wrapper">(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
-    <span class="hljs-keyword">var</span> Notator, exports, ref;
-
-    exports = (ref = <span class="hljs-keyword">typeof</span> <span class="hljs-built_in">module</span> !== <span class="hljs-string">"undefined"</span> &amp;&amp; <span class="hljs-built_in">module</span> !== <span class="hljs-literal">null</span> ? <span class="hljs-built_in">module</span>.exports : <span class="hljs-keyword">void</span> <span class="hljs-number">0</span>) != <span class="hljs-literal">null</span> ? ref : <span class="hljs-keyword">this</span>;</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h1 id="the-notator">The Notator</h1>
+OTHER DEALINGS IN THE SOFTWARE.</p></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h1 id="the-notator">The Notator</h1>
 <hr>
 <p>Provides static methods to declare jison-Grammars as json.</p></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'> class Notator and namespace GoateeScript</span></p>
-<hr></div></div><div class="code"><div class="wrapper">    exports.Notator = Notator = (<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{</div></div></div><div class="segment"><div class="comments doc-section doc-section-static"><div class="wrapper"><p><span class='doc-section-header'>Static property unwrap of type <em>RegExp</em></span></p>
+<hr></div></div><div class="code"><div class="wrapper">(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">var</span> Notator;
+
+    Notator = (<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{</div></div></div><div class="segment"><div class="comments doc-section doc-section-static"><div class="wrapper"><p><span class='doc-section-header'>Static property unwrap of type <em>RegExp</em></span></p>
 <hr>
 <p>Pattern to match a single-statement-function&#39;s return value.</p>
 <p>Lifted from <a href="http://jashkenas.github.com/coffee-script/documentation/docs/grammar.html">coffeescript&#39;s garmmar</a></p></div></div><div class="code"><div class="wrapper">        <span class="hljs-keyword">var</span> unwrap, wrap;
@@ -105,6 +105,8 @@ lexer tokens for sub-languages like regular expressions in javascript.</p>
         <span class="hljs-keyword">return</span> Notator;
 
     })();
+
+    <span class="hljs-built_in">module</span>.exports = Notator;
 
 }).call(<span class="hljs-keyword">this</span>);
 <span class="hljs-comment">//# sourceMappingURL=Notator.js.map</span></div></div></div></div></body></html>

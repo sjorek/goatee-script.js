@@ -27,9 +27,9 @@ var Benchmark, evaluate, isArray, parse, ref, render;
 
 Benchmark = require('benchmark');
 
-ref = require('../lib/GoateeScript').GoateeScript, evaluate = ref.evaluate, parse = ref.parse, render = ref.render;
+ref = require('../lib/GoateeScript'), evaluate = ref.evaluate, parse = ref.parse, render = ref.render;
 
-isArray = require('../lib/Utility').Utility.isArray;
+isArray = require('../lib/Utility').isArray;
 
 describe("GoateeScript", function() {
     var benchmark, compare, data, egal, sum;

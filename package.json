@@ -37,7 +37,7 @@
     "url": "git://github.com/sjorek/goatee-script.js"
   },
   "dependencies": {
-    "nomnom": "~1.6"
+    "nomnom": "~1.8"
   },
   "devDependencies": {
     "benchmark": "^2.1.0",
@@ -67,6 +67,7 @@
     "jasmine": "^2.4.1",
     "jison": "^0.4.17",
     "map-stream": "0.0.6",
+    "npm-check-updates": "^2.6.4",
     "path": "^0.12.7",
     "publish-please": "^1.3.10",
     "require-cson": "^0.1.0",

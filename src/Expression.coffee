@@ -14,9 +14,9 @@ implied. See the License for the specific language governing
 permissions and limitations under the License.
 ###
 
-{Stack}         = require './Stack'
+Stack           = require './Stack'
 
-{Utility:{
+{
   bindFunction,
   toString,
   isString,
@@ -24,9 +24,7 @@ permissions and limitations under the License.
   isNumber,
   isFunction,
   isExpression
-}}              = require './Utility'
-
-exports = module?.exports ? this
+}               = require './Utility'
 
 ###
 # # Expressions …
@@ -42,7 +40,7 @@ exports = module?.exports ? this
 # @class Expression
 # @namespace GoateeScript
 ###
-exports.Expression = class Expression
+class Expression
 
   # Shortcuts to ease access to otherwise deeply nested properties
   _stack        = null
@@ -824,3 +822,5 @@ exports.Expression = class Expression
   ###
   evaluate: (context, variables, scope, stack) ->
     _evaluate context, this, variables, scope, stack
+
+module.exports = Expression

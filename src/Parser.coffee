@@ -21,7 +21,7 @@ catch
 
 if exports is null
 
-  {Grammar}  = require './Grammar'
+  Grammar = require './Grammar'
 
   exports = module?.exports ? this
 
@@ -46,7 +46,7 @@ if exports is null
   # @class Parser
   # @namespace GoateeScript
   ###
-  exports.Parser = parser.Parser;
+  exports.Parser = parser.Parser
 
   ###*
   #  -------------
@@ -70,7 +70,7 @@ if exports is null
     )
     parser.parse(source)
 
-module?.exports = exports
+module.exports = exports
 
 # excute main automatically
 if (module isnt undefined && require.main is module)

@@ -17,14 +17,12 @@ permissions and limitations under the License.
 path       = require 'path'
 
 {Parser}   = require 'jison'
-{Notator}  = require './Notator'
-{Scope}    = require './Scope'
-{Utility}  = require './Utility'
-
-isString   = Utility.isString
-isFunction = Utility.isFunction
-
-exports     = module?.exports ? this
+Notator    = require './Notator'
+Scope      = require './Scope'
+{
+  isString,
+  isFunction
+}          = require './Utility'
 
 ###
 # # Grammar …
@@ -40,7 +38,7 @@ exports     = module?.exports ? this
 # @class Grammar
 # @namepace GoateeScript
 ###
-exports.Grammar = class Grammar
+class Grammar
 
   ###*
   # -------------
@@ -104,7 +102,7 @@ exports.Grammar = class Grammar
                                       ''',
                             suffix  = '''
                                       ;
-                                      parser.yy.goatee = new (require("./Scope").Scope);
+                                      parser.yy.goatee = new (require("./Scope"));
                                       }).call(this);
                                       ''') ->
 
@@ -259,3 +257,5 @@ exports.Grammar = class Grammar
   ###
   toJSON : (replacer = null) ->
     JSON.parse @toJSONString(replacer)
+
+module.exports = Grammar

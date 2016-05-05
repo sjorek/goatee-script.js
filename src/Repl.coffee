@@ -19,20 +19,18 @@ path            = require 'path'
 #vm              = require 'vm'
 NodeRepl        = require 'repl'
 
-{GoateeScript:{
+{
   compile,
   evaluate,
   render,
   stringify
-}}              = require './GoateeScript'
+}               = require './GoateeScript'
 
-{Expression}    = require('./Expression')
+Expression      = require './Expression'
 
-{Utility:{
+{
   isArray
-}}              = require './Utility'
-
-exports = module?.exports ? this
+}               = require './Utility'
 
 ###
 # # REPL …
@@ -47,7 +45,7 @@ exports = module?.exports ? this
 # @class Repl
 # @namespace GoateeScript
 ###
-exports.Repl = class Repl
+class Repl
 
   ###*
   #  -------------
@@ -285,3 +283,5 @@ exports.Repl = class Repl
     if _options.historyFile?
       _addHistory repl, _options.historyFile, _options.historyMaxInputSize
     repl
+
+module.exports = Repl

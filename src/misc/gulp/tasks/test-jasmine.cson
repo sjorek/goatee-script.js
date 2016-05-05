@@ -28,7 +28,7 @@ coffee:
     after: 'Testing coffee with jasmine finished.'
 
 javascript:
-  deps: ['test:jasmine:coffee']
+  # deps: ['test:jasmine:coffee']
 
   title: 'Testing javascript with jasmine'
 

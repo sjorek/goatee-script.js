@@ -39,11 +39,11 @@ template = require 'gulp-template'
 #logger = require 'gulp-logger'
 util = require 'gulp-util'
 
-{Utility: {
+{
   isString
-}} = require "#{__dirname}/src/Utility"
+} = require "#{__dirname}/src/Utility"
 
-{Grammar} = require "#{__dirname}/src/Grammar"
+Grammar = require "#{__dirname}/src/Grammar"
 
 #require 'coffee-script/register' # only needed for javascript-script execution
 require 'require-cson' # only needed for coffee-script execution
@@ -257,7 +257,7 @@ gulp.task 'jison', deps.jison, ->
 gulp.task 'build', deps.build, (callback) ->
   sequence 'clean', 'transpile', 'jison:parser:default', (error) ->
     util.log error.message if error?
-    callback
+    callback()
   util.log 'Build done'
 
 #deps.watch.push 'build'
@@ -273,9 +273,10 @@ task = 'test:jasmine'
 deps = taskqueue.build task, deps, load, \
   (source, destination, name, config) ->
 
-    ->
+    (callback) ->
       util.log name, source, destination
       gulp.src(source).pipe jasmine(config.defaults)
+      callback()
 
 gulp.task task, deps.queue
 deps.test.push task

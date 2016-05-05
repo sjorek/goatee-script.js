@@ -14,8 +14,6 @@ implied. See the License for the specific language governing
 permissions and limitations under the License.
 ###
 
-exports = module?.exports ? this
-
 ###
 # # Utilities
 # -------------
@@ -27,7 +25,7 @@ exports = module?.exports ? this
 # @class Utility
 # @namespace GoateeScript
 ###
-exports.Utility = class Utility
+class Utility
 
   _parser = null
 
@@ -162,3 +160,5 @@ exports.Utility = class Utility
       _parser ?= require './Parser'
       expression = _parser.parse code
       cache[code] = cache['' + expression] = expression
+
+module.exports = Utility

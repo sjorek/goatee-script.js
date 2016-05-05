@@ -20,9 +20,9 @@ del = require 'del'
 # logger = require 'gulp-logger'
 util = require 'gulp-util'
 
-{Utility: {
+{
   isArray
-}} = require '../../Utility'
+}    = require '../../Utility'
 
 exports = exports ? this
 

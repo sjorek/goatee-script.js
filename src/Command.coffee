@@ -28,8 +28,6 @@ OTHER DEALINGS IN THE SOFTWARE.
 nomnom         = require 'nomnom'
 {spawn}        = require 'child_process'
 
-exports = module?.exports ? this
-
 ###
 # # Commandline …
 # ---------------
@@ -43,7 +41,7 @@ exports = module?.exports ? this
 # @class Command
 # @namespace GoateeScript
 ###
-exports.Command = class Command
+class Command
 
   ###*
   # @property opts
@@ -64,7 +62,7 @@ exports.Command = class Command
   # @constructor
   # @param {Function} [command=GoateeScript.GoateeScript] class function
   ###
-  constructor : (@command = require('./GoateeScript').GoateeScript) ->
+  constructor : (@command = require('./GoateeScript')) ->
 
   ###*
   # -------------
@@ -204,7 +202,7 @@ exports.Command = class Command
   # @method interactive
   # @param  {Function}             [repl=GoateeScript.Repl]
   ###
-  interactive : (repl = require('./Repl').Repl) ->
+  interactive : (repl = require('./Repl')) ->
     repl.start(@command, opts)
 
   ###*
@@ -223,3 +221,5 @@ exports.Command = class Command
     return @interactive()         if opts.interactive
     return @printLine @execute()  if opts.run
     @interactive()
+
+module.exports = Command

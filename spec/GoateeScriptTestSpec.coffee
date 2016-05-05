@@ -26,13 +26,15 @@ OTHER DEALINGS IN THE SOFTWARE.
 
 Benchmark = require 'benchmark'
 
-{GoateeScript:{
-  evaluate, parse, render
-}} = require '../src/GoateeScript'
+{
+  evaluate,
+  parse,
+  render
+}         = require '../src/GoateeScript'
 
-{Utility:{
+{
   isArray
-}} = require '../src/Utility'
+}         = require '../src/Utility'
 
 
 #_         ?= null

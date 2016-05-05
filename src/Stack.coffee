@@ -16,8 +16,6 @@ permissions and limitations under the License.
 
 global = do -> this
 
-exports = module?.exports ? this
-
 ###
 # # Stack
 # -------
@@ -29,7 +27,7 @@ exports = module?.exports ? this
 # @class Stack
 # @namespace GoateeScript
 ###
-exports.Stack = class Stack
+class Stack
 
   global      : undefined
   local       : null
@@ -91,3 +89,5 @@ exports.Stack = class Stack
     @scope.pop()
     @stack.pop()
     return
+
+module.exports = Stack

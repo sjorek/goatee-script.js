@@ -14,13 +14,13 @@ implied. See the License for the specific language governing
 permissions and limitations under the License.
 ###
 
-{Expression}    = require './Expression'
+Expression      = require './Expression'
 
-{Runtime:{
+{
   aliases
-}}              = require './Runtime'
+}               = require './Runtime'
 
-{Utility:{
+{
   arraySlice,
   bindFunction,
   isString,
@@ -29,9 +29,7 @@ permissions and limitations under the License.
   isFunction,
   isExpression,
   parse
-}}              = require './Utility'
-
-exports = module?.exports ? this
+}               = require './Utility'
 
 ###
 # Compiling …
@@ -45,14 +43,14 @@ exports = module?.exports ? this
 # @class Compiler
 # @namespace GoateeScript
 ###
-exports.Compiler = class Compiler
+class Compiler
 
   _aliasSymbol = /^[a-zA-Z$_]$/
-  _operations = Expression.operations
-  _scalar     = _operations.scalar.name
+  _operations  = Expression.operations
+  _scalar      = _operations.scalar.name
 
-  _aliases    = aliases().join(',')
-  _arguments  = ",'" + aliases().join("','") + "'"
+  _aliases     = aliases().join(',')
+  _arguments   = ",'" + aliases().join("','") + "'"
 
   ###*
   # -------------
@@ -294,3 +292,5 @@ exports.Compiler = class Compiler
   compile: (data, callback, compress = on) ->
     opcode = if isArray data then data else @ast(data, callback, false)
     @load(opcode, compress)
+
+module.exports = Compiler

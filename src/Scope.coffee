@@ -14,9 +14,7 @@ implied. See the License for the specific language governing
 permissions and limitations under the License.
 ###
 
-{Expression} = require './Expression'
-
-exports = module?.exports ? this
+Expression = require './Expression'
 
 ###
 # # Scope
@@ -29,7 +27,7 @@ exports = module?.exports ? this
 # @class Scope
 # @namespace GoateeScript
 ###
-exports.Scope = class Scope
+class Scope
 
   ###*
   # -------------
@@ -72,3 +70,5 @@ exports.Scope = class Scope
         i.parameters.push e
       i
     a
+
+module.exports = Scope

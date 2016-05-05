@@ -14,9 +14,9 @@ implied. See the License for the specific language governing
 permissions and limitations under the License.
 ###
 
-{Expression}    = require './Expression'
+Expression    = require './Expression'
 
-{Utility:{
+{
   arraySlice,
   bindFunction,
   isString,
@@ -25,9 +25,7 @@ permissions and limitations under the License.
   isFunction,
   isExpression,
   parse
-}}              = require './Utility'
-
-exports = module?.exports ? this
+}             = require './Utility'
 
 ###
 # Runtime
@@ -42,7 +40,7 @@ exports = module?.exports ? this
 # @class Runtime
 # @namepace GoateeScript
 ###
-exports.Runtime = class Runtime
+class Runtime
 
   _operations = Expression.operations
 
@@ -319,3 +317,5 @@ exports.Runtime = class Runtime
 
     (compress=on) ->
       if compress is on then js else code
+
+module.exports = Runtime
