@@ -215,11 +215,11 @@ exports.Grammar = class Grammar
   # -------------
   # Returns an object containing parser's exportable grammar as references.
   #
-  # @method export
+  # @method toObject
   # @return {Object}
   # @private
   ###
-  export : () ->
+  toObject : () ->
     out =
       startSymbol: @grammar.startSymbol
       bnf: @grammar.bnf
@@ -247,7 +247,7 @@ exports.Grammar = class Grammar
         indent = '    '
       else if indent is false
         indent = null
-    JSON.stringify @export(), replacer, indent
+    JSON.stringify @toObject(), replacer, indent
 
   ###*
   # -------------

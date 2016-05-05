@@ -1,0 +1,259 @@
+<!DOCTYPE html><html lang="en"><head><title>gulpfile</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content=""><meta name="groc-document-path" content="gulpfile.coffee"><meta name="groc-project-path" content="gulpfile.coffee"><meta name="groc-github-url" content="https://github.com/sjorek/goatee-script.js"><link rel="stylesheet" type="text/css" media="all" href="assets/style.css"><script type="text/javascript" src="assets/behavior.js"></script><body><div id="meta"><div class="file-path"><a href="https://github.com/sjorek/goatee-script.js/blob/master/gulpfile.coffee">gulpfile.coffee</a></div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><p>© Copyright 2013-2016 Stephan Jorek <a href="&#x6d;&#97;&#x69;&#108;&#116;&#111;&#x3a;&#115;&#x74;&#101;&#112;&#104;&#x61;&#x6e;&#x2e;&#106;&#x6f;&#114;&#101;&#x6b;&#x40;&#103;&#109;&#97;&#x69;&#x6c;&#46;&#99;&#x6f;&#x6d;">&#115;&#x74;&#101;&#112;&#104;&#x61;&#x6e;&#x2e;&#106;&#x6f;&#114;&#101;&#x6b;&#x40;&#103;&#109;&#97;&#x69;&#x6c;&#46;&#99;&#x6f;&#x6d;</a></p>
+<p>Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at</p>
+<p><a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a></p>
+<p>Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
+implied. See the License for the specific language governing
+permissions and limitations under the License.</p></div></div><div class="code"><div class="wrapper">gulp = <span class="hljs-built_in">require</span> <span class="hljs-string">'gulp'</span>
+
+beautify = <span class="hljs-built_in">require</span> <span class="hljs-string">'gulp-beautify'</span>
+coffee = <span class="hljs-built_in">require</span> <span class="hljs-string">'gulp-coffee'</span>
+<span class="hljs-comment">#cson = require 'gulp-cson'</span>
+cson = <span class="hljs-built_in">require</span> <span class="hljs-string">"<span class="hljs-subst">#{__dirname}</span>/src/misc/gulp/gulp-cson"</span>
+footer = <span class="hljs-built_in">require</span> <span class="hljs-string">'gulp-footer'</span>
+fs = <span class="hljs-built_in">require</span> <span class="hljs-string">'fs'</span>
+grammar = <span class="hljs-built_in">require</span> <span class="hljs-string">"<span class="hljs-subst">#{__dirname}</span>/src/misc/gulp/gulp-jison-grammar"</span>
+groc = <span class="hljs-built_in">require</span> <span class="hljs-string">'gulp-groc'</span>
+header = <span class="hljs-built_in">require</span> <span class="hljs-string">'gulp-header'</span>
+jasmine = <span class="hljs-built_in">require</span> <span class="hljs-string">'gulp-jasmine'</span>
+<span class="hljs-comment">#jison = require 'gulp-jison'</span>
+parser = <span class="hljs-built_in">require</span> <span class="hljs-string">"<span class="hljs-subst">#{__dirname}</span>/src/misc/gulp/gulp-jison-parser"</span>
+rename = <span class="hljs-built_in">require</span> <span class="hljs-string">'gulp-rename'</span>
+replace = <span class="hljs-built_in">require</span> <span class="hljs-string">'gulp-replace'</span>
+del = <span class="hljs-built_in">require</span> <span class="hljs-string">'del'</span>
+sequence = <span class="hljs-built_in">require</span> <span class="hljs-string">'run-sequence'</span>
+sourcemaps = <span class="hljs-built_in">require</span> <span class="hljs-string">'gulp-sourcemaps'</span>
+taskqueue = <span class="hljs-built_in">require</span> <span class="hljs-string">"<span class="hljs-subst">#{__dirname}</span>/src/misc/gulp/gulp-taskqueue"</span>
+template = <span class="hljs-built_in">require</span> <span class="hljs-string">'gulp-template'</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>enable for debuggin purposes:</p></div></div><div class="code"><div class="wrapper"><span class="hljs-comment">#logger = require 'gulp-logger'</span>
+util = <span class="hljs-built_in">require</span> <span class="hljs-string">'gulp-util'</span>
+
+{<span class="hljs-attribute">Utility</span>: {
+  isString
+}} = <span class="hljs-built_in">require</span> <span class="hljs-string">"<span class="hljs-subst">#{__dirname}</span>/src/Utility"</span>
+
+{Grammar} = <span class="hljs-built_in">require</span> <span class="hljs-string">"<span class="hljs-subst">#{__dirname}</span>/src/Grammar"</span>
+
+<span class="hljs-comment">#require 'coffee-script/register' # only needed for javascript-script execution</span>
+<span class="hljs-built_in">require</span> <span class="hljs-string">'require-cson'</span> <span class="hljs-comment"># only needed for coffee-script execution</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h1 id="gulp-tasks">Gulp-Tasks</h1>
+<hr></div></div><div class="code"><div class="wrapper">deps = taskqueue.createDependencyLog()
+deps.jison = [] <span class="hljs-comment"># ['transpile']</span>
+deps.jasmine = [] <span class="hljs-comment"># ['transpile']</span>
+<span class="hljs-function">
+<span class="hljs-title">load</span> = <span class="hljs-params">(filename)</span> -&gt;</span>
+  <span class="hljs-comment">#require "goatee-script/misc/gulp/tasks/#{filename}.json"</span>
+  <span class="hljs-built_in">require</span> <span class="hljs-string">"<span class="hljs-subst">#{__dirname}</span>/src/misc/gulp/tasks/<span class="hljs-subst">#{filename}</span>.cson"</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h2 id="task-coffeetranspile">Task: coffee:transpile</h2>
+<hr>
+<p>Transpile coffee-script to javascript.</p></div></div><div class="code"><div class="wrapper">task = <span class="hljs-string">'coffee:transpile'</span>
+deps = taskqueue.build task, deps, load, \
+  (source, destination, name, config) -&gt;
+    <span class="hljs-keyword">if</span> name <span class="hljs-keyword">is</span> <span class="hljs-string">'coffee:transpile:gulpfile'</span>
+      config.footer = [
+        <span class="hljs-string">"""
+        /**
+         * Spit out the brand …
+         */
+        [
+          '&lt;%= readme %&gt;'
+        ].map(function(l){
+          util.log(l.replace(/(.)[0-9a-z]/g,function(r){
+            return r[0]
+              .repeat('0123456789abcdefghijklmnopqrstuvwxyz'.indexOf(r[1])+1)
+          }));
+        });
+        """</span>
+        {
+          <span class="hljs-attribute">readme</span>: fs.readFileSync(<span class="hljs-string">'./README.md'</span>, <span class="hljs-string">'utf8'</span>)
+            .split(<span class="hljs-string">'\n'</span>)[<span class="hljs-number">4.</span>.<span class="hljs-number">.36</span>].map (line) -&gt;
+              line
+                .replace(<span class="hljs-regexp">/^ {8}/</span>, <span class="hljs-string">''</span>)
+                .replace <span class="hljs-regexp">/(.)\1{0,35}/g</span>, <span class="hljs-function"><span class="hljs-params">(c)</span> -&gt;</span>
+                  c[<span class="hljs-number">0</span>].replace(<span class="hljs-regexp">/(\\|')/</span>,<span class="hljs-string">"\\$1"</span>) \
+                  + <span class="hljs-string">'0123456789abcdefghijklmnopqrstuvwxyz'</span>.charAt(c.length - <span class="hljs-number">1</span>)
+
+            .join <span class="hljs-string">"',\n  '"</span>
+        }
+      ]
+
+    -&gt;
+      util.log name, source, destination
+
+      sm = config.sourcemaps ? <span class="hljs-literal">false</span>
+
+      pipe = gulp.src.apply(gulp, source)
+      pipe = pipe.pipe logger(config.logger) <span class="hljs-keyword">if</span> logger? <span class="hljs-keyword">and</span> config.logger?
+      <span class="hljs-keyword">if</span> config.replace?
+        <span class="hljs-keyword">for</span> replacement <span class="hljs-keyword">in</span> config.replace
+          pipe = pipe.pipe replace.apply(<span class="hljs-literal">null</span>, replacement)
+      pipe = pipe.pipe sourcemaps.init.apply(sourcemaps, sm.init) <span class="hljs-keyword">if</span> sm
+      pipe = pipe.pipe coffee(config.defaults).<span class="hljs-literal">on</span>(<span class="hljs-string">'error'</span>, util.log)
+      pipe = pipe.pipe header.apply <span class="hljs-literal">null</span>, config.header <span class="hljs-keyword">if</span> config.header?
+      pipe = pipe.pipe footer.apply <span class="hljs-literal">null</span>, config.footer <span class="hljs-keyword">if</span> config.footer?
+      pipe = pipe.pipe beautify.apply <span class="hljs-literal">null</span>, config.beautify <span class="hljs-keyword">if</span> config.beautify?
+      pipe = pipe.pipe sourcemaps.write.apply(sourcemaps, sm.write) <span class="hljs-keyword">if</span> sm
+      pipe = pipe.pipe rename(config.rename) <span class="hljs-keyword">if</span> config.rename?
+      pipe.pipe gulp.dest(destination)
+
+gulp.task task, deps.queue
+deps.transpile.push task</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h1 id="task-csontranspile">Task: cson:transpile</h1>
+<hr>
+<p>Transpile cson to json</p></div></div><div class="code"><div class="wrapper">task = <span class="hljs-string">'cson:transpile'</span>
+deps = taskqueue.build task, deps, load, \
+  (source, destination, name, config) -&gt;
+    <span class="hljs-keyword">if</span> name.match <span class="hljs-regexp">/^cson:transpile:groc:config/</span>
+      config.template = {<span class="hljs-string">'__dirname'</span>: __dirname}
+      util.log <span class="hljs-string">'set'</span>, config.template, <span class="hljs-string">'for'</span>, name
+    -&gt;
+      util.log name, source, destination
+
+      pipe = gulp.src.apply(gulp, source)
+      pipe = pipe.pipe logger(config.logger) <span class="hljs-keyword">if</span> logger? <span class="hljs-keyword">and</span> config.logger?
+      <span class="hljs-keyword">if</span> config.replace?
+        <span class="hljs-keyword">for</span> replacement <span class="hljs-keyword">in</span> config.replace
+          pipe = pipe.pipe replace.apply(<span class="hljs-literal">null</span>, replacement)
+      pipe = pipe.pipe cson(config.defaults).<span class="hljs-literal">on</span>(<span class="hljs-string">'error'</span>, util.log)
+      pipe = pipe.pipe header.apply <span class="hljs-literal">null</span>, config.header <span class="hljs-keyword">if</span> config.header?
+      pipe = pipe.pipe footer.apply <span class="hljs-literal">null</span>, config.footer <span class="hljs-keyword">if</span> config.footer?
+      pipe = pipe.pipe rename(config.rename) <span class="hljs-keyword">if</span> config.rename?
+      pipe = pipe.pipe template(config.template) <span class="hljs-keyword">if</span> config.template?
+      pipe.pipe gulp.dest destination
+
+gulp.task task, deps.queue
+deps.transpile.push task</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h1 id="task-transpile">Task: transpile</h1>
+<hr>
+<p>Transpile source files …</p></div></div><div class="code"><div class="wrapper">gulp.task <span class="hljs-string">'transpile'</span>, deps.transpile, <span class="hljs-function">-&gt;</span> util.log <span class="hljs-string">'Transpiling done'</span>
+
+<span class="hljs-comment">#deps.build.push 'transpile'</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h1 id="task-jisongrammar">Task: jison:grammar</h1>
+<hr>
+<p>Build jison grammar</p></div></div><div class="code"><div class="wrapper">task = <span class="hljs-string">'jison:grammar'</span>
+deps = taskqueue.build task, deps, load, \
+  (source, destination, name, config) -&gt;
+
+    defaults = taskqueue.cloneObject config.defaults
+    defaults.grammar = Grammar
+
+    -&gt;
+      util.log name, source, destination
+
+      <span class="hljs-comment">#sm = config.sourcemaps ? false</span>
+
+      pipe = gulp.src.apply(gulp, source)
+      pipe = pipe.pipe logger(config.logger) <span class="hljs-keyword">if</span> logger? <span class="hljs-keyword">and</span> config.logger?
+      <span class="hljs-comment">#pipe = pipe.pipe sourcemaps.init.apply(sourcemaps, sm.init) if sm</span>
+      pipe = pipe.pipe grammar(defaults) <span class="hljs-comment">#.on('error', util.log)</span>
+      <span class="hljs-keyword">if</span> config.replace?
+        <span class="hljs-keyword">for</span> replacement <span class="hljs-keyword">in</span> config.replace
+          pipe = pipe.pipe replace.apply(<span class="hljs-literal">null</span>, replacement)
+      pipe = pipe.pipe header.apply <span class="hljs-literal">null</span>, config.header <span class="hljs-keyword">if</span> config.header?
+      pipe = pipe.pipe footer.apply <span class="hljs-literal">null</span>, config.footer <span class="hljs-keyword">if</span> config.footer?
+      <span class="hljs-comment">#pipe = pipe.pipe sourcemaps.write.apply(sourcemaps, sm.write) if sm</span>
+      pipe = pipe.pipe rename(config.rename) <span class="hljs-keyword">if</span> config.rename?
+      pipe.pipe gulp.dest(destination)
+
+gulp.task task, deps.queue
+deps.jison.push task</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h1 id="task-jisonparser">Task: jison:parser</h1>
+<hr>
+<p>Build jison parser</p></div></div><div class="code"><div class="wrapper">task = <span class="hljs-string">'jison:parser'</span>
+deps = taskqueue.build task, deps, load, \
+  (source, destination, name, config) -&gt;
+
+    defaults = taskqueue.cloneObject config.defaults
+    defaults.grammar = Grammar
+
+    -&gt;
+      util.log name, source, destination
+
+      <span class="hljs-comment">#sm = config.sourcemaps ? false</span>
+
+      pipe = gulp.src.apply(gulp, source)
+      pipe = pipe.pipe logger(config.logger) <span class="hljs-keyword">if</span> logger? <span class="hljs-keyword">and</span> config.logger?
+      <span class="hljs-comment">#pipe = pipe.pipe sourcemaps.init.apply(sourcemaps, sm.init) if sm</span>
+      <span class="hljs-keyword">if</span> config.replace?
+        <span class="hljs-keyword">for</span> replacement <span class="hljs-keyword">in</span> config.replace
+          pipe = pipe.pipe replace.apply(<span class="hljs-literal">null</span>, replacement)
+      pipe = pipe.pipe parser(defaults) <span class="hljs-comment">#.on('error', util.log)</span>
+      pipe = pipe.pipe header.apply <span class="hljs-literal">null</span>, config.header <span class="hljs-keyword">if</span> config.header?
+      pipe = pipe.pipe footer.apply <span class="hljs-literal">null</span>, config.footer <span class="hljs-keyword">if</span> config.footer?
+      pipe = pipe.pipe beautify.apply <span class="hljs-literal">null</span>, config.beautify <span class="hljs-keyword">if</span> config.beautify?
+      <span class="hljs-comment">#pipe = pipe.pipe sourcemaps.write.apply(sourcemaps, sm.write) if sm</span>
+      pipe = pipe.pipe rename(config.rename) <span class="hljs-keyword">if</span> config.rename?
+      pipe.pipe gulp.dest(destination)
+
+gulp.task task, deps.queue
+deps.jison.push task</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h1 id="task-coffeetranspile">Task: coffee:transpile</h1>
+<hr>
+<p>Build jison tasks.</p></div></div><div class="code"><div class="wrapper">gulp.task <span class="hljs-string">'jison'</span>, deps.jison, <span class="hljs-function">-&gt;</span>
+  util.log <span class="hljs-string">'Jison tasks done.'</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h1 id="task-build">Task: build</h1>
+<hr>
+<p>Run build steps in sequence</p></div></div><div class="code"><div class="wrapper">gulp.task <span class="hljs-string">'build'</span>, deps.build, <span class="hljs-function"><span class="hljs-params">(callback)</span> -&gt;</span>
+  sequence <span class="hljs-string">'clean'</span>, <span class="hljs-string">'transpile'</span>, <span class="hljs-string">'jison:parser:default'</span>, <span class="hljs-function"><span class="hljs-params">(error)</span> -&gt;</span>
+    util.log error.message <span class="hljs-keyword">if</span> error?
+    callback
+  util.log <span class="hljs-string">'Build done'</span>
+
+<span class="hljs-comment">#deps.watch.push 'build'</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h1 id="task-test">Task: test</h1>
+<hr>
+<p>Run the tests</p></div></div><div class="code"><div class="wrapper">task = <span class="hljs-string">'test:jasmine'</span>
+deps = taskqueue.build task, deps, load, \
+  (source, destination, name, config) -&gt;
+
+    -&gt;
+      util.log name, source, destination
+      gulp.src(source).pipe jasmine(config.defaults)
+
+gulp.task task, deps.queue
+deps.test.push task</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h1 id="task-test">Task: test</h1>
+<hr>
+<p>Run the tests</p></div></div><div class="code"><div class="wrapper">gulp.task <span class="hljs-string">'test'</span>, deps.test, <span class="hljs-function">-&gt;</span>
+  util.log <span class="hljs-string">'Tests done.'</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h1 id="task-grocdoc">Task: groc:doc</h1>
+<hr>
+<p>Create documenation with groc</p></div></div><div class="code"><div class="wrapper">task = <span class="hljs-string">'groc:doc'</span>
+deps = taskqueue.build task, deps, load, \
+  (source, destination, name, config) -&gt;
+    -&gt;
+      defaults = taskqueue.cloneObject config.defaults
+      <span class="hljs-keyword">if</span> isString config.defaults._
+        defaults = <span class="hljs-built_in">require</span>(config.defaults._)
+        defaults[key] = value <span class="hljs-keyword">for</span> own key, value <span class="hljs-keyword">of</span> config.defaults \
+          <span class="hljs-keyword">when</span> key <span class="hljs-keyword">isnt</span> <span class="hljs-string">'_'</span>
+      defaults.out = destination
+      <span class="hljs-comment">#defaults.verbose = true</span>
+      <span class="hljs-comment">#defaults['very-verbose'] = true</span>
+      <span class="hljs-comment">##unless logger? or defaults.silent? or defaults.verbose?</span>
+      <span class="hljs-comment">##  defaults.silent = true</span>
+
+      <span class="hljs-keyword">unless</span> source? <span class="hljs-keyword">and</span> <span class="hljs-number">0</span> &lt; source.length
+        source = [defaults.glob]
+
+      <span class="hljs-keyword">unless</span> source? <span class="hljs-keyword">and</span> <span class="hljs-number">0</span> &lt; source.length
+        util.log name, <span class="hljs-string">'skipped, as sources are missing'</span>, source, destination
+        <span class="hljs-keyword">return</span>
+
+      util.log name, source, destination <span class="hljs-comment">#, config, defaults</span>
+
+      pipe = gulp.src.apply(gulp, source)
+      pipe = pipe.pipe logger(config.logger) <span class="hljs-keyword">if</span> logger? <span class="hljs-keyword">and</span> config.logger?
+      <span class="hljs-keyword">if</span> config.replace?
+        <span class="hljs-keyword">for</span> replacement <span class="hljs-keyword">in</span> config.replace
+          pipe = pipe.pipe replace.apply(<span class="hljs-literal">null</span>, replacement)
+      pipe.pipe groc(defaults)
+
+gulp.task task, deps.queue
+deps.doc.push task</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h1 id="task-doc">Task: doc</h1>
+<hr>
+<p>Run documentation tasks.</p></div></div><div class="code"><div class="wrapper">gulp.task <span class="hljs-string">'doc'</span>, deps.doc, <span class="hljs-function">-&gt;</span>
+  util.log <span class="hljs-string">'Documentation updated'</span>
+
+<span class="hljs-comment">#deps.doc.push 'build'</span>
+<span class="hljs-comment">#deps.publish.push 'doc'</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h1 id="task-clean">Task: clean</h1>
+<hr>
+<p>Make everything clean and shiny.</p></div></div><div class="code"><div class="wrapper">gulp.task <span class="hljs-string">'clean'</span>, deps.clean, <span class="hljs-function">-&gt;</span> util.log <span class="hljs-string">'Everything clean'</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h1 id="task-publish">Task: publish</h1>
+<hr>
+<p>Publish everything …</p></div></div><div class="code"><div class="wrapper">gulp.task <span class="hljs-string">'publish'</span>, [<span class="hljs-string">'build'</span>, <span class="hljs-string">'doc'</span>].concat(deps.publish), <span class="hljs-function">-&gt;</span>
+  util.log <span class="hljs-string">'Published'</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h1 id="task-watch">Task: watch</h1>
+<hr>
+<p>The big brother is … ?</p></div></div><div class="code"><div class="wrapper">gulp.task <span class="hljs-string">'watch'</span>, deps.watch, <span class="hljs-function">-&gt;</span> util.log <span class="hljs-string">'Watcher running'</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h1 id="task-default">Task: default</h1>
+<hr>
+<p>Run build per default …</p></div></div><div class="code"><div class="wrapper">gulp.task <span class="hljs-string">'default'</span>, [<span class="hljs-string">'build'</span>]</div></div></div></div></body></html>

@@ -1,0 +1,261 @@
+<!DOCTYPE html><html lang="en"><head><title>src/Compiler</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../"><meta name="groc-document-path" content="src/Compiler.coffee"><meta name="groc-project-path" content="src/Compiler.coffee"><meta name="groc-github-url" content="https://github.com/sjorek/goatee-script.js"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="meta"><div class="file-path"><a href="https://github.com/sjorek/goatee-script.js/blob/master/src/Compiler.coffee">src/Compiler.coffee</a></div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><p>© Copyright 2013-2016 Stephan Jorek <a href="&#x6d;&#x61;&#105;&#x6c;&#116;&#111;&#58;&#115;&#116;&#101;&#x70;&#x68;&#x61;&#x6e;&#x2e;&#x6a;&#x6f;&#114;&#x65;&#107;&#64;&#x67;&#109;&#97;&#105;&#x6c;&#x2e;&#x63;&#111;&#109;">&#115;&#116;&#101;&#x70;&#x68;&#x61;&#x6e;&#x2e;&#x6a;&#x6f;&#114;&#x65;&#107;&#64;&#x67;&#109;&#97;&#105;&#x6c;&#x2e;&#x63;&#111;&#109;</a></p>
+<p>Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at</p>
+<p><a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a></p>
+<p>Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
+implied. See the License for the specific language governing
+permissions and limitations under the License.</p></div></div><div class="code"><div class="wrapper">{Expression}    = <span class="hljs-built_in">require</span> <span class="hljs-string">'./Expression'</span>
+
+{<span class="hljs-attribute">Runtime</span>:{
+  aliases
+}}              = <span class="hljs-built_in">require</span> <span class="hljs-string">'./Runtime'</span>
+
+{<span class="hljs-attribute">Utility</span>:{
+  arraySlice,
+  bindFunction,
+  isString,
+  isArray,
+  isNumber,
+  isFunction,
+  isExpression,
+  parse
+}}              = <span class="hljs-built_in">require</span> <span class="hljs-string">'./Utility'</span>
+
+exports = <span class="hljs-built_in">module</span>?.exports ? <span class="hljs-keyword">this</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h2 id="compiling-">Compiling …</h2>
+<p>… the goatee-scripts.</p></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'> class Compiler and namespace GoateeScript</span></p>
+<hr></div></div><div class="code"><div class="wrapper">exports.Compiler = <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Compiler</span></span>
+
+  _aliasSymbol = <span class="hljs-regexp">/^[a-zA-Z$_]$/</span>
+  _operations = Expression.operations
+  _scalar     = _operations.scalar.name
+
+  _aliases    = aliases().join(<span class="hljs-string">','</span>)
+  _arguments  = <span class="hljs-string">",'"</span> + aliases().join(<span class="hljs-string">"','"</span>) + <span class="hljs-string">"'"</span></div></div></div><div class="segment"><div class="comments doc-section doc-section-private"><div class="wrapper"><p><span class='doc-section-header'>Private function _wrap</span></p>
+<hr>
+<p>Parameters:</p>
+<ul>
+<li><p><strong>code must be a String.</strong></p>
+</li>
+<li><p><strong>map can be an Object or an Array.</strong><br/>((optional))</p>
+</li>
+</ul>
+<p><strong>Returns a String</strong></p></div></div><div class="code"><div class="wrapper"><span class="hljs-function">  <span class="hljs-title">_wrap</span> = <span class="hljs-params">(code, map)</span> -&gt;</span>
+    <span class="hljs-keyword">if</span> map?
+      keys = <span class="hljs-keyword">if</span> isArray map <span class="hljs-keyword">then</span> map <span class="hljs-keyword">else</span> (k <span class="hljs-keyword">for</span> own k,v <span class="hljs-keyword">of</span> map)
+      args = <span class="hljs-keyword">if</span> keys.length <span class="hljs-keyword">is</span> <span class="hljs-number">0</span> <span class="hljs-keyword">then</span> <span class="hljs-string">''</span> <span class="hljs-keyword">else</span> <span class="hljs-string">",'"</span> + keys.join(<span class="hljs-string">"','"</span>) + <span class="hljs-string">"'"</span>
+      keys = keys.join <span class="hljs-string">','</span>
+    <span class="hljs-keyword">else</span>
+      keys = _aliases
+      args = _arguments
+    <span class="hljs-string">"(function(<span class="hljs-subst">#{keys}</span>) { return <span class="hljs-subst">#{code}</span>; }).call(this<span class="hljs-subst">#{args}</span>)"</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'>Constructor</span></p>
+<hr>
+<p>Parameters:</p>
+<ul>
+<li><strong>parseImpl is optional, must be a Function, and has a default value of GoateeScript.Utility.parse.</strong></li>
+</ul></div></div><div class="code"><div class="wrapper">  <span class="hljs-attribute">constructor</span>: <span class="hljs-function"><span class="hljs-params">(<span class="hljs-property">@parseImpl</span> = parse)</span> -&gt;</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'>Method compress</span></p>
+<hr>
+<p>Parameters:</p>
+<ul>
+<li><p><strong>ast must be an Array.</strong></p>
+</li>
+<li><p><strong>map is optional, must be an Object, and has a default value of {}.</strong><br/>(of aliases)</p>
+</li>
+</ul>
+<p><strong>Returns an Array.<Array,Object></strong></p></div></div><div class="code"><div class="wrapper">  <span class="hljs-attribute">compress</span>: <span class="hljs-function"><span class="hljs-params">(ast, map = {})</span> -&gt;</span>
+    code = <span class="hljs-keyword">for</span> o <span class="hljs-keyword">in</span> ast
+      <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> o?
+        <span class="hljs-string">''</span> + o
+      <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> o.length?
+        o
+      <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> o.substring?
+        <span class="hljs-keyword">if</span> _aliasSymbol.exec o
+          <span class="hljs-keyword">if</span> map[o]? <span class="hljs-keyword">then</span> ++map[o] <span class="hljs-keyword">else</span> map[o]=<span class="hljs-number">1</span>
+          o
+        <span class="hljs-keyword">else</span>
+          JSON.stringify o
+      <span class="hljs-keyword">else</span>
+        [c, map] = <span class="hljs-property">@compress</span>(o, map)
+        c
+    [<span class="hljs-string">"[<span class="hljs-subst">#{code.join <span class="hljs-string">','</span>}</span>]"</span>, map]</div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'>Method expand</span></p>
+<hr>
+<p>Parameters:</p>
+<ul>
+<li><strong>opcode must be a String.</strong><br/>(A code-expression)</li>
+</ul>
+<p><strong>Returns an Array</strong></p></div></div><div class="code"><div class="wrapper">  <span class="hljs-attribute">expand</span>: <span class="hljs-keyword">do</span> -&gt;
+    code = _wrap <span class="hljs-string">"function(opcode){ return eval('[' + opcode + '][0]'); }"</span>
+    Function(<span class="hljs-string">"return <span class="hljs-subst">#{code}</span>"</span>)()</div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'>Method toExpression</span></p>
+<hr>
+<p>Parameters:</p>
+<ul>
+<li><strong>opcode is optional, can be an Array, a String, a Number, or a Boolean, and has a default value of null.</strong><br/>(ast)</li>
+</ul>
+<p><strong>Returns an Expression</strong></p></div></div><div class="code"><div class="wrapper">  <span class="hljs-attribute">toExpression</span>: <span class="hljs-function"><span class="hljs-params">(opcode)</span> -&gt;</span>
+    state = <span class="hljs-literal">false</span>
+    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> opcode? <span class="hljs-keyword">or</span> <span class="hljs-keyword">not</span> (state = isArray opcode) <span class="hljs-keyword">or</span> <span class="hljs-number">2</span> &gt; (state = opcode.length)
+      <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Expression <span class="hljs-string">'scalar'</span>, \
+        <span class="hljs-keyword">if</span> state <span class="hljs-keyword">then</span> opcode <span class="hljs-keyword">else</span> [<span class="hljs-keyword">if</span> state <span class="hljs-keyword">is</span> <span class="hljs-number">0</span> <span class="hljs-keyword">then</span> <span class="hljs-literal">undefined</span> <span class="hljs-keyword">else</span> opcode]
+
+    parameters = [].concat opcode
+    operator   = parameters.shift()
+    <span class="hljs-keyword">for</span> value, index <span class="hljs-keyword">in</span> parameters
+      parameters[index] = <span class="hljs-keyword">if</span> isArray value <span class="hljs-keyword">then</span> <span class="hljs-property">@toExpression</span> value <span class="hljs-keyword">else</span> value
+    <span class="hljs-keyword">new</span> Expression(operator, parameters)</div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'>Method parse</span></p>
+<hr>
+<p>Parameters:</p>
+<ul>
+<li><strong>code can be an Array, a String, or an Object.</strong><br/>(, a String, opcode-Array or Object with toString method)</li>
+</ul>
+<p><strong>Returns an Expression</strong></p></div></div><div class="code"><div class="wrapper">  <span class="hljs-attribute">parse</span>: <span class="hljs-function"><span class="hljs-params">(code)</span> -&gt;</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-property">@parseImpl</span>(code) <span class="hljs-keyword">if</span> isString code
+    <span class="hljs-property">@toExpression</span>(code)</div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'>Method evaluate</span></p>
+<hr>
+<p>Parameters:</p>
+<ul>
+<li><p><strong>code can be an Array, a String, or an Object.</strong><br/>(, a String, opcode-Array or Object with toString method)</p>
+</li>
+<li><p><strong>context must be an Object.</strong><br/>((optional))</p>
+</li>
+<li><p><strong>variables must be an Object.</strong><br/>((optional))</p>
+</li>
+<li><p><strong>scope must be an Array.</strong><br/>((optional))</p>
+</li>
+<li><p><strong>stack must be an Array.</strong><br/>((optional))</p>
+</li>
+</ul>
+<p><strong>Returns a mixed</strong></p></div></div><div class="code"><div class="wrapper">  <span class="hljs-attribute">evaluate</span>: <span class="hljs-function"><span class="hljs-params">(code, context, variables, scope, stack)</span> -&gt;</span>
+    expression = <span class="hljs-property">@parse</span>(code)
+    expression.evaluate(context, variables, scope, stack)</div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'>Method render</span></p>
+<hr>
+<p>Parameters:</p>
+<ul>
+<li><strong>code can be an Array, a String, or an Object.</strong><br/>(, a String, opcode-Array or Object with toString method)</li>
+</ul>
+<p><strong>Returns a String</strong></p></div></div><div class="code"><div class="wrapper">  <span class="hljs-attribute">render</span>: <span class="hljs-function"><span class="hljs-params">(code)</span> -&gt;</span>
+    <span class="hljs-property">@parse</span>(code).toString()</div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'>Method save</span></p>
+<hr>
+<p>Parameters:</p>
+<ul>
+<li><p><strong>expression must be an Expression.</strong></p>
+</li>
+<li><p><strong>callback must be a Function.</strong><br/>((optional))</p>
+</li>
+<li><p><strong>compress is optional, must be a Boolean, and has a default value of true.</strong></p>
+</li>
+</ul>
+<p><strong>Returns an Object.<String:op,Array:parameters></strong></p></div></div><div class="code"><div class="wrapper">  <span class="hljs-attribute">save</span>: <span class="hljs-function"><span class="hljs-params">(expression, callback, compress = <span class="hljs-literal">on</span>)</span> -&gt;</span>
+    <span class="hljs-keyword">if</span> compress <span class="hljs-keyword">and</span> expression.operator.name <span class="hljs-keyword">is</span> _scalar
+      <span class="hljs-keyword">return</span> expression.parameters
+    opcode = [
+      <span class="hljs-keyword">if</span> compress <span class="hljs-keyword">and</span> expression.operator.alias? \
+        <span class="hljs-keyword">then</span> expression.operator.alias <span class="hljs-keyword">else</span> expression.operator.name
+    ]
+    opcode.push(
+      <span class="hljs-keyword">if</span> isExpression parameter
+        <span class="hljs-property">@save</span> parameter, callback, compress
+      <span class="hljs-keyword">else</span> parameter
+    ) <span class="hljs-keyword">for</span> parameter <span class="hljs-keyword">in</span> expression.parameters
+    opcode</div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'>Method ast</span></p>
+<hr>
+<p>Parameters:</p>
+<ul>
+<li><p><strong>code can be an Array, a String, or an Object.</strong><br/>(, a String, opcode-Array or Object with toString method)</p>
+</li>
+<li><p><strong>callback must be a Function.</strong><br/>((optional))</p>
+</li>
+<li><p><strong>compress is optional, must be a Boolean, and has a default value of true.</strong></p>
+</li>
+</ul>
+<p><strong>Returns an Array or a String or a Number or a true or a false or a null</strong></p></div></div><div class="code"><div class="wrapper">  <span class="hljs-attribute">ast</span>: <span class="hljs-function"><span class="hljs-params">(data, callback, compress = <span class="hljs-literal">on</span>)</span> -&gt;</span>
+    expression = <span class="hljs-keyword">if</span> isExpression data <span class="hljs-keyword">then</span> data <span class="hljs-keyword">else</span> <span class="hljs-property">@parse</span>(data)
+    ast = <span class="hljs-property">@save</span>(expression, callback, compress)
+    <span class="hljs-keyword">if</span> compress <span class="hljs-keyword">then</span> <span class="hljs-property">@compress</span> ast <span class="hljs-keyword">else</span> ast</div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'>Method stringyfy</span></p>
+<hr>
+<p>Parameters:</p>
+<ul>
+<li><p><strong>code can be an Array, a String, or an Object.</strong><br/>(, a String, opcode-Array or Object with toString method)</p>
+</li>
+<li><p><strong>callback must be a Function.</strong><br/>((optional))</p>
+</li>
+<li><p><strong>compress is optional, must be a Boolean, and has a default value of true.</strong></p>
+</li>
+</ul>
+<p><strong>Returns a String</strong></p></div></div><div class="code"><div class="wrapper">  <span class="hljs-attribute">stringify</span>: <span class="hljs-function"><span class="hljs-params">(data, callback, compress = <span class="hljs-literal">on</span>)</span> -&gt;</span>
+    opcode = <span class="hljs-property">@ast</span>(data, callback, compress)
+    <span class="hljs-keyword">if</span> compress
+      <span class="hljs-string">"[<span class="hljs-subst">#{opcode[<span class="hljs-number">0</span>]}</span>,<span class="hljs-subst">#{JSON.stringify opcode[<span class="hljs-number">1</span>]}</span>]"</span>
+    <span class="hljs-keyword">else</span>
+      JSON.stringify opcode</div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'>Method closure</span></p>
+<hr>
+<p>Parameters:</p>
+<ul>
+<li><p><strong>code can be an Array, a String, or an Object.</strong><br/>(, a String, opcode-Array or Object with toString method)</p>
+</li>
+<li><p><strong>callback must be a Function.</strong><br/>((optional))</p>
+</li>
+<li><p><strong>compress is optional, must be a Boolean, and has a default value of true.</strong></p>
+</li>
+</ul>
+<p><strong>Returns a Function</strong></p></div></div><div class="code"><div class="wrapper">  <span class="hljs-attribute">closure</span>: <span class="hljs-function"><span class="hljs-params">(data, callback, compress = <span class="hljs-literal">on</span>, prefix)</span> -&gt;</span>
+    opcode = <span class="hljs-property">@ast</span>(data, callback, compress)
+    <span class="hljs-keyword">if</span> compress
+      code = _wrap(opcode)
+    <span class="hljs-keyword">else</span>
+      code = JSON.stringify(opcode)</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>…formerly:</p>
+<pre><code>  Function &quot;#{prefix || &#39;&#39;}return [#{code}][0];&quot;</code></pre></div></div><div class="code"><div class="wrapper">    Function <span class="hljs-string">"<span class="hljs-subst">#{prefix || <span class="hljs-string">''</span>}</span>return <span class="hljs-subst">#{code}</span>;"</span></div></div></div><div class="segment"><div class="comments doc-section doc-section-private"><div class="wrapper"><p><span class='doc-section-header'>Private function _compile</span></p>
+<hr>
+<p>Parameters:</p>
+<ul>
+<li><p><strong>compress must be a Boolean.</strong></p>
+</li>
+<li><p><strong>operator must be a String.</strong></p>
+</li>
+<li><p><strong>parameters is optional and must be an Array.</strong></p>
+</li>
+</ul>
+<p><strong>Returns a String</strong></p></div></div><div class="code"><div class="wrapper"><span class="hljs-function">  <span class="hljs-title">_compile</span> = <span class="hljs-params">(compress, operator, parameters...)</span> -&gt;</span>
+
+    <span class="hljs-keyword">return</span> JSON.stringify(operator) <span class="hljs-keyword">if</span> parameters.length <span class="hljs-keyword">is</span> <span class="hljs-number">0</span>
+
+    operation  = _operations[operator]
+    <span class="hljs-keyword">if</span> isString operation
+      operator  = operation
+      operation = _operations[operator]
+
+    <span class="hljs-keyword">return</span> JSON.stringify(parameters[<span class="hljs-number">0</span>]) <span class="hljs-keyword">if</span> operator <span class="hljs-keyword">is</span> _scalar
+
+    id = <span class="hljs-keyword">if</span> compress <span class="hljs-keyword">then</span> operation.alias <span class="hljs-keyword">else</span> <span class="hljs-string">"_[\"<span class="hljs-subst">#{operator}</span>\"]"</span>
+    parameters = <span class="hljs-keyword">for</span> parameter <span class="hljs-keyword">in</span> parameters
+      <span class="hljs-keyword">if</span> isArray parameter
+        _compile.apply(<span class="hljs-literal">null</span>, [compress].concat(parameter))
+      <span class="hljs-keyword">else</span>
+        JSON.stringify(parameter)
+
+    <span class="hljs-string">"<span class="hljs-subst">#{id}</span>(<span class="hljs-subst">#{parameters.join <span class="hljs-string">','</span>}</span>)"</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'>Method load</span></p>
+<hr>
+<p>Parameters:</p>
+<ul>
+<li><p><strong>data can be a String or an Array.</strong><br/>(opcode-String or -Array)</p>
+</li>
+<li><p><strong>compress is optional, must be a Boolean, and has a default value of true.</strong></p>
+</li>
+</ul>
+<p><strong>Returns a String</strong></p></div></div><div class="code"><div class="wrapper">  <span class="hljs-attribute">load</span>: <span class="hljs-function"><span class="hljs-params">(data, compress = <span class="hljs-literal">on</span>)</span> -&gt;</span>
+    opcode = <span class="hljs-keyword">if</span> isArray data <span class="hljs-keyword">then</span> data <span class="hljs-keyword">else</span> <span class="hljs-property">@expand</span>(data)
+    _compile.apply(<span class="hljs-literal">null</span>, [compress].concat(opcode))</div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'>Method compile</span></p>
+<hr>
+<p>Parameters:</p>
+<ul>
+<li><p><strong>code can be an Array, a String, or an Object.</strong><br/>(a String, opcode-Array or Object with toString method)</p>
+</li>
+<li><p><strong>callback is optional and must be a Function.</strong></p>
+</li>
+<li><p><strong>compress is optional, must be a Boolean, and has a default value of true.</strong></p>
+</li>
+</ul>
+<p><strong>Returns a String</strong></p></div></div><div class="code"><div class="wrapper">  <span class="hljs-attribute">compile</span>: <span class="hljs-function"><span class="hljs-params">(data, callback, compress = <span class="hljs-literal">on</span>)</span> -&gt;</span>
+    opcode = <span class="hljs-keyword">if</span> isArray data <span class="hljs-keyword">then</span> data <span class="hljs-keyword">else</span> <span class="hljs-property">@ast</span>(data, callback, <span class="hljs-literal">false</span>)
+    <span class="hljs-property">@load</span>(opcode, compress)</div></div></div></div></body></html>

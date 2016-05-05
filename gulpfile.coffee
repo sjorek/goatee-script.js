@@ -275,7 +275,10 @@ deps = taskqueue.build task, deps, load, \
 
     ->
       util.log name, source, destination
-      gulp.src(source).pipe jasmine()
+      gulp.src(source).pipe jasmine(config.defaults)
+
+gulp.task task, deps.queue
+deps.test.push task
 
 ###
 # # Task: test
@@ -284,7 +287,7 @@ deps = taskqueue.build task, deps, load, \
 # Run the tests
 #
 ###
-gulp.task 'test', ['test:jasmine'].concat(deps.test), ->
+gulp.task 'test', deps.test, ->
   util.log 'Tests done.'
 
 ###
@@ -335,7 +338,7 @@ deps.doc.push task
 # Run documentation tasks.
 #
 ###
-gulp.task 'doc', ['build'].concat(deps.doc), ->
+gulp.task 'doc', deps.doc, ->
   util.log 'Documentation updated'
 
 #deps.doc.push 'build'

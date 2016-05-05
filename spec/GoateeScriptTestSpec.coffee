@@ -1,5 +1,5 @@
 ###
-© Copyright 2013-2016 Stephan Jorek <stephan.jorek@gmail.com>  
+© Copyright 2013-2016 Stephan Jorek <stephan.jorek@gmail.com>
 © Copyright 2012 Kris Nye <krisnye@gmail.com>
 
 Permission is hereby granted, free of charge, to any person
@@ -28,11 +28,11 @@ Benchmark = require 'benchmark'
 
 {GoateeScript:{
   evaluate, parse, render
-}} = require '../GoateeScript'
+}} = require '../src/GoateeScript'
 
 {Utility:{
   isArray
-}} = require '../Utility'
+}} = require '../src/Utility'
 
 
 #_         ?= null
@@ -101,7 +101,7 @@ describe "GoateeScript", ->
       .toBe JSON.stringify(expected)
 
   it 'can add two positive numbers', ->
-      egal '1+1', 2
+    egal '1+1', 2
 
   xit 'can add two positive numbers in given time', (done) ->
 
@@ -119,33 +119,33 @@ describe "GoateeScript", ->
       .run({async: false })
 
   it 'resolves expression vectors', ->
-      expect(parse('5').vector).toBe false
-      expect(parse('5+2').vector).toBe false
-      #expect(parse('*').vector).toBe true
-      #expect(parse('*.alpha').vector).toBe true
-      #expect(parse('alpha.* * 12').vector).toBe true
-      #expect(parse('alpha.*').vector).toBe true
-      expect(parse('func(alpha)').vector).toBe false
-      #expect(parse('func(*)').vector).toBe false
-      #expect(parse('func(alpha.*.beta)').vector).toBe false
+    expect(parse('5').vector).toBe false
+    expect(parse('5+2').vector).toBe false
+    #expect(parse('*').vector).toBe true
+    #expect(parse('*.alpha').vector).toBe true
+    #expect(parse('alpha.* * 12').vector).toBe true
+    #expect(parse('alpha.*').vector).toBe true
+    expect(parse('func(alpha)').vector).toBe false
+    #expect(parse('func(*)').vector).toBe false
+    #expect(parse('func(alpha.*.beta)').vector).toBe false
 
   it 'resolves one or multiple collapsing “undefined” values', ->
-      statements = ['', ';;;;', ';/* nix */;']
-      for s in statements
-        expect(evaluate(s)).toBe undefined
-        expect(render(s)).toBe ''
+    statements = ['', ';;;;', ';/* nix */;']
+    for s in statements
+      expect(evaluate(s)).toBe undefined
+      expect(render(s)).toBe ''
 
   it 'resolves one or multiple “null” values', ->
-      statements = ['null', 'null;null', 'null;null;null']
-      for s in statements
-        expect(evaluate(s)).toBe null
-        expect(render(s)).toBe s
+    statements = ['null', 'null;null', 'null;null;null']
+    for s in statements
+      expect(evaluate(s)).toBe null
+      expect(render(s)).toBe s
 
   it 'resolves multiple “null” and collapsing “undefined” values', ->
-      statements = [';null;null;;', 'null;;null;;', 'null;/*;null;*/null;;']
-      for s in statements
-        expect(evaluate(s)).toBe null
-        expect(render(s)).toBe 'null;null'
+    statements = [';null;null;;', 'null;;null;;', 'null;/*;null;*/null;;']
+    for s in statements
+      expect(evaluate(s)).toBe null
+      expect(render(s)).toBe 'null;null'
 
   it 'resolves scalar values (primitives)', ->
     egal "5", 5
@@ -155,11 +155,11 @@ describe "GoateeScript", ->
     egal "'a' + 'b'", 'ab'
 
   it 'resolves object access', ->
-      egal "codes", data.codes
-      egal "codes.alpha", data.codes.alpha
-      egal "codes.alpha.discount", data.codes.alpha.discount
+    egal "codes", data.codes
+    egal "codes.alpha", data.codes.alpha
+    egal "codes.alpha.discount", data.codes.alpha.discount
 
-      egal "codes.discount", undefined
+    egal "codes.discount", undefined
 
   xit 'resolves object with children access', ->
     compare "*", _.values data
@@ -179,9 +179,19 @@ describe "GoateeScript", ->
     egal "children.children", undefined
 
   xit 'resolves children access', ->
-    compare "children.*", [data.children.pat, data.children.skip]
-    compare "children.*.children", [data.children.pat.children, data.children.skip.children]
-    compare "children.*.children.*", [data.children.pat.children.jay, data.children.pat.children.bob, data.children.skip.children.joe]
+    compare "children.*", [
+      data.children.pat
+      data.children.skip
+    ]
+    compare "children.*.children", [
+      data.children.pat.children
+      data.children.skip.children
+    ]
+    compare "children.*.children.*", [
+      data.children.pat.children.jay
+      data.children.pat.children.bob
+      data.children.skip.children.joe
+    ]
 
   xit 'resolves object access predicates', ->
     #  bare predicates no longer supported so use this[predicate]
@@ -244,7 +254,9 @@ describe "GoateeScript", ->
 
     #  test object literal and array literal
     obj.charlie = ary
-    compare '{alpha:codes.alpha.discount,"beta":2,charlie:[3,2,codes.beta.discount]}', obj
+    compare '{alpha:codes.alpha.discount,' + \
+            '"beta":2,' + \
+            'charlie:[3,2,codes.beta.discount]}', obj
 
   it 'resolves “if”/“else” conditions', ->
     # compares multiline expressions too

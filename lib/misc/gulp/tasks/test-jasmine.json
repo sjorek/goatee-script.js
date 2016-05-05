@@ -1,8 +1,11 @@
 {
   "coffee": {
-    "deps": null,
     "title": "Testing coffee with jasmine",
-    "defaults": {},
+    "defaults": {
+      "config": "spec/support/jasmine.json",
+      "verbose": true,
+      "includeStackTrace": true
+    },
     "assets": [
       {
         "spec": [
@@ -22,9 +25,15 @@
     }
   },
   "javascript": {
-    "deps": null,
+    "deps": [
+      "test:jasmine:coffee"
+    ],
     "title": "Testing javascript with jasmine",
-    "defaults": {},
+    "defaults": {
+      "config": "spec/support/jasmine.json",
+      "verbose": true,
+      "includeStackTrace": true
+    },
     "assets": [
       {
         "spec": [

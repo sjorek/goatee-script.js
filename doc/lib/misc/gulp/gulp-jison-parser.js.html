@@ -1,0 +1,55 @@
+<!DOCTYPE html><html lang="en"><head><title>lib/misc/gulp/gulp-jison-parser</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../../../"><meta name="groc-document-path" content="lib/misc/gulp/gulp-jison-parser.js"><meta name="groc-project-path" content="lib/misc/gulp/gulp-jison-parser.js"><meta name="groc-github-url" content="https://github.com/sjorek/goatee-script.js"><link rel="stylesheet" type="text/css" media="all" href="../../../assets/style.css"><script type="text/javascript" src="../../../assets/behavior.js"></script><body><div id="meta"><div class="file-path"><a href="https://github.com/sjorek/goatee-script.js/blob/master/lib/misc/gulp/gulp-jison-parser.js">lib/misc/gulp/gulp-jison-parser.js</a></div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><p>© Copyright 2013-2016 Stephan Jorek <a href="&#109;&#97;&#x69;&#108;&#116;&#x6f;&#58;&#x73;&#x74;&#x65;&#112;&#104;&#97;&#x6e;&#x2e;&#106;&#x6f;&#x72;&#101;&#107;&#64;&#x67;&#109;&#97;&#x69;&#x6c;&#x2e;&#x63;&#111;&#x6d;">&#x73;&#x74;&#x65;&#112;&#104;&#97;&#x6e;&#x2e;&#106;&#x6f;&#x72;&#101;&#107;&#64;&#x67;&#109;&#97;&#x69;&#x6c;&#x2e;&#x63;&#111;&#x6d;</a></p>
+<p>Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at</p>
+<p><a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a></p>
+<p>Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
+implied. See the License for the specific language governing
+permissions and limitations under the License.</p></div></div><div class="code"><div class="wrapper">(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">var</span> PLUGIN_NAME, PluginError, map, util;
+
+    map = <span class="hljs-built_in">require</span>(<span class="hljs-string">'map-stream'</span>);
+
+    util = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp-util'</span>);
+
+    PluginError = util.PluginError;</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h1 id="gulp-jison-parser">Gulp Jison Parser</h1>
+<hr></div></div><div class="code"><div class="wrapper">    PLUGIN_NAME = <span class="hljs-string">'gulp-jison-parser'</span>;
+
+    <span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">options</span>) </span>{
+        <span class="hljs-keyword">var</span> Grammar, parser;
+        Grammar = options.grammar;
+        parser = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">file, cb</span>) </span>{
+            <span class="hljs-keyword">var</span> comment, data, p;
+            p = Grammar.createParser(file.path);
+            <span class="hljs-keyword">if</span> (p <span class="hljs-keyword">instanceof</span> <span class="hljs-built_in">Error</span>) {
+                <span class="hljs-keyword">return</span> cb(p);
+            }
+            <span class="hljs-keyword">if</span> (options.goatee != <span class="hljs-literal">null</span>) {
+                data = Grammar.generateParser({
+                    generate: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+                        <span class="hljs-keyword">return</span> p.generate(options);
+                    }
+                });
+            } <span class="hljs-keyword">else</span> {
+                data = p.generate(options);
+            }
+            <span class="hljs-keyword">if</span> (data <span class="hljs-keyword">instanceof</span> <span class="hljs-built_in">Error</span>) {
+                <span class="hljs-keyword">return</span> cb(data);
+            }
+            <span class="hljs-keyword">if</span> (options.beautify != <span class="hljs-literal">null</span>) {
+                comment = data.match(<span class="hljs-regexp">/\/\*\s*(Returns a Parser object of the following structure:)[^\*]*(Parser:[^\*]*\})\s*\*\//</span>);
+                <span class="hljs-keyword">if</span> (comment) {
+                    data = data.replace(comment[<span class="hljs-number">0</span>], <span class="hljs-string">"\n/** ------------\n *\n * "</span> + comment[<span class="hljs-number">1</span>] + <span class="hljs-string">"\n *\n *      "</span> + (comment[<span class="hljs-number">2</span>].split(<span class="hljs-string">'\n'</span>).join(<span class="hljs-string">'\n *    '</span>).replace(<span class="hljs-regexp">/\*[ ]+\n/g</span>, <span class="hljs-string">'*\n'</span>)) + <span class="hljs-string">"\n *\n */"</span>);
+                }
+            }
+            file.contents = <span class="hljs-keyword">new</span> Buffer(data);
+            file.path = util.replaceExtension(file.path, <span class="hljs-string">'.js'</span>);
+            <span class="hljs-keyword">return</span> cb(<span class="hljs-literal">null</span>, file);
+        };
+        <span class="hljs-keyword">return</span> map(parser);
+    };
+
+}).call(<span class="hljs-keyword">this</span>);
+<span class="hljs-comment">//# sourceMappingURL=gulp-jison-parser.js.map</span></div></div></div></div></body></html>

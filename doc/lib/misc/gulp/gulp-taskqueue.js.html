@@ -1,0 +1,156 @@
+<!DOCTYPE html><html lang="en"><head><title>lib/misc/gulp/gulp-taskqueue</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../../../"><meta name="groc-document-path" content="lib/misc/gulp/gulp-taskqueue.js"><meta name="groc-project-path" content="lib/misc/gulp/gulp-taskqueue.js"><meta name="groc-github-url" content="https://github.com/sjorek/goatee-script.js"><link rel="stylesheet" type="text/css" media="all" href="../../../assets/style.css"><script type="text/javascript" src="../../../assets/behavior.js"></script><body><div id="meta"><div class="file-path"><a href="https://github.com/sjorek/goatee-script.js/blob/master/lib/misc/gulp/gulp-taskqueue.js">lib/misc/gulp/gulp-taskqueue.js</a></div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><p>© Copyright 2013-2016 Stephan Jorek <a href="&#109;&#97;&#x69;&#108;&#x74;&#x6f;&#58;&#x73;&#116;&#x65;&#112;&#x68;&#97;&#110;&#x2e;&#x6a;&#111;&#114;&#x65;&#x6b;&#x40;&#x67;&#x6d;&#97;&#105;&#108;&#x2e;&#x63;&#111;&#x6d;">&#x73;&#116;&#x65;&#112;&#x68;&#97;&#110;&#x2e;&#x6a;&#111;&#114;&#x65;&#x6b;&#x40;&#x67;&#x6d;&#97;&#105;&#108;&#x2e;&#x63;&#111;&#x6d;</a></p>
+<p>Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at</p>
+<p><a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a></p>
+<p>Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
+implied. See the License for the specific language governing
+permissions and limitations under the License.</p></div></div><div class="code"><div class="wrapper">(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">var</span> _cloneObject, cond, del, exports, gulp, isArray, skip, util,
+        hasProp = {}.hasOwnProperty;
+
+    gulp = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp'</span>);
+
+    del = <span class="hljs-built_in">require</span>(<span class="hljs-string">'del'</span>);
+
+    util = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gulp-util'</span>);
+
+    isArray = <span class="hljs-built_in">require</span>(<span class="hljs-string">'../../Utility'</span>).Utility.isArray;
+
+    exports = exports != <span class="hljs-literal">null</span> ? exports : <span class="hljs-keyword">this</span>;</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h1 id="gulp-taskqueue">Gulp Taskqueue</h1>
+<hr></div></div><div class="code"><div class="wrapper">    exports.skip = skip = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">pipe</span>) </span>{
+        <span class="hljs-keyword">return</span> pipe;
+    };
+
+    exports[<span class="hljs-string">"if"</span>] = cond = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">condition, thenPipe, elsePipe</span>) </span>{
+        <span class="hljs-keyword">if</span> (elsePipe == <span class="hljs-literal">null</span>) {
+            elsePipe = skip;
+        }
+        <span class="hljs-keyword">if</span> (condition) {
+            <span class="hljs-keyword">return</span> thenPipe;
+        } <span class="hljs-keyword">else</span> {
+            <span class="hljs-keyword">return</span> elsePipe;
+        }
+    };
+
+    exports.createDependencyLog = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+        <span class="hljs-keyword">return</span> {
+            build: [],
+            clean: [],
+            transpile: [],
+            test: [],
+            doc: [],
+            publish: [],
+            watch: []
+        };
+    };
+
+    exports.cloneObject = _cloneObject = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">obj</span>) </span>{
+        <span class="hljs-keyword">var</span> key, temp, val;
+        <span class="hljs-keyword">if</span> (obj === <span class="hljs-literal">null</span> || <span class="hljs-keyword">typeof</span> obj !== <span class="hljs-string">"object"</span>) {
+            <span class="hljs-keyword">return</span> obj;
+        }
+        temp = <span class="hljs-keyword">new</span> obj.constructor();
+        <span class="hljs-keyword">for</span> (key <span class="hljs-keyword">in</span> obj) {
+            <span class="hljs-keyword">if</span> (!hasProp.call(obj, key)) <span class="hljs-keyword">continue</span>;
+            val = obj[key];
+            temp[key] = _cloneObject(val);
+        }
+        <span class="hljs-keyword">return</span> temp;
+    };</div></div></div><div class="segment"><div class="comments doc-section doc-section-private"><div class="wrapper"><p><span class='doc-section-header'>Private function build</span></p>
+<hr>
+<p>create task queue definitions</p>
+<p>Parameters:</p>
+<ul>
+<li><p><strong>name must be a String.</strong></p>
+</li>
+<li><p><strong>deps must be an Object<queue:Array,clean:Array,watch:Array>.</strong></p>
+</li>
+<li><p><strong>load must be a Function.</strong></p>
+</li>
+<li><p><strong>worker must be a Function.</strong></p>
+</li>
+</ul>
+<p><strong>Returns an Object</strong><br/>(a dependency log object)</p></div></div><div class="code"><div class="wrapper">    exports.build = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">name, deps, load, worker</span>) </span>{
+        <span class="hljs-keyword">var</span> clean, cleandeps, config, filename, fn, queue, suffix, watch, watchdeps;
+        filename = <span class="hljs-string">""</span> + (name.replace(<span class="hljs-regexp">/:/</span>, <span class="hljs-string">'-'</span>));
+        queue = load(filename);
+        cleandeps = [];
+        watchdeps = [];
+        deps.queue = [];
+        fn = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+            <span class="hljs-keyword">var</span> assets, clean, destination, i, index, j, len, len1, ref, ref1, ref2, source, subtaskdeps, subtaskname, taskcleandeps, taskconfig, taskdeps, taskname, taskwatchdeps, watch, watchsources;
+            taskconfig = _cloneObject(config);
+            taskname = name + <span class="hljs-string">":"</span> + suffix;
+            taskdeps = [];
+            taskcleandeps = [];
+            taskwatchdeps = [];
+            deps[(ref = taskconfig.queue) != <span class="hljs-literal">null</span> ? ref : <span class="hljs-string">'queue'</span>].push(taskname);
+            subtaskdeps = (ref1 = taskconfig.deps) != <span class="hljs-literal">null</span> ? ref1 : [];
+            index = <span class="hljs-number">0</span>;
+            ref2 = taskconfig.assets;
+            <span class="hljs-keyword">for</span> (i = <span class="hljs-number">0</span>, len = ref2.length; i &lt; len; i++) {
+                assets = ref2[i];
+                <span class="hljs-keyword">for</span> (destination <span class="hljs-keyword">in</span> assets) {
+                    <span class="hljs-keyword">if</span> (!hasProp.call(assets, destination)) <span class="hljs-keyword">continue</span>;
+                    source = assets[destination];
+                    subtaskname = taskname + <span class="hljs-string">":"</span> + (index++);
+                    taskdeps.push(subtaskname);
+                    <span class="hljs-keyword">if</span> (taskconfig.watch != <span class="hljs-literal">null</span>) {
+                        watch = subtaskname + <span class="hljs-string">":watch"</span>;
+                        taskwatchdeps.push(watch);
+                        watchsources = [].concat(source);
+                        <span class="hljs-keyword">if</span> (isArray(taskconfig.watch)) {
+                            watchsources = watchsources.concat(taskconfig.watch != <span class="hljs-literal">null</span>);
+                        }
+                        gulp.task(watch, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+                            util.log(watch, source);
+                            <span class="hljs-keyword">return</span> gulp.watch(watchsources, [subtaskname]);
+                        });
+                    }
+                    gulp.task(subtaskname, subtaskdeps, worker(source, destination, taskname, taskconfig));
+                }
+            }
+            gulp.task(taskname, taskdeps, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+                <span class="hljs-keyword">return</span> util.log(taskconfig.title);
+            });
+            <span class="hljs-keyword">if</span> (taskconfig.clean != <span class="hljs-literal">null</span>) {
+                clean = taskname + <span class="hljs-string">":clean"</span>;
+                taskcleandeps.push(clean);
+                gulp.task(clean, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+                    util.log(clean, taskconfig.clean);
+                    <span class="hljs-keyword">return</span> del(taskconfig.clean);
+                });
+            }
+            <span class="hljs-keyword">for</span> (j = <span class="hljs-number">0</span>, len1 = taskcleandeps.length; j &lt; len1; j++) {
+                clean = taskcleandeps[j];
+                cleandeps.push(clean);
+            }
+            <span class="hljs-keyword">if</span> (<span class="hljs-number">0</span> &lt; taskwatchdeps.length) {
+                watch = taskname + <span class="hljs-string">":watch"</span>;
+                watchdeps.push(watch);
+                <span class="hljs-keyword">return</span> gulp.task(watch, taskwatchdeps);
+            }
+        };
+        <span class="hljs-keyword">for</span> (suffix <span class="hljs-keyword">in</span> queue) {
+            <span class="hljs-keyword">if</span> (!hasProp.call(queue, suffix)) <span class="hljs-keyword">continue</span>;
+            config = queue[suffix];
+            fn();
+        }
+        <span class="hljs-keyword">if</span> (<span class="hljs-number">0</span> &lt; cleandeps.length) {
+            clean = name + <span class="hljs-string">":clean"</span>;
+            deps.clean.push(clean);
+            gulp.task(clean, cleandeps);
+        }
+        <span class="hljs-keyword">if</span> (<span class="hljs-number">0</span> &lt; watchdeps.length) {
+            watch = name + <span class="hljs-string">":watch"</span>;
+            deps.watch.push(watch);
+            gulp.task(watch, watchdeps);
+        }
+        <span class="hljs-keyword">return</span> deps;
+    };
+
+}).call(<span class="hljs-keyword">this</span>);
+<span class="hljs-comment">//# sourceMappingURL=gulp-taskqueue.js.map</span></div></div></div></div></body></html>

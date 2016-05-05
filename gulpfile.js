@@ -351,9 +351,13 @@ task = 'test:jasmine';
 deps = taskqueue.build(task, deps, load, function(source, destination, name, config) {
   return function() {
     util.log(name, source, destination);
-    return gulp.src(config.assets).pipe(jasmine());
+    return gulp.src(source).pipe(jasmine(config.defaults));
   };
 });
+
+gulp.task(task, deps.queue);
+
+deps.test.push(task);
 
 
 /*
@@ -364,7 +368,7 @@ deps = taskqueue.build(task, deps, load, function(source, destination, name, con
  *
  */
 
-gulp.task('test', ['test:jasmine'].concat(deps.test), function() {
+gulp.task('test', deps.test, function() {
   return util.log('Tests done.');
 });
 
@@ -431,7 +435,7 @@ deps.doc.push(task);
  *
  */
 
-gulp.task('doc', ['build'].concat(deps.doc), function() {
+gulp.task('doc', deps.doc, function() {
   return util.log('Documentation updated');
 });
 

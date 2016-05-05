@@ -18,6 +18,11 @@ default:
         '!src/grammar/jison*.cson'
       ]
     ]
+    'spec/': [
+      [
+        'spec/**/*.cson'
+      ]
+    ]
   ]
 
   replace : [
@@ -29,6 +34,7 @@ default:
 
   clean: [
     'lib/**/*.json'
+    'spec/**/*.json'
   ]
 
   watch: true

@@ -12,6 +12,11 @@
             "!src/misc/groc/config.cson",
             "!src/grammar/jison*.cson"
           ]
+        ],
+        "spec/": [
+          [
+            "spec/**/*.cson"
+          ]
         ]
       }
     ],
@@ -22,7 +27,8 @@
       ]
     ],
     "clean": [
-      "lib/**/*.json"
+      "lib/**/*.json",
+      "spec/**/*.json"
     ],
     "watch": true,
     "logger": {

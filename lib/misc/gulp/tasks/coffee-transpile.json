@@ -1,6 +1,6 @@
 {
   "default": {
-    "title": "Transpiling all coffee-script files.",
+    "title": "Transpiling all coffee-script source files.",
     "defaults": {
       "bare": false,
       "map": true
@@ -17,11 +17,6 @@
             "!src/misc/gulp/gulpfile.coffee",
             "!src/grammar/jison*.coffee"
           ]
-        ],
-        "spec/": [
-          [
-            "spec/**/*.coffee"
-          ]
         ]
       }
     ],
@@ -34,8 +29,6 @@
     "clean": [
       "lib/**/*.js",
       "lib/**/*.js.map",
-      "spec/**/*.js",
-      "spec/**/*.js.map",
       "!lib/misc/gulp/gulpfile.js",
       "!lib/misc/gulp/gulpfile.js.map",
       "!lib/grammar/jison*.js",
@@ -47,8 +40,51 @@
     ],
     "watch": true,
     "logger": {
-      "before": "Start transpiling all coffee-script files …",
-      "after": "Transpiling all coffee-script files complete.",
+      "before": "Start transpiling all coffee-script source files …",
+      "after": "Transpiling all coffee-script source files complete.",
+      "extname": ".js",
+      "showChange": true
+    }
+  },
+  "spec": {
+    "title": "Transpiling all coffee-script spec files.",
+    "defaults": {
+      "bare": true,
+      "map": true
+    },
+    "beautify": {
+      "indentSize": 2,
+      "jslintHappy": true
+    },
+    "assets": [
+      {
+        "spec/": [
+          [
+            "spec/**/*.coffee"
+          ]
+        ]
+      }
+    ],
+    "replace": [
+      [
+        "../src/",
+        "../lib/"
+      ]
+    ],
+    "sourcemaps": {
+      "init": [],
+      "write": [
+        "."
+      ]
+    },
+    "clean": [
+      "spec/**/*.js",
+      "spec/**/*.js.map"
+    ],
+    "watch": true,
+    "logger": {
+      "before": "Start transpiling all coffee-script spec files …",
+      "after": "Transpiling all coffee-script spec files complete.",
       "extname": ".js",
       "showChange": true
     }

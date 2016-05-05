@@ -1,0 +1,148 @@
+<!DOCTYPE html><html lang="en"><head><title>src/Command</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../"><meta name="groc-document-path" content="src/Command.coffee"><meta name="groc-project-path" content="src/Command.coffee"><meta name="groc-github-url" content="https://github.com/sjorek/goatee-script.js"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="meta"><div class="file-path"><a href="https://github.com/sjorek/goatee-script.js/blob/master/src/Command.coffee">src/Command.coffee</a></div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><p>© Copyright 2013-2016 Stephan Jorek <a href="&#109;&#97;&#x69;&#x6c;&#116;&#x6f;&#58;&#115;&#116;&#101;&#112;&#x68;&#97;&#x6e;&#46;&#106;&#x6f;&#x72;&#x65;&#x6b;&#x40;&#103;&#109;&#x61;&#x69;&#108;&#x2e;&#99;&#x6f;&#109;">&#115;&#116;&#101;&#112;&#x68;&#97;&#x6e;&#46;&#106;&#x6f;&#x72;&#x65;&#x6b;&#x40;&#103;&#109;&#x61;&#x69;&#108;&#x2e;&#99;&#x6f;&#109;</a>
+© Copyright 2009-2013 Jeremy Ashkenas <a href="https://github.com/jashkenas">https://github.com/jashkenas</a></p>
+<p>Permission is hereby granted, free of charge, to any person
+obtaining a copy of this software and associated documentation
+files (the &quot;Software&quot;), to deal in the Software without
+restriction, including without limitation the rights to use,
+copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the
+Software is furnished to do so, subject to the following
+conditions:</p>
+<p>The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.</p>
+<p>THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+OTHER DEALINGS IN THE SOFTWARE.</p></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>External dependencies.</p></div></div><div class="code"><div class="wrapper">nomnom         = <span class="hljs-built_in">require</span> <span class="hljs-string">'nomnom'</span>
+{spawn}        = <span class="hljs-built_in">require</span> <span class="hljs-string">'child_process'</span>
+
+exports = <span class="hljs-built_in">module</span>?.exports ? <span class="hljs-keyword">this</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h1 id="commandline-">Commandline …</h1>
+<hr>
+<p>… of the <code>goatee-script</code> utility. Handles evaluation of
+statements or launches an interactive REPL.</p></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'> class Command and namespace GoateeScript</span></p>
+<hr></div></div><div class="code"><div class="wrapper">exports.Command = <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Command</span></span></div></div></div><div class="segment"><div class="comments doc-section doc-section-private"><div class="wrapper"><p><span class='doc-section-header'>Private property opts of type <em>Object</em></span></p></div></div><div class="code"><div class="wrapper">  opts        = <span class="hljs-literal">null</span></div></div></div><div class="segment"><div class="comments doc-section doc-section-private"><div class="wrapper"><p><span class='doc-section-header'>Private property statements of type <em>Array</em></span></p></div></div><div class="code"><div class="wrapper">  statements  = <span class="hljs-literal">null</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'>Constructor</span></p>
+<hr>
+<p>Parameters:</p>
+<ul>
+<li><strong>command is optional, must be a Function, and has a default value of GoateeScript.GoateeScript.</strong><br/>(class function)</li>
+</ul></div></div><div class="code"><div class="wrapper">  constructor : <span class="hljs-function"><span class="hljs-params">(<span class="hljs-property">@command</span> = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./GoateeScript'</span>).GoateeScript)</span> -&gt;</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'>Method printLine</span></p>
+<hr>
+<p>Parameters:</p>
+<ul>
+<li><strong>line must be a String.</strong></li>
+</ul></div></div><div class="code"><div class="wrapper">  printLine   : <span class="hljs-function"><span class="hljs-params">(line)</span> -&gt;</span>
+    process.stdout.write line + <span class="hljs-string">'\n'</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'>Method printWarn</span></p>
+<hr>
+<p>Parameters:</p>
+<ul>
+<li><strong>line must be a String.</strong></li>
+</ul></div></div><div class="code"><div class="wrapper">  printWarn   : <span class="hljs-function"><span class="hljs-params">(line)</span> -&gt;</span>
+    process.stderr.write line + <span class="hljs-string">'\n'</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'>Method parseOptions</span></p>
+<hr>
+<p><strong>Returns an Array</strong></p></div></div><div class="code"><div class="wrapper">  <span class="hljs-attribute">parseOptions</span>: <span class="hljs-function">-&gt;</span>
+
+    shift_line = <span class="hljs-string">"\n                                  "</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Use the <a href="http://github.com/harthur/nomnom.git">nomnom</a> to extract
+all options from <code>process.argv</code> that are specified here.</p></div></div><div class="code"><div class="wrapper">    opts = nomnom
+      .script(<span class="hljs-property">@command</span>.NAME)</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>The list of all the valid options that <code>goatee-script</code> knows.</p></div></div><div class="code"><div class="wrapper">      .option(<span class="hljs-string">'statements'</span>, {
+        <span class="hljs-attribute">list</span>: <span class="hljs-literal">true</span>,
+        <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+        <span class="hljs-attribute">position</span>: <span class="hljs-number">0</span>
+        <span class="hljs-attribute">help</span>: <span class="hljs-string">'string passed from the command line to evaluate'</span>
+      })
+      .option(<span class="hljs-string">'run'</span>, {
+        <span class="hljs-attribute">abbr</span>: <span class="hljs-string">'r'</span>,
+        <span class="hljs-attribute">type</span>: <span class="hljs-string">'string'</span>
+        <span class="hljs-attribute">metavar</span>: <span class="hljs-string">'STATEMENT'</span>
+        <span class="hljs-attribute">list</span>: <span class="hljs-literal">true</span>,
+        <span class="hljs-attribute">help</span>: <span class="hljs-string">"string passed from the command line to <span class="hljs-subst">#{shift_line}</span> evaluate"</span>
+      })
+      .option(<span class="hljs-string">'help'</span>, {
+        <span class="hljs-attribute">abbr</span>: <span class="hljs-string">'h'</span>,
+        <span class="hljs-attribute">flag</span>: <span class="hljs-literal">true</span>,
+        <span class="hljs-attribute">help</span>: <span class="hljs-string">"display this help message"</span>
+      })
+      .option(<span class="hljs-string">'interactive'</span>, {
+        <span class="hljs-attribute">abbr</span>: <span class="hljs-string">'i'</span>,
+        <span class="hljs-attribute">flag</span>: <span class="hljs-literal">true</span>,
+        <span class="hljs-attribute">help</span>: <span class="hljs-string">"run an interactive `<span class="hljs-subst">#{<span class="hljs-property">@command</span>.NAME}</span>` read-<span class="hljs-subst">#{shift_line}</span> execute-print-loop (repl)"</span>
+      })
+      .option(<span class="hljs-string">'mode'</span>, {
+        <span class="hljs-attribute">metavar</span>: <span class="hljs-string">'MODE'</span>
+        <span class="hljs-attribute">abbr</span>: <span class="hljs-string">'m'</span>,
+        <span class="hljs-attribute">default</span>: <span class="hljs-string">'eval'</span>,
+        <span class="hljs-attribute">choices</span>: [<span class="hljs-string">'compile'</span>, <span class="hljs-string">'c'</span>, <span class="hljs-string">'evaluate'</span>, <span class="hljs-string">'eval'</span>, <span class="hljs-string">'e'</span>, <span class="hljs-string">'print'</span>, <span class="hljs-string">'p'</span>, <span class="hljs-string">'render'</span>, <span class="hljs-string">'r'</span>, <span class="hljs-string">'stringify'</span>, <span class="hljs-string">'string'</span>, <span class="hljs-string">'s'</span>]
+        <span class="hljs-attribute">help</span>: <span class="hljs-string">"[c]ompile, [e]valuate, [p]rint, [r]ender <span class="hljs-subst">#{shift_line}</span> or [s]tringify statements, default:"</span>
+      })
+      .option(<span class="hljs-string">'compress'</span>, {
+        <span class="hljs-attribute">abbr</span>: <span class="hljs-string">'c'</span>,
+        <span class="hljs-attribute">flag</span>: <span class="hljs-literal">true</span>,
+        <span class="hljs-attribute">help</span>: <span class="hljs-string">"compress the abstract syntax tree (ast)"</span>
+      })
+      .option(<span class="hljs-string">'nodejs'</span>, {
+        <span class="hljs-attribute">metavar</span>: <span class="hljs-string">'OPTION'</span>
+        <span class="hljs-attribute">list</span>: <span class="hljs-literal">true</span>
+        <span class="hljs-attribute">help</span>: <span class="hljs-string">"pass one option directly to the 'node' <span class="hljs-subst">#{shift_line}</span> binary, repeat for muliple options"</span>
+      })
+      <span class="hljs-comment">#['-t', '--tokens',          'print out the tokens that the lexer/rewriter produce']</span>
+      .option(<span class="hljs-string">'version'</span>, {
+        <span class="hljs-attribute">abbr</span>: <span class="hljs-string">'v'</span>,
+        <span class="hljs-attribute">flag</span>: <span class="hljs-literal">true</span>,
+        <span class="hljs-attribute">help</span>: <span class="hljs-string">"display the version number and exit"</span>
+      })</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>The help banner to print when <code>goatee-script</code> is called without arguments.</p></div></div><div class="code"><div class="wrapper">      .help(<span class="hljs-string">"If called without options, `<span class="hljs-subst">#{<span class="hljs-property">@command</span>.NAME}</span>` will run interactive."</span>)
+      .parse()
+
+    statements = []
+      .concat(<span class="hljs-keyword">if</span> opts.statements? <span class="hljs-keyword">then</span> opts.statements <span class="hljs-keyword">else</span> [])
+      .concat(<span class="hljs-keyword">if</span> opts.run? <span class="hljs-keyword">then</span> opts.run <span class="hljs-keyword">else</span> [])
+      <span class="hljs-comment">#.concat(if opts._? then opts._ else [])</span>
+
+
+    opts.mode = opts.mode[<span class="hljs-number">0</span>]
+    opts.run ||= statements.length &gt; <span class="hljs-number">0</span>
+
+    statements = statements.join(<span class="hljs-string">';'</span>)</div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'>Method forkNode</span></p>
+<hr>
+<p>Start up a new Node.js instance with the arguments in <code>--nodejs</code> passed to
+the <code>node</code> binary, preserving the other options.</p></div></div><div class="code"><div class="wrapper">  forkNode    : <span class="hljs-function">-&gt;</span>
+    spawn process.execPath, opts.nodejs,
+      <span class="hljs-attribute">cwd</span>:        process.cwd()
+      <span class="hljs-attribute">env</span>:        process.env
+      <span class="hljs-attribute">customFds</span>:  [<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>]</div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'>Method version</span></p>
+<hr>
+<p>Print the <code>--version</code> message and exit.</p>
+<p><strong>Returns a String</strong></p></div></div><div class="code"><div class="wrapper">  version     : <span class="hljs-function">-&gt;</span>
+    <span class="hljs-string">"<span class="hljs-subst">#{<span class="hljs-property">@command</span>.NAME}</span> version <span class="hljs-subst">#{<span class="hljs-property">@command</span>.VERSION}</span>"</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'>Method execute</span></p>
+<hr>
+<p>Execute the given statements</p></div></div><div class="code"><div class="wrapper">  execute     : <span class="hljs-function">-&gt;</span>
+    <span class="hljs-keyword">switch</span> opts.mode
+      <span class="hljs-keyword">when</span> <span class="hljs-string">'compile'</span>  , <span class="hljs-string">'c'</span> <span class="hljs-keyword">then</span> <span class="hljs-property">@command</span>.compile    statements, <span class="hljs-literal">null</span>, opts.compress
+      <span class="hljs-keyword">when</span> <span class="hljs-string">'print'</span>    , <span class="hljs-string">'p'</span> <span class="hljs-keyword">then</span> <span class="hljs-property">@command</span>.stringify  statements, <span class="hljs-literal">null</span>, opts.compress
+      <span class="hljs-keyword">when</span> <span class="hljs-string">'render'</span>   , <span class="hljs-string">'r'</span> <span class="hljs-keyword">then</span> <span class="hljs-property">@command</span>.render     statements, <span class="hljs-literal">null</span>, opts.compress
+      <span class="hljs-keyword">when</span> <span class="hljs-string">'stringify'</span>, \
+           <span class="hljs-string">'string'</span>   , <span class="hljs-string">'s'</span> <span class="hljs-keyword">then</span> JSON.stringify <span class="hljs-property">@command</span>.evaluate statements
+      <span class="hljs-keyword">when</span> <span class="hljs-string">'evaluate'</span> , \
+           <span class="hljs-string">'eval'</span>     , <span class="hljs-string">'e'</span> <span class="hljs-keyword">then</span> <span class="hljs-property">@command</span>.evaluate statements
+      <span class="hljs-keyword">else</span> <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> Error <span class="hljs-string">'Unknown execution-mode given.'</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'>Method interactive</span></p>
+<hr>
+<p>Run the interactive read-execute-print-loop
+Execute the given statements</p>
+<p>Parameters:</p>
+<ul>
+<li><strong>repl is optional, must be a Function, and has a default value of GoateeScript.Repl.</strong></li>
+</ul></div></div><div class="code"><div class="wrapper">  interactive : <span class="hljs-function"><span class="hljs-params">(repl = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./Repl'</span>).Repl)</span> -&gt;</span>
+    repl.start(<span class="hljs-property">@command</span>, opts)</div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'>Method run</span></p>
+<hr>
+<p>Run <code>goatee-script</code> by parsing passed options and determining what action to
+take. Flags passed after <code>--</code> will be passed verbatim to your script as
+arguments in <code>process.argv</code>
+Execute the given statements</p></div></div><div class="code"><div class="wrapper">  run         : <span class="hljs-function">-&gt;</span>
+    <span class="hljs-property">@parseOptions</span>()
+    <span class="hljs-keyword">return</span> <span class="hljs-property">@forkNode</span>()            <span class="hljs-keyword">if</span> opts.nodejs
+    <span class="hljs-keyword">return</span> <span class="hljs-property">@printLine</span> <span class="hljs-property">@version</span>()  <span class="hljs-keyword">if</span> opts.version
+    <span class="hljs-keyword">return</span> <span class="hljs-property">@interactive</span>()         <span class="hljs-keyword">if</span> opts.interactive
+    <span class="hljs-keyword">return</span> <span class="hljs-property">@printLine</span> <span class="hljs-property">@execute</span>()  <span class="hljs-keyword">if</span> opts.run
+    <span class="hljs-property">@interactive</span>()</div></div></div></div></body></html>

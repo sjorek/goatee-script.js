@@ -1,0 +1,1075 @@
+<!DOCTYPE html><html lang="en"><head><title>src/grammar/jison</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../../"><meta name="groc-document-path" content="src/grammar/jison.cson"><meta name="groc-project-path" content="src/grammar/jison.cson"><meta name="groc-github-url" content="https://github.com/sjorek/goatee-script.js"><link rel="stylesheet" type="text/css" media="all" href="../../assets/style.css"><script type="text/javascript" src="../../assets/behavior.js"></script><body><div id="meta"><div class="file-path"><a href="https://github.com/sjorek/goatee-script.js/blob/master/src/grammar/jison.cson">src/grammar/jison.cson</a></div></div><div id="document"><div class="segment"><div class="code"><div class="wrapper"><span class="hljs-attribute">startSymbol</span>: <span class="hljs-string">"Script"</span>
+<span class="hljs-attribute">bnf</span>:
+  <span class="hljs-attribute">Script</span>: [
+    [
+      <span class="hljs-string">"End"</span>
+      <span class="hljs-string">"return yy.goatee.create('scalar', [void 0]);"</span>
+    ]
+    [
+      <span class="hljs-string">"Statements End"</span>
+      <span class="hljs-string">"return $1;"</span>
+    ]
+    [
+      <span class="hljs-string">"Seperator Statements End"</span>
+      <span class="hljs-string">"return $2;"</span>
+    ]
+  ]
+  <span class="hljs-attribute">Statements</span>: [
+    [
+      <span class="hljs-string">"Statement"</span>
+      <span class="hljs-string">"$$ = $1;"</span>
+      <span class="hljs-literal">null</span>
+    ]
+    [
+      <span class="hljs-string">"Statements Seperator Statement"</span>
+      <span class="hljs-string">'''
+        $$ = (function () {
+                  if ($1.operator.name === 'block') {
+                    $1.parameters.push($3);
+                    return $1;
+                  } else {
+                    return yy.goatee.create('block', [$1, $3]);
+                  }
+                }.call(this));
+      '''</span>
+      <span class="hljs-literal">null</span>
+    ]
+  ]
+  <span class="hljs-attribute">End</span>: [
+    [
+      <span class="hljs-string">"EOF"</span>
+      <span class="hljs-string">"return;"</span>
+    ]
+    [
+      <span class="hljs-string">"Seperator EOF"</span>
+      <span class="hljs-string">"return;"</span>
+    ]
+  ]
+  <span class="hljs-attribute">Identifier</span>: [
+    [
+      <span class="hljs-string">"THIS"</span>
+      <span class="hljs-string">"$$ = $1;"</span>
+      <span class="hljs-literal">null</span>
+    ]
+    [
+      <span class="hljs-string">"REFERENCE"</span>
+      <span class="hljs-string">"$$ = $1;"</span>
+      <span class="hljs-literal">null</span>
+    ]
+  ]
+  <span class="hljs-attribute">Seperator</span>: [
+    [
+      <span class="hljs-string">";"</span>
+      <span class="hljs-string">"return;"</span>
+    ]
+    [
+      <span class="hljs-string">"Seperator ;"</span>
+      <span class="hljs-string">"return;"</span>
+    ]
+  ]
+  <span class="hljs-attribute">Statement</span>: [
+    [
+      <span class="hljs-string">"Conditional"</span>
+      <span class="hljs-string">"$$ = $1;"</span>
+      <span class="hljs-literal">null</span>
+    ]
+    [
+      <span class="hljs-string">"Expression"</span>
+      <span class="hljs-string">"$$ = $1;"</span>
+      <span class="hljs-literal">null</span>
+    ]
+  ]
+  <span class="hljs-attribute">Parameters</span>: [
+    [
+      <span class="hljs-string">""</span>
+      <span class="hljs-string">"$$ = [];"</span>
+      <span class="hljs-literal">null</span>
+    ]
+    [
+      <span class="hljs-string">"Expression"</span>
+      <span class="hljs-string">"$$ = [$1];"</span>
+      <span class="hljs-literal">null</span>
+    ]
+    [
+      <span class="hljs-string">"Parameters , Expression"</span>
+      <span class="hljs-string">"$$ = $1.concat($3);"</span>
+      <span class="hljs-literal">null</span>
+    ]
+  ]
+  <span class="hljs-attribute">Key</span>: [
+    [
+      <span class="hljs-string">"Scalar"</span>
+      <span class="hljs-string">"$$ = $1;"</span>
+      <span class="hljs-literal">null</span>
+    ]
+    [
+      <span class="hljs-string">"Primitive"</span>
+      <span class="hljs-string">"$$ = $1;"</span>
+      <span class="hljs-literal">null</span>
+    ]
+    [
+      <span class="hljs-string">"Property"</span>
+      <span class="hljs-string">"$$ = $1;"</span>
+      <span class="hljs-literal">null</span>
+    ]
+  ]
+  <span class="hljs-attribute">KeyValues</span>: [
+    [
+      <span class="hljs-string">"Key : Expression"</span>
+      <span class="hljs-string">"$$ = [$1, $3];"</span>
+      <span class="hljs-literal">null</span>
+    ]
+    [
+      <span class="hljs-string">"KeyValues , KeyValues"</span>
+      <span class="hljs-string">"$$ = $1.concat($3);"</span>
+      <span class="hljs-literal">null</span>
+    ]
+  ]
+  <span class="hljs-attribute">Object</span>: [
+    [
+      <span class="hljs-string">"{ }"</span>
+      <span class="hljs-string">"$$ = yy.goatee.create('object', []);"</span>
+      <span class="hljs-literal">null</span>
+    ]
+    [
+      <span class="hljs-string">"{ KeyValues }"</span>
+      <span class="hljs-string">"$$ = yy.goatee.create('object', $2);"</span>
+      <span class="hljs-literal">null</span>
+    ]
+  ]
+  <span class="hljs-attribute">Elements</span>: [
+    [
+      <span class="hljs-string">""</span>
+      <span class="hljs-string">"$$ = [];"</span>
+      <span class="hljs-literal">null</span>
+    ]
+    [
+      <span class="hljs-string">"Expression"</span>
+      <span class="hljs-string">"$$ = [$1];"</span>
+      <span class="hljs-literal">null</span>
+    ]
+    [
+      <span class="hljs-string">"Elements , Elements"</span>
+      <span class="hljs-string">"$$ = $1.concat($3.length === 0 ? [void 0] : $3);"</span>
+      <span class="hljs-literal">null</span>
+    ]
+  ]
+  <span class="hljs-attribute">Array</span>: [
+    [
+      <span class="hljs-string">"[ Elements ]"</span>
+      <span class="hljs-string">"$$ = yy.goatee.create('array', $2);"</span>
+      <span class="hljs-literal">null</span>
+    ]
+  ]
+  <span class="hljs-attribute">Block</span>: [
+    [
+      <span class="hljs-string">"{ Seperator }"</span>
+      <span class="hljs-string">"$$ = yy.goatee.create('scalar', [void 0]);"</span>
+      <span class="hljs-literal">null</span>
+    ]
+    [
+      <span class="hljs-string">"{ Statements }"</span>
+      <span class="hljs-string">"$$ = $2;"</span>
+      <span class="hljs-literal">null</span>
+    ]
+    [
+      <span class="hljs-string">"{ Statements Seperator }"</span>
+      <span class="hljs-string">"$$ = $2;"</span>
+      <span class="hljs-literal">null</span>
+    ]
+  ]
+  <span class="hljs-attribute">If</span>: [
+    [
+      <span class="hljs-string">"IF Group Block"</span>
+      <span class="hljs-string">"$$ = yy.goatee.create('if', [$2, $3]);"</span>
+      <span class="hljs-literal">null</span>
+    ]
+    [
+      <span class="hljs-string">"If ELSE IF Group Block"</span>
+      <span class="hljs-string">"$$ = yy.goatee.addElse($1, yy.goatee.create('if', [$4, $5]));"</span>
+      <span class="hljs-literal">null</span>
+    ]
+  ]
+  <span class="hljs-attribute">Conditional</span>: [
+    [
+      <span class="hljs-string">"If"</span>
+      <span class="hljs-string">"$$ = $1;"</span>
+      <span class="hljs-literal">null</span>
+    ]
+    [
+      <span class="hljs-string">"If ELSE Block"</span>
+      <span class="hljs-string">"$$ = yy.goatee.addElse($1, $3);"</span>
+      <span class="hljs-literal">null</span>
+    ]
+  ]
+  <span class="hljs-attribute">IncDec</span>: [
+    [
+      <span class="hljs-string">"++"</span>
+      <span class="hljs-string">"$$ = $1;"</span>
+      <span class="hljs-literal">null</span>
+    ]
+    [
+      <span class="hljs-string">"--"</span>
+      <span class="hljs-string">"$$ = $1;"</span>
+      <span class="hljs-literal">null</span>
+    ]
+  ]
+  <span class="hljs-attribute">Assignment</span>: [
+    [
+      <span class="hljs-string">"IncDec Identifier"</span>
+      <span class="hljs-string">"$$ = yy.goatee.create($1, [$2, 0]);"</span>
+      <span class="hljs-literal">null</span>
+    ]
+    [
+      <span class="hljs-string">"Identifier IncDec"</span>
+      <span class="hljs-string">"$$ = yy.goatee.create($2, [$1, 1]);"</span>
+      <span class="hljs-literal">null</span>
+    ]
+    [
+      <span class="hljs-string">"REFERENCE -= Expression"</span>
+      <span class="hljs-string">"$$ = yy.goatee.create($2, [$1, $3]);"</span>
+      <span class="hljs-literal">null</span>
+    ]
+    [
+      <span class="hljs-string">"REFERENCE += Expression"</span>
+      <span class="hljs-string">"$$ = yy.goatee.create($2, [$1, $3]);"</span>
+      <span class="hljs-literal">null</span>
+    ]
+    [
+      <span class="hljs-string">"REFERENCE *= Expression"</span>
+      <span class="hljs-string">"$$ = yy.goatee.create($2, [$1, $3]);"</span>
+      <span class="hljs-literal">null</span>
+    ]
+    [
+      <span class="hljs-string">"REFERENCE /= Expression"</span>
+      <span class="hljs-string">"$$ = yy.goatee.create($2, [$1, $3]);"</span>
+      <span class="hljs-literal">null</span>
+    ]
+    [
+      <span class="hljs-string">"REFERENCE %= Expression"</span>
+      <span class="hljs-string">"$$ = yy.goatee.create($2, [$1, $3]);"</span>
+      <span class="hljs-literal">null</span>
+    ]
+    [
+      <span class="hljs-string">"REFERENCE ^= Expression"</span>
+      <span class="hljs-string">"$$ = yy.goatee.create($2, [$1, $3]);"</span>
+      <span class="hljs-literal">null</span>
+    ]
+    [
+      <span class="hljs-string">"REFERENCE &gt;&gt;&gt;= Expression"</span>
+      <span class="hljs-string">"$$ = yy.goatee.create($2, [$1, $3]);"</span>
+      <span class="hljs-literal">null</span>
+    ]
+    [
+      <span class="hljs-string">"REFERENCE &gt;&gt;= Expression"</span>
+      <span class="hljs-string">"$$ = yy.goatee.create($2, [$1, $3]);"</span>
+      <span class="hljs-literal">null</span>
+    ]
+    [
+      <span class="hljs-string">"REFERENCE &lt;&lt;= Expression"</span>
+      <span class="hljs-string">"$$ = yy.goatee.create($2, [$1, $3]);"</span>
+      <span class="hljs-literal">null</span>
+    ]
+    [
+      <span class="hljs-string">"REFERENCE &amp;= Expression"</span>
+      <span class="hljs-string">"$$ = yy.goatee.create($2, [$1, $3]);"</span>
+      <span class="hljs-literal">null</span>
+    ]
+    [
+      <span class="hljs-string">"REFERENCE |= Expression"</span>
+      <span class="hljs-string">"$$ = yy.goatee.create($2, [$1, $3]);"</span>
+      <span class="hljs-literal">null</span>
+    ]
+    [
+      <span class="hljs-string">"REFERENCE = Expression"</span>
+      <span class="hljs-string">"$$ = yy.goatee.create($2, [$1, $3]);"</span>
+      <span class="hljs-literal">null</span>
+    ]
+  ]
+  <span class="hljs-attribute">Scalar</span>: [
+    [
+      <span class="hljs-string">"NUMBER"</span>
+      <span class="hljs-string">"$$ = Number($1);"</span>
+      <span class="hljs-literal">null</span>
+    ]
+    [
+      <span class="hljs-string">"+ NUMBER"</span>
+      <span class="hljs-string">"$$ = +Number($2);"</span>
+      <span class="hljs-literal">null</span>
+    ]
+    [
+      <span class="hljs-string">"- NUMBER"</span>
+      <span class="hljs-string">"$$ = -Number($2);"</span>
+      <span class="hljs-literal">null</span>
+    ]
+    [
+      <span class="hljs-string">"STRING"</span>
+      <span class="hljs-string">"$$ = yy.goatee.escape($1);"</span>
+      <span class="hljs-literal">null</span>
+    ]
+  ]
+  <span class="hljs-attribute">Primitive</span>: [
+    [
+      <span class="hljs-string">"NULL"</span>
+      <span class="hljs-string">"$$ = null;"</span>
+      <span class="hljs-literal">null</span>
+    ]
+    [
+      <span class="hljs-string">"TRUE"</span>
+      <span class="hljs-string">"$$ = true;"</span>
+      <span class="hljs-literal">null</span>
+    ]
+    [
+      <span class="hljs-string">"FALSE"</span>
+      <span class="hljs-string">"$$ = false;"</span>
+      <span class="hljs-literal">null</span>
+    ]
+  ]
+  <span class="hljs-attribute">Operation</span>: [
+    [
+      <span class="hljs-string">"Expression * Expression"</span>
+      <span class="hljs-string">"$$ = yy.goatee.create($2, [$1, $3]);"</span>
+      <span class="hljs-literal">null</span>
+    ]
+    [
+      <span class="hljs-string">"Expression / Expression"</span>
+      <span class="hljs-string">"$$ = yy.goatee.create($2, [$1, $3]);"</span>
+      <span class="hljs-literal">null</span>
+    ]
+    [
+      <span class="hljs-string">"Expression % Expression"</span>
+      <span class="hljs-string">"$$ = yy.goatee.create($2, [$1, $3]);"</span>
+      <span class="hljs-literal">null</span>
+    ]
+    [
+      <span class="hljs-string">"Expression + Expression"</span>
+      <span class="hljs-string">"$$ = yy.goatee.create($2, [$1, $3]);"</span>
+      <span class="hljs-literal">null</span>
+    ]
+    [
+      <span class="hljs-string">"Expression - Expression"</span>
+      <span class="hljs-string">"$$ = yy.goatee.create($2, [$1, $3]);"</span>
+      <span class="hljs-literal">null</span>
+    ]
+    [
+      <span class="hljs-string">"! Expression"</span>
+      <span class="hljs-string">"$$ = yy.goatee.create('!', [$2]);"</span>
+      <span class="hljs-literal">null</span>
+    ]
+    [
+      <span class="hljs-string">"Expression &lt;= Expression"</span>
+      <span class="hljs-string">"$$ = yy.goatee.create($2, [$1, $3]);"</span>
+      <span class="hljs-literal">null</span>
+    ]
+    [
+      <span class="hljs-string">"Expression &gt;= Expression"</span>
+      <span class="hljs-string">"$$ = yy.goatee.create($2, [$1, $3]);"</span>
+      <span class="hljs-literal">null</span>
+    ]
+    [
+      <span class="hljs-string">"Expression &lt; Expression"</span>
+      <span class="hljs-string">"$$ = yy.goatee.create($2, [$1, $3]);"</span>
+      <span class="hljs-literal">null</span>
+    ]
+    [
+      <span class="hljs-string">"Expression &gt; Expression"</span>
+      <span class="hljs-string">"$$ = yy.goatee.create($2, [$1, $3]);"</span>
+      <span class="hljs-literal">null</span>
+    ]
+    [
+      <span class="hljs-string">"Expression === Expression"</span>
+      <span class="hljs-string">"$$ = yy.goatee.create($2, [$1, $3]);"</span>
+      <span class="hljs-literal">null</span>
+    ]
+    [
+      <span class="hljs-string">"Expression !== Expression"</span>
+      <span class="hljs-string">"$$ = yy.goatee.create($2, [$1, $3]);"</span>
+      <span class="hljs-literal">null</span>
+    ]
+    [
+      <span class="hljs-string">"Expression == Expression"</span>
+      <span class="hljs-string">"$$ = yy.goatee.create($2, [$1, $3]);"</span>
+      <span class="hljs-literal">null</span>
+    ]
+    [
+      <span class="hljs-string">"Expression != Expression"</span>
+      <span class="hljs-string">"$$ = yy.goatee.create($2, [$1, $3]);"</span>
+      <span class="hljs-literal">null</span>
+    ]
+    [
+      <span class="hljs-string">"Expression &amp;&amp; Expression"</span>
+      <span class="hljs-string">"$$ = yy.goatee.create($2, [$1, $3]);"</span>
+      <span class="hljs-literal">null</span>
+    ]
+    [
+      <span class="hljs-string">"Expression || Expression"</span>
+      <span class="hljs-string">"$$ = yy.goatee.create($2, [$1, $3]);"</span>
+      <span class="hljs-literal">null</span>
+    ]
+    [
+      <span class="hljs-string">"~ Expression"</span>
+      <span class="hljs-string">"$$ = yy.goatee.create('~', [$2]);"</span>
+      <span class="hljs-literal">null</span>
+    ]
+    [
+      <span class="hljs-string">"Expression &gt;&gt;&gt; Expression"</span>
+      <span class="hljs-string">"$$ = yy.goatee.create($2, [$1, $3]);"</span>
+      <span class="hljs-literal">null</span>
+    ]
+    [
+      <span class="hljs-string">"Expression &gt;&gt; Expression"</span>
+      <span class="hljs-string">"$$ = yy.goatee.create($2, [$1, $3]);"</span>
+      <span class="hljs-literal">null</span>
+    ]
+    [
+      <span class="hljs-string">"Expression &lt;&lt; Expression"</span>
+      <span class="hljs-string">"$$ = yy.goatee.create($2, [$1, $3]);"</span>
+      <span class="hljs-literal">null</span>
+    ]
+    [
+      <span class="hljs-string">"Expression &amp; Expression"</span>
+      <span class="hljs-string">"$$ = yy.goatee.create($2, [$1, $3]);"</span>
+      <span class="hljs-literal">null</span>
+    ]
+    [
+      <span class="hljs-string">"Expression | Expression"</span>
+      <span class="hljs-string">"$$ = yy.goatee.create($2, [$1, $3]);"</span>
+      <span class="hljs-literal">null</span>
+    ]
+    [
+      <span class="hljs-string">"Expression ^ Expression"</span>
+      <span class="hljs-string">"$$ = yy.goatee.create($2, [$1, $3]);"</span>
+      <span class="hljs-literal">null</span>
+    ]
+  ]
+  <span class="hljs-attribute">Literal</span>: [
+    [
+      <span class="hljs-string">"Object"</span>
+      <span class="hljs-string">"$$ = $1;"</span>
+      <span class="hljs-literal">null</span>
+    ]
+    [
+      <span class="hljs-string">"Array"</span>
+      <span class="hljs-string">"$$ = $1;"</span>
+      <span class="hljs-literal">null</span>
+    ]
+    [
+      <span class="hljs-string">"Primitive"</span>
+      <span class="hljs-string">"$$ = yy.goatee.create('scalar', [$1]);"</span>
+      <span class="hljs-literal">null</span>
+    ]
+    [
+      <span class="hljs-string">"Scalar"</span>
+      <span class="hljs-string">"$$ = yy.goatee.create('scalar', [$1]);"</span>
+      <span class="hljs-literal">null</span>
+    ]
+  ]
+  <span class="hljs-attribute">Scope</span>: [
+    [
+      <span class="hljs-string">"CONTEXT"</span>
+      <span class="hljs-string">"$$ = yy.goatee.create('context', [$1]);"</span>
+      <span class="hljs-literal">null</span>
+    ]
+    [
+      <span class="hljs-string">"SELF"</span>
+      <span class="hljs-string">"$$ = yy.goatee.create('context', [$1]);"</span>
+      <span class="hljs-literal">null</span>
+    ]
+  ]
+  <span class="hljs-attribute">Reference</span>: [
+    [
+      <span class="hljs-string">"Identifier"</span>
+      <span class="hljs-string">"$$ = yy.goatee.create('reference', [$1]);"</span>
+      <span class="hljs-literal">null</span>
+    ]
+    [
+      <span class="hljs-string">"Scope Property"</span>
+      <span class="hljs-string">"$$ = yy.goatee.create('.', [$1, yy.goatee.create('property', [$2])]);"</span>
+      <span class="hljs-literal">null</span>
+    ]
+    [
+      <span class="hljs-string">"Scope"</span>
+      <span class="hljs-string">"$$ = $1;"</span>
+      <span class="hljs-literal">null</span>
+    ]
+  ]
+  <span class="hljs-attribute">Property</span>: [
+    [
+      <span class="hljs-string">"CONSTRUCTOR"</span>
+      <span class="hljs-string">"$$ = $1;"</span>
+      <span class="hljs-literal">null</span>
+    ]
+    [
+      <span class="hljs-string">"PROTOTYPE"</span>
+      <span class="hljs-string">"$$ = $1;"</span>
+      <span class="hljs-literal">null</span>
+    ]
+    [
+      <span class="hljs-string">"THIS"</span>
+      <span class="hljs-string">"$$ = $1;"</span>
+      <span class="hljs-literal">null</span>
+    ]
+    [
+      <span class="hljs-string">"IF"</span>
+      <span class="hljs-string">"$$ = $1;"</span>
+      <span class="hljs-literal">null</span>
+    ]
+    [
+      <span class="hljs-string">"THEN"</span>
+      <span class="hljs-string">"$$ = $1;"</span>
+      <span class="hljs-literal">null</span>
+    ]
+    [
+      <span class="hljs-string">"ELSE"</span>
+      <span class="hljs-string">"$$ = $1;"</span>
+      <span class="hljs-literal">null</span>
+    ]
+    [
+      <span class="hljs-string">"YIELD"</span>
+      <span class="hljs-string">"$$ = $1;"</span>
+      <span class="hljs-literal">null</span>
+    ]
+    [
+      <span class="hljs-string">"INSTANCEOF"</span>
+      <span class="hljs-string">"$$ = $1;"</span>
+      <span class="hljs-literal">null</span>
+    ]
+    [
+      <span class="hljs-string">"VOID"</span>
+      <span class="hljs-string">"$$ = $1;"</span>
+      <span class="hljs-literal">null</span>
+    ]
+    [
+      <span class="hljs-string">"TYPEOF"</span>
+      <span class="hljs-string">"$$ = $1;"</span>
+      <span class="hljs-literal">null</span>
+    ]
+    [
+      <span class="hljs-string">"NEW"</span>
+      <span class="hljs-string">"$$ = $1;"</span>
+      <span class="hljs-literal">null</span>
+    ]
+    [
+      <span class="hljs-string">"RETURN"</span>
+      <span class="hljs-string">"$$ = $1;"</span>
+      <span class="hljs-literal">null</span>
+    ]
+    [
+      <span class="hljs-string">"CONTEXT"</span>
+      <span class="hljs-string">"$$ = $1;"</span>
+      <span class="hljs-literal">null</span>
+    ]
+    [
+      <span class="hljs-string">"REFERENCE"</span>
+      <span class="hljs-string">"$$ = $1;"</span>
+      <span class="hljs-literal">null</span>
+    ]
+    [
+      <span class="hljs-string">"CONTEXT Property"</span>
+      <span class="hljs-string">"$$ = $1 + $2;"</span>
+      <span class="hljs-literal">null</span>
+    ]
+    [
+      <span class="hljs-string">"CONTEXT Primitive"</span>
+      <span class="hljs-string">"$$ = $1 + $2;"</span>
+      <span class="hljs-literal">null</span>
+    ]
+  ]
+  <span class="hljs-attribute">Chain</span>: [
+    [
+      <span class="hljs-string">"Expression . Primitive"</span>
+      <span class="hljs-string">"$$ = yy.goatee.create('.', [$1, yy.goatee.create('property', [$3])]);"</span>
+      <span class="hljs-literal">null</span>
+    ]
+    [
+      <span class="hljs-string">"Expression . Property"</span>
+      <span class="hljs-string">"$$ = yy.goatee.create('.', [$1, yy.goatee.create('property', [$3])]);"</span>
+      <span class="hljs-literal">null</span>
+    ]
+  ]
+  <span class="hljs-attribute">List</span>: [
+    [
+      <span class="hljs-string">"Statement"</span>
+      <span class="hljs-string">"$$ = $1;"</span>
+      <span class="hljs-literal">null</span>
+    ]
+    [
+      <span class="hljs-string">"List , Statement"</span>
+      <span class="hljs-string">'''
+        $$ = (function () {
+                  if ($1.operator.name === 'list') {
+                    $1.parameters.push($3);
+                    return $1;
+                  } else {
+                    return yy.goatee.create('list', [$1, $3]);
+                  }
+                }.call(this));
+      '''</span>
+      <span class="hljs-literal">null</span>
+    ]
+  ]
+  <span class="hljs-attribute">Group</span>: [
+    [
+      <span class="hljs-string">"( List )"</span>
+      <span class="hljs-string">"$$ = yy.goatee.create('group', [$2]);"</span>
+      <span class="hljs-literal">null</span>
+    ]
+  ]
+  <span class="hljs-attribute">Expression</span>: [
+    [
+      <span class="hljs-string">"Expression ? Expression : Expression"</span>
+      <span class="hljs-string">"$$ = yy.goatee.create('?:', [$1, $3, $5]);"</span>
+      <span class="hljs-literal">null</span>
+    ]
+    [
+      <span class="hljs-string">"Expression ( Parameters )"</span>
+      <span class="hljs-string">"$$ = yy.goatee.create('()', [$1].concat($3));"</span>
+      <span class="hljs-literal">null</span>
+    ]
+    [
+      <span class="hljs-string">"Expression [ Expression ]"</span>
+      <span class="hljs-string">"$$ = yy.goatee.create('[]', [$1, $3]);"</span>
+      <span class="hljs-literal">null</span>
+    ]
+    [
+      <span class="hljs-string">"Assignment"</span>
+      <span class="hljs-string">"$$ = $1;"</span>
+      <span class="hljs-literal">null</span>
+    ]
+    [
+      <span class="hljs-string">"Reference"</span>
+      <span class="hljs-string">"$$ = $1;"</span>
+      <span class="hljs-literal">null</span>
+    ]
+    [
+      <span class="hljs-string">"Literal"</span>
+      <span class="hljs-string">"$$ = $1;"</span>
+      <span class="hljs-literal">null</span>
+    ]
+    [
+      <span class="hljs-string">"Operation"</span>
+      <span class="hljs-string">"$$ = $1;"</span>
+      <span class="hljs-literal">null</span>
+    ]
+    [
+      <span class="hljs-string">"Chain"</span>
+      <span class="hljs-string">"$$ = $1;"</span>
+      <span class="hljs-literal">null</span>
+    ]
+    [
+      <span class="hljs-string">"Group"</span>
+      <span class="hljs-string">"$$ = $1;"</span>
+      <span class="hljs-literal">null</span>
+    ]
+  ]
+<span class="hljs-attribute">lex</span>:
+  <span class="hljs-attribute">rules</span>: [
+    [
+      <span class="hljs-string">"\\s+"</span>
+      <span class="hljs-string">"return;"</span>
+    ]
+    [
+      <span class="hljs-string">"0x[a-fA-F0-9]+\\b"</span>
+      <span class="hljs-string">"return 'NUMBER';"</span>
+    ]
+    [
+      <span class="hljs-string">"([1-9][0-9]+|[0-9])(\\.[0-9]+)?([eE][-+]?[0-9]+)?\\b"</span>
+      <span class="hljs-string">"return 'NUMBER';"</span>
+    ]
+    [
+      <span class="hljs-string">"null\\b"</span>
+      <span class="hljs-string">"return 'NULL';"</span>
+    ]
+    [
+      <span class="hljs-string">"true\\b"</span>
+      <span class="hljs-string">"return 'TRUE';"</span>
+    ]
+    [
+      <span class="hljs-string">"false\\b"</span>
+      <span class="hljs-string">"return 'FALSE';"</span>
+    ]
+    [
+      <span class="hljs-string">"if\\b"</span>
+      <span class="hljs-string">"return 'IF';"</span>
+    ]
+    [
+      <span class="hljs-string">"then\\b"</span>
+      <span class="hljs-string">"return 'THEN';"</span>
+    ]
+    [
+      <span class="hljs-string">"else\\b"</span>
+      <span class="hljs-string">"return 'ELSE';"</span>
+    ]
+    [
+      <span class="hljs-string">"return\\b"</span>
+      <span class="hljs-string">"return 'RETURN';"</span>
+    ]
+    [
+      <span class="hljs-string">"new\\b"</span>
+      <span class="hljs-string">"return 'NEW';"</span>
+    ]
+    [
+      <span class="hljs-string">"typeof\\b"</span>
+      <span class="hljs-string">"return 'TYPEOF';"</span>
+    ]
+    [
+      <span class="hljs-string">"void\\b"</span>
+      <span class="hljs-string">"return 'VOID';"</span>
+    ]
+    [
+      <span class="hljs-string">"instanceof\\b"</span>
+      <span class="hljs-string">"return 'INSTANCEOF';"</span>
+    ]
+    [
+      <span class="hljs-string">"yield\\b"</span>
+      <span class="hljs-string">"return 'YIELD';"</span>
+    ]
+    [
+      <span class="hljs-string">"constructor\\b"</span>
+      <span class="hljs-string">"return 'CONSTRUCTOR';"</span>
+    ]
+    [
+      <span class="hljs-string">"(__proto__|prototype)\\b"</span>
+      <span class="hljs-string">"return 'PROTOTYPE';"</span>
+    ]
+    [
+      <span class="hljs-string">"this\\b"</span>
+      <span class="hljs-string">"return 'THIS';"</span>
+    ]
+    [
+      <span class="hljs-string">"[@]"</span>
+      <span class="hljs-string">"return 'SELF';"</span>
+    ]
+    [
+      <span class="hljs-string">"[$_][$_0-9]"</span>
+      <span class="hljs-string">"return 'CONTEXT';"</span>
+    ]
+    [
+      <span class="hljs-string">"[$_a-zA-Z]\\w*"</span>
+      <span class="hljs-string">"return 'REFERENCE';"</span>
+    ]
+    [
+      <span class="hljs-string">"\"(\\\\x[a-fA-F0-9]{2}|\\\\u[a-fA-F0-9]{4}|\\\\[^xu]|[^\\\\\"])*\""</span>
+      <span class="hljs-string">"return 'STRING';"</span>
+    ]
+    [
+      <span class="hljs-string">"'(\\\\[\\/'\\\\bfnrt]|\\\\u[a-fA-F0-9]{4}|[^\\\\'])*'"</span>
+      <span class="hljs-string">"return 'STRING';"</span>
+    ]
+    [
+      <span class="hljs-string">"\\/\\*(?:.|[\\r\\n])*?\\*\\/"</span>
+      <span class="hljs-string">"return;"</span>
+    ]
+    [
+      <span class="hljs-string">"\\."</span>
+      <span class="hljs-string">"return '.';"</span>
+    ]
+    [
+      <span class="hljs-string">"\\["</span>
+      <span class="hljs-string">"return '[';"</span>
+    ]
+    [
+      <span class="hljs-string">"\\]"</span>
+      <span class="hljs-string">"return ']';"</span>
+    ]
+    [
+      <span class="hljs-string">"\\("</span>
+      <span class="hljs-string">"return '(';"</span>
+    ]
+    [
+      <span class="hljs-string">"\\)"</span>
+      <span class="hljs-string">"return ')';"</span>
+    ]
+    [
+      <span class="hljs-string">"\\?"</span>
+      <span class="hljs-string">"return '?';"</span>
+    ]
+    [
+      <span class="hljs-string">":"</span>
+      <span class="hljs-string">"return ':';"</span>
+    ]
+    [
+      <span class="hljs-string">";"</span>
+      <span class="hljs-string">"return ';';"</span>
+    ]
+    [
+      <span class="hljs-string">","</span>
+      <span class="hljs-string">"return ',';"</span>
+    ]
+    [
+      <span class="hljs-string">"{"</span>
+      <span class="hljs-string">"return '{';"</span>
+    ]
+    [
+      <span class="hljs-string">"}"</span>
+      <span class="hljs-string">"return '}';"</span>
+    ]
+    [
+      <span class="hljs-string">"-="</span>
+      <span class="hljs-string">"return '-=';"</span>
+    ]
+    [
+      <span class="hljs-string">"\\+="</span>
+      <span class="hljs-string">"return '+=';"</span>
+    ]
+    [
+      <span class="hljs-string">"\\*="</span>
+      <span class="hljs-string">"return '*=';"</span>
+    ]
+    [
+      <span class="hljs-string">"\\/="</span>
+      <span class="hljs-string">"return '/=';"</span>
+    ]
+    [
+      <span class="hljs-string">"%="</span>
+      <span class="hljs-string">"return '%=';"</span>
+    ]
+    [
+      <span class="hljs-string">"--"</span>
+      <span class="hljs-string">"return '--';"</span>
+    ]
+    [
+      <span class="hljs-string">"\\+\\+"</span>
+      <span class="hljs-string">"return '++';"</span>
+    ]
+    [
+      <span class="hljs-string">"&gt;&gt;&gt;="</span>
+      <span class="hljs-string">"return '&gt;&gt;&gt;=';"</span>
+    ]
+    [
+      <span class="hljs-string">"&gt;&gt;="</span>
+      <span class="hljs-string">"return '&gt;&gt;=';"</span>
+    ]
+    [
+      <span class="hljs-string">"&lt;&lt;="</span>
+      <span class="hljs-string">"return '&lt;&lt;=';"</span>
+    ]
+    [
+      <span class="hljs-string">"\\&amp;="</span>
+      <span class="hljs-string">"return '&amp;=';"</span>
+    ]
+    [
+      <span class="hljs-string">"\\|="</span>
+      <span class="hljs-string">"return '|=';"</span>
+    ]
+    [
+      <span class="hljs-string">"\\^="</span>
+      <span class="hljs-string">"return '^=';"</span>
+    ]
+    [
+      <span class="hljs-string">"==="</span>
+      <span class="hljs-string">"return '===';"</span>
+    ]
+    [
+      <span class="hljs-string">"!=="</span>
+      <span class="hljs-string">"return '!==';"</span>
+    ]
+    [
+      <span class="hljs-string">"=="</span>
+      <span class="hljs-string">"return '==';"</span>
+    ]
+    [
+      <span class="hljs-string">"!="</span>
+      <span class="hljs-string">"return '!=';"</span>
+    ]
+    [
+      <span class="hljs-string">"&lt;="</span>
+      <span class="hljs-string">"return '&lt;=';"</span>
+    ]
+    [
+      <span class="hljs-string">"&gt;="</span>
+      <span class="hljs-string">"return '&gt;=';"</span>
+    ]
+    [
+      <span class="hljs-string">"&lt;"</span>
+      <span class="hljs-string">"return '&lt;';"</span>
+    ]
+    [
+      <span class="hljs-string">"&gt;"</span>
+      <span class="hljs-string">"return '&gt;';"</span>
+    ]
+    [
+      <span class="hljs-string">"\\&amp;\\&amp;"</span>
+      <span class="hljs-string">"return '&amp;&amp;';"</span>
+    ]
+    [
+      <span class="hljs-string">"\\|\\|"</span>
+      <span class="hljs-string">"return '||';"</span>
+    ]
+    [
+      <span class="hljs-string">"!"</span>
+      <span class="hljs-string">"return '!';"</span>
+    ]
+    [
+      <span class="hljs-string">"-"</span>
+      <span class="hljs-string">"return '-';"</span>
+    ]
+    [
+      <span class="hljs-string">"\\+"</span>
+      <span class="hljs-string">"return '+';"</span>
+    ]
+    [
+      <span class="hljs-string">"\\*"</span>
+      <span class="hljs-string">"return '*';"</span>
+    ]
+    [
+      <span class="hljs-string">"\\/"</span>
+      <span class="hljs-string">"return '/';"</span>
+    ]
+    [
+      <span class="hljs-string">"\\^"</span>
+      <span class="hljs-string">"return '^';"</span>
+    ]
+    [
+      <span class="hljs-string">"%"</span>
+      <span class="hljs-string">"return '%';"</span>
+    ]
+    [
+      <span class="hljs-string">"&gt;&gt;&gt;"</span>
+      <span class="hljs-string">"return '&gt;&gt;&gt;';"</span>
+    ]
+    [
+      <span class="hljs-string">"&gt;&gt;"</span>
+      <span class="hljs-string">"return '&gt;&gt;';"</span>
+    ]
+    [
+      <span class="hljs-string">"&lt;&lt;"</span>
+      <span class="hljs-string">"return '&lt;&lt;';"</span>
+    ]
+    [
+      <span class="hljs-string">"\\&amp;"</span>
+      <span class="hljs-string">"return '&amp;';"</span>
+    ]
+    [
+      <span class="hljs-string">"\\|"</span>
+      <span class="hljs-string">"return '|';"</span>
+    ]
+    [
+      <span class="hljs-string">"~"</span>
+      <span class="hljs-string">"return '~';"</span>
+    ]
+    [
+      <span class="hljs-string">"="</span>
+      <span class="hljs-string">"return '=';"</span>
+    ]
+    [
+      <span class="hljs-string">"$"</span>
+      <span class="hljs-string">"return 'EOF';"</span>
+    ]
+  ]
+<span class="hljs-attribute">operators</span>: [
+  [
+    <span class="hljs-string">"left"</span>
+    <span class="hljs-string">","</span>
+  ]
+  [
+    <span class="hljs-string">"right"</span>
+    <span class="hljs-string">"="</span>
+    <span class="hljs-string">"+="</span>
+    <span class="hljs-string">"-="</span>
+    <span class="hljs-string">"*="</span>
+    <span class="hljs-string">"/="</span>
+    <span class="hljs-string">"%="</span>
+    <span class="hljs-string">"&lt;&lt;="</span>
+    <span class="hljs-string">"&gt;&gt;="</span>
+    <span class="hljs-string">"&gt;&gt;&gt;="</span>
+    <span class="hljs-string">"&amp;="</span>
+    <span class="hljs-string">"^="</span>
+    <span class="hljs-string">"|="</span>
+  ]
+  [
+    <span class="hljs-string">"right"</span>
+    <span class="hljs-string">"YIELD"</span>
+  ]
+  [
+    <span class="hljs-string">"right"</span>
+    <span class="hljs-string">"?"</span>
+    <span class="hljs-string">":"</span>
+  ]
+  [
+    <span class="hljs-string">"left"</span>
+    <span class="hljs-string">"||"</span>
+  ]
+  [
+    <span class="hljs-string">"left"</span>
+    <span class="hljs-string">"&amp;&amp;"</span>
+  ]
+  [
+    <span class="hljs-string">"left"</span>
+    <span class="hljs-string">"|"</span>
+  ]
+  [
+    <span class="hljs-string">"left"</span>
+    <span class="hljs-string">"&amp;"</span>
+  ]
+  [
+    <span class="hljs-string">"left"</span>
+    <span class="hljs-string">"^"</span>
+  ]
+  [
+    <span class="hljs-string">"left"</span>
+    <span class="hljs-string">"==="</span>
+    <span class="hljs-string">"!=="</span>
+    <span class="hljs-string">"=="</span>
+    <span class="hljs-string">"!="</span>
+  ]
+  [
+    <span class="hljs-string">"left"</span>
+    <span class="hljs-string">"IN"</span>
+    <span class="hljs-string">"INSTANCEOF"</span>
+  ]
+  [
+    <span class="hljs-string">"left"</span>
+    <span class="hljs-string">"&lt;="</span>
+    <span class="hljs-string">"&gt;="</span>
+    <span class="hljs-string">"&lt;"</span>
+    <span class="hljs-string">"&gt;"</span>
+  ]
+  [
+    <span class="hljs-string">"left"</span>
+    <span class="hljs-string">"&gt;&gt;&gt;"</span>
+    <span class="hljs-string">"&gt;&gt;"</span>
+    <span class="hljs-string">"&lt;&lt;"</span>
+  ]
+  [
+    <span class="hljs-string">"left"</span>
+    <span class="hljs-string">"+"</span>
+    <span class="hljs-string">"-"</span>
+  ]
+  [
+    <span class="hljs-string">"left"</span>
+    <span class="hljs-string">"*"</span>
+    <span class="hljs-string">"/"</span>
+    <span class="hljs-string">"%"</span>
+  ]
+  [
+    <span class="hljs-string">"right"</span>
+    <span class="hljs-string">"!"</span>
+    <span class="hljs-string">"~"</span>
+    <span class="hljs-string">"TYPEOF"</span>
+    <span class="hljs-string">"VOID"</span>
+    <span class="hljs-string">"DELETE"</span>
+  ]
+  [
+    <span class="hljs-string">"nonassoc"</span>
+    <span class="hljs-string">"++"</span>
+    <span class="hljs-string">"--"</span>
+  ]
+  [
+    <span class="hljs-string">"left"</span>
+    <span class="hljs-string">"("</span>
+    <span class="hljs-string">")"</span>
+  ]
+  [
+    <span class="hljs-string">"right"</span>
+    <span class="hljs-string">"NEW"</span>
+  ]
+  [
+    <span class="hljs-string">"left"</span>
+    <span class="hljs-string">"."</span>
+    <span class="hljs-string">"["</span>
+    <span class="hljs-string">"]"</span>
+  ]
+]
+<span class="hljs-attribute">tokens</span>: <span class="hljs-string">"EOF THIS REFERENCE ;  , : { } [ ] IF ELSE ++ -- -= += *= /= %= ^= &gt;&gt;&gt;= &gt;&gt;= &lt;&lt;= &amp;= |= = NUMBER + - STRING NULL TRUE FALSE * / % ! &lt;= &gt;= &lt; &gt; === !== == != &amp;&amp; || ~ &gt;&gt;&gt; &gt;&gt; &lt;&lt; &amp; | ^ CONTEXT SELF CONSTRUCTOR PROTOTYPE THEN YIELD INSTANCEOF VOID TYPEOF NEW RETURN . ( ) ?"</span>
+<span class="hljs-attribute">yy</span>: {}</div></div></div></div></body></html>
