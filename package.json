@@ -1,7 +1,7 @@
 {
   "name": "goatee-script.js",
   "description": "Goatee is the missing complement for handlebar mustaches.",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "keywords": [
     "Goatee",
     "Node.js",
@@ -67,7 +67,7 @@
     "jasmine": "^2.4.1",
     "jison": "^0.4.17",
     "map-stream": "0.0.6",
-    "npm-check-updates": "^2.6.4",
+    "npm-check": "^5.2.1",
     "path": "^0.12.7",
     "publish-please": "^1.3.10",
     "require-cson": "^0.1.0",
