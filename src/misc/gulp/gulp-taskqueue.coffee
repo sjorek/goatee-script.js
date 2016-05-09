@@ -14,8 +14,6 @@ implied. See the License for the specific language governing
 permissions and limitations under the License.
 ###
 
-gulp = require 'gulp'
-
 del = require 'del'
 # logger = require 'gulp-logger'
 util = require 'gulp-util'
@@ -64,11 +62,12 @@ exports.cloneObject = _cloneObject = (obj) ->
 # @param {String} name
 # @param {Object<queue:Array,clean:Array,watch:Array>} deps
 # @param {Function} load
+# @param {Object} gulp
 # @param {Function} worker
 # @return {Object} a dependency log object
 # @private
 ###
-exports.build = (name, deps, load, worker) ->
+exports.build = (name, deps, load, gulp, worker) ->
   filename = "#{name.replace(/:/,'-')}"
   queue = load filename
   cleandeps = []

@@ -69,7 +69,7 @@ load = (filename) ->
 #
 ###
 task = 'coffee:transpile'
-deps = taskqueue.build task, deps, load, \
+deps = taskqueue.build task, deps, load, gulp, \
   (source, destination, name, config) ->
     if name is 'coffee:transpile:gulpfile'
       config.footer = [
@@ -130,11 +130,11 @@ deps.transpile.push task
 #
 ###
 task = 'cson:transpile'
-deps = taskqueue.build task, deps, load, \
+deps = taskqueue.build task, deps, load, gulp, \
   (source, destination, name, config) ->
     if name.match /^cson:transpile:groc:config/
       config.template = {'__dirname': __dirname}
-      util.log 'set', config.template, 'for', name
+      #util.log 'set', config.template, 'for', name
     ->
       util.log name, source, destination
 
@@ -173,7 +173,7 @@ gulp.task 'transpile', deps.transpile, -> util.log 'Transpiling done'
 #
 ###
 task = 'jison:grammar'
-deps = taskqueue.build task, deps, load, \
+deps = taskqueue.build task, deps, load, gulp, \
   (source, destination, name, config) ->
 
     defaults = taskqueue.cloneObject config.defaults
@@ -208,7 +208,7 @@ deps.jison.push task
 #
 ###
 task = 'jison:parser'
-deps = taskqueue.build task, deps, load, \
+deps = taskqueue.build task, deps, load, gulp, \
   (source, destination, name, config) ->
 
     defaults = taskqueue.cloneObject config.defaults
@@ -270,7 +270,7 @@ gulp.task 'build', deps.build, (callback) ->
 #
 ###
 task = 'test:jasmine'
-deps = taskqueue.build task, deps, load, \
+deps = taskqueue.build task, deps, load, gulp, \
   (source, destination, name, config) ->
 
     (callback) ->
@@ -299,7 +299,7 @@ gulp.task 'test', deps.test, ->
 #
 ###
 task = 'groc:doc'
-deps = taskqueue.build task, deps, load, \
+deps = taskqueue.build task, deps, load, gulp, \
   (source, destination, name, config) ->
     ->
       defaults = taskqueue.cloneObject config.defaults

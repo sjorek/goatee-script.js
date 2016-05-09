@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><title>gulpfile</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content=""><meta name="groc-document-path" content="gulpfile.coffee"><meta name="groc-project-path" content="gulpfile.coffee"><meta name="groc-github-url" content="https://github.com/sjorek/goatee-script.js"><link rel="stylesheet" type="text/css" media="all" href="assets/style.css"><script type="text/javascript" src="assets/behavior.js"></script><body><div id="meta"><div class="file-path"><a href="https://github.com/sjorek/goatee-script.js/blob/master/gulpfile.coffee">gulpfile.coffee</a></div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><p>© Copyright 2013-2016 Stephan Jorek <a href="&#109;&#x61;&#x69;&#x6c;&#116;&#111;&#58;&#115;&#x74;&#x65;&#112;&#x68;&#x61;&#x6e;&#46;&#x6a;&#111;&#x72;&#101;&#x6b;&#64;&#x67;&#x6d;&#x61;&#105;&#x6c;&#x2e;&#99;&#111;&#109;">&#115;&#x74;&#x65;&#112;&#x68;&#x61;&#x6e;&#46;&#x6a;&#111;&#x72;&#101;&#x6b;&#64;&#x67;&#x6d;&#x61;&#105;&#x6c;&#x2e;&#99;&#111;&#109;</a></p>
+<!DOCTYPE html><html lang="en"><head><title>gulpfile</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content=""><meta name="groc-document-path" content="gulpfile.coffee"><meta name="groc-project-path" content="gulpfile.coffee"><meta name="groc-github-url" content="https://github.com/sjorek/goatee-script.js"><link rel="stylesheet" type="text/css" media="all" href="assets/style.css"><script type="text/javascript" src="assets/behavior.js"></script><body><div id="meta"><div class="file-path"><a href="https://github.com/sjorek/goatee-script.js/blob/master/gulpfile.coffee">gulpfile.coffee</a></div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><p>© Copyright 2013-2016 Stephan Jorek <a href="&#x6d;&#97;&#105;&#108;&#116;&#x6f;&#x3a;&#x73;&#116;&#101;&#x70;&#104;&#x61;&#x6e;&#46;&#106;&#x6f;&#x72;&#101;&#107;&#x40;&#103;&#109;&#x61;&#105;&#x6c;&#x2e;&#x63;&#111;&#109;">&#x73;&#116;&#101;&#x70;&#104;&#x61;&#x6e;&#46;&#106;&#x6f;&#x72;&#101;&#107;&#x40;&#103;&#109;&#x61;&#105;&#x6c;&#x2e;&#x63;&#111;&#109;</a></p>
 <p>Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at</p>
@@ -47,7 +47,7 @@ deps.jasmine = [] <span class="hljs-comment"># ['transpile']</span>
   <span class="hljs-built_in">require</span> <span class="hljs-string">"<span class="hljs-subst">#{__dirname}</span>/src/misc/gulp/tasks/<span class="hljs-subst">#{filename}</span>.cson"</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h2 id="task-coffeetranspile">Task: coffee:transpile</h2>
 <hr>
 <p>Transpile coffee-script to javascript.</p></div></div><div class="code"><div class="wrapper">task = <span class="hljs-string">'coffee:transpile'</span>
-deps = taskqueue.build task, deps, load, \
+deps = taskqueue.build task, deps, load, gulp, \
   (source, destination, name, config) -&gt;
     <span class="hljs-keyword">if</span> name <span class="hljs-keyword">is</span> <span class="hljs-string">'coffee:transpile:gulpfile'</span>
       config.footer = [
@@ -100,11 +100,11 @@ gulp.task task, deps.queue
 deps.transpile.push task</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h1 id="task-csontranspile">Task: cson:transpile</h1>
 <hr>
 <p>Transpile cson to json</p></div></div><div class="code"><div class="wrapper">task = <span class="hljs-string">'cson:transpile'</span>
-deps = taskqueue.build task, deps, load, \
+deps = taskqueue.build task, deps, load, gulp, \
   (source, destination, name, config) -&gt;
     <span class="hljs-keyword">if</span> name.match <span class="hljs-regexp">/^cson:transpile:groc:config/</span>
       config.template = {<span class="hljs-string">'__dirname'</span>: __dirname}
-      util.log <span class="hljs-string">'set'</span>, config.template, <span class="hljs-string">'for'</span>, name
+      <span class="hljs-comment">#util.log 'set', config.template, 'for', name</span>
     -&gt;
       util.log name, source, destination
 
@@ -128,7 +128,7 @@ deps.transpile.push task</div></div></div><div class="segment"><div class="comme
 <span class="hljs-comment">#deps.build.push 'transpile'</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h1 id="task-jisongrammar">Task: jison:grammar</h1>
 <hr>
 <p>Build jison grammar</p></div></div><div class="code"><div class="wrapper">task = <span class="hljs-string">'jison:grammar'</span>
-deps = taskqueue.build task, deps, load, \
+deps = taskqueue.build task, deps, load, gulp, \
   (source, destination, name, config) -&gt;
 
     defaults = taskqueue.cloneObject config.defaults
@@ -156,7 +156,7 @@ gulp.task task, deps.queue
 deps.jison.push task</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h1 id="task-jisonparser">Task: jison:parser</h1>
 <hr>
 <p>Build jison parser</p></div></div><div class="code"><div class="wrapper">task = <span class="hljs-string">'jison:parser'</span>
-deps = taskqueue.build task, deps, load, \
+deps = taskqueue.build task, deps, load, gulp, \
   (source, destination, name, config) -&gt;
 
     defaults = taskqueue.cloneObject config.defaults
@@ -196,7 +196,7 @@ deps.jison.push task</div></div></div><div class="segment"><div class="comments 
 <span class="hljs-comment">#deps.watch.push 'build'</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h1 id="task-test">Task: test</h1>
 <hr>
 <p>Run the tests</p></div></div><div class="code"><div class="wrapper">task = <span class="hljs-string">'test:jasmine'</span>
-deps = taskqueue.build task, deps, load, \
+deps = taskqueue.build task, deps, load, gulp, \
   (source, destination, name, config) -&gt;
 
     (callback) -&gt;
@@ -211,7 +211,7 @@ deps.test.push task</div></div></div><div class="segment"><div class="comments "
   util.log <span class="hljs-string">'Tests done.'</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h1 id="task-grocdoc">Task: groc:doc</h1>
 <hr>
 <p>Create documenation with groc</p></div></div><div class="code"><div class="wrapper">task = <span class="hljs-string">'groc:doc'</span>
-deps = taskqueue.build task, deps, load, \
+deps = taskqueue.build task, deps, load, gulp, \
   (source, destination, name, config) -&gt;
     -&gt;
       defaults = taskqueue.cloneObject config.defaults

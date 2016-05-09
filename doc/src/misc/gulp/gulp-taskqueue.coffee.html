@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><title>src/misc/gulp/gulp-taskqueue</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../../../"><meta name="groc-document-path" content="src/misc/gulp/gulp-taskqueue.coffee"><meta name="groc-project-path" content="src/misc/gulp/gulp-taskqueue.coffee"><meta name="groc-github-url" content="https://github.com/sjorek/goatee-script.js"><link rel="stylesheet" type="text/css" media="all" href="../../../assets/style.css"><script type="text/javascript" src="../../../assets/behavior.js"></script><body><div id="meta"><div class="file-path"><a href="https://github.com/sjorek/goatee-script.js/blob/master/src/misc/gulp/gulp-taskqueue.coffee">src/misc/gulp/gulp-taskqueue.coffee</a></div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><p>© Copyright 2013-2016 Stephan Jorek <a href="&#x6d;&#x61;&#x69;&#x6c;&#116;&#x6f;&#x3a;&#x73;&#116;&#x65;&#x70;&#x68;&#x61;&#110;&#x2e;&#x6a;&#x6f;&#114;&#x65;&#x6b;&#64;&#x67;&#109;&#x61;&#105;&#x6c;&#46;&#99;&#x6f;&#109;">&#x73;&#116;&#x65;&#x70;&#x68;&#x61;&#110;&#x2e;&#x6a;&#x6f;&#114;&#x65;&#x6b;&#64;&#x67;&#109;&#x61;&#105;&#x6c;&#46;&#99;&#x6f;&#109;</a></p>
+<!DOCTYPE html><html lang="en"><head><title>src/misc/gulp/gulp-taskqueue</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../../../"><meta name="groc-document-path" content="src/misc/gulp/gulp-taskqueue.coffee"><meta name="groc-project-path" content="src/misc/gulp/gulp-taskqueue.coffee"><meta name="groc-github-url" content="https://github.com/sjorek/goatee-script.js"><link rel="stylesheet" type="text/css" media="all" href="../../../assets/style.css"><script type="text/javascript" src="../../../assets/behavior.js"></script><body><div id="meta"><div class="file-path"><a href="https://github.com/sjorek/goatee-script.js/blob/master/src/misc/gulp/gulp-taskqueue.coffee">src/misc/gulp/gulp-taskqueue.coffee</a></div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><p>© Copyright 2013-2016 Stephan Jorek <a href="&#109;&#x61;&#x69;&#x6c;&#x74;&#x6f;&#58;&#x73;&#x74;&#101;&#x70;&#104;&#x61;&#110;&#46;&#x6a;&#x6f;&#114;&#101;&#107;&#x40;&#x67;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#99;&#x6f;&#109;">&#x73;&#x74;&#101;&#x70;&#104;&#x61;&#110;&#46;&#x6a;&#x6f;&#114;&#101;&#107;&#x40;&#x67;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#99;&#x6f;&#109;</a></p>
 <p>Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at</p>
@@ -7,9 +7,7 @@ You may obtain a copy of the License at</p>
 distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
 implied. See the License for the specific language governing
-permissions and limitations under the License.</p></div></div><div class="code"><div class="wrapper">gulp = <span class="hljs-built_in">require</span> <span class="hljs-string">'gulp'</span>
-
-del = <span class="hljs-built_in">require</span> <span class="hljs-string">'del'</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>logger = require &#39;gulp-logger&#39;</p></div></div><div class="code"><div class="wrapper">util = <span class="hljs-built_in">require</span> <span class="hljs-string">'gulp-util'</span>
+permissions and limitations under the License.</p></div></div><div class="code"><div class="wrapper">del = <span class="hljs-built_in">require</span> <span class="hljs-string">'del'</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>logger = require &#39;gulp-logger&#39;</p></div></div><div class="code"><div class="wrapper">util = <span class="hljs-built_in">require</span> <span class="hljs-string">'gulp-util'</span>
 
 {
   isArray
@@ -48,10 +46,12 @@ exports.cloneObject = _cloneObject = <span class="hljs-function"><span class="hl
 </li>
 <li><p><strong>load must be a Function.</strong></p>
 </li>
+<li><p><strong>gulp must be an Object.</strong></p>
+</li>
 <li><p><strong>worker must be a Function.</strong></p>
 </li>
 </ul>
-<p><strong>Returns an Object</strong><br/>(a dependency log object)</p></div></div><div class="code"><div class="wrapper">exports.build = <span class="hljs-function"><span class="hljs-params">(name, deps, load, worker)</span> -&gt;</span>
+<p><strong>Returns an Object</strong><br/>(a dependency log object)</p></div></div><div class="code"><div class="wrapper">exports.build = <span class="hljs-function"><span class="hljs-params">(name, deps, load, gulp, worker)</span> -&gt;</span>
   filename = <span class="hljs-string">"<span class="hljs-subst">#{name.replace(<span class="hljs-regexp">/:/</span>,<span class="hljs-string">'-'</span>)}</span>"</span>
   queue = load filename
   cleandeps = []

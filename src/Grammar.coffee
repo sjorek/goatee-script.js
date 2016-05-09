@@ -14,8 +14,6 @@ implied. See the License for the specific language governing
 permissions and limitations under the License.
 ###
 
-#path       = require 'path'
-
 {Parser}   = require 'jison'
 Notator    = require './Notator'
 Scope      = require './Scope'
@@ -56,8 +54,7 @@ class Grammar
     scope.goatee = new Scope() unless scope.goatee?
 
     grammar = require filename
-    # console.log 'load', grammar
-    # ext = path.extname(filename)
+    # console.log 'load', grammar, 'from', filename
     grammar = grammar(scope, notator) if isFunction grammar
     grammar.yy.goatee = scope.goatee
     grammar

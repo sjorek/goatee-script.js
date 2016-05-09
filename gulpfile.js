@@ -88,7 +88,7 @@ load = function(filename) {
 
 task = 'coffee:transpile';
 
-deps = taskqueue.build(task, deps, load, function(source, destination, name, config) {
+deps = taskqueue.build(task, deps, load, gulp, function(source, destination, name, config) {
   if (name === 'coffee:transpile:gulpfile') {
     config.footer = [
       "/**\n * Spit out the brand …\n */\n[\n  '<%= readme %>'\n].map(function(l){\n  util.log(l.replace(/(.)[0-9a-z]/g,function(r){\n    return r[0]\n      .repeat('0123456789abcdefghijklmnopqrstuvwxyz'.indexOf(r[1])+1)\n  }));\n});", {
@@ -153,12 +153,11 @@ deps.transpile.push(task);
 
 task = 'cson:transpile';
 
-deps = taskqueue.build(task, deps, load, function(source, destination, name, config) {
+deps = taskqueue.build(task, deps, load, gulp, function(source, destination, name, config) {
   if (name.match(/^cson:transpile:groc:config/)) {
     config.template = {
       '__dirname': __dirname
     };
-    util.log('set', config.template, 'for', name);
   }
   return function() {
     var i, len, pipe, ref, replacement;
@@ -219,7 +218,7 @@ gulp.task('transpile', deps.transpile, function() {
 
 task = 'jison:grammar';
 
-deps = taskqueue.build(task, deps, load, function(source, destination, name, config) {
+deps = taskqueue.build(task, deps, load, gulp, function(source, destination, name, config) {
   var defaults;
   defaults = taskqueue.cloneObject(config.defaults);
   defaults.grammar = Grammar;
@@ -266,7 +265,7 @@ deps.jison.push(task);
 
 task = 'jison:parser';
 
-deps = taskqueue.build(task, deps, load, function(source, destination, name, config) {
+deps = taskqueue.build(task, deps, load, gulp, function(source, destination, name, config) {
   var defaults;
   defaults = taskqueue.cloneObject(config.defaults);
   defaults.grammar = Grammar;
@@ -348,7 +347,7 @@ gulp.task('build', deps.build, function(callback) {
 
 task = 'test:jasmine';
 
-deps = taskqueue.build(task, deps, load, function(source, destination, name, config) {
+deps = taskqueue.build(task, deps, load, gulp, function(source, destination, name, config) {
   return function(callback) {
     util.log(name, source, destination);
     gulp.src(source).pipe(jasmine(config.defaults));
@@ -384,7 +383,7 @@ gulp.task('test', deps.test, function() {
 
 task = 'groc:doc';
 
-deps = taskqueue.build(task, deps, load, function(source, destination, name, config) {
+deps = taskqueue.build(task, deps, load, gulp, function(source, destination, name, config) {
   return function() {
     var defaults, i, key, len, pipe, ref, ref1, replacement, value;
     defaults = taskqueue.cloneObject(config.defaults);
