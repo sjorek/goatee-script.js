@@ -14,7 +14,7 @@ implied. See the License for the specific language governing
 permissions and limitations under the License.
 ###
 
-path       = require 'path'
+#path       = require 'path'
 
 {Parser}   = require 'jison'
 Notator    = require './Notator'
@@ -44,20 +44,20 @@ class Grammar
   # -------------
   # Loads the our **Grammar**
   #
-  # @method loadGrammar
+  # @method load
   # @param  {String} [filename]
   # @return {Parser}
   # @static
   ###
-  Grammar.load = (filename = "./grammar/jison.coffee",
+  Grammar.load = (filename = './grammar/jison.coffee',
                   scope = {},
                   notator = Notator)->
 
-    scope.goatee = new Scope() unless scope.goatee
+    scope.goatee = new Scope() unless scope.goatee?
 
     grammar = require filename
     # console.log 'load', grammar
-    ext = path.extname(filename)
+    # ext = path.extname(filename)
     grammar = grammar(scope, notator) if isFunction grammar
     grammar.yy.goatee = scope.goatee
     grammar
@@ -66,7 +66,7 @@ class Grammar
   # -------------
   # Initializes our **Grammar**
   #
-  # @method createParser
+  # @method create
   # @param  {String|Object} grammar filepath or object
   # @return {Grammar}
   # @static
@@ -76,7 +76,6 @@ class Grammar
       grammar = Grammar.load(grammar, scope, notator)
     # console.log 'create', grammar
     grammar = new Grammar grammar
-
 
   ###*
   # -------------
@@ -107,7 +106,7 @@ class Grammar
                                       ''') ->
 
     if parser is null or isString parser
-      parser = Grammar.createParser(parser)
+      parser = Grammar.createParser parser
 
     [comment, prefix,  parser.generate(), suffix].join ''
 
