@@ -37,7 +37,6 @@ class GoateeScript
   ###*
   # -------------
   # @method parse
-  # @namespace GoateeScript
   # @param {String} code
   # @return {Expression}
   # @static
@@ -49,7 +48,6 @@ class GoateeScript
   ###*
   # -------------
   # @method evaluate
-  # @namespace GoateeScript
   # @param {String} code
   # @param {Object} [context]
   # @param {Object} [variables]
@@ -65,7 +63,6 @@ class GoateeScript
   ###*
   # -------------
   # @method render
-  # @namespace GoateeScript
   # @param {String} code
   # @return {String}
   # @static
@@ -77,7 +74,6 @@ class GoateeScript
   ###*
   # -------------
   # @method ast
-  # @namespace GoateeScript
   # @param  {String|Expression} code
   # @param  {Function}          [callback]
   # @param  {Boolean}           [compress=true]
@@ -91,7 +87,6 @@ class GoateeScript
   ###*
   # -------------
   # @method stringify
-  # @namespace GoateeScript
   # @param  {String|Expression} data
   # @param  {Function}          [callback]
   # @param  {Boolean}           [compress=true]
@@ -105,7 +100,6 @@ class GoateeScript
   ###*
   # -------------
   # @method compile
-  # @namespace GoateeScript
   # @param  {String|Array}      data
   # @param  {Function}          [callback]
   # @param  {Boolean}           [compress=true]

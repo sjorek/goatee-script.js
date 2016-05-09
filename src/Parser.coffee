@@ -72,6 +72,6 @@ if exports is null
 
 module.exports = exports
 
-# excute main automatically
+# execute main automatically
 if (module isnt undefined && require.main is module)
   exports.main process.argv.slice(1)
