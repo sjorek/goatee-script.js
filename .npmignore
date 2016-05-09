@@ -6,6 +6,5 @@
 .npmignore
 Cakefile
 gulpfile.coffee
-lib/Tests/*
 src/*
-
+spec/*.coffee
