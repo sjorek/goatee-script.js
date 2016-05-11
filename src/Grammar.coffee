@@ -54,7 +54,7 @@ class Grammar
     scope.goatee = new Scope() unless scope.goatee?
 
     grammar = require filename
-    # console.log 'load', grammar, 'from', filename
+    #console.log 'load', grammar, 'from', filename
     grammar = grammar(scope, notator) if isFunction grammar
     grammar.yy.goatee = scope.goatee
     grammar
@@ -71,7 +71,7 @@ class Grammar
   Grammar.create = (grammar = null, scope = {}, notator = Notator)->
     if grammar is null or isString grammar
       grammar = Grammar.load(grammar, scope, notator)
-    # console.log 'create', grammar
+    #console.log 'create', grammar
     grammar = new Grammar grammar
 
   ###*

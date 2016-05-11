@@ -326,7 +326,7 @@ module.exports = (yy, notator) ->
 
     ### Since we parse bottom-up, all parsing must end here. ###
     Script: [
-      # TODO use a precompiled undefined expression in Script » End
+      # TODO use a precompiled “undefined” expression in Script » End
       r 'End'                       , -> yy.goatee.create 'scalar', [undefined]
       r 'Statements End'            , -> $1
       r 'Seperator Statements End'  , -> $2
