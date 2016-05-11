@@ -1,7 +1,7 @@
 {
   "name": "goatee-script.js",
   "description": "Goatee is the missing complement for handlebar mustaches.",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "keywords": [
     "Goatee",
     "Node.js",
@@ -13,7 +13,7 @@
   "licenses": [
     {
       "type": "Apache",
-      "url": "https://raw.github.com/sjorek/goatee-script/master/LICENSE"
+      "url": "https://raw.github.com/sjorek/goatee-script.js/master/LICENSE"
     },
     {
       "type": "MIT",
@@ -28,10 +28,12 @@
   },
   "main": "./lib/GoateeScript.js",
   "scripts": {
-    "test": "PATH=$PATH:./node_modules/.bin jasmine-node --growl --coffee --color --verbose ./src/Tests ./lib/Tests"
+    "build": "PATH=$PATH:./node_modules/.bin gulp build"
+    "test": "PATH=$PATH:./node_modules/.bin gulp test"
+    "doc": "PATH=$PATH:./node_modules/.bin gulp doc"
   },
-  "homepage": "https://github.com/sjorek/goatee-script/",
-  "bugs": "https://github.com/sjorek/goatee-script/issues",
+  "homepage": "https://github.com/sjorek/goatee-script.js/",
+  "bugs": "https://github.com/sjorek/goatee-script.js/issues",
   "repository": {
     "type": "git",
     "url": "git://github.com/sjorek/goatee-script.js"
