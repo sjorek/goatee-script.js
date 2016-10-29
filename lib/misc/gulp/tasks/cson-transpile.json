@@ -22,7 +22,7 @@
     ],
     "replace": [
       [
-        "src/misc/groc/languages",
+        "lib/misc/groc/languages",
         "lib/misc/groc/languages"
       ]
     ],
