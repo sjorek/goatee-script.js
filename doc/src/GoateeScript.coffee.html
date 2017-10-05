@@ -1,13 +1,34 @@
-<!DOCTYPE html><html lang="en"><head><title>src/GoateeScript</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../"><meta name="groc-document-path" content="src/GoateeScript.coffee"><meta name="groc-project-path" content="src/GoateeScript.coffee"><meta name="groc-github-url" content="https://github.com/sjorek/goatee-script.js"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="meta"><div class="file-path"><a href="https://github.com/sjorek/goatee-script.js/blob/master/src/GoateeScript.coffee">src/GoateeScript.coffee</a></div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><p>© Copyright 2013-2017 Stephan Jorek <a href="&#x6d;&#97;&#105;&#x6c;&#116;&#111;&#58;&#115;&#x74;&#x65;&#x70;&#x68;&#97;&#110;&#x2e;&#106;&#x6f;&#x72;&#101;&#x6b;&#64;&#103;&#109;&#97;&#x69;&#x6c;&#x2e;&#99;&#111;&#109;">&#115;&#x74;&#x65;&#x70;&#x68;&#97;&#110;&#x2e;&#106;&#x6f;&#x72;&#101;&#x6b;&#64;&#103;&#109;&#97;&#x69;&#x6c;&#x2e;&#99;&#111;&#109;</a></p>
-<p>Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at</p>
-<p><a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a></p>
-<p>Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
-implied. See the License for the specific language governing
-permissions and limitations under the License.</p></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h1 id="goateescript39s-">GoateeScript&#39;s …</h1>
+<!DOCTYPE html><html lang="en"><head><title>src/GoateeScript</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../"><meta name="groc-document-path" content="src/GoateeScript.coffee"><meta name="groc-project-path" content="src/GoateeScript.coffee"><meta name="groc-github-url" content="https://github.com/sjorek/goatee-script.js"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="meta"><div class="file-path"><a href="https://github.com/sjorek/goatee-script.js/blob/master/src/GoateeScript.coffee">src/GoateeScript.coffee</a></div></div><div id="document"><div class="segment"><div class="code folded"><div class="wrapper marker"><span class="c1">### </span></div><div class="wrapper"><span class="hljs-comment">### 
+BSD 3-Clause License
+
+Copyright (c) 2017, Stephan Jorek
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+
+* Redistributions of source code must retain the above copyright notice, this
+  list of conditions and the following disclaimer.
+
+* Redistributions in binary form must reproduce the above copyright notice,
+  this list of conditions and the following disclaimer in the documentation
+  and/or other materials provided with the distribution.
+
+* Neither the name of the copyright holder nor the names of its
+  contributors may be used to endorse or promote products derived from
+  this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+###</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h1 id="goateescript39s-">GoateeScript&#39;s …</h1>
 <hr>
 <p>… main entry-point.</p></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p><span class='doc-section-header'> class GoateeScript and namespace GoateeScript</span></p>
 <hr></div></div><div class="code"><div class="wrapper"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">GoateeScript</span></span>
