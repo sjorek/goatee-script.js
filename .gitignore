@@ -3,6 +3,7 @@
 
 # Generated folders from build process
 /build
+/.groc.json
 temp*
 
 # Local package dependencies
@@ -11,9 +12,4 @@ components
 
 # Coverage report
 coverage*
-
-# Eclipse specific stuff
-.project
-.settings*
-.externalToolBuilders*
 
