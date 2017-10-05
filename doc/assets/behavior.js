@@ -120,26 +120,7 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                 "title": "Run build …",
                 "slug": "run-build-"
               },
-              "depth": 3,
-              "children": [
-                {
-                  "type": "heading",
-                  "data": {
-                    "level": 4,
-                    "title": "… in *nix-like environments:",
-                    "slug": "-in-nix-like-environments"
-                  },
-                  "depth": 4
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 4,
-                    "title": "… in Windows environments:",
-                    "slug": "-in-windows-environments"
-                  },
-                  "depth": 4
-                }
-              ]
+              "depth": 3
             }
           ]
         }, {

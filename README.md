@@ -159,15 +159,7 @@ Read the [annotated sources](https://sjorek.github.io/goatee-script.js/doc/).
 
 ### Run build …
 
-#### … in *nix-like environments:
-
-    $ PATH=$PATH:./node_modules/.bin gulp
-
-#### … in Windows environments:
-
-    $ set path=%PATH%;.\node_modules\.bin
-    $ setx path "%PATH%"
-    $ gulp
+    $ npm run build && npm run test && npm run doc
 
 _(not tested yet)_
 
