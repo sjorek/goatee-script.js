@@ -1,5 +1,5 @@
 
-[goatee-script.js](http://sjorek.github.io/goatee-script.js/)
+[goatee-script.js](https://sjorek.github.io/goatee-script.js/)
 =============================================================
 
 [![Dependency Status](https://gemnasium.com/badges/github.com/sjorek/goatee-script.js.svg)](https://gemnasium.com/github.com/sjorek/goatee-script.js)
