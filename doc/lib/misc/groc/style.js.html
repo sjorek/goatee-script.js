@@ -35,7 +35,7 @@
                 <span class="hljs-keyword">if</span> (fileInfo.targetPath !== <span class="hljs-string">'index'</span>) {
                     fileInfo.targetPath += path.extname(fileInfo.sourcePath);
                 }
-                <span class="hljs-keyword">this</span>.log.trace(<span class="hljs-string">'goatee-script/misc/groc/style#renderDocFile(...)'</span>, fileInfo.targetPath);
+                <span class="hljs-keyword">this</span>.log.trace(<span class="hljs-string">'goatee-script.js/misc/groc/style#renderDocFile(...)'</span>, fileInfo.targetPath);
                 <span class="hljs-keyword">return</span> Style.__super__.renderDocFile.call(<span class="hljs-keyword">this</span>, segments, fileInfo, callback);
             };
 

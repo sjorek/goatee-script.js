@@ -145,11 +145,11 @@ Read the [annotated sources](https://sjorek.github.io/goatee-script.js/doc/).
 
 ### Install dependencies …
 
-- [node.js](http://nodejs.org) _(≥ 0.10)_
+- [node.js](http://nodejs.org) _(≥ 6.x)_
 
   ### … for production version:
 
-       $ npm install goatee-script.js --save
+       $ npm install goatee-script.js --save-prod
 
   ### … for development version:
 
