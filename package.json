@@ -22,7 +22,7 @@
     }
   ],
   "engines": {
-    "node": "~0.10"
+    "node": "~6"
   },
   "bin": {
     "goatee-script": "./bin/goatee-script"
