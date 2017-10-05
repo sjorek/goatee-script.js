@@ -2,6 +2,8 @@
 [goatee-script.js](http://sjorek.github.io/goatee-script.js/)
 =============================================================
 
+[![Dependency Status](https://gemnasium.com/badges/github.com/sjorek/goatee-script.js.svg)](https://gemnasium.com/github.com/sjorek/goatee-script.js)
+
          _______  _______  _______  _______  _______  _______
         |    ___||       ||       ||_     _||    ___||    ___|
         |   | __ |   _   ||   _   |  |   |  |   |___ |   |___
