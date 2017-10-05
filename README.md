@@ -68,8 +68,8 @@ once the framework has reached a state where it is useable.  For the time
 beeing there is a command-line interpreter to prove my concept.
 
 See:
-- [goatee-rules.js](http://sjorek.github.io/goatee-rules.js).
-- [goatee-sheet.js](http://sjorek.github.io/goatee-sheet.js).
+- [goatee-rules.js](https://sjorek.github.io/goatee-rules.js).
+- [goatee.js](https://sjorek.github.io/goatee.js).
 
 ### Javascript – the source and destination
 
