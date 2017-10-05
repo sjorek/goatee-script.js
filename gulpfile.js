@@ -92,7 +92,7 @@ deps = taskqueue.build(task, deps, load, gulp, function(source, destination, nam
   if (name === 'coffee:transpile:gulpfile') {
     config.footer = [
       "/**\n * Spit out the brand …\n */\n[\n  '<%= readme %>'\n].map(function(l){\n  util.log(l.replace(/(.)[0-9a-z]/g,function(r){\n    return r[0]\n      .repeat('0123456789abcdefghijklmnopqrstuvwxyz'.indexOf(r[1])+1)\n  }));\n});", {
-        readme: fs.readFileSync('./README.md', 'utf8').split('\n').slice(4, 36).map(function(line) {
+        readme: fs.readFileSync('./README.md', 'utf8').split('\n').slice(6, 38).map(function(line) {
           return line.replace(/^ {8}/, '').replace(/(.)\1{0,35}/g, function(c) {
             return c[0].replace(/(\\|')/, "\\$1") + '0123456789abcdefghijklmnopqrstuvwxyz'.charAt(c.length - 1);
           });

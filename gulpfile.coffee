@@ -88,7 +88,7 @@ deps = taskqueue.build task, deps, load, gulp, \
         """
         {
           readme: fs.readFileSync('./README.md', 'utf8')
-            .split('\n')[4...36].map (line) ->
+            .split('\n')[6...38].map (line) ->
               line
                 .replace(/^ {8}/, '')
                 .replace /(.)\1{0,35}/g, (c) ->
