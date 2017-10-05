@@ -10,9 +10,10 @@
     "Framework"
   ],
   "author": "Stephan Jorek <stephan.jorek@gmail.com>",
+  "license": "BSD-3-Clause",
   "licenses": [
     {
-      "type": "Apache",
+      "type": "BSD-3-Clause",
       "url": "https://raw.github.com/sjorek/goatee-script.js/master/LICENSE"
     },
     {
