@@ -139,7 +139,7 @@ line. The last expression's value is always returned to the invoking context.
 
 ## Documentation
 
-Read the [annotated sources](http://sjorek.github.io/goatee-script.js/doc/).
+Read the [annotated sources](https://sjorek.github.io/goatee-script.js/doc/).
 
 ## Development
 
